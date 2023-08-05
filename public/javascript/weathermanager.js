@@ -26,7 +26,7 @@ if (!weatherDiv) {
 }
 
 function fetchWeatherData(location) {
-  const url = `https://api.examplething:6969/api/v1/forecast/${location}/`; // Add weather API here
+  const url = `https://api.examplething:6969/forecast/${location}/`; // Add weather API here
   return fetch(url)
     .then(response => {
       if (!response.ok) {
