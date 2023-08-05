@@ -1,0 +1,125 @@
+@font-face {
+  font-family: 'Star JR Small';
+  src: url('fonts/StarJRSmall.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Star 3000 Heavy';
+  src: url('fonts/STAR3000HEAVY.TTF') format('truetype');
+}
+
+@font-face {
+  font-family: 'STAR 4000 Small';
+  src: url('fonts/STAR4000SMALL.TTF') format('truetype');
+}
+
+body {
+    background-color: rgb(63, 63, 63);
+    color: white;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    flex-direction: column;
+  }
+  
+  .container {
+    width: 640px;
+    height: 360px;
+    background-color: rgba(94, 132, 255, 0); /* Adjust the background color and opacity as needed */
+    line-height: 20px;
+    overflow: hidden;
+}
+h1 {
+    font-family: 'Star 3000 Heavy';
+    font-size: 21.5px;
+    margin-left: 4px;
+    -webkit-text-stroke: .8px black;
+  }
+h3 {
+  font-family: 'STAR 4000 Small';
+  font-size: 30px;
+  text-align: center;
+  -webkit-text-stroke: .1px black;
+  line-height: 0;
+}
+  p {
+    font-family: 'Star JR Small';
+    font-size: large;
+    margin-left: 4px;
+  }
+
+  .container {
+    display: none;
+  }
+  
+  .visible {
+    display: block;
+  }
+  .radar{
+    width: 640px;
+    height: 360px;
+  }
+  #background-container {
+    background-image: url("https://media.discordapp.net/attachments/846581893200871484/1136811761257959566/channels4_profile.png");
+    width: 640px;
+    height: 360px;
+    background: none;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+
+  .view {
+    width: 640px;
+    height: 480px;
+    background-image: url("/graphics/weatherhds-default.png");
+    overflow: hidden;
+    position: relative;
+  }
+
+  #logos {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* This centers the logos horizontally */
+  }
+  
+  #logos img {
+    margin-bottom: 10px;
+  }
+
+  #daypart {
+    line-height: 12.5px;
+  }
+
+  #slideshow {
+    margin-top: 52px;
+  }
+
+  #datetime {
+    width: 196px;
+    height: 26px;
+    position: absolute;
+    bottom: 8%;
+    font-size: 14px;
+    text-align: center;
+
+  }
+
+  #upNext {
+    position: absolute;
+    bottom: 1.5%;
+    font-size: 15.48px;
+  }
+
+  #textElement {
+    position: absolute;
+    left: 42%;
+    max-width: 100%;
+    height: 47px;
+    font-size: 15.48px;
+    word-wrap: break-word;
+  }
+
+  #seasonmsg {
+    position: absolute;
+    bottom: 4.5%;
+    font-size: 13px;
+  }
