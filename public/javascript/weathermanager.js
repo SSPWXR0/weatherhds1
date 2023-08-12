@@ -7,6 +7,7 @@ let currentLocationIndex = 0; // Start with the first location
 const weatherDiv = document.getElementById('weather');
 const almanacDiv = document.getElementById('almanac');
 const forecastDiv = document.getElementById('forecast');
+const forecast2Div = document.getElementById('forecast2');
 const aqiDiv = document.getElementById('aqi');
 const daypartDiv = document.getElementById('daypart')
 const upNextDiv = document.getElementById('upNext');
@@ -49,6 +50,7 @@ function updateWeatherData(location) {
     weatherDiv.innerHTML = '';
     almanacDiv.innerHTML = '';
     forecastDiv.innerHTML = '';
+    forecast2Div.innerHTML = '';
     aqiDiv.innerHTML = '';
     daypartDiv.innerHTML = '';
     daypartDiv2.innerHTML = '';
@@ -118,36 +120,40 @@ function updateWeatherData(location) {
       almanacDiv.appendChild(moon2);
 
       const forecasttitle = document.createElement("h3");
-              forecasttitle.textContent = `EXTENDED OUTLOOK FOR ${data.location.name}`;
-              forecastDiv.appendChild(forecasttitle);
+      forecasttitle.textContent = `EXTENDED OUTLOOK FOR ${data.location.name}`;
+      forecastDiv.appendChild(forecasttitle);
 
       const day0 = document.createElement("h1");
-              day0.textContent = `TODAY... ${data.forecast.forecastday[0].day.condition.text}. WITH A HIGH OF ${data.forecast.forecastday[0].day.maxtemp_c}°C.`;
-              forecastDiv.appendChild(day0);
+      day0.textContent = `TODAY... ${data.forecast.forecastday[0].day.condition.text}. WITH A HIGH OF ${data.forecast.forecastday[0].day.maxtemp_c}°C.`;
+      forecastDiv.appendChild(day0);
 
       const day1 = document.createElement("h1");
-              day1.textContent = `TOMORROW... ${data.forecast.forecastday[1].day.condition.text}. WITH A HIGH OF ${data.forecast.forecastday[1].day.maxtemp_c}°C.`;
-              forecastDiv.appendChild(day1);
+      day1.textContent = `TOMORROW... ${data.forecast.forecastday[1].day.condition.text}. WITH A HIGH OF ${data.forecast.forecastday[1].day.maxtemp_c}°C.`;
+      forecastDiv.appendChild(day1);
 
       const day2 = document.createElement("h1");
-              day2.textContent = `DAY TWO... ${data.forecast.forecastday[2].day.condition.text}. WITH A HIGH OF ${data.forecast.forecastday[2].day.maxtemp_c}°C.`;
-              forecastDiv.appendChild(day2);
+      day2.textContent = `DAY TWO... ${data.forecast.forecastday[2].day.condition.text}. WITH A HIGH OF ${data.forecast.forecastday[2].day.maxtemp_c}°C.`;
+      forecastDiv.appendChild(day2);
 
       const day3 = document.createElement("h1");
-              day3.textContent = `DAY THREE... ${data.forecast.forecastday[3].day.condition.text}. WITH A HIGH OF ${data.forecast.forecastday[3].day.maxtemp_c}°C.`;
-              forecastDiv.appendChild(day3);
+      day3.textContent = `DAY THREE... ${data.forecast.forecastday[3].day.condition.text}. WITH A HIGH OF ${data.forecast.forecastday[3].day.maxtemp_c}°C.`;
+      forecastDiv.appendChild(day3);
+
+      const forecast2title = document.createElement("h3");
+      forecast2title.textContent = `EXTENDED OUTLOOK (CONTINUED)`;
+      forecast2Div.appendChild(forecast2title);
 
       const day4 = document.createElement("h1");
-              day4.textContent = `DAY FOUR... ${data.forecast.forecastday[4].day.condition.text}. WITH A HIGH OF ${data.forecast.forecastday[4].day.maxtemp_c}°C.`;
-              forecastDiv.appendChild(day4);
+      day4.textContent = `DAY FOUR... ${data.forecast.forecastday[4].day.condition.text}. WITH A HIGH OF ${data.forecast.forecastday[4].day.maxtemp_c}°C.`;
+      forecast2Div.appendChild(day4);
 
       const day5 = document.createElement("h1");
       day5.textContent = `DAY FIVE... ${data.forecast.forecastday[5].day.condition.text}. WITH A HIGH OF ${data.forecast.forecastday[5].day.maxtemp_c}°C.`;
-      forecastDiv.appendChild(day5);
+      forecast2Div.appendChild(day5);
 
       const day6 = document.createElement("h1");
       day6.textContent = `DAY SIX... ${data.forecast.forecastday[6].day.condition.text}. WITH A HIGH OF ${data.forecast.forecastday[6].day.maxtemp_c}°C.`;
-      forecastDiv.appendChild(day6);
+      forecast2Div.appendChild(day6);
 
       const aqititle = document.createElement("h3")
       aqititle.textContent = `AIR QUALITY INDEX (U.S. EPA STANDARD)`
