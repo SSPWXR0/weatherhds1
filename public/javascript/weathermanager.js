@@ -55,6 +55,7 @@ function updateWeatherData(location) {
     daypartDiv.innerHTML = '';
     daypartDiv2.innerHTML = '';
 
+    // current conditions slide
     const cityName = document.createElement("h3");
     cityName.textContent = `CONDITIONS AT ${data.location.name}`;
     weatherDiv.appendChild(cityName);
@@ -90,178 +91,185 @@ function updateWeatherData(location) {
     const uv = document.createElement("h1");
     uv.textContent = `UV INDEX: ${data.current.uv}`;
     weatherDiv.appendChild(uv);
+    
+    //almanac slide
+    const almanactitle = document.createElement("h3");
+    almanactitle.textContent = `ALMANAC FOR ${data.location.name} AREA`;
+    almanacDiv.appendChild(almanactitle);
 
-      const almanactitle = document.createElement("h3");
-              almanactitle.textContent = `ALMANAC FOR ${data.location.name} AREA`;
-              almanacDiv.appendChild(almanactitle);
+    const sunrise1 = document.createElement("h1");
+    sunrise1.textContent = `SUNRISE TODAY: ${data.forecast.forecastday[0].astro.sunrise}`;
+    almanacDiv.appendChild(sunrise1);
 
-      const sunrise1 = document.createElement("h1");
-      sunrise1.textContent = `SUNRISE TODAY: ${data.forecast.forecastday[0].astro.sunrise}`;
-      almanacDiv.appendChild(sunrise1);
+    const sunset1 = document.createElement("h1");
+    sunset1.textContent = `SUNSET TODAY: ${data.forecast.forecastday[0].astro.sunset}`;
+    almanacDiv.appendChild(sunset1);
 
-      const sunset1 = document.createElement("h1");
-      sunset1.textContent = `SUNSET TODAY: ${data.forecast.forecastday[0].astro.sunset}`;
-      almanacDiv.appendChild(sunset1);
+    const moon1 = document.createElement("h1");
+    moon1.textContent = `MOON PHASE: ${data.forecast.forecastday[0].astro.moon_phase}`;
+    almanacDiv.appendChild(moon1);
 
-      const moon1 = document.createElement("h1");
-      moon1.textContent = `MOON PHASE: ${data.forecast.forecastday[0].astro.moon_phase}`;
-      almanacDiv.appendChild(moon1);
+    const sunrise2 = document.createElement("h1");
+    sunrise2.textContent = `SUNRISE TOMORROW: ${data.forecast.forecastday[1].astro.sunrise}`;
+    almanacDiv.appendChild(sunrise2);
 
-      const sunrise2 = document.createElement("h1");
-      sunrise2.textContent = `SUNRISE TOMORROW: ${data.forecast.forecastday[1].astro.sunrise}`;
-      almanacDiv.appendChild(sunrise2);
-
-      const sunset2 = document.createElement("h1");
-      sunset2.textContent = `SUNSET TOMORROW: ${data.forecast.forecastday[1].astro.sunset}`;
-      almanacDiv.appendChild(sunset2);
+    const sunset2 = document.createElement("h1");
+    sunset2.textContent = `SUNSET TOMORROW: ${data.forecast.forecastday[1].astro.sunset}`;
+    almanacDiv.appendChild(sunset2);
       
-      const moon2 = document.createElement("h1");
-      moon2.textContent = `MOON PHASE: ${data.forecast.forecastday[2].astro.moon_phase}`;
-      almanacDiv.appendChild(moon2);
+    const moon2 = document.createElement("h1");
+    moon2.textContent = `MOON PHASE: ${data.forecast.forecastday[2].astro.moon_phase}`;
+    almanacDiv.appendChild(moon2);
 
-      const forecasttitle = document.createElement("h3");
-      forecasttitle.textContent = `EXTENDED OUTLOOK FOR ${data.location.name}`;
-      forecastDiv.appendChild(forecasttitle);
+    //forecast slide
+    const forecasttitle = document.createElement("h3");
+    forecasttitle.textContent = `EXTENDED OUTLOOK FOR ${data.location.name}`;
+    forecastDiv.appendChild(forecasttitle);
 
-      const day0 = document.createElement("h1");
-      day0.textContent = `TODAY... ${data.forecast.forecastday[0].day.condition.text}. WITH A HIGH OF ${data.forecast.forecastday[0].day.maxtemp_c}°C.`;
-      forecastDiv.appendChild(day0);
+    const day0 = document.createElement("h1");
+    day0.textContent = `TODAY... ${data.forecast.forecastday[0].day.condition.text}. WITH A HIGH OF ${data.forecast.forecastday[0].day.maxtemp_c}°C.`;
+    forecastDiv.appendChild(day0);
 
-      const day1 = document.createElement("h1");
-      day1.textContent = `TOMORROW... ${data.forecast.forecastday[1].day.condition.text}. WITH A HIGH OF ${data.forecast.forecastday[1].day.maxtemp_c}°C.`;
-      forecastDiv.appendChild(day1);
+    const day1 = document.createElement("h1");
+    day1.textContent = `TOMORROW... ${data.forecast.forecastday[1].day.condition.text}. WITH A HIGH OF ${data.forecast.forecastday[1].day.maxtemp_c}°C.`;
+    forecastDiv.appendChild(day1);
 
-      const day2 = document.createElement("h1");
-      day2.textContent = `DAY TWO... ${data.forecast.forecastday[2].day.condition.text}. WITH A HIGH OF ${data.forecast.forecastday[2].day.maxtemp_c}°C.`;
-      forecastDiv.appendChild(day2);
+    const day2 = document.createElement("h1");
+    day2.textContent = `DAY TWO... ${data.forecast.forecastday[2].day.condition.text}. WITH A HIGH OF ${data.forecast.forecastday[2].day.maxtemp_c}°C.`;
+    forecastDiv.appendChild(day2);
 
-      const day3 = document.createElement("h1");
-      day3.textContent = `DAY THREE... ${data.forecast.forecastday[3].day.condition.text}. WITH A HIGH OF ${data.forecast.forecastday[3].day.maxtemp_c}°C.`;
-      forecastDiv.appendChild(day3);
+    const day3 = document.createElement("h1");
+    day3.textContent = `DAY THREE... ${data.forecast.forecastday[3].day.condition.text}. WITH A HIGH OF ${data.forecast.forecastday[3].day.maxtemp_c}°C.`;
+    forecastDiv.appendChild(day3);
 
-      const forecast2title = document.createElement("h3");
-      forecast2title.textContent = `EXTENDED OUTLOOK (CONTINUED)`;
-      forecast2Div.appendChild(forecast2title);
+    //forecast slide (continued)
+    const forecast2title = document.createElement("h3");
+    forecast2title.textContent = `EXTENDED OUTLOOK (CONTINUED)`;
+    forecast2Div.appendChild(forecast2title);
 
-      const day4 = document.createElement("h1");
-      day4.textContent = `DAY FOUR... ${data.forecast.forecastday[4].day.condition.text}. WITH A HIGH OF ${data.forecast.forecastday[4].day.maxtemp_c}°C.`;
-      forecast2Div.appendChild(day4);
+    const day4 = document.createElement("h1");
+    day4.textContent = `DAY FOUR... ${data.forecast.forecastday[4].day.condition.text}. WITH A HIGH OF ${data.forecast.forecastday[4].day.maxtemp_c}°C.`;
+    forecast2Div.appendChild(day4);
 
-      const day5 = document.createElement("h1");
-      day5.textContent = `DAY FIVE... ${data.forecast.forecastday[5].day.condition.text}. WITH A HIGH OF ${data.forecast.forecastday[5].day.maxtemp_c}°C.`;
-      forecast2Div.appendChild(day5);
+    const day5 = document.createElement("h1");
+    day5.textContent = `DAY FIVE... ${data.forecast.forecastday[5].day.condition.text}. WITH A HIGH OF ${data.forecast.forecastday[5].day.maxtemp_c}°C.`;
+    forecast2Div.appendChild(day5);
 
-      const day6 = document.createElement("h1");
-      day6.textContent = `DAY SIX... ${data.forecast.forecastday[6].day.condition.text}. WITH A HIGH OF ${data.forecast.forecastday[6].day.maxtemp_c}°C.`;
-      forecast2Div.appendChild(day6);
+    const day6 = document.createElement("h1");
+    day6.textContent = `DAY SIX... ${data.forecast.forecastday[6].day.condition.text}. WITH A HIGH OF ${data.forecast.forecastday[6].day.maxtemp_c}°C.`;
+    forecast2Div.appendChild(day6);
 
-      const aqititle = document.createElement("h3")
-      aqititle.textContent = `AIR QUALITY INDEX (U.S. EPA STANDARD)`
-      aqiDiv.appendChild(aqititle)
+    //air quality slide
+    const aqititle = document.createElement("h3")
+    aqititle.textContent = `AIR QUALITY INDEX (U.S. EPA STANDARD)`
+    aqiDiv.appendChild(aqititle)
 
-      const epa = document.createElement("h1")
-      epa.textContent = `${data.location.name}: CATEGORY ${data.current.air_quality['us-epa-index']}`
-      aqiDiv.appendChild(epa)
+    const epa = document.createElement("h1")
+    epa.textContent = `${data.location.name}: CATEGORY ${data.current.air_quality['us-epa-index']}`
+    aqiDiv.appendChild(epa)
 
-      const lastupdate = document.createElement("p")
-      lastupdate.textContent = `INFORMATION LAST UPDATED: ${data.current.last_updated} (if this is old then there is probably something wrong)`
-      aqiDiv.appendChild(lastupdate)
+    const lastupdate = document.createElement("p")
+    lastupdate.textContent = `INFORMATION LAST UPDATED: ${data.current.last_updated} (if this is old then there is probably something wrong)`
+    aqiDiv.appendChild(lastupdate)
 
-      const dayparttitle = document.createElement("h3")
-      dayparttitle.textContent = `DAYPART FORECAST FOR ${data.location.name}`
-      daypartDiv.appendChild(dayparttitle)
+    //daypart slide
+    const dayparttitle = document.createElement("h3")
+    dayparttitle.textContent = `DAYPART FORECAST FOR ${data.location.name}`
+    daypartDiv.appendChild(dayparttitle)
 
-      const MORNING = document.createElement("h1")
-      MORNING.textContent = `THIS MORNING AT 6 AM... ${data.forecast.forecastday[0].hour[6].condition.text}.`
-      daypartDiv.appendChild(MORNING)
+    const MORNING = document.createElement("h1")
+    MORNING.textContent = `THIS MORNING AT 6 AM... ${data.forecast.forecastday[0].hour[6].condition.text}.`
+    daypartDiv.appendChild(MORNING)
 
-      const MORNINGa = document.createElement("h1")
-      MORNINGa.textContent = `THE TEMPERATURE WILL BE ${data.forecast.forecastday[0].hour[6].temp_c}°C OR ${data.forecast.forecastday[0].hour[6].temp_f}°F.`
-      daypartDiv.appendChild(MORNINGa)
+    const MORNINGa = document.createElement("h1")
+    MORNINGa.textContent = `THE TEMPERATURE WILL BE ${data.forecast.forecastday[0].hour[6].temp_c}°C OR ${data.forecast.forecastday[0].hour[6].temp_f}°F.`
+    daypartDiv.appendChild(MORNINGa)
 
-      const MORNINGb = document.createElement("h1")
-      MORNINGb.textContent=`WINDS... ${data.forecast.forecastday[0].hour[6].wind_dir} @ ${data.forecast.forecastday[0].hour[6].wind_kph}KM/H.`
-      daypartDiv.appendChild(MORNINGb)
+    const MORNINGb = document.createElement("h1")
+    MORNINGb.textContent=`WINDS... ${data.forecast.forecastday[0].hour[6].wind_dir} @ ${data.forecast.forecastday[0].hour[6].wind_kph}KM/H.`
+    daypartDiv.appendChild(MORNINGb)
 
-      const daybreak = document.createElement("br")
-      daypartDiv.appendChild(daybreak)
+    const daybreak = document.createElement("br")
+    daypartDiv.appendChild(daybreak)
 
-      const lateMORNING = document.createElement("h1")
-      lateMORNING.textContent = `LATER THIS MORNING AT 9 AM... ${data.forecast.forecastday[0].hour[9].condition.text}.`
-      daypartDiv.appendChild(lateMORNING)
+    const lateMORNING = document.createElement("h1")
+    lateMORNING.textContent = `LATER THIS MORNING AT 9 AM... ${data.forecast.forecastday[0].hour[9].condition.text}.`
+    daypartDiv.appendChild(lateMORNING)
 
-      const lateMORNINGa = document.createElement("h1")
-      lateMORNINGa.textContent = `THE TEMPERATURE WILL BE ${data.forecast.forecastday[0].hour[9].temp_c}°C OR ${data.forecast.forecastday[0].hour[9].temp_f}°F.`
-      daypartDiv.appendChild(lateMORNINGa)
+    const lateMORNINGa = document.createElement("h1")
+    lateMORNINGa.textContent = `THE TEMPERATURE WILL BE ${data.forecast.forecastday[0].hour[9].temp_c}°C OR ${data.forecast.forecastday[0].hour[9].temp_f}°F.`
+    daypartDiv.appendChild(lateMORNINGa)
 
-      const lateMORNINGb = document.createElement("h1")
-      lateMORNINGb.textContent=`WINDS... ${data.forecast.forecastday[0].hour[9].wind_dir} @ ${data.forecast.forecastday[0].hour[9].wind_kph}KM/H.`
-      daypartDiv.appendChild(lateMORNINGb)
+    const lateMORNINGb = document.createElement("h1")
+    lateMORNINGb.textContent=`WINDS... ${data.forecast.forecastday[0].hour[9].wind_dir} @ ${data.forecast.forecastday[0].hour[9].wind_kph}KM/H.`
+    daypartDiv.appendChild(lateMORNINGb)
 
-      const daybreak2 = document.createElement("br")
-      daypartDiv.appendChild(daybreak2)
+    const daybreak2 = document.createElement("br")
+    daypartDiv.appendChild(daybreak2)
 
-      const noon = document.createElement("h1")
-      noon.textContent = `AT NOON... ${data.forecast.forecastday[0].hour[12].condition.text}.`
-      daypartDiv.appendChild(noon)
+    const noon = document.createElement("h1")
+    noon.textContent = `AT NOON... ${data.forecast.forecastday[0].hour[12].condition.text}.`
+    daypartDiv.appendChild(noon)
 
-      const noona = document.createElement("h1")
-      noona.textContent = `THE TEMPERATURE WILL BE ${data.forecast.forecastday[0].hour[12].temp_c}°C OR ${data.forecast.forecastday[0].hour[12].temp_f}°F.`
-      daypartDiv.appendChild(noona)
+    const noona = document.createElement("h1")
+    noona.textContent = `THE TEMPERATURE WILL BE ${data.forecast.forecastday[0].hour[12].temp_c}°C OR ${data.forecast.forecastday[0].hour[12].temp_f}°F.`
+    daypartDiv.appendChild(noona)
 
-      const noonb = document.createElement("h1")
-      noonb.textContent=`WINDS... ${data.forecast.forecastday[0].hour[12].wind_dir} @ ${data.forecast.forecastday[0].hour[12].wind_kph}KM/H.`
-      daypartDiv.appendChild(noonb)
+    const noonb = document.createElement("h1")
+    noonb.textContent=`WINDS... ${data.forecast.forecastday[0].hour[12].wind_dir} @ ${data.forecast.forecastday[0].hour[12].wind_kph}KM/H.`
+    daypartDiv.appendChild(noonb)
 
-      const daypart2title = document.createElement("h3")
-      daypart2title.textContent = `DAYPART FORECAST (CONTINUED)`
-      daypartDiv2.appendChild(daypart2title)
+    //daypart slide (continued)
+    const daypart2title = document.createElement("h3")
+    daypart2title.textContent = `DAYPART FORECAST (CONTINUED)`
+    daypartDiv2.appendChild(daypart2title)
 
-      const afternoon = document.createElement("h1")
-      afternoon.textContent = `IN THE AFTERNOON AT 3 PM... ${data.forecast.forecastday[0].hour[15].condition.text}.`
-      daypartDiv2.appendChild(afternoon)
+    const afternoon = document.createElement("h1")
+    afternoon.textContent = `IN THE AFTERNOON AT 3 PM... ${data.forecast.forecastday[0].hour[15].condition.text}.`
+    daypartDiv2.appendChild(afternoon)
 
-      const afternoonA = document.createElement("h1")
-      afternoonA.textContent = `THE TEMPERATURE WILL BE ${data.forecast.forecastday[0].hour[15].temp_c}°C OR ${data.forecast.forecastday[0].hour[15].temp_f}°F.`
-      daypartDiv2.appendChild(afternoonA)
+    const afternoonA = document.createElement("h1")
+    afternoonA.textContent = `THE TEMPERATURE WILL BE ${data.forecast.forecastday[0].hour[15].temp_c}°C OR ${data.forecast.forecastday[0].hour[15].temp_f}°F.`
+    daypartDiv2.appendChild(afternoonA)
 
-      const afternoonB = document.createElement("h1")
-      afternoonB.textContent=`WINDS... ${data.forecast.forecastday[0].hour[15].wind_dir} @ ${data.forecast.forecastday[0].hour[15].wind_kph}KM/H.`
-      daypartDiv2.appendChild(afternoonB)
+    const afternoonB = document.createElement("h1")
+    afternoonB.textContent=`WINDS... ${data.forecast.forecastday[0].hour[15].wind_dir} @ ${data.forecast.forecastday[0].hour[15].wind_kph}KM/H.`
+    daypartDiv2.appendChild(afternoonB)
 
-      const daybreak3 = document.createElement("br")
-      daypartDiv2.appendChild(daybreak3)
+    const daybreak3 = document.createElement("br")
+    daypartDiv2.appendChild(daybreak3)
 
-      const evening = document.createElement("h1")
-      afternoon.textContent = `IN THE EVENING AT 7 PM... ${data.forecast.forecastday[0].hour[19].condition.text}.`
-      daypartDiv2.appendChild(evening)
+    const evening = document.createElement("h1")
+    afternoon.textContent = `IN THE EVENING AT 7 PM... ${data.forecast.forecastday[0].hour[19].condition.text}.`
+    daypartDiv2.appendChild(evening)
 
-      const eveningA = document.createElement("h1")
-      afternoonA.textContent = `THE TEMPERATURE WILL BE ${data.forecast.forecastday[0].hour[19].temp_c}°C OR ${data.forecast.forecastday[0].hour[19].temp_f}°F.`
-      daypartDiv2.appendChild(eveningA)
+    const eveningA = document.createElement("h1")
+    afternoonA.textContent = `THE TEMPERATURE WILL BE ${data.forecast.forecastday[0].hour[19].temp_c}°C OR ${data.forecast.forecastday[0].hour[19].temp_f}°F.`
+    daypartDiv2.appendChild(eveningA)
 
-      const eveningB = document.createElement("h1")
-      afternoonB.textContent=`WINDS... ${data.forecast.forecastday[0].hour[19].wind_dir} @ ${data.forecast.forecastday[0].hour[19].wind_kph}KM/H.`
-      daypartDiv2.appendChild(eveningB)
+    const eveningB = document.createElement("h1")
+    afternoonB.textContent=`WINDS... ${data.forecast.forecastday[0].hour[19].wind_dir} @ ${data.forecast.forecastday[0].hour[19].wind_kph}KM/H.`
+    daypartDiv2.appendChild(eveningB)
 
-      const daybreak4 = document.createElement("br")
-      daypartDiv2.appendChild(daybreak4)
+    const daybreak4 = document.createElement("br")
+    daypartDiv2.appendChild(daybreak4)
 
-      const night = document.createElement("h1")
-      night.textContent = `NIGHT TIME AT 10 PM... ${data.forecast.forecastday[0].hour[22].condition.text}.`
-      daypartDiv2.appendChild(night)
+    const night = document.createElement("h1")
+    night.textContent = `NIGHT TIME AT 10 PM... ${data.forecast.forecastday[0].hour[22].condition.text}.`
+    daypartDiv2.appendChild(night)
 
-      const nightA = document.createElement("h1")
-      nightA.textContent = `THE TEMPERATURE WILL BE ${data.forecast.forecastday[0].hour[22].temp_c}°C OR ${data.forecast.forecastday[0].hour[22].temp_f}°F.`
-      daypartDiv2.appendChild(nightA)
+    const nightA = document.createElement("h1")
+    nightA.textContent = `THE TEMPERATURE WILL BE ${data.forecast.forecastday[0].hour[22].temp_c}°C OR ${data.forecast.forecastday[0].hour[22].temp_f}°F.`
+    daypartDiv2.appendChild(nightA)
 
-      const nightB = document.createElement("h1")
-      nightB.textContent=`WINDS... ${data.forecast.forecastday[0].hour[22].wind_dir} @ ${data.forecast.forecastday[0].hour[22].wind_kph}KM/H. OVERNIGHT LOWS ARE ${data.forecast.forecastday[0].day.mintemp_c}°C.`
-      daypartDiv2.appendChild(nightB)
+    const nightB = document.createElement("h1")
+    nightB.textContent=`WINDS... ${data.forecast.forecastday[0].hour[22].wind_dir} @ ${data.forecast.forecastday[0].hour[22].wind_kph}KM/H. OVERNIGHT LOWS ARE ${data.forecast.forecastday[0].day.mintemp_c}°C.`
+    daypartDiv2.appendChild(nightB)
 
-      const daybreak5 = document.createElement("br")
-      daypartDiv2.appendChild(daybreak5)
+    const daybreak5 = document.createElement("br")
+    daypartDiv2.appendChild(daybreak5)
 
+    //radar slide
           function fetchRadarImage() {
         fetch('http://localhost:3000/api/radar/latest')
           .then((response) => response.json())
