@@ -130,9 +130,21 @@ function updateWeatherData(location) {
     day0.textContent = `TODAY... ${data.forecast.forecastday[0].day.condition.text}. WITH A HIGH OF ${data.forecast.forecastday[0].day.maxtemp_c}°C.`;
     forecastDiv.appendChild(day0);
 
+    const day0a = document.createElement("h1");
+    day0a.textContent = `WINDS UP TO... ${data.forecast.forecastday[0].day.maxwind_kph}KM/H. THE UV INDEX WILL BE ${data.forecast.forecastday[0].day.uv}.`;
+    forecastDiv.appendChild(day0a);
+
+    const day0b = document.createElement("h1");
+    day0b.textContent = `LOWS ${data.forecast.forecastday[0].day.mintemp_c}°C.`;
+    forecastDiv.appendChild(day0b);
+
     const day1 = document.createElement("h1");
     day1.textContent = `TOMORROW... ${data.forecast.forecastday[1].day.condition.text}. WITH A HIGH OF ${data.forecast.forecastday[1].day.maxtemp_c}°C.`;
     forecastDiv.appendChild(day1);
+
+    const day1a = document.createElement("h1");
+    day1a.textContent = `WINDS UP TO... ${data.forecast.forecastday[1].day.maxwind_kph}KM/H. THE UV INDEX WILL BE ${data.forecast.forecastday[1].day.uv}.`;
+    forecastDiv.appendChild(day1a);
 
     const day2 = document.createElement("h1");
     day2.textContent = `DAY TWO... ${data.forecast.forecastday[2].day.condition.text}. WITH A HIGH OF ${data.forecast.forecastday[2].day.maxtemp_c}°C.`;
@@ -151,27 +163,51 @@ function updateWeatherData(location) {
     day4.textContent = `DAY FOUR... ${data.forecast.forecastday[4].day.condition.text}. WITH A HIGH OF ${data.forecast.forecastday[4].day.maxtemp_c}°C.`;
     forecast2Div.appendChild(day4);
 
+    const day4a = document.createElement("h1");
+    day4a.textContent = `LOWS ${data.forecast.forecastday[4].day.mintemp_c}°C.`;
+    forecast2Div.appendChild(day4a);
+
     const day5 = document.createElement("h1");
     day5.textContent = `DAY FIVE... ${data.forecast.forecastday[5].day.condition.text}. WITH A HIGH OF ${data.forecast.forecastday[5].day.maxtemp_c}°C.`;
     forecast2Div.appendChild(day5);
+    
+    const day5a = document.createElement("h1");
+    day5a.textContent = `LOWS ${data.forecast.forecastday[5].day.mintemp_c}°C.`;
+    forecast2Div.appendChild(day5a);
 
     const day6 = document.createElement("h1");
     day6.textContent = `DAY SIX... ${data.forecast.forecastday[6].day.condition.text}. WITH A HIGH OF ${data.forecast.forecastday[6].day.maxtemp_c}°C.`;
     forecast2Div.appendChild(day6);
 
+    const day6a = document.createElement("h1");
+    day6a.textContent = `LOWS ${data.forecast.forecastday[6].day.mintemp_c}°C.`;
+    forecast2Div.appendChild(day6a);
+
     //air quality slide
     const aqititle = document.createElement("h3")
-    aqititle.textContent = `AIR QUALITY INDEX (U.S. EPA STANDARD)`
+    aqititle.textContent = `AIR QUALITY INDEX FOR ${data.location.name}`
     aqiDiv.appendChild(aqititle)
 
-    const epa = document.createElement("h1")
-    epa.textContent = `${data.location.name}: CATEGORY ${data.current.air_quality['us-epa-index']}`
-    aqiDiv.appendChild(epa)
+    const pm25 = document.createElement("h1")
+    pm25.textContent = `PM 2.5 (PARTICULATE MATTER LESS THAN 2.5 MICRONS): ${data.current.air_quality.pm2_5}`
+    aqiDiv.appendChild(pm25)
 
-    const lastupdate = document.createElement("p")
-    lastupdate.textContent = `INFORMATION LAST UPDATED: ${data.current.last_updated} (if this is old then there is probably something wrong)`
-    aqiDiv.appendChild(lastupdate)
+    const pm10 = document.createElement("h1")
+    pm10.textContent = `PM 2.5 (PARTICULATE MATTER LESS THAN 10 MICRONS): ${data.current.air_quality.pm10}`
+    aqiDiv.appendChild(pm10)
 
+    const co = document.createElement("h1")
+    co.textContent = `CARBON MONOXIDE: ${data.current.air_quality.co}`
+    aqiDiv.appendChild(co)
+
+    const no2 = document.createElement("h1")
+    no2.textContent = `NITROGEN DIOXIDE: ${data.current.air_quality.no2}`
+    aqiDiv.appendChild(no2)
+
+    const so2 = document.createElement("h1")
+    so2.textContent = `SULPHUR DIOXIDE: ${data.current.air_quality.so2}`
+    aqiDiv.appendChild(so2)
+    
     //daypart slide
     const dayparttitle = document.createElement("h3")
     dayparttitle.textContent = `DAYPART FORECAST FOR ${data.location.name}`
@@ -268,6 +304,10 @@ function updateWeatherData(location) {
 
     const daybreak5 = document.createElement("br")
     daypartDiv2.appendChild(daybreak5)
+
+    const lastupdate = document.createElement("p")
+    lastupdate.textContent = `INFORMATION LAST UPDATED: ${data.current.last_updated} (if this is old then there is probably something wrong)`
+    daypartDiv2.appendChild(lastupdate)
 
     //radar slide
           function fetchRadarImage() {
