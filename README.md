@@ -1,6 +1,7 @@
 <img src="https://github.com/SSPWXR0/weatherhds1/blob/main/public/img/hdslogo.png">
 <h1>WeatherHDS (Weather HTML Display System)</h1>
   <p>A very basic weather display application that displays weather information from an API on an HTML page. Suitable for continuous weather channel broadcasts.</p>
+  <p>Designed to resemble early TWC WeatherSTAR units.</p>
 <h1>Configuration</h1>
 <p>*Node.js is required!</p>
 <p>*The weather api that this app was designed for is: https://www.weatherapi.com/ (a free plan is available)</p>
