@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const { parseString } = require('xml2js');
 
 const app = express();
 const port = 3000;
@@ -10,6 +11,35 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Start the server on port 3000
 app.listen(port, () => {
   console.log('Server is running on http://localhost:3000');
+});
+
+app.get('/api/eccc/:province/:code/:language', async (req, res) => {
+  try {
+    const { province, code, language } = req.params;
+
+    // Construct the URL based on the provided parameters
+    const url = `https://dd.weather.gc.ca/citypage_weather/xml/${province}/${code}_${language}.xml`;
+    
+    const response = await fetch(url);
+    const xmlData = await response.text();
+    
+    parseString(xmlData, (err, result) => {
+      if (err) {
+        console.error(`Error parsing XML for location ${code}:`, err);
+        return res.status(500).json({ error: `Error parsing XML for location ${code}` });
+      }
+      
+      const jsonData = result;
+      // Now you can process jsonData and extract the required information
+      
+      // Send the weather data as JSON response
+      res.json(jsonData);
+      console.log(`Pushed Environment Canada weather info for ${code} to client.`);
+    });
+  } catch (error) {
+    console.error('Error fetching weather data:', error);
+    res.status(500).json({ error: 'Error fetching weather data.' });
+  }
 });
 
 app.get('/api/radar/latest', async (req, res) => {
