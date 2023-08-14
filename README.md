@@ -1,7 +1,6 @@
 <img src="https://github.com/SSPWXR0/weatherhds1/blob/main/public/img/hdslogo.png">
 <h1>WeatherHDS (Weather HTML Display System)</h1>
   <p>A very basic weather display application that displays weather information from an API on an HTML page.</p>
-  <p>OBS Studio is required to add styling, extra text, and a ticker to the weather broadcast. Knowlege in JS, HTML, and CSS would also work. Or you can just use AI or something.</p>
 <h1>Configuration</h1>
 <p>*Node.js is required!</p>
 <p>*The weather api that this app was designed for is: https://www.weatherapi.com/ (a free plan is available)</p>
