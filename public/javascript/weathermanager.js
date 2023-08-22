@@ -155,6 +155,7 @@ function updateWeatherData(location) {
     forecastDiv.appendChild(day3);
 
     //forecast slide (continued)
+    /*
     const forecast2title = document.createElement("h3");
     forecast2title.textContent = `EXTENDED OUTLOOK (CONTINUED)`;
     forecast2Div.appendChild(forecast2title);
@@ -182,6 +183,7 @@ function updateWeatherData(location) {
     const day6a = document.createElement("h1");
     day6a.textContent = `LOWS ${data.forecast.forecastday[6].day.mintemp_c}°C.`;
     forecast2Div.appendChild(day6a);
+    */
 
     //air quality slide
     const aqititle = document.createElement("h3")
