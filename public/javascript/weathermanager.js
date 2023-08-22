@@ -48,9 +48,9 @@ function updateWeatherData(location) {
     console.log('Received weather data:', data);
     // Clear previous weather data
     weatherDiv.innerHTML = '';
-    almanacDiv.innerHTML = '';
+    //almanacDiv.innerHTML = '';
     forecastDiv.innerHTML = '';
-    forecast2Div.innerHTML = '';
+    //forecast2Div.innerHTML = '';
     aqiDiv.innerHTML = '';
     daypartDiv.innerHTML = '';
     daypartDiv2.innerHTML = '';
@@ -93,6 +93,7 @@ function updateWeatherData(location) {
     weatherDiv.appendChild(uv);
     
     //almanac slide
+    /*
     const almanactitle = document.createElement("h3");
     almanactitle.textContent = `ALMANAC FOR ${data.location.name} AREA`;
     almanacDiv.appendChild(almanactitle);
@@ -120,7 +121,7 @@ function updateWeatherData(location) {
     const moon2 = document.createElement("h1");
     moon2.textContent = `MOON PHASE: ${data.forecast.forecastday[2].astro.moon_phase}`;
     almanacDiv.appendChild(moon2);
-
+    */
     //forecast slide
     const forecasttitle = document.createElement("h3");
     forecasttitle.textContent = `EXTENDED OUTLOOK FOR ${data.location.name}`;
