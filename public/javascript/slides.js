@@ -1,14 +1,14 @@
-// This handles the progression of the slides between each weather/info product.
-
 const containers = document.getElementsByClassName('container');
 const backgroundContainer = document.getElementById('background-container');
 let currentContainerIndex = 0;
+let interval;
+let isPaused = false; // Variable to track the pause state
 
-  // Define an array of image URLs
+  // Add whatever jpg image to this list and it will cycle through them at the intro screen.
   var images = [
-"backgrounds/add_more_images_in_slides_js.jpg",
-];
-
+    "backgrounds/add_more_images_in_slides_js.jpg",
+    ];
+    
 function showNextContainer() {
   // Hide the current container
   containers[currentContainerIndex].classList.remove('visible');
@@ -32,11 +32,28 @@ containers[currentContainerIndex].classList.add('visible');
 // Change the container and background image every 3 seconds (adjust the duration as needed)
 setInterval(showNextContainer, 11000);
 
-// Add event listener for the `keydown` event on the document
 document.addEventListener('keydown', function(event) {
   // Check if the pressed key is the backtick (`) key
   if (event.key === '`') {
     // Call the showNextContainer() function to switch to the next container
     showNextContainer();
+  }
+  // Check if the pressed key is the X key
+  else if (event.key === 'x') {
+    // Toggle the pause state
+    isPaused = !isPaused;
+
+    // Hide or show the slideshow based on the pause state
+    if (isPaused) {
+      // Pause the slideshow by clearing the interval
+      clearInterval(interval);
+      // Hide the slideshow
+      document.getElementById('slideshow').style.display = 'none';
+    } else {
+      // Resume the slideshow by setting a new interval
+      interval = setInterval(showNextContainer, 11000);
+      // Show the slideshow
+      document.getElementById('slideshow').style.display = 'block';
+    }
   }
 });

@@ -1,8 +1,5 @@
-// This JS file handles the text shown at the top right of the screen, and the seasonal message at the bottom left of the screen.
-// Mainly for fun.
-
 const textList = [
-    "Welcome to a weather channel. We have weather.",
+    "welcome to a weather channel, we have weather",
   ];
   
   let currentIndex = 0;

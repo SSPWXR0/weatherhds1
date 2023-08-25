@@ -2,47 +2,73 @@
 <head>
     <title>WeatherHDS TEXT HANDLER</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="./img/favicon.png">
-    <meta http-equiv="refresh" content="3600">
 </head>
 <footer>
-    <img height="30" src="/img/hdslogo.png"> weatherHDS revision 2023.08.22 <img height="30" src="https://cdn.discordapp.com/attachments/896468910398910495/1142308336298106970/image.png">
+    <img height="30" src="/img/hdslogo.png"> weatherHDS revision 2023.08.24
 </footer>
 <body>
 <br>
 <div class="view">
-    <div class="onscreen">
-        <div id="loading"><img src="./graphics/hds_credit.png"></div>
-        <div id="textElement"></div>
-        <div id="datetime"></div>
-        <div id="upNext"></div>
-        <div id="seasonmsg"></div>
-    </div>
+    <img src="img/sspwxr.png" style="
+        width: 19.5%;
+        top: 1.5%;
+        position: inherit;
+        left: 4%;">
+    <!--<div id="loading"><img src="./graphics/hds_credit.png"></div>-->
+    <div id="datetime"></div>
+    <div id="seasonmsg"></div>
 <div id="slideshow">
-  <div class="container" style="font-size: x-large; text-align: center;" id="background-container">
+  <div class="container" style="font-size: x-large;" id="background-container">
+    <img height="30" style="text-align: left;" src="/img/hdslogo.png">
+    <div id="upNext"></div>
     <br>
     <div id="logos">
         <img src="img/sspwxr.png" width="150">
         <img src="img/hdslogo.png" width="512">
     </div>
-<span>
+    <br>
+<span style="text-align: center;">
+    <div id="textElement"></div>
     <br>
     <br>
-    <h1>GitHub</h1>
+    <h1>weather</h1>
     <h1>www.github.com/SSPWXR0/weatherhds1/</h1>
 </div>
 </span>
+<div class="container" id="weather">NOT AVAILABLE</div>
+<div class="container" id="forecast">NOT AVAILABLE</div>
+<div class="container" id="forecast2">NOT AVAILABLE</div>
+<div class="container" id="almanac">NOT AVAILABLE</div>
+<div class="container" id="aqi">NOT AVAILABLE</div>
+<div class="container" id="daypart">NOT AVAILABLE</div>
+<div class="container" id="daypart2">NOT AVAILABLE</div>
+<div class="container" id="radarDiv">NOT AVAILABLE</div>
    </div>
-      <div class="container" id="weather">NOT AVAILABLE</div>
-      <div class="container" id="forecast">NOT AVAILABLE</div>
-      <!--<div class="container" id="forecast2">NOT AVAILABLE</div>-->
-      <!--<div class="container" id="almanac">NOT AVAILABLE</div>-->
-      <div class="container" id="aqi">NOT AVAILABLE</div>
-      <div class="container" id="daypart">NOT AVAILABLE</div>
-      <div class="container" id="daypart2">NOT AVAILABLE</div>
-      <div class="container" id="radarDiv">NOT AVAILABLE</div>
+   <div id="LDL-main" class="LDL">
+    <div class="LDL-slide" id="LDL-current">
+        <div id="LDL-slide-current-title" class="LDL-slide-title">No weather data available</div>
+        <div class="LDL-titles">
+            <div id="LDL-current-title-temp" class="LDL-title">Temperature</div>
+            <div id="LDL-current-title-condition" class="LDL-title">Condition</div>
+            <div id="LDL-current-title-wind" class="LDL-title">Wind</div>
+            <div id="LDL-current-title-humidity" class="LDL-title">Relative Humidity</div>
+        </div>
+        <div class="LDL-products">
+            <div id="LDL-current-temp" class="LDL-product">Not Available</div>
+            <div id="LDL-current-condition" class="LDL-product">Not Available</div>
+            <div id="LDL-current-wind" class="LDL-product">Not Available</div>
+            <div id="LDL-current-humidity" class="LDL-product">Not Available</div>
+        </div>
+    </div>
+</div>
+
 </div>
 <br>
+  <script src="/javascript/LDLmanager.js"></script>
   <script src="/javascript/weathermanager.js"></script>
   <script src="/javascript/datetime.js"></script>
   <script src="/javascript/slides.js"></script>

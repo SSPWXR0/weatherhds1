@@ -1,5 +1,3 @@
-// shows the time
-
 function updateDateTime() {
     const now = new Date();
     const datetimeDiv = document.getElementById("datetime");
