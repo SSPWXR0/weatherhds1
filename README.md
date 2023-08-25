@@ -1,10 +1,10 @@
 <img src="https://github.com/SSPWXR0/weatherhds1/blob/main/public/img/hdslogo.png">
 <h1>WeatherHDS (Weather HTML Display System)</h1>
   <p>A very basic weather display application that displays weather information from an API on an HTML page. Suitable for continuous weather channel broadcasts.</p>
-  <p>Designed to resemble early TWC WeatherSTAR units.</p>
 <h1>Configuration</h1>
 <p>*Node.js is required!</p>
 <p>*The weather api that this app was designed for is: https://www.weatherapi.com/ (a free plan is available)</p>
+<p>*You will need to uncomment some weather products depending on what your weather API is like!</p>
 <p>By default, the system comes with six locations that equate to a one hour broadcast cycle. To add/remove locations, modify the list at the top of weathermanager.js. (location_province)</p>
 <p>The system rotates between these location every 10 minutes. To change this interval, it is located at the very bottom of weathermanager.js.</p>
 <p>slides.js manages how the slides work. Currently, it switches between the HTML containers every 11 seconds.</p>
