@@ -5,7 +5,7 @@ const LDLlocations = [
   'Moose_Jaw_SK',
   'Winnipeg_MB',
   'Brandon_MB',
-  'Steinback_MB',
+  'Steinbach_MB',
   'Calgary_AB',
   'Edmonton_AB',
   'Red_Deer_AB',
