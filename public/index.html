@@ -2,26 +2,31 @@
 <head>
     <title>WeatherHDS TEXT HANDLER</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="./img/favicon.png">
 </head>
+
 <footer>
-    <img height="30" src="/img/hdslogo.png"> weatherHDS revision 2023.08.24
+    <img height="30" src="/img/hdslogo.png"> weatherHDS version 2023.09.27
 </footer>
+
 <body>
+
 <br>
+
 <div class="view">
-    <img src="img/sspwxr.png" style="
-        width: 19.5%;
-        top: 1.5%;
-        position: inherit;
-        left: 4%;">
-    <!--<div id="loading"><img src="./graphics/hds_credit.png"></div>-->
-    <div id="datetime"></div>
-    <div id="seasonmsg"></div>
+
+    <img id="overlay" src="/graphics/weatherhds-overlay-HD.png">
+    <div id="paused">***LOCAL FORECAST IS PAUSED!***</div>
+    <div id="top">
+        <img id="operator_logo" height="30" style="z-index: 3;" src="img/sspwxr.png">
+        <div id="datetime"></div>
+        <div id="seasonmsg"></div>
+    </div>
+
 <div id="slideshow">
+
+<!--start of main slides i guess-->
+
   <div class="container" style="font-size: x-large;" id="background-container">
     <img height="30" style="text-align: left;" src="/img/hdslogo.png">
     <div id="upNext"></div>
@@ -30,27 +35,103 @@
         <img src="img/sspwxr.png" width="150">
         <img src="img/hdslogo.png" width="512">
     </div>
-    <br>
-<span style="text-align: center;">
-    <div id="textElement"></div>
-    <br>
-    <br>
-    <h1>weather</h1>
-    <h1>www.github.com/SSPWXR0/weatherhds1/</h1>
+    <span style="text-align: center;">
+        <div id="textElement"></div>
+        <h6>Data source: Environment and Climate Change Canada. SSPWXR and other affiliated groups are not endorsed by or associated with Environment and Climate Change Canada.</h6>
+        <h1>weather</h1>
+        <h1>www.github.com/SSPWXR0/weatherhds1/</h1>
+    </span>
+  </div>
+
+
+<div class="container" id="current">
+    <div class="title-bar" id="current-title-container">No weather data available</div>
+    <div id="current-1-container">
+        <div id="current-icon-container"></div>
+        <div id="current-1-textbox"></div>
+    </div>
+    <div id="current-2-container">No Report</div>
 </div>
-</span>
-<div class="container" id="weather">NOT AVAILABLE</div>
-<div class="container" id="forecast">NOT AVAILABLE</div>
-<div class="container" id="forecast2">NOT AVAILABLE</div>
-<div class="container" id="almanac">NOT AVAILABLE</div>
-<div class="container" id="aqi">NOT AVAILABLE</div>
+
+<div class="container" id="forecast">
+    <div class="forecast-topbar">
+        <div class="forecast-cityname-div" id="forecast-cityname">No Data</div>
+        <div class="forecast-dayname-div" id="forecast-dayname">Absolutely No Data</div>
+        <div class="forecast-topbar-datacontainer">
+            <div class="topbar-value" id="forecast-conditionname"></div>
+
+            <div class="forecast-topbar-product">
+                <div class="topbar-label" id="forecast-pop-label">PRECIP. %&nbsp;</div>
+                <div class="topbar-value" id="forecast-pop-value">60%</div>
+            </div>
+
+            <div class="forecast-topbar-product">
+                <div class="topbar-label" id="forecast-wind-label">WIND&nbsp;</div>
+                <div class="topbar-value" id="forecast-wind-value">WSW, 125 km/h</div>
+            </div>
+        </div>
+    </div>
+    <h1 id="forecastA"></h1>
+</div>
+
+<div class="container" id="forecast2">
+    <div class="forecast-topbar">
+        <div class="forecast-cityname-div" id="forecast2-cityname">CITY OF SASKATOON</div>
+        <div class="forecast-dayname-div" id="forecast2-dayname">Jooseday</div>
+        <div class="forecast-topbar-datacontainer">
+            <div class="topbar-value" id="forecast2-conditionname">Mainly Sunny</div>
+
+            <div class="forecast-topbar-product" id="forecast-pop">
+                <div class="topbar-label" id="forecast2-pop-label">PRECIP. %&nbsp;</div>
+                <div class="topbar-value" id="forecast2-pop-value">60%</div>
+            </div>
+
+            <div class="forecast-topbar-product" id="forecast-wind">
+                <div class="topbar-label" id="forecast2-wind-label">WIND&nbsp;</div>
+                <div class="topbar-value" id="forecast2-wind-value">WSW, 125 km/h</div>
+            </div>
+        </div>
+    </div>
+    <h1 id="forecastB"></h1>
+</div>
+
+<div class="container" id="forecast3">
+    <div class="forecast-topbar">
+        <div class="forecast-cityname-div" id="forecast3-cityname">CITY OF SASKATOON</div>
+        <div class="forecast-dayname-div" id="forecast3-dayname">Jooseday</div>
+        <div class="forecast-topbar-datacontainer">
+            <div class="topbar-value" id="forecast3-conditionname">Mainly Sunny</div>
+
+            <div class="forecast-topbar-product" id="forecast-pop">
+                <div class="topbar-label" id="forecast3-pop-label">PRECIP. %&nbsp;</div>
+                <div class="topbar-value" id="forecast3-pop-value">60%</div>
+            </div>
+
+            <div class="forecast-topbar-product" id="forecast-wind">
+                <div class="topbar-label" id="forecast3-wind-label">WIND&nbsp;</div>
+                <div class="topbar-value" id="forecast3-wind-value">WSW, 125 km/h</div>
+            </div>
+        </div>
+    </div>
+    <h1 id="forecastC"></h1>
+</div>
+
+<div class="container" id="almanac">
+    <div class="title-bar" id="almanac-title-container">No weather data available</div>
+    <div id="the-stupid-thing-that-tells-you-about-the-sun"></div>
+</div>
+
+<!--<div class="container" id="aqi">NOT AVAILABLE</div>-->
+
 <div class="container" id="daypart">NOT AVAILABLE</div>
-<div class="container" id="daypart2">NOT AVAILABLE</div>
+
+<!--<div class="container" id="daypart2">NOT AVAILABLE</div>-->
+
 <div class="container" id="radarDiv">NOT AVAILABLE</div>
    </div>
    <div id="LDL-main" class="LDL">
     <div class="LDL-slide" id="LDL-current">
-        <div id="LDL-slide-current-title" class="LDL-slide-title">No weather data available</div>
+        <div id="LDL-slide-current-title" class="LDL-slide-title">everyone in saskatoon is literally dead lol</div>
         <div class="LDL-titles">
             <div id="LDL-current-title-temp" class="LDL-title">Temperature</div>
             <div id="LDL-current-title-condition" class="LDL-title">Condition</div>
@@ -58,10 +139,10 @@
             <div id="LDL-current-title-humidity" class="LDL-title">Relative Humidity</div>
         </div>
         <div class="LDL-products">
-            <div id="LDL-current-temp" class="LDL-product">Not Available</div>
-            <div id="LDL-current-condition" class="LDL-product">Not Available</div>
-            <div id="LDL-current-wind" class="LDL-product">Not Available</div>
-            <div id="LDL-current-humidity" class="LDL-product">Not Available</div>
+            <div id="LDL-current-temp" class="LDL-product">-10098°C</div>
+            <div id="LDL-current-condition" class="LDL-product">Blizzard</div>
+            <div id="LDL-current-wind" class="LDL-product">234 km/h, SSW</div>
+            <div id="LDL-current-humidity" class="LDL-product">No report</div>
         </div>
     </div>
 </div>

@@ -4,43 +4,46 @@
 
 //***YOU WILL NEED TO COMMENT OUT OR CHANGE SOME PRODUCTS DEPENDING ON YOUR WEATHER API SUBSCRIPTION***
 
-const locations = ['Saskatoon_SK', 'Regina_SK', 'Prince_Albert_SK','Calgary_AB','Edmonton_AB','Vancouver_BC']; // Add more locations as needed
+const locations = [
+  { code: 's0000797', province: 'SK', language: 'e', name:'Saskatoon, SK' },
+  { code: 's0000624', province: 'SK', language: 'e', name:'Prince Albert, SK' },
+  { code: 's0000788', province: 'SK', language: 'e', name:'Regina, SK' },
+  { code: 's0000510', province: 'AB', language: 'e', name:'Edmonton, AB Int. Airprt' },
+  { code: 's0000047', province: 'AB', language: 'e', name:'Calgary, AB' },
+  { code: 's0000141', province: 'BC', language: 'e', name:'Vancouver, BC' },
+  // Add more location objects as needed
+];
 let currentLocationIndex = 0; // Start with the first location
-const weatherDiv = document.getElementById('weather');
+const currentDiv = document.getElementById('current');
 const almanacDiv = document.getElementById('almanac');
 const forecastDiv = document.getElementById('forecast');
 const forecast2Div = document.getElementById('forecast2');
-const aqiDiv = document.getElementById('aqi');
+const forecast3Div = document.getElementById('forecast3');
+//const aqiDiv = document.getElementById('aqi');
 const daypartDiv = document.getElementById('daypart')
 const upNextDiv = document.getElementById('upNext');
-//const loadingDiv = document.getElementById('loading');
-const daypartDiv2 = document.getElementById('daypart2');
+const loadingDiv = document.getElementById('loading');
+//const daypartDiv2 = document.getElementById('daypart2');
 
-function isSummer() {
-    const now = new Date();
-    const summerStart = new Date(now.getFullYear(), 5, 1); // June 1st
-    const summerEnd = new Date(now.getFullYear(), 8, 1); // September 1st
-  
-    return now >= summerStart && now < summerEnd;
-  }
-
-if (!weatherDiv) {
-  console.error('Could not find weather div element');
+if (!currentDiv) {
+console.error('Could not find weather div element');
 }
 
+// Function to fetch weather data for a specific location
 function fetchWeatherData(location) {
-  const url = `api/forecast/${location}/`; // Add weather API here
-  return fetch(url)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    })
-    .catch(error => {
-      console.error('Error fetching weather data:', error);
-      throw error;
-    });
+  const { province, code, language } = location;
+  const url = `http://localhost:3000/api/eccc/${province}/${code}/${language}`;  
+return fetch(url)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .catch(error => {
+    console.error('Error fetching weather data:', error);
+    throw error;
+  });
 }
 
 function updateWeatherData(location) {
@@ -48,217 +51,173 @@ function updateWeatherData(location) {
   return fetchWeatherData(location)
     .then(data => {
     console.log('Received weather data:', data);
-    // Clear previous weather data
-    weatherDiv.innerHTML = '';
-    almanacDiv.innerHTML = '';
-    forecastDiv.innerHTML = '';
-    forecast2Div.innerHTML = '';
-    aqiDiv.innerHTML = '';
-    daypartDiv.innerHTML = '';
-    daypartDiv2.innerHTML = '';
 
     // current conditions slide
-    const cityName = document.createElement("h3");
-    cityName.textContent = `Conditions at ${data.location.name}`;
-    weatherDiv.appendChild(cityName);
-
-    const condition = document.createElement("h1");
-    condition.textContent = `${data.current.condition.text}`;
-    weatherDiv.appendChild(condition);
-
-    const temperature = document.createElement("h1");
-    temperature.textContent = `Temperature: ${data.current.temp_c}°C / ${data.current.temp_f}°F`;
-    weatherDiv.appendChild(temperature);
-
-    const feelslike = document.createElement("h1")
-    feelslike.textContent = `i think it feels like ${data.current.feelslike_c}°C`;
-    weatherDiv.appendChild(feelslike)
-
-    const wind = document.createElement("h1");
-    wind.textContent = `Wind: ${data.current.wind_kph} km/h / ${data.current.wind_kph} kph, ${data.current.wind_dir}`;
-    weatherDiv.appendChild(wind);
-
-    const pressure = document.createElement("h1");
-    pressure.textContent = `Pressure: ${data.current.pressure_mb} mb / ${data.current.pressure_in} in`;
-    weatherDiv.appendChild(pressure);
-
-    const humidity = document.createElement("h1");
-    humidity.textContent = `Humidity: ${data.current.humidity}%`;
-    weatherDiv.appendChild(humidity);
-
-    const visibility = document.createElement("h1");
-    humidity.textContent = `Visibility: ${data.current.vis_km}KM`;
-    weatherDiv.appendChild(visibility);
-  
-    const uv = document.createElement("h1");
-    uv.textContent = `UV Index: ${data.current.uv}`;
-    weatherDiv.appendChild(uv);
+    const currentTitle = document.getElementById("current-title-container");
+    const currentIconContainer = document.getElementById("current-icon-container");
+    const currentContainer2 = document.getElementById("current-2-container");
+    const current1Textbox = document.getElementById("current-1-textbox");
+    const iconRelativeUrl = `//developer.valvesoftware.com/w/images/8/8b/Debugempty.png`
+    const iconUrl = `https:${iconRelativeUrl}`;
+    const iconImage = document.createElement("img");
+    iconImage.src = iconUrl;
+    const conditionDiv = document.createElement("div");
+    const temperatureDiv = document.createElement("h1");
+    const feelslikeDiv = document.createElement("div");
+    const currentWind = document.createElement("h1");
+    const currentPressure = document.createElement("h1");
+    const currentHumidity = document.createElement("h1");
+    const currentTendancy = document.createElement("h1");
+    const currentVisibility = document.createElement("h1");
+    const currentUV = document.createElement("h1");
+    const currentDewpoint = document.createElement("h1");
     
+    current1Textbox.innerHTML = ``;
+    currentIconContainer.innerHTML = ``;
+    currentContainer2.innerHTML = ``;
+
+    currentTitle.textContent = `Conditions at ${data.siteData.location[0].name[0]._}`;
+    currentIconContainer.appendChild(iconImage);
+    conditionDiv.textContent = `${data.siteData.currentConditions[0].condition[0]}`;
+    temperatureDiv.textContent = `${data.siteData.currentConditions[0].temperature[0]._}°C`;
+    feelslikeDiv.textContent = ` `;
+    currentWind.textContent = `Wind: ${data.siteData.currentConditions[0].wind[0].direction[0]} ${data.siteData.currentConditions[0].wind[0].speed[0]._} km/h.`;
+    currentPressure.textContent = `Pressure: ${data.siteData.currentConditions[0].pressure[0]._}kPa`;
+    currentHumidity.textContent = `Humidity: ${data.siteData.currentConditions[0].relativeHumidity[0]._}%`;
+    currentTendancy.textContent =  `Tendancy: ${data.siteData.currentConditions[0].pressure[0].$.tendency}`;
+    currentVisibility.textContent = `Visibility: ${data.siteData.currentConditions[0].visibility[0]._}KM`;;
+    currentDewpoint.textContent = `Dewpoint: ${data.siteData.currentConditions[0].dewpoint[0]._}°C`;
+    //currentUV.textContent = `UV Index: ${data.current.uv}`;
+    current1Textbox.appendChild(conditionDiv);
+    current1Textbox.appendChild(temperatureDiv);
+    current1Textbox.appendChild(feelslikeDiv);
+    current1Textbox.appendChild(currentWind);
+    currentContainer2.appendChild(currentPressure);
+    currentContainer2.appendChild(currentTendancy);
+    currentContainer2.appendChild(currentHumidity);
+    currentContainer2.appendChild(currentVisibility);
+    currentContainer2.appendChild(currentUV);
+    currentContainer2.appendChild(currentDewpoint)
+
     //almanac slide
-    const almanactitle = document.createElement("h3");
-    almanactitle.textContent = `Almanac for ${data.location.name} area`;
-    almanacDiv.appendChild(almanactitle);
-
+    const almanacTitle = document.getElementById("almanac-title-container")
+    const almanacMainText = document.getElementById("the-stupid-thing-that-tells-you-about-the-sun")
     const sunrise1 = document.createElement("h1");
-    sunrise1.textContent = `Sunrise Today: ${data.forecast.forecastday[0].astro.sunrise}`;
-    almanacDiv.appendChild(sunrise1);
-
     const sunset1 = document.createElement("h1");
-    sunset1.textContent = `Sunset Today: ${data.forecast.forecastday[0].astro.sunset}`;
-    almanacDiv.appendChild(sunset1);
+    const pop = document.createElement("h1");
+    const normalhigh = document.createElement("h1");
+    const normallow = document.createElement("h1");
 
-    const moon1 = document.createElement("h1");
-    moon1.textContent = `Moon Phase: ${data.forecast.forecastday[0].astro.moon_phase}`;
-    almanacDiv.appendChild(moon1);
+    almanacMainText.innerHTML = ``;
+    
+    almanacTitle.textContent = `Almanac for the ${data.siteData.location[0].name[0]._} region`;
+    sunrise1.textContent = `SUNRISE: ${data.siteData.riseSet[0].dateTime[1].hour[0]}:${data.siteData.riseSet[0].dateTime[1].minute[0]} ${data.siteData.riseSet[0].dateTime[1].$.zone}`;
+    sunset1.textContent = `SUNSET: ${data.siteData.riseSet[0].dateTime[3].hour[0]}:${data.siteData.riseSet[0].dateTime[3].minute[0]} ${data.siteData.riseSet[0].dateTime[3].$.zone}`;
+    pop.textContent = `Monthly frequency of precipitation... ${data.siteData.almanac[0].pop[0]._}%`
+    normalhigh.textContent = `NORMAL HIGH: ${data.siteData.almanac[0].temperature[2]._}°C`
+    normallow.textContent = `NORMAL LOW: ${data.siteData.almanac[0].temperature[3]._}°C`
 
-    const sunrise2 = document.createElement("h1");
-    sunrise2.textContent = `Sunset Tomorrow ${data.forecast.forecastday[1].astro.sunrise}`;
-    almanacDiv.appendChild(sunrise2);
-
-    const sunset2 = document.createElement("h1");
-    sunset2.textContent = `Sunset Tommorow: ${data.forecast.forecastday[1].astro.sunset}`;
-    almanacDiv.appendChild(sunset2);
-      
-    const moon2 = document.createElement("h1");
-    moon2.textContent = `Tommorow's Moonphase: ${data.forecast.forecastday[2].astro.moon_phase}`;
-    almanacDiv.appendChild(moon2);
+    almanacMainText.appendChild(sunrise1);
+    almanacMainText.appendChild(sunset1);
+    almanacMainText.appendChild(pop);
+    almanacMainText.appendChild(normalhigh);
+    almanacMainText.appendChild(normallow);
 
     //forecast slide
-    const forecasttitle = document.createElement("h3");
-    forecasttitle.textContent = `Extended Outlook for ${data.location.name}`;
-    forecastDiv.appendChild(forecasttitle);
+    const forecastTitle = document.getElementById("forecast-cityname")
+    const forecastTopbarDay = document.getElementById("forecast-dayname")
+    const forecastTopbarCondition = document.getElementById("forecast-conditionname")
+    const forecastTopbarPoP = document.getElementById("forecast-pop-value")
+    const forecastTopbarWind = document.getElementById("forecast-wind-value")
+    const forecastA = document.getElementById("forecastA")
 
-    const day0 = document.createElement("h1");
-    day0.textContent = `Today... ${data.forecast.forecastday[0].day.condition.text}. With a high of ${data.forecast.forecastday[0].day.maxtemp_c}°C.`;
-    forecastDiv.appendChild(day0);
+    forecastTitle.innerHTML = ``
+    forecastTopbarDay.innerHTML = ``
+    forecastTopbarCondition.innerHTML = ``
+    forecastTopbarPoP.innerHTML = ``
+    forecastTopbarWind.innerHTML = ``
 
-    const day0a = document.createElement("h1");
-    day0a.textContent = `Winds up to... ${data.forecast.forecastday[0].day.maxwind_kph}KM/H. The UV index will be ${data.forecast.forecastday[0].day.uv}.`;
-    forecastDiv.appendChild(day0a);
+    forecastTitle.textContent = `LOCAL FORECAST FOR ${data.siteData.location[0].name[0]._}`;
+    forecastTopbarDay.textContent = `${data.siteData.forecastGroup[0].forecast[0].period[0].$.textForecastName}`
+    forecastTopbarCondition.textContent = `${data.siteData.forecastGroup[0].forecast[0].abbreviatedForecast[0].textSummary[0]}`
+    forecastTopbarPoP.textContent = `${data.siteData.forecastGroup[0].forecast[0].abbreviatedForecast[0].pop[0]._}%`
+    forecastTopbarWind.textContent = `${data.siteData.forecastGroup[0].forecast[0].winds[0].wind[0].direction[0]}, ${data.siteData.forecastGroup[0].forecast[0].winds[0].wind[0].speed[0]._}km/h`
+    forecastA.textContent = `${data.siteData.forecastGroup[0].forecast[0].textSummary[0]}`;
 
-    const day0b = document.createElement("h1");
-    day0b.textContent = `Lows ${data.forecast.forecastday[0].day.mintemp_c}°C.`;
-    forecastDiv.appendChild(day0b);
+    //forecast slide (2/3)
 
-    const day1 = document.createElement("h1");
-    day1.textContent = `Tomorrow... ${data.forecast.forecastday[1].day.condition.text}. With a high of ${data.forecast.forecastday[1].day.maxtemp_c}°C.`;
-    forecastDiv.appendChild(day1);
+    const forecastTitle2 = document.getElementById("forecast2-cityname")
+    const forecastTopbarDay2 = document.getElementById("forecast2-dayname")
+    const forecastTopbarCondition2 = document.getElementById("forecast2-conditionname")
+    const forecastTopbarPoP2 = document.getElementById("forecast2-pop-value")
+    const forecastTopbarWind2 = document.getElementById("forecast2-wind-value")
+    const forecastB = document.getElementById("forecastB")
 
-    const day1a = document.createElement("h1");
-    day1a.textContent = `Winds up to... ${data.forecast.forecastday[1].day.maxwind_kph}KM/H. The UV index will be ${data.forecast.forecastday[1].day.uv}.`;
-    forecastDiv.appendChild(day1a);
+    forecastTitle2.innerHTML = ``
+    forecastTopbarDay2.innerHTML = ``
+    forecastTopbarCondition2.innerHTML = ``
+    forecastTopbarPoP2.innerHTML = ``
+    forecastTopbarWind2.innerHTML = ``
 
-    const day2 = document.createElement("h1");
-    day2.textContent = `Day two... ${data.forecast.forecastday[2].day.condition.text}. With a high of ${data.forecast.forecastday[2].day.maxtemp_c}°C.`;
-    forecastDiv.appendChild(day2);
+    forecastTitle2.textContent = `LOCAL FORECAST FOR ${data.siteData.location[0].name[0]._}`;
+    forecastTopbarDay2.textContent = `${data.siteData.forecastGroup[0].forecast[1].period[0].$.textForecastName}`
+    forecastTopbarCondition2.textContent = `${data.siteData.forecastGroup[0].forecast[1].abbreviatedForecast[0].textSummary[0]}`
+    forecastTopbarPoP2.textContent = `${data.siteData.forecastGroup[0].forecast[1].abbreviatedForecast[0].pop[0]._}%`
+    forecastTopbarWind2.textContent = `${data.siteData.forecastGroup[0].forecast[1].winds[0].wind[0].direction[0]}, ${data.siteData.forecastGroup[0].forecast[0].winds[0].wind[0].speed[0]._}km/h`
+    forecastB.textContent = `${data.siteData.forecastGroup[0].forecast[1].textSummary[0]}`;
 
-    const day3 = document.createElement("h1");
-    day3.textContent = `Day three... ${data.forecast.forecastday[3].day.condition.text}. With a high of ${data.forecast.forecastday[3].day.maxtemp_c}°C.`;
-    forecastDiv.appendChild(day3);
+    //forecast slide (3/3)
+    const forecastTitle3 = document.getElementById("forecast3-cityname")
+    const forecastTopbarDay3 = document.getElementById("forecast3-dayname")
+    const forecastTopbarCondition3 = document.getElementById("forecast3-conditionname")
+    const forecastTopbarPoP3 = document.getElementById("forecast3-pop-value")
+    const forecastTopbarWind3 = document.getElementById("forecast3-wind-value")
+    const forecastC = document.getElementById("forecastC")
 
-    //forecast slide (continued)
-    const forecast2title = document.createElement("h3");
-    forecast2title.textContent = `Extended Outlook (Continued)`;
-    forecast2Div.appendChild(forecast2title);
+    forecastTitle3.innerHTML = ``
+    forecastTopbarDay3.innerHTML = ``
+    forecastTopbarCondition3.innerHTML = ``
+    forecastTopbarPoP3.innerHTML = ``
+    forecastTopbarWind3.innerHTML = ``
 
-    const day4 = document.createElement("h1");
-    day4.textContent = `Day four... ${data.forecast.forecastday[4].day.condition.text}. With a high of ${data.forecast.forecastday[4].day.maxtemp_c}°C.`;
-    forecast2Div.appendChild(day4);
+    forecastTitle3.textContent = `LOCAL FORECAST FOR ${data.siteData.location[0].name[0]._}`;
+    forecastTopbarDay3.textContent = `${data.siteData.forecastGroup[0].forecast[2].period[0].$.textForecastName}`
+    forecastTopbarCondition3.textContent = `${data.siteData.forecastGroup[0].forecast[2].abbreviatedForecast[0].textSummary[0]}`
+    forecastTopbarPoP3.textContent = `${data.siteData.forecastGroup[0].forecast[2].abbreviatedForecast[0].pop[0]._}%`
+    forecastTopbarWind3.textContent = `${data.siteData.forecastGroup[0].forecast[2].winds[0].wind[0].direction[0]}, ${data.siteData.forecastGroup[0].forecast[0].winds[0].wind[0].speed[0]._}km/h`
+    forecastC.textContent = `${data.siteData.forecastGroup[0].forecast[2].textSummary[0]}`;
 
-    const day4a = document.createElement("h1");
-    day4a.textContent = `Lows ${data.forecast.forecastday[4].day.mintemp_c}°C.`;
-    forecast2Div.appendChild(day4a);
-
-    const day5 = document.createElement("h1");
-    day5.textContent = `Day five... ${data.forecast.forecastday[5].day.condition.text}. With a high of ${data.forecast.forecastday[5].day.maxtemp_c}°C.`;
-    forecast2Div.appendChild(day5);
-    
-    const day5a = document.createElement("h1");
-    day5a.textContent = `Lows ${data.forecast.forecastday[5].day.mintemp_c}°C.`;
-    forecast2Div.appendChild(day5a);
-
-    const day6 = document.createElement("h1");
-    day6.textContent = `Day six... ${data.forecast.forecastday[6].day.condition.text}. With a high of ${data.forecast.forecastday[6].day.maxtemp_c}°C.`;
-    forecast2Div.appendChild(day6);
-
-    const day6a = document.createElement("h1");
-    day6a.textContent = `Lows ${data.forecast.forecastday[6].day.mintemp_c}°C.`;
-    forecast2Div.appendChild(day6a);
-
-    //air quality slide
-    const aqititle = document.createElement("h3")
-    aqititle.textContent = `Air Quality for ${data.location.name}`
-    aqiDiv.appendChild(aqititle)
-
-    const pm25 = document.createElement("h1")
-    pm25.textContent = `PM 2.5 (Particulate Matter Less Than 10 Microns): ${data.current.air_quality.pm2_5}`
-    aqiDiv.appendChild(pm25)
-
-    const pm10 = document.createElement("h1")
-    pm10.textContent = `PM 2.5 (Particulate Matter Less Than 10 Microns): ${data.current.air_quality.pm10}`
-    aqiDiv.appendChild(pm10)
-
-    const co = document.createElement("h1")
-    co.textContent = `Carbon Monoxide: ${data.current.air_quality.co}`
-    aqiDiv.appendChild(co)
-
-    const no2 = document.createElement("h1")
-    no2.textContent = `Nitrogen Dioxide: ${data.current.air_quality.no2}`
-    aqiDiv.appendChild(no2)
-
-    const so2 = document.createElement("h1")
-    so2.textContent = `Nitrogen Dioxide: ${data.current.air_quality.so2}`
-    aqiDiv.appendChild(so2)
-    
     //daypart slide
+
+    daypartDiv.innerHTML = ``;
+
     const dayparttitle = document.createElement("h3")
-    dayparttitle.textContent = `Daypart Forecast for ${data.location.name}`
+    dayparttitle.textContent = `DAYPART FORECAST FOR ${data.siteData.location[0].name[0]._}`
     daypartDiv.appendChild(dayparttitle)
 
-    const MORNING = document.createElement("h1")
-    MORNING.textContent = `This morning at 6 AM... ${data.forecast.forecastday[0].hour[6].condition.text}.
-    The temperature will be ${data.forecast.forecastday[0].hour[6].temp_c}°C or ${data.forecast.forecastday[0].hour[6].temp_f}°F.
-    Winds... ${data.forecast.forecastday[0].hour[6].wind_dir} @ ${data.forecast.forecastday[0].hour[6].wind_kph}KM/H.`
-    daypartDiv.appendChild(MORNING)
+    const hour0 = document.createElement("h1")
+    hour0.textContent = `${data.siteData.hourlyForecastGroup[0].hourlyForecast[0].$.dateTimeUTC} UTC... ${data.siteData.hourlyForecastGroup[0].hourlyForecast[0].condition[0]}... 
+    TEMP ${data.siteData.hourlyForecastGroup[0].hourlyForecast[0].temperature[0]._}°C... WINDS ${data.siteData.hourlyForecastGroup[0].hourlyForecast[0].wind[0].direction[0].$.windDirFull}, 
+    ${data.siteData.hourlyForecastGroup[0].hourlyForecast[0].wind[0].speed[0]._} KM/H... CHANCE OF PRECIPITATION ${data.siteData.hourlyForecastGroup[0].hourlyForecast[0].lop[0]._}%.`
+    daypartDiv.appendChild(hour0)
 
-    const lateMORNING = document.createElement("h1")
-    lateMORNING.textContent = `Later this morning at 9 AM... ${data.forecast.forecastday[0].hour[9].condition.text}.
-    The temperature will be ${data.forecast.forecastday[0].hour[9].temp_c}°C or ${data.forecast.forecastday[0].hour[9].temp_f}°F.
-    Winds... ${data.forecast.forecastday[0].hour[9].wind_dir} at ${data.forecast.forecastday[0].hour[9].wind_kph}KM/H.`
-    daypartDiv.appendChild(lateMORNING)
+    const hour1 = document.createElement("h1")
+    hour1.textContent = `${data.siteData.hourlyForecastGroup[0].hourlyForecast[2].$.dateTimeUTC} UTC... ${data.siteData.hourlyForecastGroup[0].hourlyForecast[2].condition[0]}... 
+    TEMP ${data.siteData.hourlyForecastGroup[0].hourlyForecast[2].temperature[0]._}°C... WINDS ${data.siteData.hourlyForecastGroup[0].hourlyForecast[2].wind[0].direction[0].$.windDirFull}, 
+    ${data.siteData.hourlyForecastGroup[0].hourlyForecast[2].wind[0].speed[0]._} KM/H... CHANCE OF PRECIPITATION ${data.siteData.hourlyForecastGroup[0].hourlyForecast[2].lop[0]._}%.`
+    daypartDiv.appendChild(hour1)
 
-    const noon = document.createElement("h1")
-    noon.textContent = `At noon... ${data.forecast.forecastday[0].hour[12].condition.text}.
-    The temperature will be ${data.forecast.forecastday[0].hour[12].temp_c}°C or ${data.forecast.forecastday[0].hour[12].temp_f}°F.
-    Winds... ${data.forecast.forecastday[0].hour[12].wind_dir} at ${data.forecast.forecastday[0].hour[12].wind_kph}KM/H.`
-    daypartDiv.appendChild(noon)
+    const hour2 = document.createElement("h1")
+    hour2.textContent = `${data.siteData.hourlyForecastGroup[0].hourlyForecast[4].$.dateTimeUTC} UTC... ${data.siteData.hourlyForecastGroup[0].hourlyForecast[4].condition[0]}... 
+    TEMP ${data.siteData.hourlyForecastGroup[0].hourlyForecast[4].temperature[0]._}°C... WINDS ${data.siteData.hourlyForecastGroup[0].hourlyForecast[4].wind[0].direction[0].$.windDirFull}, 
+    ${data.siteData.hourlyForecastGroup[0].hourlyForecast[4].wind[0].speed[0]._} KM/H... CHANCE OF PRECIPITATION ${data.siteData.hourlyForecastGroup[0].hourlyForecast[4].lop[0]._}%.`
+    daypartDiv.appendChild(hour2)
 
-    //daypart slide (continued)
-    const daypart2title = document.createElement("h3")
-    daypart2title.textContent = `Daypart Forecast (CONTINUED)`
-    daypartDiv2.appendChild(daypart2title)
-
-    const afternoon = document.createElement("h1")
-    afternoon.textContent = `In the afternoon at 3 PM... ${data.forecast.forecastday[0].hour[15].condition.text}.
-    The temperature will be ${data.forecast.forecastday[0].hour[15].temp_c}°C or ${data.forecast.forecastday[0].hour[15].temp_f}°F.
-    Winds... ${data.forecast.forecastday[0].hour[15].wind_dir} at ${data.forecast.forecastday[0].hour[15].wind_kph}KM/H.`
-    daypartDiv2.appendChild(afternoon)
-
-    const evening = document.createElement("h1")
-    afternoon.textContent = `In the evening AT 7 PM... ${data.forecast.forecastday[0].hour[19].condition.text}.
-    The temperature will be ${data.forecast.forecastday[0].hour[19].temp_c}°C or ${data.forecast.forecastday[0].hour[19].temp_f}°F.
-    Winds... ${data.forecast.forecastday[0].hour[19].wind_dir} @ ${data.forecast.forecastday[0].hour[19].wind_kph}KM/H.`
-    daypartDiv2.appendChild(evening)
-
-    const night = document.createElement("h1")
-    night.textContent = `At 10 PM tonight... ${data.forecast.forecastday[0].hour[22].condition.text}.
-    The temperature will be ${data.forecast.forecastday[0].hour[22].temp_c}°C or ${data.forecast.forecastday[0].hour[22].temp_f}°F.
-    Winds... ${data.forecast.forecastday[0].hour[22].wind_dir} @ ${data.forecast.forecastday[0].hour[22].wind_kph}KM/H. Overnight lows are expected to be ${data.forecast.forecastday[0].day.mintemp_c}°C.`
-    daypartDiv2.appendChild(night)
-
-    const lastupdate = document.createElement("p")
-    lastupdate.textContent = `INFORMATION LAST UPDATED: ${data.current.last_updated} (if this is old then there is probably something wrong)`
-    daypartDiv2.appendChild(lastupdate)
+    const hour3 = document.createElement("h1")
+    hour3.textContent = `${data.siteData.hourlyForecastGroup[0].hourlyForecast[6].$.dateTimeUTC} UTC... ${data.siteData.hourlyForecastGroup[0].hourlyForecast[6].condition[0]}... 
+    TEMP ${data.siteData.hourlyForecastGroup[0].hourlyForecast[6].temperature[0]._}°C... WINDS ${data.siteData.hourlyForecastGroup[0].hourlyForecast[6].wind[0].direction[0].$.windDirFull}, 
+    ${data.siteData.hourlyForecastGroup[0].hourlyForecast[6].wind[0].speed[0]._} KM/H... CHANCE OF PRECIPITATION ${data.siteData.hourlyForecastGroup[0].hourlyForecast[6].lop[0]._}%.`
+    daypartDiv.appendChild(hour3)
 
     //radar slide
           function fetchRadarImage() {
@@ -282,18 +241,15 @@ function updateWeatherData(location) {
             console.error('Error fetching JSON data:', error);
           });
       }
-      
       // Fetch radar image initially
       fetchRadarImage();
       
       // Fetch radar image every 5 minutes (300,000 milliseconds)
       setInterval(fetchRadarImage, 300000);
 
-          //  loadingDiv.style.display = 'none'; // Hide loading screen
-
       // Return the next location for the "Up Next" text
       const nextLocationIndex = (currentLocationIndex + 1) % locations.length;
-            return locations[nextLocationIndex];
+            return locations[nextLocationIndex].name;
           });
 }
 
