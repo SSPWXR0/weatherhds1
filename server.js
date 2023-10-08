@@ -42,7 +42,7 @@ app.get('/api/eccc/:province/:code/:language', async (req, res) => {
   }
 });
 
-app.get('/api/radar/latest', async (req, res) => {
+app.get('/api/eccc/radar', async (req, res) => {
   const radarDirectories = [
     'PNR', // Add more radar directories as needed
     'PYR',
