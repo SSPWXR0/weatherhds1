@@ -1,5 +1,6 @@
 <img src="https://github.com/SSPWXR0/weatherhds1/blob/main/public/img/hdslogo.png">
 <h1>WeatherHDS (Weather HTML Display System)</h1>
+<h3>ATTENTION: This software is slowly being phased out in favour of WeatherHDS 2!</h3>
   <p>A very basic weather display application that displays weather information from Environment Canada on an HTML page. Suitable for continuous weather channel broadcasts.</p>
 <h1>Configuration</h1>
 <p>*Node.js is required!</p>
