@@ -1,5 +1,4 @@
 const containers = document.getElementsByClassName('container');
-const backgroundContainer = document.getElementById('background-container');
 let currentContainerIndex = 0;
 let interval;
 let isHidden = false;

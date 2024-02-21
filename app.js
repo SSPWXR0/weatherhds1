@@ -5,10 +5,8 @@ const { parseString } = require('xml2js');
 const app = express();
 const port = 3000;
 
-// Serve the 'public' directory as static files
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Start the server on port 3000
 app.listen(port, () => {
   console.log('Server is running on http://localhost:3000');
 });
@@ -17,7 +15,6 @@ app.get('/api/eccc/:province/:code/:language', async (req, res) => {
   try {
     const { province, code, language } = req.params;
 
-    // Construct the URL based on the provided parameters
     const url = `https://dd.weather.gc.ca/citypage_weather/xml/${province}/${code}_${language}.xml`;
     
     const response = await fetch(url);
@@ -30,9 +27,7 @@ app.get('/api/eccc/:province/:code/:language', async (req, res) => {
       }
       
       const jsonData = result;
-      // Now you can process jsonData and extract the required information
       
-      // Send the weather data as JSON response
       res.json(jsonData);
       console.log(`Pushed Environment Canada weather info for ${code} to client.`);
     });
@@ -44,7 +39,7 @@ app.get('/api/eccc/:province/:code/:language', async (req, res) => {
 
 app.get('/api/eccc/radar', async (req, res) => {
   const radarDirectories = [
-    'PNR', // Add more radar directories as needed
+    'PNR',
     'PYR',
     'NATIONAL'
   ];
@@ -85,7 +80,6 @@ app.get('/api/eccc/radar', async (req, res) => {
     }
 
     if (radarData.length > 0) {
-      // Send the radar data as JSON response
       res.json(radarData);
     } else {
       res.status(404).json({ error: 'No radar images found on the server.' });

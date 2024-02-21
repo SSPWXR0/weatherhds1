@@ -4,22 +4,13 @@
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/x-icon" href="./img/favicon.png">
 </head>
-
-<footer>
-    <img height="30" src="/img/hdslogo.png"> weatherHDS version 2023.12.31
-</footer>
-
 <body>
-
-<br>
-
 <div class="view">
-
     <img id="overlay" src="/graphics/weatherhds-overlay-HD.png">
     <div id="paused">***LOCAL FORECAST IS PAUSED!***</div>
     <div id="bottom-info">
         &nbsp;
-        <img id="operator_logo" height="30" style="z-index: 3;" src="img/sspwxr.png">
+        <img id="operator_logo" height="30" style="z-index: 3;" src="img/meteoch.png">
         <div id="datetime"></div>
         <div id="seasonmsg"></div>
         &nbsp;
@@ -29,20 +20,29 @@
 
 <!--start of main slides i guess-->
 
-  <div class="container" style="font-size: x-large;" id="background-container">
-    <img height="30" style="text-align: left;" src="/img/hdslogo.png">
-    <div id="upNext"></div>
-    <br>
-    <div id="logos">
-        <img src="img/sspwxr.png" width="150">
-        <img src="img/hdslogo.png" width="512">
+  <div class="container" style="font-size: x-large;" id="stationid">
+    <div class="title-bar" id="stationid-title-container">Welcome</div>
+    <div class="main-info-container">
+        <div class="main-info-logos">
+            <img class="main-info-channelLogo" src="./img/meteo_byowc.png">
+            <div class="main-info-operatorLogos">
+                <h6 class="main-info-logos-label">A project of</h6>
+                <img class="sspwxrLogo" src="./img/sspwxr.png">
+                <img class="netLogo" src="./img/kodi2023.png">
+            </div>
+        </div>
+        <div style="display: none;" id="textElement"></div>
+        <div class="main-info-links">
+            <h6>KODI IP Cable Network</h6>
+            <h6>www.kodicable.net</h6>
+        </div>
+        <div class="main-info-hds1info">
+            <img class="hdsLogo" src="./img/hdslogo.png" alt="WeatherHDS 1 logo">
+            <h6 class="versionID">version 1-2024.02.21</h3>
+        </div>
     </div>
-    <span style="text-align: center;">
-        <div id="textElement"></div>
-        <h6>Data source: Environment and Climate Change Canada. SSPWXR and other affiliated groups are not endorsed by or associated with Environment and Climate Change Canada.</h6>
-        <h1>weather</h1>
-        <h1>www.github.com/SSPWXR0/weatherhds1/</h1>
-    </span>
+    <div id="upNext"></div>
+    <h6 class="dataSource">Data source: Environment and Climate Change Canada. SSPWXR and other affiliated groups are not endorsed by or associated with Environment and Climate Change Canada.</h6>
   </div>
 
 
@@ -123,11 +123,10 @@
     <div id="the-stupid-thing-that-tells-you-about-the-sun"></div>
 </div>
 
-<!--<div class="container" id="aqi">NOT AVAILABLE</div>-->
-
-<div class="container" id="daypart">NOT AVAILABLE</div>
-
-<!--<div class="container" id="daypart2">NOT AVAILABLE</div>-->
+<div class="container" id="daypart">
+    <div class="title-bar" id="daypart-title-container">No weather data available</div>
+    <div id="main-daypart-i-hate-this-slide"></div>
+</div>
 
 <div class="container" id="radarDiv"></div>
    </div>
@@ -156,4 +155,5 @@
   <script src="/javascript/datetime.js"></script>
   <script src="/javascript/slides.js"></script>
   <script src="/javascript/message.js"></script>
+  <script src="/javascript/window.js"></script>
 </body>
