@@ -5,8 +5,8 @@
 <h1>Configuration</h1>
 <p>*Node.js is required!</p>
 <p>Dependencies: Express.js, Path, and XML2JS</p>
-<p>By default, the system comes with six locations that equate to a one hour broadcast cycle. To add/remove locations, modify the list at the top of weathermanager.js.</p>
-<p>The system rotates between these location every 10 minutes. To change this interval, it is located at the very bottom of weathermanager.js.</p>
+<p>By default, the system comes with 12 locations that equate to a one hour broadcast cycle. To add/remove locations, modify the list at the top of weathermanager.js.</p>
+<p>The system rotates between these location every 5 minutes. To change this interval, it is located at the very bottom of weathermanager.js.</p>
 <p>slides.js manages how the slides work. Currently, it switches between the HTML containers every 11 seconds.</p>
 <p>To add more slides, simply add another div with the "container" class in index.html.</p>
 <h1>Features</h1>
