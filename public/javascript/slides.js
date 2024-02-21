@@ -5,24 +5,12 @@ let interval;
 let isHidden = false;
 let isPaused = false;
 
-  // Add whatever jpg image to this list and it will cycle through them at the intro screen.
-  var images = [
-    "backgrounds/add_more_images_in_slides_js.jpg",
-    ];
-    
 function showNextContainer() {
   containers[currentContainerIndex].classList.remove('visible');
 
   currentContainerIndex = (currentContainerIndex + 1) % containers.length;
 
   containers[currentContainerIndex].classList.add('visible');
-
-  if (currentContainerIndex === 0) {
-
-    var randomImage = images[Math.floor(Math.random() * images.length)];
-
-    backgroundContainer.style.backgroundImage = "url('" + randomImage + "')";
-  }
 }
 
 containers[currentContainerIndex].classList.add('visible');

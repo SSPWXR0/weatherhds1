@@ -137,7 +137,7 @@ function updateWeatherData(location) {
     forecastTopbarPoP.innerHTML = ``
     forecastTopbarWind.innerHTML = ``
 
-    forecastTitle.textContent = `LOCAL FORECAST FOR ${data.siteData.location[0].name[0]._}`;
+    forecastTitle.textContent = `${data.siteData.location[0].name[0]._}`;
     forecastTopbarDay.textContent = `${data.siteData.forecastGroup[0].forecast[0].period[0].$.textForecastName}`
     forecastTopbarCondition.textContent = `${data.siteData.forecastGroup[0].forecast[0].abbreviatedForecast[0].textSummary[0]}`
     forecastTopbarPoP.textContent = `${data.siteData.forecastGroup[0].forecast[0].abbreviatedForecast[0].pop[0]._}%`
@@ -159,7 +159,7 @@ function updateWeatherData(location) {
     forecastTopbarPoP2.innerHTML = ``
     forecastTopbarWind2.innerHTML = ``
 
-    forecastTitle2.textContent = `LOCAL FORECAST FOR ${data.siteData.location[0].name[0]._}`;
+    forecastTitle2.textContent = `${data.siteData.location[0].name[0]._}`;
     forecastTopbarDay2.textContent = `${data.siteData.forecastGroup[0].forecast[1].period[0].$.textForecastName}`
     forecastTopbarCondition2.textContent = `${data.siteData.forecastGroup[0].forecast[1].abbreviatedForecast[0].textSummary[0]}`
     forecastTopbarPoP2.textContent = `${data.siteData.forecastGroup[0].forecast[1].abbreviatedForecast[0].pop[0]._}%`
@@ -180,7 +180,7 @@ function updateWeatherData(location) {
     forecastTopbarPoP3.innerHTML = ``
     forecastTopbarWind3.innerHTML = ``
 
-    forecastTitle3.textContent = `LOCAL FORECAST FOR ${data.siteData.location[0].name[0]._}`;
+    forecastTitle3.textContent = `${data.siteData.location[0].name[0]._}`;
     forecastTopbarDay3.textContent = `${data.siteData.forecastGroup[0].forecast[2].period[0].$.textForecastName}`
     forecastTopbarCondition3.textContent = `${data.siteData.forecastGroup[0].forecast[2].abbreviatedForecast[0].textSummary[0]}`
     forecastTopbarPoP3.textContent = `${data.siteData.forecastGroup[0].forecast[2].abbreviatedForecast[0].pop[0]._}%`
@@ -226,16 +226,9 @@ function updateWeatherData(location) {
           .then((data) => {
             // Assuming the JSON data has an 'imageUrl' property with the image URL
             const imageUrl = data[5].imageUrl; // Replace 'imageUrl' with the actual property name from your JSON data
-      
-            // Create an img element and set its src attribute to the image URL
-            const radar = document.createElement("img");
-            radar.classList.add('radar'); // Add a CSS class to the image
-            radar.src = imageUrl;
-      
-            // Append the image element to the desired container in your HTML
-            const radarDiv = document.getElementById('radarDiv'); // Replace 'daypartDiv2' with the ID of the container where you want to display the image
-            radarDiv.innerHTML = ''; // Clear the container before appending the new image to avoid duplicate images
-            radarDiv.appendChild(radar);
+            document.getElementById('radarDiv').style.backgroundImage = `url(${imageUrl})`
+            document.getElementById('radarDiv').style.backgroundSize = `100% 100%`
+            document.getElementById('radarDiv').style.imageRendering = `pixelated`
           })
           .catch((error) => {
             console.error('Error fetching JSON data:', error);

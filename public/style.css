@@ -1,8 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Jost:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100;200;300;400;500&display=swap');
 :root {
-  --mainFontFamily: Jost;
-  --ldlFontFamily: Inter;
+  --mainFontFamily: Lexend Deca;
+  --ldlFontFamily: Lexend Deca;
 }
 
 body {
@@ -14,7 +13,7 @@ body {
   #LDL-main {
     width: 90%;
     height: 12%;
-    top: 86.5%;
+    top: 80.5%;
     position: absolute;
     font-family: 'Inter', sans-serif;
     transform: translateX(5%);
@@ -34,13 +33,13 @@ body {
   }
 .LDL-titles {
   display: flex;
-  flex-direction: row; /* Horizontal arrangement */
-  justify-content: space-between; /* Equal space between items */
+  flex-direction: row;
+  justify-content: space-between;
 }
 .LDL-products {
   display: flex;
-  flex-direction: row; /* Horizontal arrangement */
-  justify-content: space-between; /* Equal space between items */
+  flex-direction: row;
+  justify-content: space-between;
 }
   .view {
     width: 800px;
@@ -58,12 +57,11 @@ body {
   }
 
   .container {
-    background-color: rgba(94, 132, 255, 0); /* Adjust the background color and opacity as needed */
+    background-color: rgba(94, 132, 255, 0);
     overflow: hidden;
-    height: 430px;
-    width: 98%;
+    height: 100%;
+    width: 100%;
     display: none;
-    top: 2%;
     position: relative;
 }
 h1 {
@@ -87,11 +85,9 @@ h3 {
     margin-left: 4px;
   }
   #slideshow {
-    top: 2%;
-    left: 2%;
-    width: 98%;
     position: inherit;
-    height: 60%;
+    outline: white;
+    height: 75%;
   }
   
   .visible {
@@ -100,10 +96,6 @@ h3 {
 
   #background-container {
     background-image: url("https://media.discordapp.net/attachments/846581893200871484/1136811761257959566/channels4_profile.png");
-    width: 98.8%;
-    height: 121.13%;
-    top: 0%;
-    left: -0.4%;
     background: none;
     background-repeat: no-repeat;
     background-position: center;
@@ -115,7 +107,7 @@ h3 {
   #logos {
     display: flex;
     flex-direction: column;
-    align-items: center; /* This centers the logos horizontally */
+    align-items: center;
   }
   
   #logos img {
@@ -132,7 +124,7 @@ h3 {
 
   #upNext {
     position: absolute;
-    bottom: 0.5%;
+    bottom: 0%;
     font-size: 22.5px;
   }
 
@@ -149,9 +141,7 @@ h3 {
     z-index: 3;
   }
   .radar {
-    width: 100%;
-    height: 100%;
-    z-index: 1;
+    object-fit: contain;
   }
 
   #paused {
@@ -167,15 +157,15 @@ h3 {
     text-align: center;
     z-index: 3;
   }
-  #top {
-    width: 90%;
+  #bottom-info {
+    width: 100%;
     display: flex;
     z-index: 3;
     flex-direction: row;
     justify-content: space-between;
-    transform: translateX(5%) translateY(40%);
     text-align: center;
-    position: relative;
+    position: absolute;
+    top: 93.5%;
   }
   #current-1-container {
     width: 30%;
@@ -229,10 +219,15 @@ h3 {
     height: 16%;
     line-height: 145%;
     border-radius: 0.5vw;
+    height: 100%;
+    width: 20%;
+    margin: auto 0;
+    word-wrap: break-word;
+    overflow: hidden;
   }
   .forecast-topbar-datacontainer {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
     text-overflow: clip;
   }
@@ -250,11 +245,26 @@ h3 {
     display: flex;
     flex-direction: row;
   }
+  #forecastA {
+    top: 0%;
+    position: absolute;
+    width: 75%;
+    right: 0%;
+  }
+  #forecastB {
+    top: 0%;
+    position: absolute;
+    width: 75%;
+    right: 0%;
+  }
+  #forecastC {
+    top: 0%;
+    position: absolute;
+    width: 75%;
+    right: 0%;
+  }
   .topbar-label {
     position: relative;
     font-weight: bold;
     top: 25%;
-  }
-  .topbar-value {
-    font-size: 180%;
   }
