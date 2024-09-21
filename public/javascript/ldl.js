@@ -2,13 +2,22 @@ const ldlText = document.getElementById('ldl-weather-text');
 
 async function LDLData() {
   try {
-    const [response, configResponse] = await Promise.all([
-      fetch('./ldlData.json'),
-      fetch('./config.json')
-    ]);
 
-    const data = await response.json();
-    const config = await configResponse.json();
+    let data;
+    let config;
+
+    async function fetchData() {
+      const [response, configResponse] = await Promise.all([
+        fetch('./ldlData.json'),
+        fetch('./config.json')
+      ]);
+  
+      data = await response.json();
+      config = await configResponse.json();
+    }
+
+    fetchData()
+    setInterval(fetchData, 10000)
 
     let locationIndex = 0;
 
@@ -62,7 +71,8 @@ Visibility: ${currentData.visibility} km. Ceiling: ${currentData.cloudCeiling}`;
       }
     }
 
-    processNextLocation();
+    setTimeout(processNextLocation, 500)
+    
   } catch (error) {
     console.error('erm what the', error);
   }
