@@ -1,4 +1,4 @@
-<img src="https://github.com/SSPWXR0/weatherhds1/blob/main/public/img/hdslogo_2024.png">
+<img src="https://github.com/SSPWXR0/weatherhds1/blob/master/public/images/hdslogo_2024.png">
 <body>
   <h1>WeatherHDS (Weather HTML Display System)</h1>
 
