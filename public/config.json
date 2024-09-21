@@ -1,0 +1,29 @@
+{
+    "networkName": "METEOChannel",
+    "affiliateName": "Mist Streaming",
+    "channelNumber": "sspwxr02",
+    
+    "twcApiKey": "",
+
+    "locations": [
+        "Saskatoon, SK",
+        "Regina, SK",
+        "Edmonton, AB",
+        "Calgary, AB",
+        "Vancouver, BC"
+    ],
+    "ldlLocations": [
+        "Saskatoon, SK",
+        "Prince Albert, SK",
+        "North Battleford, SK",
+        "Winnipeg, MB"
+    ],
+    "units": "m",
+    "debugger": true,
+    "webPort": 3000,
+    "militaryTime": true,
+    "seasons": {
+        "winter": true,
+        "spring": true
+    }
+}

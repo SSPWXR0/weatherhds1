@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<head>
+    <title>WeatherHDS TEXT HANDLER</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="./images/favicon.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+</head>
+
+<body>
+    <div class="view">
+        <div class="wallpaper"></div>
+
+        <div class="topbar">
+            <div class="topbar-channel-info">
+                <div id="topbar-channel-logo-container" class="topbar-channel-logo"></div>
+                <div id="topbar-affiliate-logo-container" class="topbar-affiliate-logo"></div>
+            </div>
+            <div class="topbar-datetime">
+                <div id="date"></div>
+                <div id="time"></div>
+            </div>
+            <div class="topbar-presentation-info">
+                <div class="topbar-presentationinfo-thingies" id="topbar-presentationinfo-currentlocation">
+                    <span class="material-symbols-outlined">
+                        location_on
+                        </span>
+                    <p id="current-location"></p>
+                </div>
+                <div class="topbar-presentationinfo-thingies" id="topbar-presentationinfo-currentslide">
+                    <span class="material-symbols-outlined">
+                        transition_slide
+                        </span>
+                    <p id="current-slide"></p>
+                </div>
+                <div class="topbar-presentationinfo-thingies" id="topbar-presentationinfo-nextlocation">
+                    <span class="material-symbols-outlined">
+                        map
+                        </span>
+                    <p id="upnext-location"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-slides">
+
+            <div id="stationid" class="main-slide">
+                <div class="main-current-stationid-container">
+                    <img id="station-id-logo" src="/images/meteoch.png" alt="Network Logo" class="main-stationid-netlogo">
+                    <br>
+                    <h2 id="station-id-affiliatename"></h2>
+                    <h3 id="station-id-channelid"></h3>
+                </div>
+                <div class="main-current-stationid-extrainfo">
+                    <br>
+                    <img height="20px" src="/images/hdslogo_2024.png">
+                    <h5 class="station-id-bottom-text">version 1-2024.09.19</h5>
+                    <br>
+                </div>
+            </div>
+
+          <!--<div id="alerts" class="main-slide"></div>-->  
+
+            <div id="current" class="main-slide">
+                <div class="main-current-slide-container">
+                    <div id="current-background" class="main-current-leftcontainer">
+                        <div id="main-current-condition">No Data</div>
+                        <img src="/graphics/not-available.svg" id="main-current-icon">
+                        <div id="main-current-temp">--°C</div>
+                    </div>
+                    <div class="main-current-rightcontainer">
+                        <div id="main-current-extralabels"></div>
+                        <div id="main-current-extradata"></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="forecast-shortterm" class="main-slide">
+                <div class="main-shortterm-slide-container">
+                    <div class="forecast-shortterm-summary">
+                        <div class="forecast-shortterm-title" id="forecast-shorttermd1-title"></div>
+                        <img class="forecast-shortterm-icon" src="/graphics/not-available.svg" id="main-forecast-shorttermd1-icon">
+                        <div class="forecast-shortterm-condition" id="forecast-shorttermd1-condition"></div>
+                        <div class="forecast-shortterm-temp" id="forecast-shorttermd1-temp"></div>
+                    </div>
+                    <div class="forecast-shortterm-text" id="forecast-shorttermd1-text"></div>
+                </div>
+            </div>
+            
+            <div id="forecast-shortterm-d2" class="main-slide">
+                <div class="main-shortterm-slide-container">
+                    <div class="forecast-shortterm-summary">
+                        <div class="forecast-shortterm-title" id="forecast-shorttermd2-title"></div>
+                        <img class="forecast-shortterm-icon" src="/graphics/not-available.svg" id="main-forecast-shorttermd2-icon">
+                        <div class="forecast-shortterm-condition" id="forecast-shorttermd2-condition"></div>
+                        <div class="forecast-shortterm-temp" id="forecast-shorttermd2-temp"></div>
+                    </div>
+                    <div class="forecast-shortterm-text" id="forecast-shorttermd2-text"></div>
+                </div>
+            </div>
+
+            <div id="forecast-extended" class="main-slide">
+                <div class="main-forecast-slide-container">
+                    <div class="main-forecast-day">
+                        <div id="forecast-day3-title" class="main-forecast-title">TODAY</div>
+                        <div id="forecast-day3-condition" class="main-forecast-condition">Mostly Sunny</div>
+                        <img id="forecast-day3-icon" class="main-forecast-icon" src="/graphics/partly-cloudy-day.svg">
+                        <div class="main-forecast-temp-labels">
+                            <p>HIGH</p>
+                            <p>LOW</p>
+                        </div>
+                        <div class="main-forecast-temp">
+                            <div id="forecast-day3-high" class="main-forecast-temp-high">12°C</div>
+                            <div id="forecast-day3-low" class="main-forecast-temp-low">13­°C</div>
+                        </div>
+                        <div class="main-forecast-labels">WIND</div>
+                        <div id="forecast-day3-wind" class="main-forecast-wind">NNW, 15km/h</div>
+                        <div class="main-forecast-labels">CHANCE OF PRECIP.</div>
+                        <div id="forecast-day3-pop" class="main-forecast-pop">99%</div>
+                    </div>
+
+                    <div class="main-forecast-day">
+                        <div id="forecast-day4-title" class="main-forecast-title">TODAY</div>
+                        <div id="forecast-day4-condition" class="main-forecast-condition">Mostly Sunny</div>
+                        <img id="forecast-day4-icon" class="main-forecast-icon" src="/graphics/partly-cloudy-day.svg">
+                        <div class="main-forecast-temp-labels">
+                            <p>HIGH</p>
+                            <p>LOW</p>
+                        </div>
+                        <div class="main-forecast-temp">
+                            <div id="forecast-day4-high" class="main-forecast-temp-high">12°C</div>
+                            <div id="forecast-day4-low" class="main-forecast-temp-low">13­°C</div>
+                        </div>
+                        <div class="main-forecast-labels">WIND</div>
+                        <div id="forecast-day4-wind" class="main-forecast-wind">NNW, 15km/h</div>
+                        <div class="main-forecast-labels">CHANCE OF PRECIP.</div>
+                        <div id="forecast-day4-pop" class="main-forecast-pop">99%</div>
+                    </div>
+
+                    <div class="main-forecast-day">
+                        <div id="forecast-day5-title" class="main-forecast-title">TODAY</div>
+                        <div id="forecast-day5-condition" class="main-forecast-condition">Mostly Sunny</div>
+                        <img id="forecast-day5-icon" class="main-forecast-icon" src="/graphics/partly-cloudy-day.svg">
+                        <div class="main-forecast-temp-labels">
+                            <p>HIGH</p>
+                            <p>LOW</p>
+                        </div>
+                        <div class="main-forecast-temp">
+                            <div id="forecast-day5-high" class="main-forecast-temp-high">12°C</div>
+                            <div id="forecast-day5-low" class="main-forecast-temp-low">13­°C</div>
+                        </div>
+                        <div class="main-forecast-labels">WIND</div>
+                        <div id="forecast-day5-wind" class="main-forecast-wind">NNW, 15km/h</div>
+                        <div class="main-forecast-labels">CHANCE OF PRECIP.</div>
+                        <div id="forecast-day5-pop" class="main-forecast-pop">99%</div>
+                    </div>
+
+                    <div class="main-forecast-day">
+                        <div id="forecast-day6-title" class="main-forecast-title">TODAY</div>
+                        <div id="forecast-day6-condition" class="main-forecast-condition">Mostly Sunny</div>
+                        <img id="forecast-day6-icon" class="main-forecast-icon" src="/graphics/partly-cloudy-day.svg">
+                        <div class="main-forecast-temp-labels">
+                            <p>HIGH</p>
+                            <p>LOW</p>
+                        </div>
+                        <div class="main-forecast-temp">
+                            <div id="forecast-day6-high" class="main-forecast-temp-high">12°C</div>
+                            <div id="forecast-day6-low" class="main-forecast-temp-low">13­°C</div>
+                        </div>
+                        <div class="main-forecast-labels">WIND</div>
+                        <div id="forecast-day6-wind" class="main-forecast-wind">NNW, 15km/h</div>
+                        <div class="main-forecast-labels">CHANCE OF PRECIP.</div>
+                        <div id="forecast-day6-pop" class="main-forecast-pop">99%</div>
+                    </div>
+
+                    <div class="main-forecast-day">
+                        <div id="forecast-day7-title" class="main-forecast-title">TODAY</div>
+                        <div id="forecast-day7-condition" class="main-forecast-condition">Mostly Sunny</div>
+                        <img id="forecast-day7-icon" class="main-forecast-icon" src="/graphics/partly-cloudy-day.svg">
+                        <div class="main-forecast-temp-labels">
+                            <p>HIGH</p>
+                            <p>LOW</p>
+                        </div>
+                        <div class="main-forecast-temp">
+                            <div id="forecast-day7-high" class="main-forecast-temp-high">12°C</div>
+                            <div id="forecast-day7-low" class="main-forecast-temp-low">13­°C</div>
+                        </div>
+                        <div class="main-forecast-labels">WIND</div>
+                        <div id="forecast-day7-wind" class="main-forecast-wind">NNW, 15km/h</div>
+                        <div class="main-forecast-labels">CHANCE OF PRECIP.</div>
+                        <div id="forecast-day7-pop" class="main-forecast-pop">99%</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!--<div id="airquality" class="main-slide">cuming soon</div> -->
+
+            <!--LIFESTYLE PRODUCTS-->
+
+        </div>
+
+
+        <div class="ldl-weather">
+            <hr id="ldl-divider">
+            <h2 id="ldl-weather-text"></h2>
+        </div>
+
+    </div>
+</body>
+<script type="text/javascript" src="/javascript/weather.js"></script>
+<script type="text/javascript" src="/javascript/main.js"></script>
+<script type="text/javascript" src="/javascript/ldl.js"></script>
+<script type="text/javascript" src="/javascript/slides.js"></script>
