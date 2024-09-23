@@ -61,6 +61,7 @@ const weatherGifs = {
     "fog": ["20", "21", "22"] // Fog, Haze, Smoke
 };
 
+
 let locationIndex = 0;
 
 const upNextLocationText = document.getElementById('upnext-location');
@@ -88,6 +89,27 @@ async function mainData() {
           console.log(data)
 
           function processNextLocation() {
+
+            if (config.units == "e") {
+                endingTemp = "°F"
+                endingWind = "mph"
+                endingDistance = "mi"
+                endingMeasurement = "in"
+                endingCeiling= "ft"
+                endingPressure = "hg"
+                endingSnow = "in"
+                endingRain = "in"
+            } else if(config.units == "m") {
+                endingTemp = "°C"
+                endingWind = "km/h"
+                endingDistance = "km"
+                endingMeasurement = "mm"
+                endingCeiling = "m"
+                endingPressure = "mb"
+                endingSnow = "cm"
+                endingRain = "mm"
+            }
+
             if (locationIndex < config.locations.length) {
               const locationName = config.locations[locationIndex];
               const locationData = data[locationName];
@@ -166,7 +188,7 @@ async function mainData() {
                     currentExtraWxLabels.innerHTML = ``;
 
                     currentText.innerHTML = `${currentData.wxPhraseLong}`
-                    currentTemp.innerHTML = `${currentData.temperature}°C`
+                    currentTemp.innerHTML = `${currentData.temperature}${endingTemp}`
 
                     const iconCode = currentData.iconCode;
                     const dayOrNight = currentData.dayOrNight;
@@ -193,13 +215,13 @@ async function mainData() {
                     const dewpointLabel = document.createTextNode(`• Dewpoint:`);
                     const uviLabel = document.createTextNode(`• UV Index:`)
 
-                    const wind = document.createTextNode(`${currentData.windDirectionCardinal}, @ ${currentData.windSpeed}km/h`)
+                    const wind = document.createTextNode(`${currentData.windDirectionCardinal}, @ ${currentData.windSpeed} ${endingWind}`)
                     const humidity = document.createTextNode(`${currentData.relativeHumidity}%`);
-                    const pressure = document.createTextNode(`${currentData.pressureAltimeter}mb and ${currentData.pressureTendencyTrend}`);
-                    const ceiling = document.createTextNode(`${currentData.cloudCeiling}`);
-                    const visibility = document.createTextNode(`${currentData.visibility}km`);
+                    const pressure = document.createTextNode(`${currentData.pressureAltimeter}${endingPressure} and ${currentData.pressureTendencyTrend}`);
+                    const ceiling = document.createTextNode(`${currentData.cloudCeiling}${endingCeiling}`);
+                    const visibility = document.createTextNode(`${currentData.visibility} ${endingDistance}`);
                     const moon = document.createTextNode(`${latestData.weekly.moonPhase[0]}`);
-                    const dewpoint = document.createTextNode(`${currentData.temperatureDewPoint}°C`);
+                    const dewpoint = document.createTextNode(`${currentData.temperatureDewPoint}${endingTemp}`);
                     const uvi = document.createTextNode(`${currentData.uvIndex} of 11, or ${currentData.uvDescription}`)
 
                     currentExtraWxLabels.appendChild(windLabel);
@@ -290,7 +312,7 @@ async function mainData() {
                     dayTwoText.innerHTML = ``;
 
                     dayOneCondition.innerHTML = `${forecastData.daypart[0].wxPhraseLong[0] ?? forecastData.daypart[0]?.wxPhraseLong[1]}`
-                    dayOneTemp.innerHTML = `${forecastData.daypart[0].temperature[0] ?? forecastData.daypart[0]?.temperature[1]}°C`
+                    dayOneTemp.innerHTML = `${forecastData.daypart[0].temperature[0] ?? forecastData.daypart[0]?.temperature[1]}${endingTemp}`
                     dayOneTitle.innerHTML = `${forecastData.daypart[0].daypartName[0] ?? forecastData.daypart[0]?.daypartName[1]}`
 
                     const dayOneIconCode = forecastData.daypart[0].iconCode[0] ?? forecastData.daypart[0].iconCode[1];
@@ -304,7 +326,7 @@ async function mainData() {
                     // DAY TWO
 
                     dayTwoCondition.innerHTML = `${forecastData.daypart[0].wxPhraseLong[2]}`
-                    dayTwoTemp.innerHTML = `${forecastData.daypart[0].temperature[2]}°C`
+                    dayTwoTemp.innerHTML = `${forecastData.daypart[0].temperature[2]}${endingTemp}`
                     dayTwoTitle.innerHTML = `${forecastData.daypart[0].daypartName[2]}`
 
                     const dayTwoIconCode = forecastData.daypart[0].iconCode[2];
@@ -341,11 +363,11 @@ async function mainData() {
                     daySixTempLow.innerHTML = `${forecastData.calendarDayTemperatureMin[6]}`
                     daySevenTempLow.innerHTML = `${forecastData.calendarDayTemperatureMin[7]}`
                     
-                    dayThreeWind.innerHTML = `${forecastData.daypart[0].windDirectionCardinal[4]} ${forecastData.daypart[0].windSpeed[4]}km/h`
-                    dayFourWind.innerHTML = `${forecastData.daypart[0].windDirectionCardinal[6]} ${forecastData.daypart[0].windSpeed[6]}km/h`
-                    dayFiveWind.innerHTML = `${forecastData.daypart[0].windDirectionCardinal[8]} ${forecastData.daypart[0].windSpeed[8]}km/h`
-                    daySixWind.innerHTML = `${forecastData.daypart[0].windDirectionCardinal[10]} ${forecastData.daypart[0].windSpeed[10]}km/h`
-                    daySevenWind.innerHTML = `${forecastData.daypart[0].windDirectionCardinal[12]} ${forecastData.daypart[0].windSpeed[12]}km/h`
+                    dayThreeWind.innerHTML = `${forecastData.daypart[0].windDirectionCardinal[4]} ${forecastData.daypart[0].windSpeed[4]}${endingWind}`
+                    dayFourWind.innerHTML = `${forecastData.daypart[0].windDirectionCardinal[6]} ${forecastData.daypart[0].windSpeed[6]}${endingWind}`
+                    dayFiveWind.innerHTML = `${forecastData.daypart[0].windDirectionCardinal[8]} ${forecastData.daypart[0].windSpeed[8]}${endingWind}`
+                    daySixWind.innerHTML = `${forecastData.daypart[0].windDirectionCardinal[10]} ${forecastData.daypart[0].windSpeed[10]}${endingWind}`
+                    daySevenWind.innerHTML = `${forecastData.daypart[0].windDirectionCardinal[12]} ${forecastData.daypart[0].windSpeed[12]}${endingWind}`
 
                     dayThreePrecip.innerHTML = `${forecastData.daypart[0].precipChance[4]}%`
                     dayFourPrecip.innerHTML = `${forecastData.daypart[0].precipChance[6]}%`

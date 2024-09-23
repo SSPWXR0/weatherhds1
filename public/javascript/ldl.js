@@ -6,22 +6,38 @@ async function LDLData() {
     let data;
     let config;
 
-    async function fetchData() {
-      const [response, configResponse] = await Promise.all([
+    const [response, configResponse] = await Promise.all([
         fetch('./ldlData.json'),
         fetch('./config.json')
-      ]);
+    ]);
   
-      data = await response.json();
-      config = await configResponse.json();
-    }
-
-    fetchData()
-    setInterval(fetchData, 10000)
+    data = await response.json();
+    config = await configResponse.json();
 
     let locationIndex = 0;
 
     function processNextLocation() {
+
+      if (config.units == "e") {
+        endingTemp = "°F"
+        endingWind = "mph"
+        endingDistance = "mi"
+        endingMeasurement = "in"
+        endingCeiling= ""
+        endingPressure = "hg"
+        endingSnow = "in"
+        endingRain = "in"
+    } else if(config.units == "m") {
+        endingTemp = "°C"
+        endingWind = "km/h"
+        endingDistance = "km"
+        endingMeasurement = "mm"
+        endingCeiling = "m"
+        endingPressure = "mb"
+        endingSnow = "cm"
+        endingRain = "mm"
+    }
+
       if (locationIndex < config.ldlLocations.length) {
         const locationName = config.ldlLocations[locationIndex];
         const locationData = data[locationName];
@@ -38,11 +54,11 @@ async function LDLData() {
           const locationText = `Conditions at ${locationName}`;
           const weatherText = `
 ${currentData.wxPhraseLong}
-Temp: ${currentData.temperature}°C
-Humidity: ${currentData.relativeHumidity}% Dewpoint: ${currentData.temperatureDewPoint}°C
-Barometric Pressure: ${currentData.pressureMeanSeaLevel} mb.
-Wind: ${currentData.windDirectionCardinal} ${currentData.windSpeed} km/h
-Visibility: ${currentData.visibility} km. Ceiling: ${currentData.cloudCeiling}`;
+Temp: ${currentData.temperature}${endingTemp}
+Humidity: ${currentData.relativeHumidity}% Dewpoint: ${currentData.temperatureDewPoint}${endingTemp}
+Barometric Pressure: ${currentData.pressureMeanSeaLevel} ${endingPressure}.
+Wind: ${currentData.windDirectionCardinal} ${currentData.windSpeed} ${endingWind}
+Visibility: ${currentData.visibility} ${endingDistance}. Ceiling: ${currentData.cloudCeiling} ${endingCeiling}`;
 
 
             const fullText = [locationText, weatherText]

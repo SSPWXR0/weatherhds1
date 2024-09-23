@@ -3,7 +3,8 @@
     "affiliateName": "Mist Streaming",
     "channelNumber": "sspwxr02",
     
-    "twcApiKey": "",
+    "twcApiKey": "71f92ea9dd2f4790b92ea9dd2f779061",
+    "commentOnProvidedAPIKey": "suck it, TWC. next time hide your stuff better.",
 
     "locations": [
         "Saskatoon, SK",
@@ -18,7 +19,7 @@
         "North Battleford, SK",
         "Winnipeg, MB"
     ],
-    "units": "m",
+    "units": "e",
     "debugger": true,
     "webPort": 3000,
     "militaryTime": true,
