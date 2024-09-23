@@ -1,11 +1,12 @@
 const viewport = document.getElementsByClassName("view")[0];
 const date = document.getElementById("date");
 const time = document.getElementById("time")
-let timezone = "CST"
+
+let config;
 
 async function loadConfig() {
     const Response = await fetch('./config.json');
-    const config = await Response.json();
+    config = await Response.json();
 
     console.log(`[main.js]: Loaded the following configuration: ${JSON.stringify(config, null, 2)}`)
 }
@@ -36,8 +37,10 @@ ScaleViewportToTheWindowIGuessLmao();
 
 window.addEventListener('resize', ScaleViewportToTheWindowIGuessLmao);
 
-function clock() {
+function clock() { // partially copied from weatherHDS 2
     const now = new Date();
+    const utcDate = new Date(now.toUTCString());
+    const timezone = config.systemTimeZone
 
     const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
     const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
@@ -47,15 +50,20 @@ function clock() {
     const dayOfMonth = now.getDate();
     const year = now.getFullYear();
 
-    let hours = now.getHours();
-    const minutes = now.getMinutes().toString().padStart(2, '0');
-    const seconds =now.getSeconds().toString().padStart(2, '0');
-    const AMPM = hours >= 12 ? 'PM' : 'AM'
-    hours = hours % 12;
-    hours = hours ? hours : 12;
+    const options = {
+        timeZone: timezone,
+        hour12: true,
+        hour: 'numeric',
+        minute: '2-digit',
+        second: '2-digit',
+        timeZoneName: 'short'
+    };
+
+    const dateFormatter = new Intl.DateTimeFormat('en-US', options);
+    const formattedDate = dateFormatter.format(utcDate);
 
     date.innerText = `${dayOfWeek} ${month} ${dayOfMonth} ${year}`;
-    time.innerText = `${hours}:${minutes}:${seconds} ${AMPM} ${timezone}`;
+    time.innerText = formattedDate;
 }
 
 setInterval(clock, 1000)

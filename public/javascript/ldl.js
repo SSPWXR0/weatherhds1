@@ -58,7 +58,10 @@ Temp: ${currentData.temperature}${endingTemp}
 Humidity: ${currentData.relativeHumidity}% Dewpoint: ${currentData.temperatureDewPoint}${endingTemp}
 Barometric Pressure: ${currentData.pressureMeanSeaLevel} ${endingPressure}.
 Wind: ${currentData.windDirectionCardinal} ${currentData.windSpeed} ${endingWind}
-Visibility: ${currentData.visibility} ${endingDistance}. Ceiling: ${currentData.cloudCeiling} ${endingCeiling}`;
+Visibility: ${currentData.visibility} ${endingDistance}. Ceiling: ${currentData.cloudCeiling} ${endingCeiling}
+Please submit WeatherHDS bug reports to
+https://github.com/SSPWXR0/weatherhds1/issues
+and/or contact this system's operator`;
 
 
             const fullText = [locationText, weatherText]

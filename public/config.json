@@ -23,6 +23,7 @@
     "debugger": true,
     "webPort": 3000,
     "militaryTime": true,
+    "systemTimeZone": "America/Regina",
     "seasons": {
         "winter": true,
         "spring": true
