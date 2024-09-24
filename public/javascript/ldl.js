@@ -50,15 +50,25 @@ async function LDLData() {
           const latestData = locationData[latestKey];
 
         if (latestData && latestData.current) {
+
           const currentData =latestData.current;
           const locationText = `Conditions at ${locationName}`;
+
+          let ceilingFormatted;
+
+           if (currentData.cloudCeiling === null) {
+              ceilingFormatted = "Unlimited"
+          } else {
+              ceilingFormatted = `${currentData.cloudCeiling}${endingCeiling}`
+          }
+      
           const weatherText = `
 ${currentData.wxPhraseLong}
 Temp: ${currentData.temperature}${endingTemp}
 Humidity: ${currentData.relativeHumidity}% Dewpoint: ${currentData.temperatureDewPoint}${endingTemp}
 Barometric Pressure: ${currentData.pressureMeanSeaLevel} ${endingPressure}.
 Wind: ${currentData.windDirectionCardinal} ${currentData.windSpeed} ${endingWind}
-Visibility: ${currentData.visibility} ${endingDistance}. Ceiling: ${currentData.cloudCeiling} ${endingCeiling}
+Visibility: ${currentData.visibility} ${endingDistance}. Ceiling: ${ceilingFormatted}
 Please submit WeatherHDS bug reports to
 https://github.com/SSPWXR0/weatherhds1/issues
 and/or contact this system's operator`;

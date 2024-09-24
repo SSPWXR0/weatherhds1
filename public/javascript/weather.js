@@ -206,6 +206,14 @@ async function mainData() {
 
                     document.getElementById('current-background').style.backgroundImage = `url(/images/gif/${gifCurrent})`;
 
+                    let ceilingFormatted;
+
+                    if (currentData.cloudCeiling === null) {
+                        ceilingFormatted = "Unlimited"
+                    } else {
+                        ceilingFormatted = `${currentData.cloudCeiling}${endingCeiling}`
+                    }
+
                     const windLabel = document.createTextNode(`• Winds:`)
                     const humidityLabel = document.createTextNode(`• Humidity:`);
                     const pressureLabel = document.createTextNode(`• Pressure:`);
@@ -218,7 +226,7 @@ async function mainData() {
                     const wind = document.createTextNode(`${currentData.windDirectionCardinal}, @ ${currentData.windSpeed} ${endingWind}`)
                     const humidity = document.createTextNode(`${currentData.relativeHumidity}%`);
                     const pressure = document.createTextNode(`${currentData.pressureAltimeter}${endingPressure} and ${currentData.pressureTendencyTrend}`);
-                    const ceiling = document.createTextNode(`${currentData.cloudCeiling}${endingCeiling}`);
+                    const ceiling = document.createTextNode(ceilingFormatted);
                     const visibility = document.createTextNode(`${currentData.visibility} ${endingDistance}`);
                     const moon = document.createTextNode(`${latestData.weekly.moonPhase[0]}`);
                     const dewpoint = document.createTextNode(`${currentData.temperatureDewPoint}${endingTemp}`);
