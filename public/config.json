@@ -20,8 +20,10 @@
     ],
     "units": "e",
     "debugger": true,
+    "enableVideoBackgrounds": false,
+    "staticLDL": false,
+    "staticIcons": false,
     "webPort": 3000,
-    "militaryTime": true,
     "systemTimeZone": "America/Regina",
     "seasons": {
         "winter": true,

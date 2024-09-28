@@ -69,7 +69,6 @@ const currentLocationText = document.getElementById('current-location');
 
 let configGlobal;
 
-let globalIsWeatherGood;
 let isWeatherGood;
 
 async function mainData() {
@@ -89,6 +88,12 @@ async function mainData() {
           console.log(data)
 
           function processNextLocation() {
+
+            if (config.staticIcons === true) {
+                iconDir = "static"
+            } else {
+                iconDir = "animated"
+            }
 
             if (config.units == "e") {
                 endingTemp = "°F"
@@ -193,18 +198,22 @@ async function mainData() {
                     const iconCode = currentData.iconCode;
                     const dayOrNight = currentData.dayOrNight;
                     const iconPath = weatherIcons[iconCode] ? weatherIcons[iconCode][dayOrNight === "D" ? 0 : 1] : 'not-available.svg'
-                    currentIcon.src = `/graphics/${iconPath}`
+                    currentIcon.src = `/graphics/${iconDir}/${iconPath}`
 
 
-                    let gifCurrent = `sun.avif`;
-                    for (let gif in weatherGifs) {
-                        if (weatherGifs[gif].includes(iconCode.toString())) {
-                            gifCurrent = `${gif}.${animationFormat}`;
-                            break
+                    // CURRENT CONDITIONS VIDEO BACKGROUNDS
+                    if (configGlobal.enableVideoBackgrounds === true) {
+                        let gifCurrent = `sun.avif`;
+
+                        for (let gif in weatherGifs) {
+                            if (weatherGifs[gif].includes(iconCode.toString())) {
+                                gifCurrent = `${gif}.${animationFormat}`;
+                                break
+                            }
                         }
-                    }
 
-                    document.getElementById('current-background').style.backgroundImage = `url(/images/gif/${gifCurrent})`;
+                        document.getElementById('current-background').style.backgroundImage = `url(/images/gif/${gifCurrent})`;
+                    }
 
                     let ceilingFormatted;
 
@@ -326,7 +335,7 @@ async function mainData() {
                     const dayOneIconCode = forecastData.daypart[0].iconCode[0] ?? forecastData.daypart[0].iconCode[1];
                     const dayOrNight = forecastData.daypart[0].dayOrNight[0] ?? forecastData.daypart[0]?.dayOrNight[1];
                     const iconPath = weatherIcons[dayOneIconCode] ? weatherIcons[dayOneIconCode][dayOrNight === "D" ? 0 : 1] : 'not-available.svg'
-                    dayOneIcon.src = `/graphics/${iconPath}`
+                    dayOneIcon.src = `/graphics/${iconDir}/${iconPath}`
 
                     const dayOneNarrative = document.createTextNode(`${forecastData.daypart[0].narrative[0] ?? forecastData.daypart[0]?.narrative[1]}`)
                     dayOneText.appendChild(dayOneNarrative)
@@ -340,7 +349,7 @@ async function mainData() {
                     const dayTwoIconCode = forecastData.daypart[0].iconCode[2];
                     const dayOrNight2 = forecastData.daypart[0].dayOrNight[2];
                     const dayTwoIconPath = weatherIcons[dayTwoIconCode] ? weatherIcons[dayTwoIconCode][dayOrNight2 === "D" ? 0 : 1] : 'not-available.svg'
-                    dayTwoIcon.src = `/graphics/${dayTwoIconPath}`
+                    dayTwoIcon.src = `/graphics/${iconDir}/${dayTwoIconPath}`
 
                     const dayTwoNarrative = document.createTextNode(`${forecastData.daypart[0].narrative[2]}`)
                     dayTwoText.appendChild(dayTwoNarrative)
@@ -387,7 +396,7 @@ async function mainData() {
                         const iconCode = forecastData.daypart[0].iconCode[daypartIndex];
                         const dayOrNight = forecastData.daypart[0].dayOrNight[daypartIndex];
                         const iconPath = weatherIcons[iconCode] ? weatherIcons[iconCode][dayOrNight === "D" ? 0 : 1] : 'not-available.svg';
-                        day.src = `/graphics/${iconPath}`;
+                        day.src = `/graphics/${iconDir}/${iconPath}`;
                     }
                     
                     // Set day icons

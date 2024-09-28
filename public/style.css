@@ -191,7 +191,7 @@ hr {
 }
 .main-current-leftcontainer {
   display: block;
-  background-color: rgb(0, 0, 0);
+  background-color: var(--primaryColourTransparent);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 0px;

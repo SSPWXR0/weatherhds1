@@ -116,20 +116,34 @@ function drawText(text, callback) {
       const line = lines[lineIndex];
       let charIndex = 0;
 
-      function writeCharacter() {
-        if (charIndex < line.length) {
-          ldlText.innerHTML += line.charAt(charIndex);
-          charIndex++;
-          setTimeout(writeCharacter)
-        } else {
-          lineIndex++;
-          setTimeout(() => {
-            ldlText.innerHTML = '';
-            setTimeout(displayLine, 0);
-          }, 5000);
+      if (config.staticLDL === false) {
+
+        function writeCharacter() {
+          if (charIndex < line.length) {
+            ldlText.innerHTML += line.charAt(charIndex);
+            charIndex++;
+            setTimeout(writeCharacter)
+          } else {
+            lineIndex++;
+            setTimeout(() => {
+              ldlText.innerHTML = '';
+              setTimeout(displayLine, 0);
+            }, 5000);
+          }
         }
+        writeCharacter();
+        
+      } else {
+        
+        ldlText.innerHTML = line
+        lineIndex++
+    
+        setTimeout(() => {
+          ldlText.innerHTML = '';
+          setTimeout(displayLine, 0)
+        }, 5000);
+
       }
-      writeCharacter();
     } else {
         if (callback) callback();
     }
