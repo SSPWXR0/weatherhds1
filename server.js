@@ -22,6 +22,7 @@ async function getWeather(lat, lon, countryCode) { // credit to Dalk
   const currentUrl = await fetch(`https://api.weather.com/v3/wx/observations/current?geocode=${lat},${lon}&units=${config.units}&language=en-US&format=json&apiKey=${config.twcApiKey}`);
   const weeklyUrl = await fetch(`https://api.weather.com/v3/wx/forecast/daily/7day?geocode=${lat},${lon}&format=json&units=${config.units}&language=en-US&apiKey=${config.twcApiKey}`);
   const alertsUrl = await fetch(`https://api.weather.com/v3/alerts/headlines?countryCode=${countryCode}&format=json&language=en-US&apiKey=${config.twcApiKey}`);
+  const radarUrl = await fetch(`https://api.weather.com/v2/maps/dynamic?geocode=${Math.round(lat)}.0,${Math.round(lon)}.0&h=320&h=320&w=568&lod=7&product=satrad&map=dark&language=en-US&format=png&apiKey=${config.twcApiKey}&a=0`)
   const aqiUrl = await fetch(`https://api.weather.com/v3/wx/globalAirQuality?geocode=${lat},${lon}&language=en-US&scale=EPA&format=json&apiKey=${config.twcApiKey}`);
   const pollenUrl = await fetch(`https://api.weather.com/v2/indices/pollen/daypart/3day?geocode=${lat},${lon}&language=en-US&format=json&apiKey=${config.twcApiKey}`);
   const runningUrl = await fetch(`https://api.weather.com/v2/indices/runWeather/daypart/3day?geocode=${lat},${lon}&language=en-US&format=json&apiKey=${config.twcApiKey}`);
@@ -33,6 +34,7 @@ async function getWeather(lat, lon, countryCode) { // credit to Dalk
   const current = await currentUrl.json();
   const weekly = await weeklyUrl.json();
   const alerts = await alertsUrl.json();
+  const radar = radarUrl.url;
   const aqi = await aqiUrl.json();
   const pollen = await pollenUrl.json();
   const running = await runningUrl.json();
@@ -42,7 +44,7 @@ async function getWeather(lat, lon, countryCode) { // credit to Dalk
   const golf = await golfUrl.json();
   const heating = await heatingUrl.json();
   if(config.debugger) { console.log(`[server.js] | ${new Date().toLocaleString()} | Successfully saved current weather conditions`) }
-  return { current: current, weekly: weekly, alerts: alerts, special: { aqi: aqi, pollen: pollen }, indices: { spring: { running: running, mosquito: mosquito, golf: golf, }, winter: { heating: heating, frost: frost, ski: ski, } } }
+  return { current: current, weekly: weekly, alerts: alerts, radar: radar, special: { aqi: aqi, pollen: pollen }, indices: { spring: { running: running, mosquito: mosquito, golf: golf, }, winter: { heating: heating, frost: frost, ski: ski, } } }
 }
 
 async function getWeatherCoordinates(location) {
@@ -62,7 +64,9 @@ async function getWeatherCoordinates(location) {
     lat: locationData.latitude[0], 
     lon: locationData.longitude[0], 
     country: locationData.countryCode[0], 
-    adminDistrictCode: locationData.adminDistrictCode[0]
+    adminDistrictCode: locationData.adminDistrictCode[0],
+    postalKey: locationData.postalKey[0],
+    ianaTimeZone: locationData.ianaTimeZone[0]
   };
 }
 
@@ -87,6 +91,7 @@ async function loadAllCities() {
       allWeather[location][currentCity].current = weather.current
       allWeather[location][currentCity].weekly = weather.weekly
       allWeather[location][currentCity].alerts = weather.alerts
+      allWeather[location][currentCity].radar = weather.radar
       allWeather[location][currentCity].special = weather.special
       allWeather[location][currentCity].indices = weather.indices
 
@@ -180,4 +185,4 @@ async function runDataInterval() {
 }
 
 runDataInterval()
-setInterval(runDataInterval, 1800000)
+setInterval(runDataInterval, 600000)

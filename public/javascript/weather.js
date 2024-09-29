@@ -409,6 +409,15 @@ async function mainData() {
 
                 populateForecastSlides()
 
+                function mainRadar() {
+                    const radarContainer = document.getElementsByClassName('main-current-radar-container')[0];
+                    const radarImgLink = latestData.radar
+
+                    radarContainer.style.backgroundImage = `url(${radarImgLink})`
+                }
+
+                mainRadar()
+
             } else {
                 console.warn(`No valid current data found for ${locationName}`)
                 locationIndex++;

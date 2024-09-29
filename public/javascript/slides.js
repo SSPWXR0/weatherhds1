@@ -1,10 +1,11 @@
 const presentationSlides = {
     "0": { title: "Welcome!", htmlID: "stationid",},
     "1": { title: "Current Conditions", htmlID: "current",},
-    "2": { title: "Day One Forecast", htmlID: "forecast-shortterm",},
-    "3": { title: "Day Two Forecast", htmlID: "forecast-shortterm-d2",},
-    "4": { title: "Extended Outlook", htmlID: "forecast-extended", },
-    //"5": { title: "Air Quality", htmlID: "airquality"}
+    "2": { title: "Latest Radar Image", htmlID: "radar",},
+    "3": { title: "Day One Forecast", htmlID: "forecast-shortterm",},
+    "4": { title: "Day Two Forecast", htmlID: "forecast-shortterm-d2",},
+    "5": { title: "Extended Outlook", htmlID: "forecast-extended", },
+    //"6": { title: "Air Quality", htmlID: "airquality"}
 }
 
 let slideIndex = 0;
