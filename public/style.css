@@ -404,6 +404,8 @@ hr {
 }
 .aqidata {
 	font-size: 14pt;
+	padding-left: 15px;
+	padding-right: 15px;
 }
 .aqicdata {
 	font-size: 14pt;
