@@ -367,3 +367,21 @@ hr {
   background-size: cover;
   background-position: center;
 }
+.main-7day-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  justify-content: center;
+  text-align: center;
+  /*text-shadow:#000000 2px 2px 4px;*/
+  background-color: var(--primaryColourTransparent);
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+}
+#main-7day-canvas-container {
+  display:flex;
+  margin-right: 1px;
+  margin-left: 1px;
+  height: 100%;
+}
