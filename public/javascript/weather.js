@@ -132,6 +132,7 @@ async function mainData() {
               if (latestData && latestData.current) {
                 const currentData = latestData.current;
                 const forecastData = latestData.weekly;
+                const specialData = latestData.special;
 
                 currentLocationText.innerHTML = locationName;
 
@@ -407,6 +408,18 @@ async function mainData() {
                     setDayIcon(dayFiveIcon, 8);
                     setDayIcon(daySixIcon, 10);
                     setDayIcon(daySevenIcon, 12);
+
+                    const airQualityIndex = document.getElementById('airqaulityindex')
+                    const airQualityCategory = document.getElementById('airqaulitycategory')
+                    const airQualityPrimaryPol =document.getElementById('airqaulityprimarypollutant')
+		            const airQualityGeneral = document.getElementById('airqaulitygeneralmessage')
+		            const airQualitySensitive = document.getElementById('airqaulitysensitivemessage')
+
+                    airQualityIndex.innerHTML = `${specialData.aqi.globalairquality.airQualityIndex}`
+		            airQualityCategory.innerHTML = `${specialData.aqi.globalairquality.airQualityCategory}`
+		            airQualityPrimaryPol.innerHTML = `${specialData.aqi.globalairquality.primaryPollutant}`
+		            airQualityGeneral.innerHTML = `${specialData.aqi.globalairquality.messages.General.text}`
+		            airQualitySensitive.innerHTML = `${specialData.aqi.globalairquality.messages["Sensitive Group"].text}`
                 }
 
                 populateForecastSlides()
