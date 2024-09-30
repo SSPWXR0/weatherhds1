@@ -1,1 +1,7427 @@
-{}
+{
+  "Saskatoon, SK": {
+    "30": {
+      "coordinates": {
+        "lat": 52.128,
+        "lon": -106.662,
+        "country": "CA",
+        "adminDistrictCode": null,
+        "postalKey": "S7K:CA",
+        "ianaTimeZone": "America/Regina"
+      },
+      "current": {
+        "cloudCeiling": 16000,
+        "cloudCoverPhrase": "Cloudy",
+        "dayOfWeek": "Sunday",
+        "dayOrNight": "N",
+        "expirationTimeUtc": 1727658686,
+        "iconCode": 26,
+        "iconCodeExtend": 2600,
+        "obsQualifierCode": null,
+        "obsQualifierSeverity": null,
+        "precip1Hour": 0,
+        "precip6Hour": 0,
+        "precip24Hour": 0,
+        "pressureAltimeter": 29.47,
+        "pressureChange": 0.06,
+        "pressureMeanSeaLevel": 1000.3,
+        "pressureTendencyCode": 1,
+        "pressureTendencyTrend": "Rising",
+        "relativeHumidity": 58,
+        "snow1Hour": 0,
+        "snow6Hour": 0,
+        "snow24Hour": 0,
+        "sunriseTimeLocal": "2024-09-29T07:05:29-0600",
+        "sunriseTimeUtc": 1727615129,
+        "sunsetTimeLocal": "2024-09-29T18:46:52-0600",
+        "sunsetTimeUtc": 1727657212,
+        "temperature": 58,
+        "temperatureChange24Hour": -6,
+        "temperatureDewPoint": 44,
+        "temperatureFeelsLike": 55,
+        "temperatureHeatIndex": 58,
+        "temperatureMax24Hour": 76,
+        "temperatureMaxSince7Am": 76,
+        "temperatureMin24Hour": 54,
+        "temperatureWindChill": 55,
+        "uvDescription": "Low",
+        "uvIndex": 0,
+        "validTimeLocal": "2024-09-29T19:01:26-0600",
+        "validTimeUtc": 1727658086,
+        "visibility": 10,
+        "windDirection": 280,
+        "windDirectionCardinal": "W",
+        "windGust": 23,
+        "windSpeed": 14,
+        "wxPhraseLong": "Cloudy",
+        "wxPhraseMedium": "Cloudy",
+        "wxPhraseShort": "Cloudy"
+      },
+      "weekly": {
+        "calendarDayTemperatureMax": [
+          77,
+          57,
+          59,
+          51,
+          51,
+          59,
+          65,
+          63
+        ],
+        "calendarDayTemperatureMin": [
+          49,
+          39,
+          37,
+          35,
+          31,
+          28,
+          43,
+          38
+        ],
+        "dayOfWeek": [
+          "Sunday",
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday"
+        ],
+        "expirationTimeUtc": [
+          1727659223,
+          1727659223,
+          1727659223,
+          1727659223,
+          1727659223,
+          1727659223,
+          1727659223,
+          1727659223
+        ],
+        "moonPhase": [
+          "Waning Crescent",
+          "Waning Crescent",
+          "Waning Crescent",
+          "New Moon",
+          "Waxing Crescent",
+          "Waxing Crescent",
+          "Waxing Crescent",
+          "Waxing Crescent"
+        ],
+        "moonPhaseCode": [
+          "WNC",
+          "WNC",
+          "WNC",
+          "N",
+          "WXC",
+          "WXC",
+          "WXC",
+          "WXC"
+        ],
+        "moonPhaseDay": [
+          27,
+          27,
+          28,
+          0,
+          1,
+          2,
+          2,
+          3
+        ],
+        "moonriseTimeLocal": [
+          "2024-09-29T03:28:15-0600",
+          "2024-09-30T04:40:44-0600",
+          "2024-10-01T05:51:59-0600",
+          "2024-10-02T07:01:58-0600",
+          "2024-10-03T08:12:21-0600",
+          "2024-10-04T09:25:00-0600",
+          "2024-10-05T10:39:02-0600",
+          "2024-10-06T11:55:32-0600"
+        ],
+        "moonriseTimeUtc": [
+          1727602095,
+          1727692844,
+          1727783519,
+          1727874118,
+          1727964741,
+          1728055500,
+          1728146342,
+          1728237332
+        ],
+        "moonsetTimeLocal": [
+          "2024-09-29T18:07:44-0600",
+          "2024-09-30T18:17:05-0600",
+          "2024-10-01T18:25:35-0600",
+          "2024-10-02T18:34:05-0600",
+          "2024-10-03T18:43:23-0600",
+          "2024-10-04T18:54:28-0600",
+          "2024-10-05T19:08:44-0600",
+          "2024-10-06T19:28:17-0600"
+        ],
+        "moonsetTimeUtc": [
+          1727654864,
+          1727741825,
+          1727828735,
+          1727915645,
+          1728002603,
+          1728089668,
+          1728176924,
+          1728264497
+        ],
+        "narrative": [
+          "Windy, a few showers late. Lows overnight in the low 40s.",
+          "Windy with a mix of sun and clouds. Highs in the upper 50s and lows in the upper 30s.",
+          "Cloudy. Highs in the upper 50s and lows in the low 40s.",
+          "Partly cloudy. Highs in the low 50s and lows in the low 30s.",
+          "More sun than clouds. Highs in the low 50s and lows in the upper 20s.",
+          "Partly cloudy. Highs in the upper 50s and lows in the mid 40s.",
+          "Mix of sun and clouds. Highs in the mid 60s and lows in the upper 30s.",
+          "Times of sun and clouds. Highs in the low 60s and lows in the low 40s."
+        ],
+        "qpf": [
+          0.14,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "qpfSnow": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "sunriseTimeLocal": [
+          "2024-09-29T07:05:29-0600",
+          "2024-09-30T07:07:11-0600",
+          "2024-10-01T07:08:53-0600",
+          "2024-10-02T07:10:35-0600",
+          "2024-10-03T07:12:18-0600",
+          "2024-10-04T07:14:00-0600",
+          "2024-10-05T07:15:43-0600",
+          "2024-10-06T07:17:26-0600"
+        ],
+        "sunriseTimeUtc": [
+          1727615129,
+          1727701631,
+          1727788133,
+          1727874635,
+          1727961138,
+          1728047640,
+          1728134143,
+          1728220646
+        ],
+        "sunsetTimeLocal": [
+          "2024-09-29T18:46:52-0600",
+          "2024-09-30T18:44:31-0600",
+          "2024-10-01T18:42:11-0600",
+          "2024-10-02T18:39:51-0600",
+          "2024-10-03T18:37:32-0600",
+          "2024-10-04T18:35:14-0600",
+          "2024-10-05T18:32:56-0600",
+          "2024-10-06T18:30:38-0600"
+        ],
+        "sunsetTimeUtc": [
+          1727657212,
+          1727743471,
+          1727829731,
+          1727915991,
+          1728002252,
+          1728088514,
+          1728174776,
+          1728261038
+        ],
+        "temperatureMax": [
+          null,
+          57,
+          59,
+          51,
+          51,
+          59,
+          65,
+          63
+        ],
+        "temperatureMin": [
+          42,
+          37,
+          41,
+          33,
+          28,
+          46,
+          38,
+          40
+        ],
+        "validTimeLocal": [
+          "2024-09-29T07:00:00-0600",
+          "2024-09-30T07:00:00-0600",
+          "2024-10-01T07:00:00-0600",
+          "2024-10-02T07:00:00-0600",
+          "2024-10-03T07:00:00-0600",
+          "2024-10-04T07:00:00-0600",
+          "2024-10-05T07:00:00-0600",
+          "2024-10-06T07:00:00-0600"
+        ],
+        "validTimeUtc": [
+          1727614800,
+          1727701200,
+          1727787600,
+          1727874000,
+          1727960400,
+          1728046800,
+          1728133200,
+          1728219600
+        ],
+        "daypart": [
+          {
+            "cloudCover": [
+              null,
+              81,
+              45,
+              31,
+              92,
+              80,
+              53,
+              44,
+              33,
+              27,
+              49,
+              50,
+              39,
+              38,
+              35,
+              51
+            ],
+            "dayOrNight": [
+              null,
+              "N",
+              "D",
+              "N",
+              "D",
+              "N",
+              "D",
+              "N",
+              "D",
+              "N",
+              "D",
+              "N",
+              "D",
+              "N",
+              "D",
+              "N"
+            ],
+            "daypartName": [
+              null,
+              "Tonight",
+              "Tomorrow",
+              "Tomorrow night",
+              "Tuesday",
+              "Tuesday night",
+              "Wednesday",
+              "Wednesday night",
+              "Thursday",
+              "Thursday night",
+              "Friday",
+              "Friday night",
+              "Saturday",
+              "Saturday night",
+              "Sunday",
+              "Sunday night"
+            ],
+            "iconCode": [
+              null,
+              45,
+              24,
+              33,
+              26,
+              26,
+              30,
+              29,
+              34,
+              33,
+              30,
+              29,
+              30,
+              29,
+              30,
+              29
+            ],
+            "iconCodeExtend": [
+              null,
+              7110,
+              3010,
+              3300,
+              2600,
+              2600,
+              3000,
+              2900,
+              3400,
+              3300,
+              3000,
+              2900,
+              3000,
+              2900,
+              3000,
+              2900
+            ],
+            "narrative": [
+              null,
+              "Becoming windy with showers overnight. Low 42F. Winds WNW at 20 to 30 mph. Chance of rain 70%.  Winds could occasionally gust over 40 mph.",
+              "Clearing and windy. High 57F. Winds WNW at 25 to 35 mph.  Winds could occasionally gust over 40 mph.",
+              "Partly cloudy. Low 37F. Winds WSW at 10 to 20 mph.",
+              "Cloudy skies. High 59F. Winds WSW at 10 to 15 mph.",
+              "Cloudy. Low 41F. Winds WNW at 10 to 15 mph.",
+              "Sunshine and clouds mixed. High 51F. Winds WNW at 15 to 25 mph.  Higher wind gusts possible.",
+              "Partly cloudy. Low 33F. Winds W at 10 to 15 mph.",
+              "A few clouds early, otherwise mostly sunny. High 51F. Winds WNW at 10 to 20 mph.",
+              "Mostly clear skies. Low 28F. Winds W at 5 to 10 mph.",
+              "Sunshine and clouds mixed. High 59F. Winds S at 10 to 15 mph.",
+              "A few clouds from time to time. Low 46F. Winds SSE at 10 to 15 mph.",
+              "Sunshine and clouds mixed. High near 65F. Winds WNW at 15 to 25 mph.",
+              "Partly cloudy. Low 38F. Winds WNW at 10 to 15 mph.",
+              "Partly cloudy skies. High 63F. Winds W at 10 to 15 mph.",
+              "Partly cloudy. Low around 40F. Winds SW at 5 to 10 mph."
+            ],
+            "precipChance": [
+              null,
+              67,
+              18,
+              1,
+              1,
+              24,
+              20,
+              20,
+              18,
+              5,
+              5,
+              2,
+              2,
+              4,
+              4,
+              6
+            ],
+            "precipType": [
+              null,
+              "rain",
+              "rain",
+              "precip",
+              "rain",
+              "rain",
+              "rain",
+              "precip",
+              "rain",
+              "precip",
+              "rain",
+              "rain",
+              "rain",
+              "precip",
+              "rain",
+              "rain"
+            ],
+            "qpf": [
+              null,
+              0.14,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "qpfSnow": [
+              null,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "qualifierCode": [
+              null,
+              "Q1021",
+              "Q1021",
+              null,
+              null,
+              null,
+              "Q1016",
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ],
+            "qualifierPhrase": [
+              null,
+              "Winds could occasionally gust over 40 mph.",
+              "Winds could occasionally gust over 40 mph.",
+              null,
+              null,
+              null,
+              "Higher wind gusts possible.",
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ],
+            "relativeHumidity": [
+              null,
+              75,
+              51,
+              57,
+              45,
+              74,
+              62,
+              73,
+              56,
+              74,
+              55,
+              54,
+              43,
+              67,
+              52,
+              71
+            ],
+            "snowRange": [
+              null,
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            "temperature": [
+              null,
+              42,
+              57,
+              37,
+              59,
+              41,
+              51,
+              33,
+              51,
+              28,
+              59,
+              46,
+              65,
+              38,
+              63,
+              40
+            ],
+            "temperatureHeatIndex": [
+              null,
+              59,
+              57,
+              50,
+              59,
+              53,
+              51,
+              44,
+              51,
+              43,
+              59,
+              53,
+              65,
+              54,
+              63,
+              55
+            ],
+            "temperatureWindChill": [
+              null,
+              34,
+              34,
+              31,
+              32,
+              37,
+              36,
+              27,
+              27,
+              23,
+              23,
+              42,
+              43,
+              34,
+              33,
+              36
+            ],
+            "thunderCategory": [
+              null,
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder"
+            ],
+            "thunderIndex": [
+              null,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "uvDescription": [
+              null,
+              "Low",
+              "Moderate",
+              "Low",
+              "Low",
+              "Low",
+              "Moderate",
+              "Low",
+              "Moderate",
+              "Low",
+              "Moderate",
+              "Low",
+              "Moderate",
+              "Low",
+              "Moderate",
+              "Low"
+            ],
+            "uvIndex": [
+              null,
+              0,
+              3,
+              0,
+              1,
+              0,
+              3,
+              0,
+              3,
+              0,
+              3,
+              0,
+              3,
+              0,
+              3,
+              0
+            ],
+            "windDirection": [
+              null,
+              290,
+              302,
+              256,
+              238,
+              285,
+              300,
+              279,
+              290,
+              261,
+              169,
+              158,
+              284,
+              287,
+              262,
+              229
+            ],
+            "windDirectionCardinal": [
+              null,
+              "WNW",
+              "WNW",
+              "WSW",
+              "WSW",
+              "WNW",
+              "WNW",
+              "W",
+              "WNW",
+              "W",
+              "S",
+              "SSE",
+              "WNW",
+              "WNW",
+              "W",
+              "SW"
+            ],
+            "windPhrase": [
+              null,
+              "Winds WNW at 20 to 30 mph.",
+              "Winds WNW at 25 to 35 mph.",
+              "Winds WSW at 10 to 20 mph.",
+              "Winds WSW at 10 to 15 mph.",
+              "Winds WNW at 10 to 15 mph.",
+              "Winds WNW at 15 to 25 mph.",
+              "Winds W at 10 to 15 mph.",
+              "Winds WNW at 10 to 20 mph.",
+              "Winds W at 5 to 10 mph.",
+              "Winds S at 10 to 15 mph.",
+              "Winds SSE at 10 to 15 mph.",
+              "Winds WNW at 15 to 25 mph.",
+              "Winds WNW at 10 to 15 mph.",
+              "Winds W at 10 to 15 mph.",
+              "Winds SW at 5 to 10 mph."
+            ],
+            "windSpeed": [
+              null,
+              25,
+              26,
+              15,
+              12,
+              11,
+              19,
+              12,
+              16,
+              9,
+              11,
+              11,
+              20,
+              12,
+              12,
+              7
+            ],
+            "wxPhraseLong": [
+              null,
+              "Showers/Wind Late",
+              "Partly Cloudy/Wind",
+              "Mostly Clear",
+              "Cloudy",
+              "Cloudy",
+              "Partly Cloudy",
+              "Partly Cloudy",
+              "Mostly Sunny",
+              "Mostly Clear",
+              "Partly Cloudy",
+              "Partly Cloudy",
+              "Partly Cloudy",
+              "Partly Cloudy",
+              "Partly Cloudy",
+              "Partly Cloudy"
+            ],
+            "wxPhraseShort": [
+              null,
+              "Showers/Wind",
+              "P Cldy/Wind",
+              "M Clear",
+              "Cloudy",
+              "Cloudy",
+              "P Cloudy",
+              "P Cloudy",
+              "M Sunny",
+              "M Clear",
+              "P Cloudy",
+              "P Cloudy",
+              "P Cloudy",
+              "P Cloudy",
+              "P Cloudy",
+              "P Cloudy"
+            ]
+          }
+        ]
+      },
+      "radar": "https://api.weather.com/v2/maps/dynamic?geocode=52.0,-107.0&h=320&h=320&w=568&lod=7&product=satrad&map=dark&language=en-US&format=png&apiKey=e1f10a1e78da46f5b10a1e78da96f525&a=0",
+      "special": {
+        "aqi": {
+          "globalairquality": {
+            "latitude": 52.12,
+            "longitude": -106.68,
+            "source": "Contains Copernicus Atmosphere Monitoring Service information 2024 and/or modified Copernicus Atmosphere Monitoring Service information 2024",
+            "disclaimer": "Neither the European Commission nor ECMWF is responsible for any use of this information",
+            "airQualityIndex": 28,
+            "airQualityCategory": "Good",
+            "airQualityCategoryIndex": 1,
+            "airQualityCategoryIndexColor": "00E838",
+            "primaryPollutant": "O3",
+            "pollutants": {
+              "CO": {
+                "name": "CO",
+                "phrase": "Carbon Monoxide",
+                "amount": 130,
+                "unit": "µg/m3",
+                "category": "Good",
+                "categoryIndex": 1,
+                "index": 1
+              },
+              "NO2": {
+                "name": "NO2",
+                "phrase": "Nitrogen Dioxide",
+                "amount": 3.75,
+                "unit": "µg/m3",
+                "category": "Good",
+                "categoryIndex": 1,
+                "index": 2
+              },
+              "O3": {
+                "name": "O3",
+                "phrase": "Ozone",
+                "amount": 54.87,
+                "unit": "µg/m3",
+                "category": "Good",
+                "categoryIndex": 1,
+                "index": 28
+              },
+              "PM10": {
+                "name": "PM10",
+                "phrase": "Particulate matter less than 10 microns",
+                "amount": 2.61,
+                "unit": "µg/m3",
+                "category": "Good",
+                "categoryIndex": 1,
+                "index": 3
+              },
+              "PM2.5": {
+                "name": "PM2.5",
+                "phrase": "Particulate matter less than 2.5 microns",
+                "amount": 2.32,
+                "unit": "µg/m3",
+                "category": "Good",
+                "categoryIndex": 1,
+                "index": 11
+              },
+              "SO2": {
+                "name": "SO2",
+                "phrase": "Sulfur Dioxide",
+                "amount": 1.73,
+                "unit": "µg/m3",
+                "category": "Good",
+                "categoryIndex": 1,
+                "index": 1
+              }
+            },
+            "messages": {
+              "General": {
+                "title": "General",
+                "text": "Air quality is considered satisfactory, and air pollution poses little or no risk."
+              },
+              "Sensitive Group": {
+                "title": "Sensitive Groups",
+                "text": "Air quality is considered satisfactory, and air pollution poses little or no risk."
+              }
+            },
+            "expireTimeGmt": 1727661649
+          }
+        },
+        "pollen": {
+          "metadata": {
+            "language": "en-US",
+            "transactionId": "1727655794040:462b1d40968633b6d66bd501f432d05f",
+            "version": "1",
+            "latitude": 52.13,
+            "longitude": -106.66,
+            "expireTimeGmt": 1727657422,
+            "statusCode": 200
+          },
+          "pollenForecast12hour": {
+            "fcstValid": [
+              1727658000,
+              1727701200,
+              1727744400,
+              1727787600,
+              1727830800,
+              1727874000,
+              1727917200
+            ],
+            "fcstValidLocal": [
+              "2024-09-29T19:00:00-0600",
+              "2024-09-30T07:00:00-0600",
+              "2024-09-30T19:00:00-0600",
+              "2024-10-01T07:00:00-0600",
+              "2024-10-01T19:00:00-0600",
+              "2024-10-02T07:00:00-0600",
+              "2024-10-02T19:00:00-0600"
+            ],
+            "dayInd": [
+              "N",
+              "D",
+              "N",
+              "D",
+              "N",
+              "D",
+              "N"
+            ],
+            "num": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "daypartName": [
+              "Tonight",
+              "Tomorrow",
+              "Tomorrow night",
+              "Tuesday",
+              "Tuesday night",
+              "Wednesday",
+              "Wednesday night"
+            ],
+            "grassPollenIndex": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "grassPollenCategory": [
+              "None",
+              "None",
+              "None",
+              "None",
+              "None",
+              "None",
+              "None"
+            ],
+            "treePollenIndex": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "treePollenCategory": [
+              "None",
+              "None",
+              "None",
+              "None",
+              "None",
+              "None",
+              "None"
+            ],
+            "ragweedPollenIndex": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "ragweedPollenCategory": [
+              "None",
+              "None",
+              "None",
+              "None",
+              "None",
+              "None",
+              "None"
+            ]
+          }
+        }
+      },
+      "indices": {
+        "spring": {
+          "running": {
+            "metadata": {
+              "language": "en-US",
+              "transactionId": "1727657622454:dd662952cbdabd4caa51c3d46e810836",
+              "version": "1",
+              "latitude": 52.13,
+              "longitude": -106.66,
+              "expireTimeGmt": 1727659223,
+              "statusCode": 200
+            },
+            "runWeatherIndex12hour": {
+              "fcstValid": [
+                1727658000,
+                1727701200,
+                1727744400,
+                1727787600,
+                1727830800,
+                1727874000,
+                1727917200
+              ],
+              "fcstValidLocal": [
+                "2024-09-29T19:00:00-0600",
+                "2024-09-30T07:00:00-0600",
+                "2024-09-30T19:00:00-0600",
+                "2024-10-01T07:00:00-0600",
+                "2024-10-01T19:00:00-0600",
+                "2024-10-02T07:00:00-0600",
+                "2024-10-02T19:00:00-0600"
+              ],
+              "dayInd": [
+                "N",
+                "D",
+                "N",
+                "D",
+                "N",
+                "D",
+                "N"
+              ],
+              "num": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "daypartName": [
+                "Tonight",
+                "Tomorrow",
+                "Tomorrow night",
+                "Tuesday",
+                "Tuesday night",
+                "Wednesday",
+                "Wednesday night"
+              ],
+              "longRunWeatherIndex": [
+                2,
+                7,
+                6,
+                8,
+                6,
+                6,
+                5
+              ],
+              "longRunWeatherCategory": [
+                "Very Poor",
+                "Good",
+                "Fair",
+                "Good",
+                "Fair",
+                "Fair",
+                "Fair"
+              ],
+              "shortRunWeatherIndex": [
+                1,
+                7,
+                4,
+                7,
+                5,
+                5,
+                3
+              ],
+              "shortRunWeatherCategory": [
+                "Very Poor",
+                "Good",
+                "Poor",
+                "Good",
+                "Fair",
+                "Fair",
+                "Poor"
+              ]
+            }
+          },
+          "mosquito": {
+            "metadata": {
+              "language": "en-US",
+              "transactionId": "1727657623076:1c86168f21a722d32c1aa4d7de73bc76",
+              "version": "1",
+              "latitude": 52.13,
+              "longitude": -106.66,
+              "expireTimeGmt": 1727659223,
+              "statusCode": 200
+            },
+            "mosquitoIndex12hour": {
+              "fcstValid": [
+                1727658000,
+                1727701200,
+                1727744400,
+                1727787600,
+                1727830800,
+                1727874000,
+                1727917200
+              ],
+              "fcstValidLocal": [
+                "2024-09-29T19:00:00-0600",
+                "2024-09-30T07:00:00-0600",
+                "2024-09-30T19:00:00-0600",
+                "2024-10-01T07:00:00-0600",
+                "2024-10-01T19:00:00-0600",
+                "2024-10-02T07:00:00-0600",
+                "2024-10-02T19:00:00-0600"
+              ],
+              "dayInd": [
+                "N",
+                "D",
+                "N",
+                "D",
+                "N",
+                "D",
+                "N"
+              ],
+              "num": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "daypartName": [
+                "Tonight",
+                "Tomorrow",
+                "Tomorrow night",
+                "Tuesday",
+                "Tuesday night",
+                "Wednesday",
+                "Wednesday night"
+              ],
+              "mosquitoIndex": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "mosquitoCategory": [
+                "None",
+                "None",
+                "None",
+                "None",
+                "None",
+                "None",
+                "None"
+              ]
+            },
+            "mosquitoIndex24hour": {
+              "fcstValid": [
+                1727614800,
+                1727701200,
+                1727787600,
+                1727874000
+              ],
+              "fcstValidLocal": [
+                "2024-09-29T07:00:00-0600",
+                "2024-09-30T07:00:00-0600",
+                "2024-10-01T07:00:00-0600",
+                "2024-10-02T07:00:00-0600"
+              ],
+              "dow": [
+                "Sunday",
+                "Monday",
+                "Tuesday",
+                "Wednesday"
+              ],
+              "num": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "eveningMosquitoIndex": [
+                1,
+                0,
+                0,
+                0
+              ],
+              "eveningMosquitoCategory": [
+                "Limited Activity",
+                "None",
+                "None",
+                "None"
+              ]
+            }
+          },
+          "golf": {
+            "metadata": {
+              "language": "en-US",
+              "transactionId": "1727657623226:16fb683050b11b160e4ed11d6cf1a423",
+              "version": "1",
+              "latitude": 52.13,
+              "longitude": -106.66,
+              "expireTimeGmt": 1727659223,
+              "statusCode": 200
+            },
+            "golfIndex12hour": {
+              "fcstValid": [
+                1727658000,
+                1727701200,
+                1727744400,
+                1727787600,
+                1727830800,
+                1727874000,
+                1727917200
+              ],
+              "fcstValidLocal": [
+                "2024-09-29T19:00:00-0600",
+                "2024-09-30T07:00:00-0600",
+                "2024-09-30T19:00:00-0600",
+                "2024-10-01T07:00:00-0600",
+                "2024-10-01T19:00:00-0600",
+                "2024-10-02T07:00:00-0600",
+                "2024-10-02T19:00:00-0600"
+              ],
+              "dayInd": [
+                "N",
+                "D",
+                "N",
+                "D",
+                "N",
+                "D",
+                "N"
+              ],
+              "num": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "daypartName": [
+                "Tonight",
+                "Tomorrow",
+                "Tomorrow night",
+                "Tuesday",
+                "Tuesday night",
+                "Wednesday",
+                "Wednesday night"
+              ],
+              "golfIndex": [
+                null,
+                5,
+                null,
+                8,
+                null,
+                6,
+                null
+              ],
+              "golfCategory": [
+                "",
+                "Fair",
+                "",
+                "Very Good",
+                "",
+                "Good",
+                ""
+              ]
+            }
+          }
+        },
+        "winter": {
+          "heating": {
+            "metadata": {
+              "language": "en-US",
+              "transactionId": "1727657623398:7696c2bcb074496bdc75dd59fc8cca4e",
+              "version": "1",
+              "latitude": 52.13,
+              "longitude": -106.66,
+              "expireTimeGmt": 1727659223,
+              "statusCode": 200
+            },
+            "heatingCoolingIndex12hour": {
+              "fcstValid": [
+                1727658000,
+                1727701200,
+                1727744400,
+                1727787600,
+                1727830800,
+                1727874000,
+                1727917200
+              ],
+              "fcstValidLocal": [
+                "2024-09-29T19:00:00-0600",
+                "2024-09-30T07:00:00-0600",
+                "2024-09-30T19:00:00-0600",
+                "2024-10-01T07:00:00-0600",
+                "2024-10-01T19:00:00-0600",
+                "2024-10-02T07:00:00-0600",
+                "2024-10-02T19:00:00-0600"
+              ],
+              "dayInd": [
+                "N",
+                "D",
+                "N",
+                "D",
+                "N",
+                "D",
+                "N"
+              ],
+              "num": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "daypartName": [
+                "Tonight",
+                "Tomorrow",
+                "Tomorrow night",
+                "Tuesday",
+                "Tuesday night",
+                "Wednesday",
+                "Wednesday night"
+              ],
+              "heatingCoolingIndex": [
+                -5,
+                -5,
+                -8,
+                -5,
+                -7,
+                -6,
+                -9
+              ],
+              "heatingCoolingCategory": [
+                "Some Heating for Comfort",
+                "Some Heating for Comfort",
+                "Moderate Heating",
+                "Some Heating for Comfort",
+                "Moderate Heating",
+                "Some Heating for Comfort",
+                "Heating Required"
+              ]
+            }
+          },
+          "frost": {
+            "metadata": {
+              "language": "en-US",
+              "transactionId": "1727657622774:4d2de739ce98bc551b2c455a0b3bd16f",
+              "version": "1",
+              "latitude": 52.13,
+              "longitude": -106.66,
+              "expireTimeGmt": 1727659223,
+              "statusCode": 200
+            },
+            "frostPotentialIndex12hour": {
+              "fcstValid": [
+                1727658000,
+                1727701200,
+                1727744400,
+                1727787600,
+                1727830800,
+                1727874000,
+                1727917200
+              ],
+              "fcstValidLocal": [
+                "2024-09-29T19:00:00-0600",
+                "2024-09-30T07:00:00-0600",
+                "2024-09-30T19:00:00-0600",
+                "2024-10-01T07:00:00-0600",
+                "2024-10-01T19:00:00-0600",
+                "2024-10-02T07:00:00-0600",
+                "2024-10-02T19:00:00-0600"
+              ],
+              "dayInd": [
+                "N",
+                "D",
+                "N",
+                "D",
+                "N",
+                "D",
+                "N"
+              ],
+              "num": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "daypartName": [
+                "Tonight",
+                "Tomorrow",
+                "Tomorrow night",
+                "Tuesday",
+                "Tuesday night",
+                "Wednesday",
+                "Wednesday night"
+              ],
+              "frostPotentialIndex": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "frostPotentialCategory": [
+                "None",
+                "None",
+                "None",
+                "None",
+                "None",
+                "None",
+                "None"
+              ]
+            }
+          },
+          "ski": {
+            "metadata": {
+              "language": "en-US",
+              "transactionId": "1727657622891:cd1bf798202f32cba48705054aea32e6",
+              "version": "1",
+              "latitude": 52.13,
+              "longitude": -106.66,
+              "expireTimeGmt": 1727659223,
+              "statusCode": 200
+            },
+            "skiIndex12hour": {
+              "fcstValid": [
+                1727658000,
+                1727701200,
+                1727744400,
+                1727787600,
+                1727830800,
+                1727874000,
+                1727917200
+              ],
+              "fcstValidLocal": [
+                "2024-09-29T19:00:00-0600",
+                "2024-09-30T07:00:00-0600",
+                "2024-09-30T19:00:00-0600",
+                "2024-10-01T07:00:00-0600",
+                "2024-10-01T19:00:00-0600",
+                "2024-10-02T07:00:00-0600",
+                "2024-10-02T19:00:00-0600"
+              ],
+              "dayInd": [
+                "N",
+                "D",
+                "N",
+                "D",
+                "N",
+                "D",
+                "N"
+              ],
+              "num": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "daypartName": [
+                "Tonight",
+                "Tomorrow",
+                "Tomorrow night",
+                "Tuesday",
+                "Tuesday night",
+                "Wednesday",
+                "Wednesday night"
+              ],
+              "skiIndex": [
+                1,
+                1,
+                9,
+                2,
+                8,
+                7,
+                9
+              ],
+              "skiCategory": [
+                "Very Poor",
+                "Very Poor",
+                "Very Good",
+                "Poor",
+                "Very Good",
+                "Good",
+                "Very Good"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "Regina, SK": {
+    "31": {
+      "coordinates": {
+        "lat": 50.449,
+        "lon": -104.611,
+        "country": "CA",
+        "adminDistrictCode": null,
+        "postalKey": "S4P:CA",
+        "ianaTimeZone": "America/Regina"
+      },
+      "current": {
+        "cloudCeiling": null,
+        "cloudCoverPhrase": "Cloudy",
+        "dayOfWeek": "Sunday",
+        "dayOrNight": "N",
+        "expirationTimeUtc": 1727658593,
+        "iconCode": 26,
+        "iconCodeExtend": 2600,
+        "obsQualifierCode": "OQ1050",
+        "obsQualifierSeverity": 1,
+        "precip1Hour": 0,
+        "precip6Hour": 0,
+        "precip24Hour": 0,
+        "pressureAltimeter": 29.44,
+        "pressureChange": 0.04,
+        "pressureMeanSeaLevel": 999.9,
+        "pressureTendencyCode": 1,
+        "pressureTendencyTrend": "Rising",
+        "relativeHumidity": 33,
+        "snow1Hour": 0,
+        "snow6Hour": 0,
+        "snow24Hour": 0,
+        "sunriseTimeLocal": "2024-09-29T06:56:33-0600",
+        "sunriseTimeUtc": 1727614593,
+        "sunsetTimeLocal": "2024-09-29T18:39:18-0600",
+        "sunsetTimeUtc": 1727656758,
+        "temperature": 76,
+        "temperatureChange24Hour": 7,
+        "temperatureDewPoint": 44,
+        "temperatureFeelsLike": 76,
+        "temperatureHeatIndex": 76,
+        "temperatureMax24Hour": 87,
+        "temperatureMaxSince7Am": 87,
+        "temperatureMin24Hour": 56,
+        "temperatureWindChill": 76,
+        "uvDescription": "Low",
+        "uvIndex": 0,
+        "validTimeLocal": "2024-09-29T18:59:53-0600",
+        "validTimeUtc": 1727657993,
+        "visibility": 10,
+        "windDirection": 290,
+        "windDirectionCardinal": "WNW",
+        "windGust": 30,
+        "windSpeed": 18,
+        "wxPhraseLong": "Cloudy",
+        "wxPhraseMedium": "Cloudy",
+        "wxPhraseShort": "Cloudy"
+      },
+      "weekly": {
+        "calendarDayTemperatureMax": [
+          89,
+          60,
+          65,
+          57,
+          58,
+          61,
+          72,
+          64
+        ],
+        "calendarDayTemperatureMin": [
+          55,
+          40,
+          35,
+          37,
+          32,
+          29,
+          45,
+          39
+        ],
+        "dayOfWeek": [
+          "Sunday",
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday"
+        ],
+        "expirationTimeUtc": [
+          1727659287,
+          1727659287,
+          1727659287,
+          1727659287,
+          1727659287,
+          1727659287,
+          1727659287,
+          1727659287
+        ],
+        "moonPhase": [
+          "Waning Crescent",
+          "Waning Crescent",
+          "Waning Crescent",
+          "New Moon",
+          "Waxing Crescent",
+          "Waxing Crescent",
+          "Waxing Crescent",
+          "Waxing Crescent"
+        ],
+        "moonPhaseCode": [
+          "WNC",
+          "WNC",
+          "WNC",
+          "N",
+          "WXC",
+          "WXC",
+          "WXC",
+          "WXC"
+        ],
+        "moonPhaseDay": [
+          27,
+          27,
+          28,
+          0,
+          1,
+          2,
+          2,
+          3
+        ],
+        "moonriseTimeLocal": [
+          "2024-09-29T03:24:26-0600",
+          "2024-09-30T04:34:51-0600",
+          "2024-10-01T05:44:17-0600",
+          "2024-10-02T06:52:11-0600",
+          "2024-10-03T08:00:54-0600",
+          "2024-10-04T09:11:12-0600",
+          "2024-10-05T10:23:05-0600",
+          "2024-10-06T11:37:25-0600"
+        ],
+        "moonriseTimeUtc": [
+          1727601866,
+          1727692491,
+          1727783057,
+          1727873531,
+          1727964054,
+          1728054672,
+          1728145385,
+          1728236245
+        ],
+        "moonsetTimeLocal": [
+          "2024-09-29T17:55:59-0600",
+          "2024-09-30T18:07:03-0600",
+          "2024-10-01T18:17:15-0600",
+          "2024-10-02T18:27:27-0600",
+          "2024-10-03T18:38:33-0600",
+          "2024-10-04T18:51:34-0600",
+          "2024-10-05T19:07:57-0600",
+          "2024-10-06T19:29:44-0600"
+        ],
+        "moonsetTimeUtc": [
+          1727654159,
+          1727741223,
+          1727828235,
+          1727915247,
+          1728002313,
+          1728089494,
+          1728176877,
+          1728264584
+        ],
+        "narrative": [
+          "Cloudy and windy. Lows overnight in the low 40s.",
+          "Partly cloudy and windy. Highs in the mid 50s and lows in the mid 30s.",
+          "Mostly cloudy. Highs in the mid 60s and lows in the low 40s.",
+          "Windy with a mix of sun and clouds. Highs in the upper 50s and lows in the low 30s.",
+          "Partly cloudy. Highs in the upper 50s and lows in the upper 20s.",
+          "Times of sun and clouds. Highs in the low 60s and lows in the mid 40s.",
+          "Windy with a mix of sun and clouds. Highs in the low 70s and lows in the upper 30s.",
+          "Plenty of sun. Highs in the mid 60s and lows in the upper 30s."
+        ],
+        "qpf": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "qpfSnow": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "sunriseTimeLocal": [
+          "2024-09-29T06:56:25-0600",
+          "2024-09-30T06:58:00-0600",
+          "2024-10-01T06:59:35-0600",
+          "2024-10-02T07:01:10-0600",
+          "2024-10-03T07:02:45-0600",
+          "2024-10-04T07:04:21-0600",
+          "2024-10-05T07:05:56-0600",
+          "2024-10-06T07:07:32-0600"
+        ],
+        "sunriseTimeUtc": [
+          1727614585,
+          1727701080,
+          1727787575,
+          1727874070,
+          1727960565,
+          1728047061,
+          1728133556,
+          1728220052
+        ],
+        "sunsetTimeLocal": [
+          "2024-09-29T18:39:11-0600",
+          "2024-09-30T18:36:58-0600",
+          "2024-10-01T18:34:45-0600",
+          "2024-10-02T18:32:33-0600",
+          "2024-10-03T18:30:21-0600",
+          "2024-10-04T18:28:10-0600",
+          "2024-10-05T18:26:00-0600",
+          "2024-10-06T18:23:50-0600"
+        ],
+        "sunsetTimeUtc": [
+          1727656751,
+          1727743018,
+          1727829285,
+          1727915553,
+          1728001821,
+          1728088090,
+          1728174360,
+          1728260630
+        ],
+        "temperatureMax": [
+          null,
+          56,
+          65,
+          57,
+          58,
+          61,
+          72,
+          64
+        ],
+        "temperatureMin": [
+          42,
+          35,
+          42,
+          32,
+          29,
+          46,
+          39,
+          38
+        ],
+        "validTimeLocal": [
+          "2024-09-29T07:00:00-0600",
+          "2024-09-30T07:00:00-0600",
+          "2024-10-01T07:00:00-0600",
+          "2024-10-02T07:00:00-0600",
+          "2024-10-03T07:00:00-0600",
+          "2024-10-04T07:00:00-0600",
+          "2024-10-05T07:00:00-0600",
+          "2024-10-06T07:00:00-0600"
+        ],
+        "validTimeUtc": [
+          1727614800,
+          1727701200,
+          1727787600,
+          1727874000,
+          1727960400,
+          1728046800,
+          1728133200,
+          1728219600
+        ],
+        "daypart": [
+          {
+            "cloudCover": [
+              null,
+              89,
+              61,
+              24,
+              83,
+              76,
+              46,
+              23,
+              36,
+              28,
+              42,
+              35,
+              37,
+              30,
+              24,
+              40
+            ],
+            "dayOrNight": [
+              null,
+              "N",
+              "D",
+              "N",
+              "D",
+              "N",
+              "D",
+              "N",
+              "D",
+              "N",
+              "D",
+              "N",
+              "D",
+              "N",
+              "D",
+              "N"
+            ],
+            "daypartName": [
+              null,
+              "Tonight",
+              "Tomorrow",
+              "Tomorrow night",
+              "Tuesday",
+              "Tuesday night",
+              "Wednesday",
+              "Wednesday night",
+              "Thursday",
+              "Thursday night",
+              "Friday",
+              "Friday night",
+              "Saturday",
+              "Saturday night",
+              "Sunday",
+              "Sunday night"
+            ],
+            "iconCode": [
+              null,
+              24,
+              24,
+              33,
+              26,
+              29,
+              24,
+              33,
+              30,
+              33,
+              30,
+              29,
+              24,
+              29,
+              34,
+              29
+            ],
+            "iconCodeExtend": [
+              null,
+              2610,
+              3010,
+              3300,
+              2600,
+              9000,
+              3010,
+              3300,
+              3000,
+              3300,
+              3000,
+              2900,
+              3010,
+              2900,
+              3400,
+              2900
+            ],
+            "narrative": [
+              null,
+              "Cloudy and becoming windy. Low 42F. Winds WNW at 20 to 30 mph.  Winds could occasionally gust over 40 mph.",
+              "Windy. Cloudy skies will become partly cloudy in the afternoon. High 56F. Winds WNW at 25 to 35 mph.  Winds could occasionally gust over 50 mph.",
+              "A few clouds overnight. Low around 35F. Winds W at 15 to 25 mph.  Higher wind gusts possible.",
+              "Overcast. High near 65F. Winds SW at 15 to 25 mph.",
+              "Cloudy skies early will become partly cloudy later at night. Low 42F. Winds WNW at 5 to 10 mph.",
+              "Partly cloudy skies, with gusty winds developing during the afternoon. High 57F. Winds NW at 20 to 30 mph.  Higher wind gusts possible.",
+              "Mostly clear skies. Low 32F. Winds WNW at 10 to 20 mph.",
+              "Partly cloudy skies. High 58F. Winds W at 15 to 25 mph.",
+              "Mainly clear skies. Low 29F. Winds WNW at 10 to 15 mph.",
+              "Intervals of clouds and sunshine. High 61F. Winds SSE at 10 to 15 mph.",
+              "A few clouds from time to time. Low 46F. Winds SSE at 10 to 20 mph.",
+              "Windy with a few clouds from time to time. High 72F. Winds W at 20 to 30 mph.  Winds could occasionally gust over 40 mph.",
+              "Partly cloudy. Low 39F. Winds WNW at 10 to 20 mph.",
+              "Mostly sunny skies. High 64F. Winds W at 10 to 20 mph.",
+              "A few clouds. Low 38F. Winds S at 5 to 10 mph."
+            ],
+            "precipChance": [
+              null,
+              16,
+              24,
+              0,
+              0,
+              18,
+              14,
+              3,
+              3,
+              3,
+              3,
+              0,
+              0,
+              7,
+              4,
+              1
+            ],
+            "precipType": [
+              null,
+              "rain",
+              "rain",
+              "precip",
+              "rain",
+              "rain",
+              "rain",
+              "precip",
+              "rain",
+              "precip",
+              "rain",
+              "rain",
+              "rain",
+              "precip",
+              "rain",
+              "precip"
+            ],
+            "qpf": [
+              null,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "qpfSnow": [
+              null,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "qualifierCode": [
+              null,
+              "Q1021",
+              "Q1022",
+              "Q1016",
+              null,
+              null,
+              "Q1016",
+              null,
+              null,
+              null,
+              null,
+              null,
+              "Q1021",
+              null,
+              null,
+              null
+            ],
+            "qualifierPhrase": [
+              null,
+              "Winds could occasionally gust over 40 mph.",
+              "Winds could occasionally gust over 50 mph.",
+              "Higher wind gusts possible.",
+              null,
+              null,
+              "Higher wind gusts possible.",
+              null,
+              null,
+              null,
+              null,
+              null,
+              "Winds could occasionally gust over 40 mph.",
+              null,
+              null,
+              null
+            ],
+            "relativeHumidity": [
+              null,
+              60,
+              53,
+              51,
+              33,
+              56,
+              58,
+              72,
+              53,
+              74,
+              52,
+              51,
+              37,
+              58,
+              46,
+              65
+            ],
+            "snowRange": [
+              null,
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            "temperature": [
+              null,
+              42,
+              56,
+              35,
+              65,
+              42,
+              57,
+              32,
+              58,
+              29,
+              61,
+              46,
+              72,
+              39,
+              64,
+              38
+            ],
+            "temperatureHeatIndex": [
+              null,
+              75,
+              56,
+              50,
+              65,
+              56,
+              57,
+              47,
+              58,
+              47,
+              61,
+              53,
+              72,
+              57,
+              64,
+              54
+            ],
+            "temperatureWindChill": [
+              null,
+              37,
+              33,
+              29,
+              31,
+              39,
+              37,
+              26,
+              26,
+              24,
+              23,
+              41,
+              42,
+              34,
+              33,
+              33
+            ],
+            "thunderCategory": [
+              null,
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder"
+            ],
+            "thunderIndex": [
+              null,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "uvDescription": [
+              null,
+              "Low",
+              "Moderate",
+              "Low",
+              "Low",
+              "Low",
+              "Moderate",
+              "Low",
+              "Moderate",
+              "Low",
+              "Moderate",
+              "Low",
+              "Moderate",
+              "Low",
+              "Moderate",
+              "Low"
+            ],
+            "uvIndex": [
+              null,
+              0,
+              3,
+              0,
+              2,
+              0,
+              3,
+              0,
+              3,
+              0,
+              3,
+              0,
+              3,
+              0,
+              3,
+              0
+            ],
+            "windDirection": [
+              null,
+              289,
+              298,
+              263,
+              232,
+              301,
+              305,
+              282,
+              279,
+              288,
+              164,
+              156,
+              272,
+              295,
+              277,
+              179
+            ],
+            "windDirectionCardinal": [
+              null,
+              "WNW",
+              "WNW",
+              "W",
+              "SW",
+              "WNW",
+              "NW",
+              "WNW",
+              "W",
+              "WNW",
+              "SSE",
+              "SSE",
+              "W",
+              "WNW",
+              "W",
+              "S"
+            ],
+            "windPhrase": [
+              null,
+              "Winds WNW at 20 to 30 mph.",
+              "Winds WNW at 25 to 35 mph.",
+              "Winds W at 15 to 25 mph.",
+              "Winds SW at 15 to 25 mph.",
+              "Winds WNW at 5 to 10 mph.",
+              "Winds NW at 20 to 30 mph.",
+              "Winds WNW at 10 to 20 mph.",
+              "Winds W at 15 to 25 mph.",
+              "Winds WNW at 10 to 15 mph.",
+              "Winds SSE at 10 to 15 mph.",
+              "Winds SSE at 10 to 20 mph.",
+              "Winds W at 20 to 30 mph.",
+              "Winds WNW at 10 to 20 mph.",
+              "Winds W at 10 to 20 mph.",
+              "Winds S at 5 to 10 mph."
+            ],
+            "windSpeed": [
+              null,
+              25,
+              30,
+              19,
+              18,
+              9,
+              21,
+              14,
+              18,
+              11,
+              12,
+              13,
+              24,
+              16,
+              15,
+              9
+            ],
+            "wxPhraseLong": [
+              null,
+              "Cloudy/Wind",
+              "Partly Cloudy/Wind",
+              "Mostly Clear",
+              "Cloudy",
+              "Clouds Early/Clearing Late",
+              "Partly Cloudy/Wind",
+              "Mostly Clear",
+              "Partly Cloudy",
+              "Mostly Clear",
+              "Partly Cloudy",
+              "Partly Cloudy",
+              "Partly Cloudy/Wind",
+              "Partly Cloudy",
+              "Mostly Sunny",
+              "Partly Cloudy"
+            ],
+            "wxPhraseShort": [
+              null,
+              "Cloudy/Wind",
+              "P Cldy/Wind",
+              "M Clear",
+              "Cloudy",
+              "Clear Late",
+              "P Cldy/Wind",
+              "M Clear",
+              "P Cloudy",
+              "M Clear",
+              "P Cloudy",
+              "P Cloudy",
+              "P Cldy/Wind",
+              "P Cloudy",
+              "M Sunny",
+              "P Cloudy"
+            ]
+          }
+        ]
+      },
+      "radar": "https://api.weather.com/v2/maps/dynamic?geocode=50.0,-105.0&h=320&h=320&w=568&lod=7&product=satrad&map=dark&language=en-US&format=png&apiKey=e1f10a1e78da46f5b10a1e78da96f525&a=0",
+      "special": {
+        "aqi": {
+          "globalairquality": {
+            "latitude": 50.44,
+            "longitude": -104.6,
+            "source": "Contains Copernicus Atmosphere Monitoring Service information 2024 and/or modified Copernicus Atmosphere Monitoring Service information 2024",
+            "disclaimer": "Neither the European Commission nor ECMWF is responsible for any use of this information",
+            "airQualityIndex": 33,
+            "airQualityCategory": "Good",
+            "airQualityCategoryIndex": 1,
+            "airQualityCategoryIndexColor": "00E838",
+            "primaryPollutant": "O3",
+            "pollutants": {
+              "CO": {
+                "name": "CO",
+                "phrase": "Carbon Monoxide",
+                "amount": 130,
+                "unit": "µg/m3",
+                "category": "Good",
+                "categoryIndex": 1,
+                "index": 1
+              },
+              "NO2": {
+                "name": "NO2",
+                "phrase": "Nitrogen Dioxide",
+                "amount": 4.95,
+                "unit": "µg/m3",
+                "category": "Good",
+                "categoryIndex": 1,
+                "index": 2
+              },
+              "O3": {
+                "name": "O3",
+                "phrase": "Ozone",
+                "amount": 71.92,
+                "unit": "µg/m3",
+                "category": "Good",
+                "categoryIndex": 1,
+                "index": 33
+              },
+              "PM10": {
+                "name": "PM10",
+                "phrase": "Particulate matter less than 10 microns",
+                "amount": 3.61,
+                "unit": "µg/m3",
+                "category": "Good",
+                "categoryIndex": 1,
+                "index": 3
+              },
+              "PM2.5": {
+                "name": "PM2.5",
+                "phrase": "Particulate matter less than 2.5 microns",
+                "amount": 2.88,
+                "unit": "µg/m3",
+                "category": "Good",
+                "categoryIndex": 1,
+                "index": 13
+              },
+              "SO2": {
+                "name": "SO2",
+                "phrase": "Sulfur Dioxide",
+                "amount": 1.83,
+                "unit": "µg/m3",
+                "category": "Good",
+                "categoryIndex": 1,
+                "index": 1
+              }
+            },
+            "messages": {
+              "General": {
+                "title": "General",
+                "text": "Air quality is considered satisfactory, and air pollution poses little or no risk."
+              },
+              "Sensitive Group": {
+                "title": "Sensitive Groups",
+                "text": "Air quality is considered satisfactory, and air pollution poses little or no risk."
+              }
+            },
+            "expireTimeGmt": 1727661675
+          }
+        },
+        "pollen": {
+          "metadata": {
+            "language": "en-US",
+            "transactionId": "1727657804588:896553ed6f222ff3c02b0df8eb720713",
+            "version": "1",
+            "latitude": 50.45,
+            "longitude": -104.61,
+            "expireTimeGmt": 1727659287,
+            "statusCode": 200
+          },
+          "pollenForecast12hour": {
+            "fcstValid": [
+              1727658000,
+              1727701200,
+              1727744400,
+              1727787600,
+              1727830800,
+              1727874000,
+              1727917200
+            ],
+            "fcstValidLocal": [
+              "2024-09-29T19:00:00-0600",
+              "2024-09-30T07:00:00-0600",
+              "2024-09-30T19:00:00-0600",
+              "2024-10-01T07:00:00-0600",
+              "2024-10-01T19:00:00-0600",
+              "2024-10-02T07:00:00-0600",
+              "2024-10-02T19:00:00-0600"
+            ],
+            "dayInd": [
+              "N",
+              "D",
+              "N",
+              "D",
+              "N",
+              "D",
+              "N"
+            ],
+            "num": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "daypartName": [
+              "Tonight",
+              "Tomorrow",
+              "Tomorrow night",
+              "Tuesday",
+              "Tuesday night",
+              "Wednesday",
+              "Wednesday night"
+            ],
+            "grassPollenIndex": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "grassPollenCategory": [
+              "None",
+              "None",
+              "None",
+              "None",
+              "None",
+              "None",
+              "None"
+            ],
+            "treePollenIndex": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "treePollenCategory": [
+              "None",
+              "None",
+              "None",
+              "None",
+              "None",
+              "None",
+              "None"
+            ],
+            "ragweedPollenIndex": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "ragweedPollenCategory": [
+              "None",
+              "None",
+              "None",
+              "None",
+              "None",
+              "None",
+              "None"
+            ]
+          }
+        }
+      },
+      "indices": {
+        "spring": {
+          "running": {
+            "metadata": {
+              "language": "en-US",
+              "transactionId": "1727657624012:72a3d72a8abccc179d4c28e5670519da",
+              "version": "1",
+              "latitude": 50.45,
+              "longitude": -104.61,
+              "expireTimeGmt": 1727659287,
+              "statusCode": 200
+            },
+            "runWeatherIndex12hour": {
+              "fcstValid": [
+                1727658000,
+                1727701200,
+                1727744400,
+                1727787600,
+                1727830800,
+                1727874000,
+                1727917200
+              ],
+              "fcstValidLocal": [
+                "2024-09-29T19:00:00-0600",
+                "2024-09-30T07:00:00-0600",
+                "2024-09-30T19:00:00-0600",
+                "2024-10-01T07:00:00-0600",
+                "2024-10-01T19:00:00-0600",
+                "2024-10-02T07:00:00-0600",
+                "2024-10-02T19:00:00-0600"
+              ],
+              "dayInd": [
+                "N",
+                "D",
+                "N",
+                "D",
+                "N",
+                "D",
+                "N"
+              ],
+              "num": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "daypartName": [
+                "Tonight",
+                "Tomorrow",
+                "Tomorrow night",
+                "Tuesday",
+                "Tuesday night",
+                "Wednesday",
+                "Wednesday night"
+              ],
+              "longRunWeatherIndex": [
+                6,
+                7,
+                4,
+                6,
+                6,
+                8,
+                5
+              ],
+              "longRunWeatherCategory": [
+                "Fair",
+                "Good",
+                "Poor",
+                "Fair",
+                "Fair",
+                "Good",
+                "Fair"
+              ],
+              "shortRunWeatherIndex": [
+                4,
+                6,
+                3,
+                6,
+                4,
+                7,
+                4
+              ],
+              "shortRunWeatherCategory": [
+                "Poor",
+                "Fair",
+                "Poor",
+                "Fair",
+                "Poor",
+                "Good",
+                "Poor"
+              ]
+            }
+          },
+          "mosquito": {
+            "metadata": {
+              "language": "en-US",
+              "transactionId": "1727657624318:f1191fedb3c064035447f757f30e64b2",
+              "version": "1",
+              "latitude": 50.45,
+              "longitude": -104.61,
+              "expireTimeGmt": 1727659287,
+              "statusCode": 200
+            },
+            "mosquitoIndex24hour": {
+              "fcstValid": [
+                1727614800,
+                1727701200,
+                1727787600,
+                1727874000
+              ],
+              "fcstValidLocal": [
+                "2024-09-29T07:00:00-0600",
+                "2024-09-30T07:00:00-0600",
+                "2024-10-01T07:00:00-0600",
+                "2024-10-02T07:00:00-0600"
+              ],
+              "dow": [
+                "Sunday",
+                "Monday",
+                "Tuesday",
+                "Wednesday"
+              ],
+              "num": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "eveningMosquitoIndex": [
+                1,
+                0,
+                0,
+                0
+              ],
+              "eveningMosquitoCategory": [
+                "Limited Activity",
+                "None",
+                "None",
+                "None"
+              ]
+            },
+            "mosquitoIndex12hour": {
+              "fcstValid": [
+                1727658000,
+                1727701200,
+                1727744400,
+                1727787600,
+                1727830800,
+                1727874000,
+                1727917200
+              ],
+              "fcstValidLocal": [
+                "2024-09-29T19:00:00-0600",
+                "2024-09-30T07:00:00-0600",
+                "2024-09-30T19:00:00-0600",
+                "2024-10-01T07:00:00-0600",
+                "2024-10-01T19:00:00-0600",
+                "2024-10-02T07:00:00-0600",
+                "2024-10-02T19:00:00-0600"
+              ],
+              "dayInd": [
+                "N",
+                "D",
+                "N",
+                "D",
+                "N",
+                "D",
+                "N"
+              ],
+              "num": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "daypartName": [
+                "Tonight",
+                "Tomorrow",
+                "Tomorrow night",
+                "Tuesday",
+                "Tuesday night",
+                "Wednesday",
+                "Wednesday night"
+              ],
+              "mosquitoIndex": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "mosquitoCategory": [
+                "Limited Activity",
+                "None",
+                "None",
+                "None",
+                "None",
+                "None",
+                "None"
+              ]
+            }
+          },
+          "golf": {
+            "metadata": {
+              "language": "en-US",
+              "transactionId": "1727657624432:95686a4fe34706d9299c8939e6db1393",
+              "version": "1",
+              "latitude": 50.45,
+              "longitude": -104.61,
+              "expireTimeGmt": 1727659287,
+              "statusCode": 200
+            },
+            "golfIndex12hour": {
+              "fcstValid": [
+                1727658000,
+                1727701200,
+                1727744400,
+                1727787600,
+                1727830800,
+                1727874000,
+                1727917200
+              ],
+              "fcstValidLocal": [
+                "2024-09-29T19:00:00-0600",
+                "2024-09-30T07:00:00-0600",
+                "2024-09-30T19:00:00-0600",
+                "2024-10-01T07:00:00-0600",
+                "2024-10-01T19:00:00-0600",
+                "2024-10-02T07:00:00-0600",
+                "2024-10-02T19:00:00-0600"
+              ],
+              "dayInd": [
+                "N",
+                "D",
+                "N",
+                "D",
+                "N",
+                "D",
+                "N"
+              ],
+              "num": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "daypartName": [
+                "Tonight",
+                "Tomorrow",
+                "Tomorrow night",
+                "Tuesday",
+                "Tuesday night",
+                "Wednesday",
+                "Wednesday night"
+              ],
+              "golfIndex": [
+                null,
+                5,
+                null,
+                9,
+                null,
+                5,
+                null
+              ],
+              "golfCategory": [
+                "",
+                "Fair",
+                "",
+                "Very Good",
+                "",
+                "Fair",
+                ""
+              ]
+            }
+          }
+        },
+        "winter": {
+          "heating": {
+            "metadata": {
+              "language": "en-US",
+              "transactionId": "1727657624566:e52b4b0a36817ff29e31263f435b04ad",
+              "version": "1",
+              "latitude": 50.45,
+              "longitude": -104.61,
+              "expireTimeGmt": 1727659287,
+              "statusCode": 200
+            },
+            "heatingCoolingIndex12hour": {
+              "fcstValid": [
+                1727658000,
+                1727701200,
+                1727744400,
+                1727787600,
+                1727830800,
+                1727874000,
+                1727917200
+              ],
+              "fcstValidLocal": [
+                "2024-09-29T19:00:00-0600",
+                "2024-09-30T07:00:00-0600",
+                "2024-09-30T19:00:00-0600",
+                "2024-10-01T07:00:00-0600",
+                "2024-10-01T19:00:00-0600",
+                "2024-10-02T07:00:00-0600",
+                "2024-10-02T19:00:00-0600"
+              ],
+              "dayInd": [
+                "N",
+                "D",
+                "N",
+                "D",
+                "N",
+                "D",
+                "N"
+              ],
+              "num": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "daypartName": [
+                "Tonight",
+                "Tomorrow",
+                "Tomorrow night",
+                "Tuesday",
+                "Tuesday night",
+                "Wednesday",
+                "Wednesday night"
+              ],
+              "heatingCoolingIndex": [
+                -2,
+                -5,
+                -8,
+                -3,
+                -6,
+                -5,
+                -9
+              ],
+              "heatingCoolingCategory": [
+                "Little or No Heating Required",
+                "Some Heating for Comfort",
+                "Moderate Heating",
+                "Some Heating for Comfort",
+                "Some Heating for Comfort",
+                "Some Heating for Comfort",
+                "Heating Required"
+              ]
+            }
+          },
+          "frost": {
+            "metadata": {
+              "language": "en-US",
+              "transactionId": "1727657624106:130badd9e60b11c7edede6f5e1d466ed",
+              "version": "1",
+              "latitude": 50.45,
+              "longitude": -104.61,
+              "expireTimeGmt": 1727659287,
+              "statusCode": 200
+            },
+            "frostPotentialIndex12hour": {
+              "fcstValid": [
+                1727658000,
+                1727701200,
+                1727744400,
+                1727787600,
+                1727830800,
+                1727874000,
+                1727917200
+              ],
+              "fcstValidLocal": [
+                "2024-09-29T19:00:00-0600",
+                "2024-09-30T07:00:00-0600",
+                "2024-09-30T19:00:00-0600",
+                "2024-10-01T07:00:00-0600",
+                "2024-10-01T19:00:00-0600",
+                "2024-10-02T07:00:00-0600",
+                "2024-10-02T19:00:00-0600"
+              ],
+              "dayInd": [
+                "N",
+                "D",
+                "N",
+                "D",
+                "N",
+                "D",
+                "N"
+              ],
+              "num": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "daypartName": [
+                "Tonight",
+                "Tomorrow",
+                "Tomorrow night",
+                "Tuesday",
+                "Tuesday night",
+                "Wednesday",
+                "Wednesday night"
+              ],
+              "frostPotentialIndex": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1
+              ],
+              "frostPotentialCategory": [
+                "None",
+                "None",
+                "None",
+                "None",
+                "None",
+                "None",
+                "Low"
+              ]
+            }
+          },
+          "ski": {
+            "metadata": {
+              "language": "en-US",
+              "transactionId": "1727657624195:2d5670ab0de92028ee5d6ecf288a066b",
+              "version": "1",
+              "latitude": 50.45,
+              "longitude": -104.61,
+              "expireTimeGmt": 1727659287,
+              "statusCode": 200
+            },
+            "skiIndex12hour": {
+              "fcstValid": [
+                1727658000,
+                1727701200,
+                1727744400,
+                1727787600,
+                1727830800,
+                1727874000,
+                1727917200
+              ],
+              "fcstValidLocal": [
+                "2024-09-29T19:00:00-0600",
+                "2024-09-30T07:00:00-0600",
+                "2024-09-30T19:00:00-0600",
+                "2024-10-01T07:00:00-0600",
+                "2024-10-01T19:00:00-0600",
+                "2024-10-02T07:00:00-0600",
+                "2024-10-02T19:00:00-0600"
+              ],
+              "dayInd": [
+                "N",
+                "D",
+                "N",
+                "D",
+                "N",
+                "D",
+                "N"
+              ],
+              "num": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "daypartName": [
+                "Tonight",
+                "Tomorrow",
+                "Tomorrow night",
+                "Tuesday",
+                "Tuesday night",
+                "Wednesday",
+                "Wednesday night"
+              ],
+              "skiIndex": [
+                3,
+                1,
+                10,
+                1,
+                9,
+                1,
+                9
+              ],
+              "skiCategory": [
+                "Poor",
+                "Very Poor",
+                "Excellent",
+                "Very Poor",
+                "Very Good",
+                "Very Poor",
+                "Very Good"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "Edmonton, AB": {
+    "32": {
+      "coordinates": {
+        "lat": 53.543,
+        "lon": -113.494,
+        "country": "CA",
+        "adminDistrictCode": null,
+        "postalKey": "T5J:CA",
+        "ianaTimeZone": "America/Edmonton"
+      },
+      "current": {
+        "cloudCeiling": 2300,
+        "cloudCoverPhrase": "Cloudy",
+        "dayOfWeek": "Sunday",
+        "dayOrNight": "D",
+        "expirationTimeUtc": 1727658758,
+        "iconCode": 26,
+        "iconCodeExtend": 2600,
+        "obsQualifierCode": "OQ1190",
+        "obsQualifierSeverity": 2,
+        "precip1Hour": 0,
+        "precip6Hour": 0,
+        "precip24Hour": 0,
+        "pressureAltimeter": 29.85,
+        "pressureChange": 0.12,
+        "pressureMeanSeaLevel": 1012.1,
+        "pressureTendencyCode": 1,
+        "pressureTendencyTrend": "Rising",
+        "relativeHumidity": 77,
+        "snow1Hour": 0,
+        "snow6Hour": 0,
+        "snow24Hour": 0,
+        "sunriseTimeLocal": "2024-09-29T07:33:36-0600",
+        "sunriseTimeUtc": 1727616816,
+        "sunsetTimeLocal": "2024-09-29T19:13:49-0600",
+        "sunsetTimeUtc": 1727658829,
+        "temperature": 46,
+        "temperatureChange24Hour": -12,
+        "temperatureDewPoint": 39,
+        "temperatureFeelsLike": 39,
+        "temperatureHeatIndex": 46,
+        "temperatureMax24Hour": 57,
+        "temperatureMaxSince7Am": 54,
+        "temperatureMin24Hour": 45,
+        "temperatureWindChill": 39,
+        "uvDescription": "Low",
+        "uvIndex": 0,
+        "validTimeLocal": "2024-09-29T19:02:38-0600",
+        "validTimeUtc": 1727658158,
+        "visibility": 7,
+        "windDirection": 310,
+        "windDirectionCardinal": "NW",
+        "windGust": 26,
+        "windSpeed": 15,
+        "wxPhraseLong": "Cloudy",
+        "wxPhraseMedium": "Cloudy",
+        "wxPhraseShort": "Cloudy"
+      },
+      "weekly": {
+        "calendarDayTemperatureMax": [
+          54,
+          57,
+          56,
+          52,
+          50,
+          59,
+          62,
+          66
+        ],
+        "calendarDayTemperatureMin": [
+          42,
+          38,
+          40,
+          37,
+          34,
+          34,
+          44,
+          41
+        ],
+        "dayOfWeek": [
+          "Sunday",
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday"
+        ],
+        "expirationTimeUtc": [
+          1727659616,
+          1727659616,
+          1727659616,
+          1727659616,
+          1727659616,
+          1727659616,
+          1727659616,
+          1727659616
+        ],
+        "moonPhase": [
+          "Waning Crescent",
+          "Waning Crescent",
+          "Waning Crescent",
+          "New Moon",
+          "Waxing Crescent",
+          "Waxing Crescent",
+          "Waxing Crescent",
+          "Waxing Crescent"
+        ],
+        "moonPhaseCode": [
+          "WNC",
+          "WNC",
+          "WNC",
+          "N",
+          "WXC",
+          "WXC",
+          "WXC",
+          "WXC"
+        ],
+        "moonPhaseDay": [
+          27,
+          27,
+          28,
+          0,
+          1,
+          2,
+          2,
+          3
+        ],
+        "moonriseTimeLocal": [
+          "2024-09-29T03:52:33-0600",
+          "2024-09-30T05:07:14-0600",
+          "2024-10-01T06:19:32-0600",
+          "2024-10-02T07:31:50-0600",
+          "2024-10-03T08:43:45-0600",
+          "2024-10-04T09:58:04-0600",
+          "2024-10-05T11:14:44-0600",
+          "2024-10-06T12:32:51-0600"
+        ],
+        "moonriseTimeUtc": [
+          1727603553,
+          1727694434,
+          1727785172,
+          1727875910,
+          1727966625,
+          1728057484,
+          1728148484,
+          1728239571
+        ],
+        "moonsetTimeLocal": [
+          "2024-09-29T18:38:25-0600",
+          "2024-09-30T18:46:15-0600",
+          "2024-10-01T18:53:17-0600",
+          "2024-10-02T19:00:17-0600",
+          "2024-10-03T19:07:59-0600",
+          "2024-10-04T19:17:20-0600",
+          "2024-10-05T19:29:37-0600",
+          "2024-10-06T19:46:58-0600"
+        ],
+        "moonsetTimeUtc": [
+          1727656705,
+          1727743575,
+          1727830397,
+          1727917217,
+          1728004079,
+          1728091040,
+          1728178177,
+          1728265618
+        ],
+        "narrative": [
+          "Rain ending early. Lows overnight in the upper 30s.",
+          "A few clouds. Highs in the upper 50s and lows in the low 40s.",
+          "Morning showers. Highs in the mid 50s and lows in the upper 30s.",
+          "Cloudy. Highs in the low 50s and lows in the mid 30s.",
+          "Partly cloudy. Highs in the low 50s and lows in the mid 30s.",
+          "Considerable cloudiness. Highs in the upper 50s and lows in the mid 40s.",
+          "Mix of sun and clouds. Highs in the low 60s and lows in the low 40s.",
+          "Partly cloudy. Highs in the mid 60s and lows in the low 40s."
+        ],
+        "qpf": [
+          0.05,
+          0,
+          0.13,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "qpfSnow": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "sunriseTimeLocal": [
+          "2024-09-29T07:33:41-0600",
+          "2024-09-30T07:35:28-0600",
+          "2024-10-01T07:37:15-0600",
+          "2024-10-02T07:39:02-0600",
+          "2024-10-03T07:40:50-0600",
+          "2024-10-04T07:42:37-0600",
+          "2024-10-05T07:44:24-0600",
+          "2024-10-06T07:46:12-0600"
+        ],
+        "sunriseTimeUtc": [
+          1727616821,
+          1727703328,
+          1727789835,
+          1727876342,
+          1727962850,
+          1728049357,
+          1728135864,
+          1728222372
+        ],
+        "sunsetTimeLocal": [
+          "2024-09-29T19:13:54-0600",
+          "2024-09-30T19:11:27-0600",
+          "2024-10-01T19:09:00-0600",
+          "2024-10-02T19:06:34-0600",
+          "2024-10-03T19:04:08-0600",
+          "2024-10-04T19:01:42-0600",
+          "2024-10-05T18:59:17-0600",
+          "2024-10-06T18:56:52-0600"
+        ],
+        "sunsetTimeUtc": [
+          1727658834,
+          1727745087,
+          1727831340,
+          1727917594,
+          1728003848,
+          1728090102,
+          1728176357,
+          1728262612
+        ],
+        "temperatureMax": [
+          null,
+          57,
+          56,
+          51,
+          50,
+          59,
+          62,
+          66
+        ],
+        "temperatureMin": [
+          38,
+          40,
+          37,
+          34,
+          34,
+          44,
+          41,
+          42
+        ],
+        "validTimeLocal": [
+          "2024-09-29T07:00:00-0600",
+          "2024-09-30T07:00:00-0600",
+          "2024-10-01T07:00:00-0600",
+          "2024-10-02T07:00:00-0600",
+          "2024-10-03T07:00:00-0600",
+          "2024-10-04T07:00:00-0600",
+          "2024-10-05T07:00:00-0600",
+          "2024-10-06T07:00:00-0600"
+        ],
+        "validTimeUtc": [
+          1727614800,
+          1727701200,
+          1727787600,
+          1727874000,
+          1727960400,
+          1728046800,
+          1728133200,
+          1728219600
+        ],
+        "daypart": [
+          {
+            "cloudCover": [
+              null,
+              62,
+              18,
+              67,
+              88,
+              77,
+              81,
+              71,
+              67,
+              54,
+              67,
+              59,
+              36,
+              31,
+              51,
+              39
+            ],
+            "dayOrNight": [
+              null,
+              "N",
+              "D",
+              "N",
+              "D",
+              "N",
+              "D",
+              "N",
+              "D",
+              "N",
+              "D",
+              "N",
+              "D",
+              "N",
+              "D",
+              "N"
+            ],
+            "daypartName": [
+              null,
+              "Tonight",
+              "Tomorrow",
+              "Tomorrow night",
+              "Tuesday",
+              "Tuesday night",
+              "Wednesday",
+              "Wednesday night",
+              "Thursday",
+              "Thursday night",
+              "Friday",
+              "Friday night",
+              "Saturday",
+              "Saturday night",
+              "Sunday",
+              "Sunday night"
+            ],
+            "iconCode": [
+              null,
+              12,
+              34,
+              27,
+              39,
+              12,
+              26,
+              27,
+              30,
+              29,
+              28,
+              29,
+              30,
+              33,
+              30,
+              29
+            ],
+            "iconCodeExtend": [
+              null,
+              6300,
+              3400,
+              2700,
+              6103,
+              6300,
+              2600,
+              2700,
+              3000,
+              2900,
+              2800,
+              2900,
+              3000,
+              3300,
+              3000,
+              2900
+            ],
+            "narrative": [
+              null,
+              "Rain early. Decreasing clouds overnight. Low 38F. Winds NW at 10 to 20 mph. Chance of rain 90%.",
+              "Mostly sunny skies. High 57F. Winds WNW at 10 to 20 mph.",
+              "Partly cloudy skies in the evening, then becoming cloudy overnight. Low around 40F. Winds WSW at 5 to 10 mph.",
+              "A few showers early with overcast skies later in the day. High 56F. Winds W at 5 to 10 mph. Chance of rain 30%.",
+              "Cloudy. Periods of rain early. Low 37F. Winds WNW at 5 to 10 mph. Chance of rain 70%.",
+              "Cloudy skies. High 51F. Winds NW at 5 to 10 mph.",
+              "Considerable cloudiness. Low 34F. Winds NW at 5 to 10 mph.",
+              "Partly to mostly cloudy. High around 50F. Winds NW at 5 to 10 mph.",
+              "A few clouds. Low 34F. Winds light and variable.",
+              "Mostly cloudy skies. High 59F. Winds SE at 5 to 10 mph.",
+              "Partly to mostly cloudy. Low 44F. Winds WSW at 5 to 10 mph.",
+              "Partly cloudy. High 62F. Winds WNW at 10 to 15 mph.",
+              "Mainly clear skies. Low 41F. Winds W at 5 to 10 mph.",
+              "Partly cloudy. High 66F. Winds WSW at 5 to 10 mph.",
+              "A few clouds from time to time. Low 42F. Winds light and variable."
+            ],
+            "precipChance": [
+              null,
+              90,
+              5,
+              19,
+              32,
+              73,
+              6,
+              22,
+              21,
+              7,
+              6,
+              8,
+              2,
+              9,
+              7,
+              5
+            ],
+            "precipType": [
+              null,
+              "rain",
+              "rain",
+              "rain",
+              "rain",
+              "rain",
+              "rain",
+              "precip",
+              "rain",
+              "precip",
+              "rain",
+              "rain",
+              "rain",
+              "rain",
+              "rain",
+              "rain"
+            ],
+            "qpf": [
+              null,
+              0.05,
+              0,
+              0,
+              0.03,
+              0.1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "qpfSnow": [
+              null,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "qualifierCode": [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ],
+            "qualifierPhrase": [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ],
+            "relativeHumidity": [
+              null,
+              76,
+              46,
+              53,
+              68,
+              84,
+              69,
+              80,
+              68,
+              78,
+              57,
+              60,
+              48,
+              61,
+              49,
+              66
+            ],
+            "snowRange": [
+              null,
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            "temperature": [
+              null,
+              38,
+              57,
+              40,
+              56,
+              37,
+              51,
+              34,
+              50,
+              34,
+              59,
+              44,
+              62,
+              41,
+              66,
+              42
+            ],
+            "temperatureHeatIndex": [
+              null,
+              45,
+              57,
+              51,
+              56,
+              52,
+              51,
+              48,
+              50,
+              46,
+              59,
+              55,
+              62,
+              56,
+              66,
+              60
+            ],
+            "temperatureWindChill": [
+              null,
+              33,
+              33,
+              39,
+              39,
+              36,
+              34,
+              34,
+              31,
+              31,
+              31,
+              41,
+              41,
+              39,
+              40,
+              42
+            ],
+            "thunderCategory": [
+              null,
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder"
+            ],
+            "thunderIndex": [
+              null,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "uvDescription": [
+              null,
+              "Low",
+              "Moderate",
+              "Low",
+              "Low",
+              "Low",
+              "Low",
+              "Low",
+              "Low",
+              "Low",
+              "Low",
+              "Low",
+              "Low",
+              "Low",
+              "Low",
+              "Low"
+            ],
+            "uvIndex": [
+              null,
+              0,
+              3,
+              0,
+              1,
+              0,
+              2,
+              0,
+              2,
+              0,
+              2,
+              0,
+              2,
+              0,
+              2,
+              0
+            ],
+            "windDirection": [
+              null,
+              306,
+              294,
+              252,
+              260,
+              291,
+              307,
+              316,
+              308,
+              179,
+              139,
+              249,
+              297,
+              260,
+              253,
+              253
+            ],
+            "windDirectionCardinal": [
+              null,
+              "NW",
+              "WNW",
+              "WSW",
+              "W",
+              "WNW",
+              "NW",
+              "NW",
+              "NW",
+              "S",
+              "SE",
+              "WSW",
+              "WNW",
+              "W",
+              "WSW",
+              "WSW"
+            ],
+            "windPhrase": [
+              null,
+              "Winds NW at 10 to 20 mph.",
+              "Winds WNW at 10 to 20 mph.",
+              "Winds WSW at 5 to 10 mph.",
+              "Winds W at 5 to 10 mph.",
+              "Winds WNW at 5 to 10 mph.",
+              "Winds NW at 5 to 10 mph.",
+              "Winds NW at 5 to 10 mph.",
+              "Winds NW at 5 to 10 mph.",
+              "Winds light and variable.",
+              "Winds SE at 5 to 10 mph.",
+              "Winds WSW at 5 to 10 mph.",
+              "Winds WNW at 10 to 15 mph.",
+              "Winds W at 5 to 10 mph.",
+              "Winds WSW at 5 to 10 mph.",
+              "Winds light and variable."
+            ],
+            "windSpeed": [
+              null,
+              16,
+              15,
+              7,
+              9,
+              10,
+              9,
+              6,
+              9,
+              5,
+              10,
+              8,
+              12,
+              7,
+              9,
+              6
+            ],
+            "wxPhraseLong": [
+              null,
+              "Rain Early",
+              "Mostly Sunny",
+              "Mostly Cloudy",
+              "AM Showers",
+              "Rain Early",
+              "Cloudy",
+              "Mostly Cloudy",
+              "Partly Cloudy",
+              "Partly Cloudy",
+              "Mostly Cloudy",
+              "Partly Cloudy",
+              "Partly Cloudy",
+              "Mostly Clear",
+              "Partly Cloudy",
+              "Partly Cloudy"
+            ],
+            "wxPhraseShort": [
+              null,
+              "Rain Early",
+              "M Sunny",
+              "M Cloudy",
+              "AM Showers",
+              "Rain Early",
+              "Cloudy",
+              "M Cloudy",
+              "P Cloudy",
+              "P Cloudy",
+              "M Cloudy",
+              "P Cloudy",
+              "P Cloudy",
+              "M Clear",
+              "P Cloudy",
+              "P Cloudy"
+            ]
+          }
+        ]
+      },
+      "radar": "https://api.weather.com/v2/maps/dynamic?geocode=54.0,-113.0&h=320&h=320&w=568&lod=7&product=satrad&map=dark&language=en-US&format=png&apiKey=e1f10a1e78da46f5b10a1e78da96f525&a=0",
+      "special": {
+        "aqi": {
+          "globalairquality": {
+            "latitude": 53.56,
+            "longitude": -113.48,
+            "source": "Contains Copernicus Atmosphere Monitoring Service information 2024 and/or modified Copernicus Atmosphere Monitoring Service information 2024",
+            "disclaimer": "Neither the European Commission nor ECMWF is responsible for any use of this information",
+            "airQualityIndex": 20,
+            "airQualityCategory": "Good",
+            "airQualityCategoryIndex": 1,
+            "airQualityCategoryIndexColor": "00E838",
+            "primaryPollutant": "O3",
+            "pollutants": {
+              "CO": {
+                "name": "CO",
+                "phrase": "Carbon Monoxide",
+                "amount": 290,
+                "unit": "µg/m3",
+                "category": "Good",
+                "categoryIndex": 1,
+                "index": 3
+              },
+              "NO2": {
+                "name": "NO2",
+                "phrase": "Nitrogen Dioxide",
+                "amount": 4.83,
+                "unit": "µg/m3",
+                "category": "Good",
+                "categoryIndex": 1,
+                "index": 2
+              },
+              "O3": {
+                "name": "O3",
+                "phrase": "Ozone",
+                "amount": 49.12,
+                "unit": "µg/m3",
+                "category": "Good",
+                "categoryIndex": 1,
+                "index": 20
+              },
+              "PM10": {
+                "name": "PM10",
+                "phrase": "Particulate matter less than 10 microns",
+                "amount": 1,
+                "unit": "µg/m3",
+                "category": "Good",
+                "categoryIndex": 1,
+                "index": 1
+              },
+              "PM2.5": {
+                "name": "PM2.5",
+                "phrase": "Particulate matter less than 2.5 microns",
+                "amount": 0.58,
+                "unit": "µg/m3",
+                "category": "Good",
+                "categoryIndex": 1,
+                "index": 3
+              },
+              "SO2": {
+                "name": "SO2",
+                "phrase": "Sulfur Dioxide",
+                "amount": 2.38,
+                "unit": "µg/m3",
+                "category": "Good",
+                "categoryIndex": 1,
+                "index": 1
+              }
+            },
+            "messages": {
+              "General": {
+                "title": "General",
+                "text": "Air quality is considered satisfactory, and air pollution poses little or no risk."
+              },
+              "Sensitive Group": {
+                "title": "Sensitive Groups",
+                "text": "Air quality is considered satisfactory, and air pollution poses little or no risk."
+              }
+            },
+            "expireTimeGmt": 1727661767
+          }
+        },
+        "pollen": {
+          "metadata": {
+            "language": "en-US",
+            "transactionId": "1727656150663:d4446fa252bd81b02a648f2c02bc8034",
+            "version": "1",
+            "latitude": 53.54,
+            "longitude": -113.49,
+            "expireTimeGmt": 1727657814,
+            "statusCode": 200
+          },
+          "pollenForecast12hour": {
+            "fcstValid": [
+              1727658000,
+              1727701200,
+              1727744400,
+              1727787600,
+              1727830800,
+              1727874000,
+              1727917200
+            ],
+            "fcstValidLocal": [
+              "2024-09-29T19:00:00-0600",
+              "2024-09-30T07:00:00-0600",
+              "2024-09-30T19:00:00-0600",
+              "2024-10-01T07:00:00-0600",
+              "2024-10-01T19:00:00-0600",
+              "2024-10-02T07:00:00-0600",
+              "2024-10-02T19:00:00-0600"
+            ],
+            "dayInd": [
+              "N",
+              "D",
+              "N",
+              "D",
+              "N",
+              "D",
+              "N"
+            ],
+            "num": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "daypartName": [
+              "Tonight",
+              "Tomorrow",
+              "Tomorrow night",
+              "Tuesday",
+              "Tuesday night",
+              "Wednesday",
+              "Wednesday night"
+            ],
+            "grassPollenIndex": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "grassPollenCategory": [
+              "None",
+              "None",
+              "None",
+              "None",
+              "None",
+              "None",
+              "None"
+            ],
+            "treePollenIndex": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "treePollenCategory": [
+              "None",
+              "None",
+              "None",
+              "None",
+              "None",
+              "None",
+              "None"
+            ],
+            "ragweedPollenIndex": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "ragweedPollenCategory": [
+              "None",
+              "None",
+              "None",
+              "None",
+              "None",
+              "None",
+              "None"
+            ]
+          }
+        }
+      },
+      "indices": {
+        "spring": {
+          "running": {
+            "metadata": {
+              "language": "en-US",
+              "transactionId": "1727658085051:0ad74f1765a524c7359adea6d52279a0",
+              "version": "1",
+              "latitude": 53.54,
+              "longitude": -113.49,
+              "expireTimeGmt": 1727659616,
+              "statusCode": 200
+            },
+            "runWeatherIndex12hour": {
+              "fcstValid": [
+                1727658000,
+                1727701200,
+                1727744400,
+                1727787600,
+                1727830800,
+                1727874000,
+                1727917200
+              ],
+              "fcstValidLocal": [
+                "2024-09-29T19:00:00-0600",
+                "2024-09-30T07:00:00-0600",
+                "2024-09-30T19:00:00-0600",
+                "2024-10-01T07:00:00-0600",
+                "2024-10-01T19:00:00-0600",
+                "2024-10-02T07:00:00-0600",
+                "2024-10-02T19:00:00-0600"
+              ],
+              "dayInd": [
+                "N",
+                "D",
+                "N",
+                "D",
+                "N",
+                "D",
+                "N"
+              ],
+              "num": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "daypartName": [
+                "Tonight",
+                "Tomorrow",
+                "Tomorrow night",
+                "Tuesday",
+                "Tuesday night",
+                "Wednesday",
+                "Wednesday night"
+              ],
+              "longRunWeatherIndex": [
+                1,
+                8,
+                6,
+                7,
+                2,
+                8,
+                5
+              ],
+              "longRunWeatherCategory": [
+                "Very Poor",
+                "Good",
+                "Fair",
+                "Good",
+                "Very Poor",
+                "Good",
+                "Fair"
+              ],
+              "shortRunWeatherIndex": [
+                1,
+                7,
+                4,
+                7,
+                1,
+                7,
+                4
+              ],
+              "shortRunWeatherCategory": [
+                "Very Poor",
+                "Good",
+                "Poor",
+                "Good",
+                "Very Poor",
+                "Good",
+                "Poor"
+              ]
+            }
+          },
+          "mosquito": {
+            "metadata": {
+              "language": "en-US",
+              "transactionId": "1727658226655:6a7c7a6b51b2e3689a0102e2a47887b7",
+              "version": "1",
+              "latitude": 53.54,
+              "longitude": -113.49,
+              "expireTimeGmt": 1727659616,
+              "statusCode": 200
+            },
+            "mosquitoIndex12hour": {
+              "fcstValid": [
+                1727658000,
+                1727701200,
+                1727744400,
+                1727787600,
+                1727830800,
+                1727874000,
+                1727917200
+              ],
+              "fcstValidLocal": [
+                "2024-09-29T19:00:00-0600",
+                "2024-09-30T07:00:00-0600",
+                "2024-09-30T19:00:00-0600",
+                "2024-10-01T07:00:00-0600",
+                "2024-10-01T19:00:00-0600",
+                "2024-10-02T07:00:00-0600",
+                "2024-10-02T19:00:00-0600"
+              ],
+              "dayInd": [
+                "N",
+                "D",
+                "N",
+                "D",
+                "N",
+                "D",
+                "N"
+              ],
+              "num": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "daypartName": [
+                "Tonight",
+                "Tomorrow",
+                "Tomorrow night",
+                "Tuesday",
+                "Tuesday night",
+                "Wednesday",
+                "Wednesday night"
+              ],
+              "mosquitoIndex": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "mosquitoCategory": [
+                "None",
+                "None",
+                "None",
+                "None",
+                "None",
+                "None",
+                "None"
+              ]
+            },
+            "mosquitoIndex24hour": {
+              "fcstValid": [
+                1727614800,
+                1727701200,
+                1727787600,
+                1727874000
+              ],
+              "fcstValidLocal": [
+                "2024-09-29T07:00:00-0600",
+                "2024-09-30T07:00:00-0600",
+                "2024-10-01T07:00:00-0600",
+                "2024-10-02T07:00:00-0600"
+              ],
+              "dow": [
+                "Sunday",
+                "Monday",
+                "Tuesday",
+                "Wednesday"
+              ],
+              "num": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "eveningMosquitoIndex": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "eveningMosquitoCategory": [
+                "None",
+                "None",
+                "None",
+                "None"
+              ]
+            }
+          },
+          "golf": {
+            "metadata": {
+              "language": "en-US",
+              "transactionId": "1727658226795:08087ec238f346595db7d012378af572",
+              "version": "1",
+              "latitude": 53.54,
+              "longitude": -113.49,
+              "expireTimeGmt": 1727659616,
+              "statusCode": 200
+            },
+            "golfIndex12hour": {
+              "fcstValid": [
+                1727658000,
+                1727701200,
+                1727744400,
+                1727787600,
+                1727830800,
+                1727874000,
+                1727917200
+              ],
+              "fcstValidLocal": [
+                "2024-09-29T19:00:00-0600",
+                "2024-09-30T07:00:00-0600",
+                "2024-09-30T19:00:00-0600",
+                "2024-10-01T07:00:00-0600",
+                "2024-10-01T19:00:00-0600",
+                "2024-10-02T07:00:00-0600",
+                "2024-10-02T19:00:00-0600"
+              ],
+              "dayInd": [
+                "N",
+                "D",
+                "N",
+                "D",
+                "N",
+                "D",
+                "N"
+              ],
+              "num": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "daypartName": [
+                "Tonight",
+                "Tomorrow",
+                "Tomorrow night",
+                "Tuesday",
+                "Tuesday night",
+                "Wednesday",
+                "Wednesday night"
+              ],
+              "golfIndex": [
+                null,
+                7,
+                null,
+                6,
+                null,
+                6,
+                null
+              ],
+              "golfCategory": [
+                "",
+                "Good",
+                "",
+                "Good",
+                "",
+                "Good",
+                ""
+              ]
+            }
+          }
+        },
+        "winter": {
+          "heating": {
+            "metadata": {
+              "language": "en-US",
+              "transactionId": "1727658226918:56c7d387b513ee4246d5e3a8366ab8c7",
+              "version": "1",
+              "latitude": 53.54,
+              "longitude": -113.49,
+              "expireTimeGmt": 1727659616,
+              "statusCode": 200
+            },
+            "heatingCoolingIndex12hour": {
+              "fcstValid": [
+                1727658000,
+                1727701200,
+                1727744400,
+                1727787600,
+                1727830800,
+                1727874000,
+                1727917200
+              ],
+              "fcstValidLocal": [
+                "2024-09-29T19:00:00-0600",
+                "2024-09-30T07:00:00-0600",
+                "2024-09-30T19:00:00-0600",
+                "2024-10-01T07:00:00-0600",
+                "2024-10-01T19:00:00-0600",
+                "2024-10-02T07:00:00-0600",
+                "2024-10-02T19:00:00-0600"
+              ],
+              "dayInd": [
+                "N",
+                "D",
+                "N",
+                "D",
+                "N",
+                "D",
+                "N"
+              ],
+              "num": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "daypartName": [
+                "Tonight",
+                "Tomorrow",
+                "Tomorrow night",
+                "Tuesday",
+                "Tuesday night",
+                "Wednesday",
+                "Wednesday night"
+              ],
+              "heatingCoolingIndex": [
+                -8,
+                -6,
+                -7,
+                -6,
+                -7,
+                -7,
+                -8
+              ],
+              "heatingCoolingCategory": [
+                "Moderate Heating",
+                "Some Heating for Comfort",
+                "Moderate Heating",
+                "Some Heating for Comfort",
+                "Moderate Heating",
+                "Moderate Heating",
+                "Moderate Heating"
+              ]
+            }
+          },
+          "frost": {
+            "metadata": {
+              "language": "en-US",
+              "transactionId": "1727656147635:3a67e43573cf670a76a9ff0939e74b84",
+              "version": "1",
+              "latitude": 53.54,
+              "longitude": -113.49,
+              "expireTimeGmt": 1727657814,
+              "statusCode": 200
+            },
+            "frostPotentialIndex12hour": {
+              "fcstValid": [
+                1727658000,
+                1727701200,
+                1727744400,
+                1727787600,
+                1727830800,
+                1727874000,
+                1727917200
+              ],
+              "fcstValidLocal": [
+                "2024-09-29T19:00:00-0600",
+                "2024-09-30T07:00:00-0600",
+                "2024-09-30T19:00:00-0600",
+                "2024-10-01T07:00:00-0600",
+                "2024-10-01T19:00:00-0600",
+                "2024-10-02T07:00:00-0600",
+                "2024-10-02T19:00:00-0600"
+              ],
+              "dayInd": [
+                "N",
+                "D",
+                "N",
+                "D",
+                "N",
+                "D",
+                "N"
+              ],
+              "num": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "daypartName": [
+                "Tonight",
+                "Tomorrow",
+                "Tomorrow night",
+                "Tuesday",
+                "Tuesday night",
+                "Wednesday",
+                "Wednesday night"
+              ],
+              "frostPotentialIndex": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                2
+              ],
+              "frostPotentialCategory": [
+                "None",
+                "None",
+                "None",
+                "None",
+                "None",
+                "None",
+                "Moderate"
+              ]
+            }
+          },
+          "ski": {
+            "metadata": {
+              "language": "en-US",
+              "transactionId": "1727658226502:344ab555e1feab2f1fc33d6e3b547471",
+              "version": "1",
+              "latitude": 53.54,
+              "longitude": -113.49,
+              "expireTimeGmt": 1727659616,
+              "statusCode": 200
+            },
+            "skiIndex12hour": {
+              "fcstValid": [
+                1727658000,
+                1727701200,
+                1727744400,
+                1727787600,
+                1727830800,
+                1727874000,
+                1727917200
+              ],
+              "fcstValidLocal": [
+                "2024-09-29T19:00:00-0600",
+                "2024-09-30T07:00:00-0600",
+                "2024-09-30T19:00:00-0600",
+                "2024-10-01T07:00:00-0600",
+                "2024-10-01T19:00:00-0600",
+                "2024-10-02T07:00:00-0600",
+                "2024-10-02T19:00:00-0600"
+              ],
+              "dayInd": [
+                "N",
+                "D",
+                "N",
+                "D",
+                "N",
+                "D",
+                "N"
+              ],
+              "num": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "daypartName": [
+                "Tonight",
+                "Tomorrow",
+                "Tomorrow night",
+                "Tuesday",
+                "Tuesday night",
+                "Wednesday",
+                "Wednesday night"
+              ],
+              "skiIndex": [
+                1,
+                4,
+                9,
+                1,
+                1,
+                6,
+                9
+              ],
+              "skiCategory": [
+                "Very Poor",
+                "Fair",
+                "Very Good",
+                "Very Poor",
+                "Very Poor",
+                "Good",
+                "Very Good"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "Calgary, AB": {
+    "33": {
+      "coordinates": {
+        "lat": 51.046,
+        "lon": -114.068,
+        "country": "CA",
+        "adminDistrictCode": null,
+        "postalKey": "T2P:CA",
+        "ianaTimeZone": "America/Edmonton"
+      },
+      "current": {
+        "cloudCeiling": 5800,
+        "cloudCoverPhrase": "Cloudy",
+        "dayOfWeek": "Sunday",
+        "dayOrNight": "D",
+        "expirationTimeUtc": 1727658442,
+        "iconCode": 12,
+        "iconCodeExtend": 1200,
+        "obsQualifierCode": "OQ1191",
+        "obsQualifierSeverity": 2,
+        "precip1Hour": 0,
+        "precip6Hour": 0,
+        "precip24Hour": 0,
+        "pressureAltimeter": 29.86,
+        "pressureChange": 0.18,
+        "pressureMeanSeaLevel": 1013.5,
+        "pressureTendencyCode": 3,
+        "pressureTendencyTrend": "Rising Rapidly",
+        "relativeHumidity": 69,
+        "snow1Hour": 0,
+        "snow6Hour": 0,
+        "snow24Hour": 0,
+        "sunriseTimeLocal": "2024-09-29T07:34:57-0600",
+        "sunriseTimeUtc": 1727616897,
+        "sunsetTimeLocal": "2024-09-29T19:17:13-0600",
+        "sunsetTimeUtc": 1727659033,
+        "temperature": 48,
+        "temperatureChange24Hour": -14,
+        "temperatureDewPoint": 38,
+        "temperatureFeelsLike": 42,
+        "temperatureHeatIndex": 48,
+        "temperatureMax24Hour": 62,
+        "temperatureMaxSince7Am": 56,
+        "temperatureMin24Hour": 42,
+        "temperatureWindChill": 42,
+        "uvDescription": "Low",
+        "uvIndex": 0,
+        "validTimeLocal": "2024-09-29T18:57:22-0600",
+        "validTimeUtc": 1727657842,
+        "visibility": 7,
+        "windDirection": 340,
+        "windDirectionCardinal": "NNW",
+        "windGust": 22,
+        "windSpeed": 14,
+        "wxPhraseLong": "Rain",
+        "wxPhraseMedium": "Rain",
+        "wxPhraseShort": "Rain"
+      },
+      "weekly": {
+        "calendarDayTemperatureMax": [
+          57,
+          56,
+          61,
+          54,
+          56,
+          64,
+          64,
+          66
+        ],
+        "calendarDayTemperatureMin": [
+          40,
+          35,
+          39,
+          38,
+          36,
+          32,
+          45,
+          42
+        ],
+        "dayOfWeek": [
+          "Sunday",
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday"
+        ],
+        "expirationTimeUtc": [
+          1727658521,
+          1727658521,
+          1727658521,
+          1727658521,
+          1727658521,
+          1727658521,
+          1727658521,
+          1727658521
+        ],
+        "moonPhase": [
+          "Waning Crescent",
+          "Waning Crescent",
+          "Waning Crescent",
+          "New Moon",
+          "Waxing Crescent",
+          "Waxing Crescent",
+          "Waxing Crescent",
+          "Waxing Crescent"
+        ],
+        "moonPhaseCode": [
+          "WNC",
+          "WNC",
+          "WNC",
+          "N",
+          "WXC",
+          "WXC",
+          "WXC",
+          "WXC"
+        ],
+        "moonPhaseDay": [
+          27,
+          27,
+          28,
+          0,
+          1,
+          2,
+          2,
+          3
+        ],
+        "moonriseTimeLocal": [
+          "2024-09-29T04:02:15-0600",
+          "2024-09-30T05:13:58-0600",
+          "2024-10-01T06:23:13-0600",
+          "2024-10-02T07:32:36-0600",
+          "2024-10-03T08:41:32-0600",
+          "2024-10-04T09:52:47-0600",
+          "2024-10-05T11:05:47-0600",
+          "2024-10-06T12:20:12-0600"
+        ],
+        "moonriseTimeUtc": [
+          1727604135,
+          1727694838,
+          1727785393,
+          1727875956,
+          1727966492,
+          1728057167,
+          1728147947,
+          1728238812
+        ],
+        "moonsetTimeLocal": [
+          "2024-09-29T18:35:11-0600",
+          "2024-09-30T18:45:50-0600",
+          "2024-10-01T18:55:35-0600",
+          "2024-10-02T19:05:18-0600",
+          "2024-10-03T19:15:50-0600",
+          "2024-10-04T19:28:12-0600",
+          "2024-10-05T19:43:45-0600",
+          "2024-10-06T20:04:30-0600"
+        ],
+        "moonsetTimeUtc": [
+          1727656511,
+          1727743550,
+          1727830535,
+          1727917518,
+          1728004550,
+          1728091692,
+          1728179025,
+          1728266670
+        ],
+        "narrative": [
+          "Rain ending early. Lows overnight in the mid 30s.",
+          "A few clouds. Highs in the mid 50s and lows in the upper 30s.",
+          "Cloudy. Highs in the low 60s and lows in the upper 30s.",
+          "Times of sun and clouds. Highs in the mid 50s and lows in the mid 30s.",
+          "More sun than clouds. Highs in the mid 50s and lows in the low 30s.",
+          "Partly cloudy. Highs in the mid 60s and lows in the mid 40s.",
+          "Partly cloudy. Highs in the mid 60s and lows in the low 40s.",
+          "Times of sun and clouds. Highs in the mid 60s and lows in the low 40s."
+        ],
+        "qpf": [
+          0.02,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "qpfSnow": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "sunriseTimeLocal": [
+          "2024-09-29T07:34:55-0600",
+          "2024-09-30T07:36:31-0600",
+          "2024-10-01T07:38:07-0600",
+          "2024-10-02T07:39:43-0600",
+          "2024-10-03T07:41:20-0600",
+          "2024-10-04T07:42:56-0600",
+          "2024-10-05T07:44:33-0600",
+          "2024-10-06T07:46:09-0600"
+        ],
+        "sunriseTimeUtc": [
+          1727616895,
+          1727703391,
+          1727789887,
+          1727876383,
+          1727962880,
+          1728049376,
+          1728135873,
+          1728222369
+        ],
+        "sunsetTimeLocal": [
+          "2024-09-29T19:17:11-0600",
+          "2024-09-30T19:14:55-0600",
+          "2024-10-01T19:12:39-0600",
+          "2024-10-02T19:10:24-0600",
+          "2024-10-03T19:08:09-0600",
+          "2024-10-04T19:05:54-0600",
+          "2024-10-05T19:03:40-0600",
+          "2024-10-06T19:01:26-0600"
+        ],
+        "sunsetTimeUtc": [
+          1727659031,
+          1727745295,
+          1727831559,
+          1727917824,
+          1728004089,
+          1728090354,
+          1728176620,
+          1728262886
+        ],
+        "temperatureMax": [
+          null,
+          56,
+          61,
+          54,
+          56,
+          64,
+          64,
+          66
+        ],
+        "temperatureMin": [
+          35,
+          39,
+          38,
+          36,
+          32,
+          45,
+          42,
+          42
+        ],
+        "validTimeLocal": [
+          "2024-09-29T07:00:00-0600",
+          "2024-09-30T07:00:00-0600",
+          "2024-10-01T07:00:00-0600",
+          "2024-10-02T07:00:00-0600",
+          "2024-10-03T07:00:00-0600",
+          "2024-10-04T07:00:00-0600",
+          "2024-10-05T07:00:00-0600",
+          "2024-10-06T07:00:00-0600"
+        ],
+        "validTimeUtc": [
+          1727614800,
+          1727701200,
+          1727787600,
+          1727874000,
+          1727960400,
+          1728046800,
+          1728133200,
+          1728219600
+        ],
+        "daypart": [
+          {
+            "cloudCover": [
+              null,
+              70,
+              18,
+              60,
+              84,
+              37,
+              56,
+              18,
+              27,
+              51,
+              58,
+              42,
+              33,
+              31,
+              33,
+              21
+            ],
+            "dayOrNight": [
+              null,
+              "N",
+              "D",
+              "N",
+              "D",
+              "N",
+              "D",
+              "N",
+              "D",
+              "N",
+              "D",
+              "N",
+              "D",
+              "N",
+              "D",
+              "N"
+            ],
+            "daypartName": [
+              null,
+              "Tonight",
+              "Tomorrow",
+              "Tomorrow night",
+              "Tuesday",
+              "Tuesday night",
+              "Wednesday",
+              "Wednesday night",
+              "Thursday",
+              "Thursday night",
+              "Friday",
+              "Friday night",
+              "Saturday",
+              "Saturday night",
+              "Sunday",
+              "Sunday night"
+            ],
+            "iconCode": [
+              null,
+              12,
+              34,
+              27,
+              26,
+              29,
+              30,
+              29,
+              34,
+              29,
+              30,
+              29,
+              30,
+              33,
+              30,
+              33
+            ],
+            "iconCodeExtend": [
+              null,
+              6300,
+              3400,
+              2700,
+              2600,
+              2900,
+              3000,
+              2900,
+              3400,
+              2900,
+              3000,
+              2900,
+              3000,
+              3300,
+              3000,
+              3300
+            ],
+            "narrative": [
+              null,
+              "Becoming partly cloudy after some evening rain. Low around 35F. Winds NW at 10 to 20 mph. Chance of rain 80%.",
+              "Mostly sunny skies. High 56F. Winds W at 10 to 15 mph.",
+              "Partly cloudy skies early will become overcast later during the night. Low 39F. Winds WSW at 5 to 10 mph.",
+              "Cloudy. High 61F. Winds WSW at 5 to 10 mph.",
+              "Clear during the evening followed by cloudy skies overnight. Low 38F. Winds WNW at 10 to 15 mph.",
+              "Sunshine and clouds mixed. High 54F. Winds WSW at 5 to 10 mph.",
+              "Partly cloudy skies. Low 36F. Winds W at 5 to 10 mph.",
+              "Generally sunny despite a few afternoon clouds. High 56F. Winds WNW at 5 to 10 mph.",
+              "Partly cloudy skies. Low 32F. Winds SSE at 5 to 10 mph.",
+              "Partly cloudy skies. High 64F. Winds S at 5 to 10 mph.",
+              "Partly cloudy skies. Low around 45F. Winds WSW at 5 to 10 mph.",
+              "Partly cloudy. High 64F. Winds WNW at 10 to 15 mph.",
+              "Mostly clear skies. Low 42F. Winds WSW at 5 to 10 mph.",
+              "Partly cloudy skies. High 66F. Winds WSW at 5 to 10 mph.",
+              "Mostly clear skies. Low 42F. Winds WSW at 5 to 10 mph."
+            ],
+            "precipChance": [
+              null,
+              84,
+              3,
+              5,
+              5,
+              15,
+              13,
+              2,
+              2,
+              5,
+              5,
+              1,
+              1,
+              6,
+              3,
+              3
+            ],
+            "precipType": [
+              null,
+              "rain",
+              "rain",
+              "precip",
+              "rain",
+              "precip",
+              "rain",
+              "precip",
+              "rain",
+              "precip",
+              "rain",
+              "rain",
+              "rain",
+              "rain",
+              "rain",
+              "rain"
+            ],
+            "qpf": [
+              null,
+              0.02,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "qpfSnow": [
+              null,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "qualifierCode": [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ],
+            "qualifierPhrase": [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ],
+            "relativeHumidity": [
+              null,
+              69,
+              46,
+              48,
+              46,
+              62,
+              58,
+              60,
+              48,
+              69,
+              50,
+              47,
+              42,
+              60,
+              47,
+              61
+            ],
+            "snowRange": [
+              null,
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            "temperature": [
+              null,
+              35,
+              56,
+              39,
+              61,
+              38,
+              54,
+              36,
+              56,
+              32,
+              64,
+              45,
+              64,
+              42,
+              66,
+              42
+            ],
+            "temperatureHeatIndex": [
+              null,
+              47,
+              56,
+              51,
+              61,
+              57,
+              54,
+              50,
+              56,
+              50,
+              64,
+              60,
+              64,
+              58,
+              66,
+              60
+            ],
+            "temperatureWindChill": [
+              null,
+              33,
+              31,
+              37,
+              38,
+              37,
+              35,
+              33,
+              33,
+              29,
+              29,
+              42,
+              42,
+              39,
+              39,
+              40
+            ],
+            "thunderCategory": [
+              null,
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder"
+            ],
+            "thunderIndex": [
+              null,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "uvDescription": [
+              null,
+              "Low",
+              "Moderate",
+              "Low",
+              "Low",
+              "Low",
+              "Moderate",
+              "Low",
+              "Moderate",
+              "Low",
+              "Moderate",
+              "Low",
+              "Moderate",
+              "Low",
+              "Moderate",
+              "Low"
+            ],
+            "uvIndex": [
+              null,
+              0,
+              3,
+              0,
+              2,
+              0,
+              3,
+              0,
+              3,
+              0,
+              3,
+              0,
+              3,
+              0,
+              3,
+              0
+            ],
+            "windDirection": [
+              null,
+              317,
+              266,
+              247,
+              254,
+              302,
+              243,
+              263,
+              298,
+              156,
+              190,
+              241,
+              283,
+              252,
+              248,
+              256
+            ],
+            "windDirectionCardinal": [
+              null,
+              "NW",
+              "W",
+              "WSW",
+              "WSW",
+              "WNW",
+              "WSW",
+              "W",
+              "WNW",
+              "SSE",
+              "S",
+              "WSW",
+              "WNW",
+              "WSW",
+              "WSW",
+              "WSW"
+            ],
+            "windPhrase": [
+              null,
+              "Winds NW at 10 to 20 mph.",
+              "Winds W at 10 to 15 mph.",
+              "Winds WSW at 5 to 10 mph.",
+              "Winds WSW at 5 to 10 mph.",
+              "Winds WNW at 10 to 15 mph.",
+              "Winds WSW at 5 to 10 mph.",
+              "Winds W at 5 to 10 mph.",
+              "Winds WNW at 5 to 10 mph.",
+              "Winds SSE at 5 to 10 mph.",
+              "Winds S at 5 to 10 mph.",
+              "Winds WSW at 5 to 10 mph.",
+              "Winds WNW at 10 to 15 mph.",
+              "Winds WSW at 5 to 10 mph.",
+              "Winds WSW at 5 to 10 mph.",
+              "Winds WSW at 5 to 10 mph."
+            ],
+            "windSpeed": [
+              null,
+              16,
+              10,
+              7,
+              10,
+              11,
+              8,
+              7,
+              8,
+              7,
+              10,
+              8,
+              11,
+              7,
+              9,
+              7
+            ],
+            "wxPhraseLong": [
+              null,
+              "Rain Early",
+              "Mostly Sunny",
+              "Mostly Cloudy",
+              "Cloudy",
+              "Partly Cloudy",
+              "Partly Cloudy",
+              "Partly Cloudy",
+              "Mostly Sunny",
+              "Partly Cloudy",
+              "Partly Cloudy",
+              "Partly Cloudy",
+              "Partly Cloudy",
+              "Mostly Clear",
+              "Partly Cloudy",
+              "Mostly Clear"
+            ],
+            "wxPhraseShort": [
+              null,
+              "Rain Early",
+              "M Sunny",
+              "M Cloudy",
+              "Cloudy",
+              "P Cloudy",
+              "P Cloudy",
+              "P Cloudy",
+              "M Sunny",
+              "P Cloudy",
+              "P Cloudy",
+              "P Cloudy",
+              "P Cloudy",
+              "M Clear",
+              "P Cloudy",
+              "M Clear"
+            ]
+          }
+        ]
+      },
+      "radar": "https://api.weather.com/v2/maps/dynamic?geocode=51.0,-114.0&h=320&h=320&w=568&lod=7&product=satrad&map=dark&language=en-US&format=png&apiKey=e1f10a1e78da46f5b10a1e78da96f525&a=0",
+      "special": {
+        "aqi": {
+          "globalairquality": {
+            "latitude": 51.04,
+            "longitude": -114.08,
+            "source": "Contains Copernicus Atmosphere Monitoring Service information 2024 and/or modified Copernicus Atmosphere Monitoring Service information 2024",
+            "disclaimer": "Neither the European Commission nor ECMWF is responsible for any use of this information",
+            "airQualityIndex": 25,
+            "airQualityCategory": "Good",
+            "airQualityCategoryIndex": 1,
+            "airQualityCategoryIndexColor": "00E838",
+            "primaryPollutant": "O3",
+            "pollutants": {
+              "CO": {
+                "name": "CO",
+                "phrase": "Carbon Monoxide",
+                "amount": 180,
+                "unit": "µg/m3",
+                "category": "Good",
+                "categoryIndex": 1,
+                "index": 2
+              },
+              "NO2": {
+                "name": "NO2",
+                "phrase": "Nitrogen Dioxide",
+                "amount": 6.1,
+                "unit": "µg/m3",
+                "category": "Good",
+                "categoryIndex": 1,
+                "index": 3
+              },
+              "O3": {
+                "name": "O3",
+                "phrase": "Ozone",
+                "amount": 59,
+                "unit": "µg/m3",
+                "category": "Good",
+                "categoryIndex": 1,
+                "index": 25
+              },
+              "PM10": {
+                "name": "PM10",
+                "phrase": "Particulate matter less than 10 microns",
+                "amount": 3.03,
+                "unit": "µg/m3",
+                "category": "Good",
+                "categoryIndex": 1,
+                "index": 2
+              },
+              "PM2.5": {
+                "name": "PM2.5",
+                "phrase": "Particulate matter less than 2.5 microns",
+                "amount": 1.8,
+                "unit": "µg/m3",
+                "category": "Good",
+                "categoryIndex": 1,
+                "index": 7
+              },
+              "SO2": {
+                "name": "SO2",
+                "phrase": "Sulfur Dioxide",
+                "amount": 1.45,
+                "unit": "µg/m3",
+                "category": "Good",
+                "categoryIndex": 1,
+                "index": 1
+              }
+            },
+            "messages": {
+              "General": {
+                "title": "General",
+                "text": "Air quality is considered satisfactory, and air pollution poses little or no risk."
+              },
+              "Sensitive Group": {
+                "title": "Sensitive Groups",
+                "text": "Air quality is considered satisfactory, and air pollution poses little or no risk."
+              }
+            },
+            "expireTimeGmt": 1727661619
+          }
+        },
+        "pollen": {
+          "metadata": {
+            "language": "en-US",
+            "transactionId": "1727656866673:56afa366e7fd42dc4d365c12abee9b81",
+            "version": "1",
+            "latitude": 51.05,
+            "longitude": -114.07,
+            "expireTimeGmt": 1727658521,
+            "statusCode": 200
+          },
+          "pollenForecast12hour": {
+            "fcstValid": [
+              1727658000,
+              1727701200,
+              1727744400,
+              1727787600,
+              1727830800,
+              1727874000,
+              1727917200
+            ],
+            "fcstValidLocal": [
+              "2024-09-29T19:00:00-0600",
+              "2024-09-30T07:00:00-0600",
+              "2024-09-30T19:00:00-0600",
+              "2024-10-01T07:00:00-0600",
+              "2024-10-01T19:00:00-0600",
+              "2024-10-02T07:00:00-0600",
+              "2024-10-02T19:00:00-0600"
+            ],
+            "dayInd": [
+              "N",
+              "D",
+              "N",
+              "D",
+              "N",
+              "D",
+              "N"
+            ],
+            "num": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "daypartName": [
+              "Tonight",
+              "Tomorrow",
+              "Tomorrow night",
+              "Tuesday",
+              "Tuesday night",
+              "Wednesday",
+              "Wednesday night"
+            ],
+            "grassPollenIndex": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "grassPollenCategory": [
+              "None",
+              "None",
+              "None",
+              "None",
+              "None",
+              "None",
+              "None"
+            ],
+            "treePollenIndex": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "treePollenCategory": [
+              "None",
+              "None",
+              "None",
+              "None",
+              "None",
+              "None",
+              "None"
+            ],
+            "ragweedPollenIndex": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "ragweedPollenCategory": [
+              "None",
+              "None",
+              "None",
+              "None",
+              "None",
+              "None",
+              "None"
+            ]
+          }
+        }
+      },
+      "indices": {
+        "spring": {
+          "running": {
+            "metadata": {
+              "language": "en-US",
+              "transactionId": "1727654967269:920255277b716896c2895c23ceacb080",
+              "version": "1",
+              "latitude": 51.05,
+              "longitude": -114.07,
+              "expireTimeGmt": 1727656720,
+              "statusCode": 200
+            },
+            "runWeatherIndex12hour": {
+              "fcstValid": [
+                1727658000,
+                1727701200,
+                1727744400,
+                1727787600,
+                1727830800,
+                1727874000,
+                1727917200
+              ],
+              "fcstValidLocal": [
+                "2024-09-29T19:00:00-0600",
+                "2024-09-30T07:00:00-0600",
+                "2024-09-30T19:00:00-0600",
+                "2024-10-01T07:00:00-0600",
+                "2024-10-01T19:00:00-0600",
+                "2024-10-02T07:00:00-0600",
+                "2024-10-02T19:00:00-0600"
+              ],
+              "dayInd": [
+                "N",
+                "D",
+                "N",
+                "D",
+                "N",
+                "D",
+                "N"
+              ],
+              "num": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "daypartName": [
+                "Tonight",
+                "Tomorrow",
+                "Tomorrow night",
+                "Tuesday",
+                "Tuesday night",
+                "Wednesday",
+                "Wednesday night"
+              ],
+              "longRunWeatherIndex": [
+                1,
+                9,
+                6,
+                8,
+                7,
+                8,
+                6
+              ],
+              "longRunWeatherCategory": [
+                "Very Poor",
+                "Very Good",
+                "Fair",
+                "Good",
+                "Good",
+                "Good",
+                "Fair"
+              ],
+              "shortRunWeatherIndex": [
+                1,
+                8,
+                4,
+                8,
+                5,
+                7,
+                5
+              ],
+              "shortRunWeatherCategory": [
+                "Very Poor",
+                "Good",
+                "Poor",
+                "Good",
+                "Fair",
+                "Good",
+                "Fair"
+              ]
+            }
+          },
+          "mosquito": {
+            "metadata": {
+              "language": "en-US",
+              "transactionId": "1727657025391:c5a787ea19ef979b7bf641be091e2a06",
+              "version": "1",
+              "latitude": 51.05,
+              "longitude": -114.07,
+              "expireTimeGmt": 1727658521,
+              "statusCode": 200
+            },
+            "mosquitoIndex24hour": {
+              "fcstValid": [
+                1727614800,
+                1727701200,
+                1727787600,
+                1727874000
+              ],
+              "fcstValidLocal": [
+                "2024-09-29T07:00:00-0600",
+                "2024-09-30T07:00:00-0600",
+                "2024-10-01T07:00:00-0600",
+                "2024-10-02T07:00:00-0600"
+              ],
+              "dow": [
+                "Sunday",
+                "Monday",
+                "Tuesday",
+                "Wednesday"
+              ],
+              "num": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "eveningMosquitoIndex": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "eveningMosquitoCategory": [
+                "None",
+                "None",
+                "None",
+                "None"
+              ]
+            },
+            "mosquitoIndex12hour": {
+              "fcstValid": [
+                1727658000,
+                1727701200,
+                1727744400,
+                1727787600,
+                1727830800,
+                1727874000,
+                1727917200
+              ],
+              "fcstValidLocal": [
+                "2024-09-29T19:00:00-0600",
+                "2024-09-30T07:00:00-0600",
+                "2024-09-30T19:00:00-0600",
+                "2024-10-01T07:00:00-0600",
+                "2024-10-01T19:00:00-0600",
+                "2024-10-02T07:00:00-0600",
+                "2024-10-02T19:00:00-0600"
+              ],
+              "dayInd": [
+                "N",
+                "D",
+                "N",
+                "D",
+                "N",
+                "D",
+                "N"
+              ],
+              "num": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "daypartName": [
+                "Tonight",
+                "Tomorrow",
+                "Tomorrow night",
+                "Tuesday",
+                "Tuesday night",
+                "Wednesday",
+                "Wednesday night"
+              ],
+              "mosquitoIndex": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "mosquitoCategory": [
+                "None",
+                "None",
+                "None",
+                "None",
+                "None",
+                "None",
+                "None"
+              ]
+            }
+          },
+          "golf": {
+            "metadata": {
+              "language": "en-US",
+              "transactionId": "1727657025479:e29648913d85d7c1daa4145ed8c359da",
+              "version": "1",
+              "latitude": 51.05,
+              "longitude": -114.07,
+              "expireTimeGmt": 1727658521,
+              "statusCode": 200
+            },
+            "golfIndex12hour": {
+              "fcstValid": [
+                1727658000,
+                1727701200,
+                1727744400,
+                1727787600,
+                1727830800,
+                1727874000,
+                1727917200
+              ],
+              "fcstValidLocal": [
+                "2024-09-29T19:00:00-0600",
+                "2024-09-30T07:00:00-0600",
+                "2024-09-30T19:00:00-0600",
+                "2024-10-01T07:00:00-0600",
+                "2024-10-01T19:00:00-0600",
+                "2024-10-02T07:00:00-0600",
+                "2024-10-02T19:00:00-0600"
+              ],
+              "dayInd": [
+                "N",
+                "D",
+                "N",
+                "D",
+                "N",
+                "D",
+                "N"
+              ],
+              "num": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "daypartName": [
+                "Tonight",
+                "Tomorrow",
+                "Tomorrow night",
+                "Tuesday",
+                "Tuesday night",
+                "Wednesday",
+                "Wednesday night"
+              ],
+              "golfIndex": [
+                null,
+                7,
+                null,
+                8,
+                null,
+                7,
+                null
+              ],
+              "golfCategory": [
+                "",
+                "Good",
+                "",
+                "Very Good",
+                "",
+                "Good",
+                ""
+              ]
+            }
+          }
+        },
+        "winter": {
+          "heating": {
+            "metadata": {
+              "language": "en-US",
+              "transactionId": "1727657025575:84d769e239fa61ba4fc399e518efe5c7",
+              "version": "1",
+              "latitude": 51.05,
+              "longitude": -114.07,
+              "expireTimeGmt": 1727658521,
+              "statusCode": 200
+            },
+            "heatingCoolingIndex12hour": {
+              "fcstValid": [
+                1727658000,
+                1727701200,
+                1727744400,
+                1727787600,
+                1727830800,
+                1727874000,
+                1727917200
+              ],
+              "fcstValidLocal": [
+                "2024-09-29T19:00:00-0600",
+                "2024-09-30T07:00:00-0600",
+                "2024-09-30T19:00:00-0600",
+                "2024-10-01T07:00:00-0600",
+                "2024-10-01T19:00:00-0600",
+                "2024-10-02T07:00:00-0600",
+                "2024-10-02T19:00:00-0600"
+              ],
+              "dayInd": [
+                "N",
+                "D",
+                "N",
+                "D",
+                "N",
+                "D",
+                "N"
+              ],
+              "num": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "daypartName": [
+                "Tonight",
+                "Tomorrow",
+                "Tomorrow night",
+                "Tuesday",
+                "Tuesday night",
+                "Wednesday",
+                "Wednesday night"
+              ],
+              "heatingCoolingIndex": [
+                -8,
+                -6,
+                -8,
+                -4,
+                -6,
+                -6,
+                -8
+              ],
+              "heatingCoolingCategory": [
+                "Moderate Heating",
+                "Some Heating for Comfort",
+                "Moderate Heating",
+                "Some Heating for Comfort",
+                "Some Heating for Comfort",
+                "Some Heating for Comfort",
+                "Moderate Heating"
+              ]
+            }
+          },
+          "frost": {
+            "metadata": {
+              "language": "en-US",
+              "transactionId": "1727657025201:93cac19714183fe48205b6c9153283c2",
+              "version": "1",
+              "latitude": 51.05,
+              "longitude": -114.07,
+              "expireTimeGmt": 1727658521,
+              "statusCode": 200
+            },
+            "frostPotentialIndex12hour": {
+              "fcstValid": [
+                1727658000,
+                1727701200,
+                1727744400,
+                1727787600,
+                1727830800,
+                1727874000,
+                1727917200
+              ],
+              "fcstValidLocal": [
+                "2024-09-29T19:00:00-0600",
+                "2024-09-30T07:00:00-0600",
+                "2024-09-30T19:00:00-0600",
+                "2024-10-01T07:00:00-0600",
+                "2024-10-01T19:00:00-0600",
+                "2024-10-02T07:00:00-0600",
+                "2024-10-02T19:00:00-0600"
+              ],
+              "dayInd": [
+                "N",
+                "D",
+                "N",
+                "D",
+                "N",
+                "D",
+                "N"
+              ],
+              "num": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "daypartName": [
+                "Tonight",
+                "Tomorrow",
+                "Tomorrow night",
+                "Tuesday",
+                "Tuesday night",
+                "Wednesday",
+                "Wednesday night"
+              ],
+              "frostPotentialIndex": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "frostPotentialCategory": [
+                "None",
+                "None",
+                "None",
+                "None",
+                "None",
+                "None",
+                "None"
+              ]
+            }
+          },
+          "ski": {
+            "metadata": {
+              "language": "en-US",
+              "transactionId": "1727657025277:a4f2e7bae4babda827c100d2c3c17755",
+              "version": "1",
+              "latitude": 51.05,
+              "longitude": -114.07,
+              "expireTimeGmt": 1727658521,
+              "statusCode": 200
+            },
+            "skiIndex12hour": {
+              "fcstValid": [
+                1727658000,
+                1727701200,
+                1727744400,
+                1727787600,
+                1727830800,
+                1727874000,
+                1727917200
+              ],
+              "fcstValidLocal": [
+                "2024-09-29T19:00:00-0600",
+                "2024-09-30T07:00:00-0600",
+                "2024-09-30T19:00:00-0600",
+                "2024-10-01T07:00:00-0600",
+                "2024-10-01T19:00:00-0600",
+                "2024-10-02T07:00:00-0600",
+                "2024-10-02T19:00:00-0600"
+              ],
+              "dayInd": [
+                "N",
+                "D",
+                "N",
+                "D",
+                "N",
+                "D",
+                "N"
+              ],
+              "num": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "daypartName": [
+                "Tonight",
+                "Tomorrow",
+                "Tomorrow night",
+                "Tuesday",
+                "Tuesday night",
+                "Wednesday",
+                "Wednesday night"
+              ],
+              "skiIndex": [
+                1,
+                5,
+                9,
+                2,
+                9,
+                6,
+                9
+              ],
+              "skiCategory": [
+                "Very Poor",
+                "Fair",
+                "Very Good",
+                "Poor",
+                "Very Good",
+                "Good",
+                "Very Good"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "Vancouver, BC": {
+    "34": {
+      "coordinates": {
+        "lat": 49.261,
+        "lon": -123.115,
+        "country": "CA",
+        "adminDistrictCode": null,
+        "postalKey": "V5Z:CA",
+        "ianaTimeZone": "America/Vancouver"
+      },
+      "current": {
+        "cloudCeiling": null,
+        "cloudCoverPhrase": "Partly Cloudy",
+        "dayOfWeek": "Sunday",
+        "dayOrNight": "D",
+        "expirationTimeUtc": 1727658759,
+        "iconCode": 32,
+        "iconCodeExtend": 3200,
+        "obsQualifierCode": null,
+        "obsQualifierSeverity": null,
+        "precip1Hour": 0,
+        "precip6Hour": 0,
+        "precip24Hour": 0,
+        "pressureAltimeter": 30.27,
+        "pressureChange": 0.04,
+        "pressureMeanSeaLevel": 1026.5,
+        "pressureTendencyCode": 1,
+        "pressureTendencyTrend": "Rising",
+        "relativeHumidity": 57,
+        "snow1Hour": 0,
+        "snow6Hour": 0,
+        "snow24Hour": 0,
+        "sunriseTimeLocal": "2024-09-29T07:10:07-0700",
+        "sunriseTimeUtc": 1727619007,
+        "sunsetTimeLocal": "2024-09-29T18:54:00-0700",
+        "sunsetTimeUtc": 1727661240,
+        "temperature": 58,
+        "temperatureChange24Hour": 3,
+        "temperatureDewPoint": 43,
+        "temperatureFeelsLike": 56,
+        "temperatureHeatIndex": 58,
+        "temperatureMax24Hour": 60,
+        "temperatureMaxSince7Am": 60,
+        "temperatureMin24Hour": 50,
+        "temperatureWindChill": 56,
+        "uvDescription": "Low",
+        "uvIndex": 0,
+        "validTimeLocal": "2024-09-29T18:02:39-0700",
+        "validTimeUtc": 1727658159,
+        "visibility": 10,
+        "windDirection": 250,
+        "windDirectionCardinal": "WSW",
+        "windGust": 16,
+        "windSpeed": 10,
+        "wxPhraseLong": "Sunny",
+        "wxPhraseMedium": "Sunny",
+        "wxPhraseShort": "Sunny"
+      },
+      "weekly": {
+        "calendarDayTemperatureMax": [
+          62,
+          61,
+          55,
+          60,
+          62,
+          61,
+          61,
+          64
+        ],
+        "calendarDayTemperatureMin": [
+          47,
+          45,
+          49,
+          48,
+          46,
+          50,
+          50,
+          51
+        ],
+        "dayOfWeek": [
+          "Sunday",
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday"
+        ],
+        "expirationTimeUtc": [
+          1727659999,
+          1727659999,
+          1727659999,
+          1727659999,
+          1727659999,
+          1727659999,
+          1727659999,
+          1727659999
+        ],
+        "moonPhase": [
+          "Waning Crescent",
+          "Waning Crescent",
+          "Waning Crescent",
+          "New Moon",
+          "Waxing Crescent",
+          "Waxing Crescent",
+          "Waxing Crescent",
+          "Waxing Crescent"
+        ],
+        "moonPhaseCode": [
+          "WNC",
+          "WNC",
+          "WNC",
+          "N",
+          "WXC",
+          "WXC",
+          "WXC",
+          "WXC"
+        ],
+        "moonPhaseDay": [
+          27,
+          28,
+          28,
+          0,
+          1,
+          2,
+          2,
+          3
+        ],
+        "moonriseTimeLocal": [
+          "2024-09-29T03:45:00-0700",
+          "2024-09-30T04:54:41-0700",
+          "2024-10-01T06:02:17-0700",
+          "2024-10-02T07:09:05-0700",
+          "2024-10-03T08:16:52-0700",
+          "2024-10-04T09:25:24-0700",
+          "2024-10-05T10:36:50-0700",
+          "2024-10-06T11:48:53-0700"
+        ],
+        "moonriseTimeUtc": [
+          1727606700,
+          1727697281,
+          1727787737,
+          1727878145,
+          1727968612,
+          1728059124,
+          1728149810,
+          1728240533
+        ],
+        "moonsetTimeLocal": [
+          "2024-09-29T18:08:28-0700",
+          "2024-09-30T18:20:57-0700",
+          "2024-10-01T18:32:24-0700",
+          "2024-10-02T18:43:46-0700",
+          "2024-10-03T18:55:55-0700",
+          "2024-10-04T19:09:58-0700",
+          "2024-10-05T19:27:39-0700",
+          "2024-10-06T19:51:12-0700"
+        ],
+        "moonsetTimeUtc": [
+          1727658508,
+          1727745657,
+          1727832744,
+          1727919826,
+          1728006955,
+          1728094198,
+          1728181659,
+          1728269472
+        ],
+        "narrative": [
+          "Clear. Lows overnight in the mid 40s.",
+          "Mix of sun and clouds. Highs in the low 60s and lows in the low 50s.",
+          "A few morning showers. Highs in the mid 50s and lows in the upper 40s.",
+          "Times of sun and clouds. Highs in the low 60s and lows in the mid 40s.",
+          "Times of sun and clouds. Highs in the low 60s and lows in the low 50s.",
+          "Chance of showers. Highs in the low 60s and lows in the low 50s.",
+          "Mostly cloudy. Highs in the low 60s and lows in the low 50s.",
+          "Few showers. Highs in the mid 60s and lows in the low 50s."
+        ],
+        "qpf": [
+          0,
+          0,
+          0.06,
+          0,
+          0,
+          0.24,
+          0.04,
+          0.18
+        ],
+        "qpfSnow": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "sunriseTimeLocal": [
+          "2024-09-29T07:10:05-0700",
+          "2024-09-30T07:11:32-0700",
+          "2024-10-01T07:13:01-0700",
+          "2024-10-02T07:14:29-0700",
+          "2024-10-03T07:15:58-0700",
+          "2024-10-04T07:17:28-0700",
+          "2024-10-05T07:18:57-0700",
+          "2024-10-06T07:20:27-0700"
+        ],
+        "sunriseTimeUtc": [
+          1727619005,
+          1727705492,
+          1727791981,
+          1727878469,
+          1727964958,
+          1728051448,
+          1728137937,
+          1728224427
+        ],
+        "sunsetTimeLocal": [
+          "2024-09-29T18:53:58-0700",
+          "2024-09-30T18:51:52-0700",
+          "2024-10-01T18:49:46-0700",
+          "2024-10-02T18:47:41-0700",
+          "2024-10-03T18:45:35-0700",
+          "2024-10-04T18:43:30-0700",
+          "2024-10-05T18:41:26-0700",
+          "2024-10-06T18:39:21-0700"
+        ],
+        "sunsetTimeUtc": [
+          1727661238,
+          1727747512,
+          1727833786,
+          1727920061,
+          1728006335,
+          1728092610,
+          1728178886,
+          1728265161
+        ],
+        "temperatureMax": [
+          null,
+          61,
+          55,
+          60,
+          62,
+          61,
+          61,
+          64
+        ],
+        "temperatureMin": [
+          45,
+          51,
+          49,
+          46,
+          50,
+          50,
+          51,
+          52
+        ],
+        "validTimeLocal": [
+          "2024-09-29T07:00:00-0700",
+          "2024-09-30T07:00:00-0700",
+          "2024-10-01T07:00:00-0700",
+          "2024-10-02T07:00:00-0700",
+          "2024-10-03T07:00:00-0700",
+          "2024-10-04T07:00:00-0700",
+          "2024-10-05T07:00:00-0700",
+          "2024-10-06T07:00:00-0700"
+        ],
+        "validTimeUtc": [
+          1727618400,
+          1727704800,
+          1727791200,
+          1727877600,
+          1727964000,
+          1728050400,
+          1728136800,
+          1728223200
+        ],
+        "daypart": [
+          {
+            "cloudCover": [
+              null,
+              13,
+              44,
+              85,
+              86,
+              48,
+              44,
+              32,
+              57,
+              55,
+              60,
+              57,
+              62,
+              55,
+              46,
+              60
+            ],
+            "dayOrNight": [
+              null,
+              "N",
+              "D",
+              "N",
+              "D",
+              "N",
+              "D",
+              "N",
+              "D",
+              "N",
+              "D",
+              "N",
+              "D",
+              "N",
+              "D",
+              "N"
+            ],
+            "daypartName": [
+              null,
+              "Tonight",
+              "Tomorrow",
+              "Tomorrow night",
+              "Tuesday",
+              "Tuesday night",
+              "Wednesday",
+              "Wednesday night",
+              "Thursday",
+              "Thursday night",
+              "Friday",
+              "Friday night",
+              "Saturday",
+              "Saturday night",
+              "Sunday",
+              "Sunday night"
+            ],
+            "iconCode": [
+              null,
+              31,
+              30,
+              26,
+              39,
+              29,
+              30,
+              33,
+              30,
+              29,
+              11,
+              11,
+              28,
+              11,
+              11,
+              11
+            ],
+            "iconCodeExtend": [
+              null,
+              3100,
+              3000,
+              2600,
+              6103,
+              2900,
+              3000,
+              3300,
+              3000,
+              2900,
+              1100,
+              1100,
+              2800,
+              1100,
+              4600,
+              1100
+            ],
+            "narrative": [
+              null,
+              "Clear skies. Low near 45F. Winds NNE at 5 to 10 mph.",
+              "Sunshine early then becoming cloudy later in the day. High 61F. Winds light and variable.",
+              "Cloudy. Low 51F. Winds light and variable.",
+              "Rain showers early with overcast skies later in the day. High near 55F. Winds light and variable. Chance of rain 50%.",
+              "Partly cloudy skies. Low 49F. Winds light and variable.",
+              "Partly cloudy skies. High near 60F. Winds light and variable.",
+              "Clear skies with a few passing clouds. Low 46F. Winds light and variable.",
+              "Partly cloudy skies. High 62F. Winds light and variable.",
+              "Partly cloudy. Low around 50F. Winds light and variable.",
+              "Considerable cloudiness with occasional rain showers. High 61F. Winds light and variable. Chance of rain 60%.",
+              "Considerable cloudiness with occasional rain showers. Low around 50F. Winds light and variable. Chance of rain 40%.",
+              "Mainly cloudy. High 61F. Winds light and variable.",
+              "Cloudy with a few showers. Low 51F. Winds light and variable. Chance of rain 30%.",
+              "Cloudy with a few showers. High 64F. Winds light and variable. Chance of rain 30%.",
+              "Considerable cloudiness with occasional rain showers. Low 52F. Winds light and variable. Chance of rain 40%."
+            ],
+            "precipChance": [
+              null,
+              6,
+              6,
+              6,
+              46,
+              19,
+              17,
+              7,
+              6,
+              21,
+              56,
+              41,
+              24,
+              32,
+              34,
+              40
+            ],
+            "precipType": [
+              null,
+              "rain",
+              "rain",
+              "rain",
+              "rain",
+              "rain",
+              "rain",
+              "rain",
+              "rain",
+              "rain",
+              "rain",
+              "rain",
+              "rain",
+              "rain",
+              "rain",
+              "rain"
+            ],
+            "qpf": [
+              null,
+              0,
+              0,
+              0,
+              0.06,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0.13,
+              0.11,
+              0,
+              0.04,
+              0.09,
+              0.09
+            ],
+            "qpfSnow": [
+              null,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "qualifierCode": [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ],
+            "qualifierPhrase": [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ],
+            "relativeHumidity": [
+              null,
+              79,
+              68,
+              77,
+              80,
+              91,
+              76,
+              86,
+              72,
+              73,
+              69,
+              87,
+              82,
+              86,
+              81,
+              92
+            ],
+            "snowRange": [
+              null,
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            "temperature": [
+              null,
+              45,
+              61,
+              51,
+              55,
+              49,
+              60,
+              46,
+              62,
+              50,
+              61,
+              50,
+              61,
+              51,
+              64,
+              52
+            ],
+            "temperatureHeatIndex": [
+              null,
+              57,
+              61,
+              55,
+              55,
+              53,
+              60,
+              55,
+              62,
+              57,
+              61,
+              57,
+              61,
+              57,
+              64,
+              57
+            ],
+            "temperatureWindChill": [
+              null,
+              45,
+              46,
+              51,
+              52,
+              49,
+              50,
+              46,
+              47,
+              50,
+              50,
+              50,
+              51,
+              51,
+              52,
+              52
+            ],
+            "thunderCategory": [
+              null,
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder",
+              "No thunder"
+            ],
+            "thunderIndex": [
+              null,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "uvDescription": [
+              null,
+              "Low",
+              "Moderate",
+              "Low",
+              "Low",
+              "Low",
+              "Moderate",
+              "Low",
+              "Moderate",
+              "Low",
+              "Moderate",
+              "Low",
+              "Moderate",
+              "Low",
+              "Moderate",
+              "Low"
+            ],
+            "uvIndex": [
+              null,
+              0,
+              3,
+              0,
+              2,
+              0,
+              3,
+              0,
+              3,
+              0,
+              3,
+              0,
+              3,
+              0,
+              3,
+              0
+            ],
+            "windDirection": [
+              null,
+              25,
+              352,
+              343,
+              67,
+              324,
+              204,
+              21,
+              316,
+              7,
+              85,
+              74,
+              72,
+              45,
+              101,
+              73
+            ],
+            "windDirectionCardinal": [
+              null,
+              "NNE",
+              "N",
+              "NNW",
+              "ENE",
+              "NW",
+              "SSW",
+              "NNE",
+              "NW",
+              "N",
+              "E",
+              "ENE",
+              "ENE",
+              "NE",
+              "E",
+              "ENE"
+            ],
+            "windPhrase": [
+              null,
+              "Winds NNE at 5 to 10 mph.",
+              "Winds light and variable.",
+              "Winds light and variable.",
+              "Winds light and variable.",
+              "Winds light and variable.",
+              "Winds light and variable.",
+              "Winds light and variable.",
+              "Winds light and variable.",
+              "Winds light and variable.",
+              "Winds light and variable.",
+              "Winds light and variable.",
+              "Winds light and variable.",
+              "Winds light and variable.",
+              "Winds light and variable.",
+              "Winds light and variable."
+            ],
+            "windSpeed": [
+              null,
+              9,
+              3,
+              1,
+              3,
+              3,
+              4,
+              3,
+              3,
+              3,
+              4,
+              4,
+              3,
+              3,
+              4,
+              3
+            ],
+            "wxPhraseLong": [
+              null,
+              "Clear",
+              "Partly Cloudy",
+              "Cloudy",
+              "AM Showers",
+              "Partly Cloudy",
+              "Partly Cloudy",
+              "Mostly Clear",
+              "Partly Cloudy",
+              "Partly Cloudy",
+              "Showers",
+              "Showers",
+              "Mostly Cloudy",
+              "Showers",
+              "Few Showers",
+              "Showers"
+            ],
+            "wxPhraseShort": [
+              null,
+              "Clear",
+              "P Cloudy",
+              "Cloudy",
+              "AM Showers",
+              "P Cloudy",
+              "P Cloudy",
+              "M Clear",
+              "P Cloudy",
+              "P Cloudy",
+              "Showers",
+              "Showers",
+              "M Cloudy",
+              "Showers",
+              "Few Showers",
+              "Showers"
+            ]
+          }
+        ]
+      },
+      "radar": "https://api.weather.com/v2/maps/dynamic?geocode=49.0,-123.0&h=320&h=320&w=568&lod=7&product=satrad&map=dark&language=en-US&format=png&apiKey=e1f10a1e78da46f5b10a1e78da96f525&a=0",
+      "special": {
+        "aqi": {
+          "globalairquality": {
+            "latitude": 49.24,
+            "longitude": -123.12,
+            "source": "Contains Copernicus Atmosphere Monitoring Service information 2024 and/or modified Copernicus Atmosphere Monitoring Service information 2024",
+            "disclaimer": "Neither the European Commission nor ECMWF is responsible for any use of this information",
+            "airQualityIndex": 26,
+            "airQualityCategory": "Good",
+            "airQualityCategoryIndex": 1,
+            "airQualityCategoryIndexColor": "00E838",
+            "primaryPollutant": "O3",
+            "pollutants": {
+              "CO": {
+                "name": "CO",
+                "phrase": "Carbon Monoxide",
+                "amount": 220,
+                "unit": "µg/m3",
+                "category": "Good",
+                "categoryIndex": 1,
+                "index": 1
+              },
+              "NO2": {
+                "name": "NO2",
+                "phrase": "Nitrogen Dioxide",
+                "amount": 19.21,
+                "unit": "µg/m3",
+                "category": "Good",
+                "categoryIndex": 1,
+                "index": 9
+              },
+              "O3": {
+                "name": "O3",
+                "phrase": "Ozone",
+                "amount": 50.63,
+                "unit": "µg/m3",
+                "category": "Good",
+                "categoryIndex": 1,
+                "index": 26
+              },
+              "PM10": {
+                "name": "PM10",
+                "phrase": "Particulate matter less than 10 microns",
+                "amount": 4.21,
+                "unit": "µg/m3",
+                "category": "Good",
+                "categoryIndex": 1,
+                "index": 3
+              },
+              "PM2.5": {
+                "name": "PM2.5",
+                "phrase": "Particulate matter less than 2.5 microns",
+                "amount": 2.94,
+                "unit": "µg/m3",
+                "category": "Good",
+                "categoryIndex": 1,
+                "index": 9
+              },
+              "SO2": {
+                "name": "SO2",
+                "phrase": "Sulfur Dioxide",
+                "amount": 4.06,
+                "unit": "µg/m3",
+                "category": "Good",
+                "categoryIndex": 1,
+                "index": 1
+              }
+            },
+            "messages": {
+              "General": {
+                "title": "General",
+                "text": "Air quality is considered satisfactory, and air pollution poses little or no risk."
+              },
+              "Sensitive Group": {
+                "title": "Sensitive Groups",
+                "text": "Air quality is considered satisfactory, and air pollution poses little or no risk."
+              }
+            },
+            "expireTimeGmt": 1727661746
+          }
+        },
+        "pollen": {
+          "metadata": {
+            "language": "en-US",
+            "transactionId": "1727658233036:e3ca01bc701cedeceef5c143698b168b",
+            "version": "1",
+            "latitude": 49.26,
+            "longitude": -123.12,
+            "expireTimeGmt": 1727659999,
+            "statusCode": 200
+          },
+          "pollenForecast12hour": {
+            "fcstValid": [
+              1727661600,
+              1727704800,
+              1727748000,
+              1727791200,
+              1727834400,
+              1727877600,
+              1727920800
+            ],
+            "fcstValidLocal": [
+              "2024-09-29T19:00:00-0700",
+              "2024-09-30T07:00:00-0700",
+              "2024-09-30T19:00:00-0700",
+              "2024-10-01T07:00:00-0700",
+              "2024-10-01T19:00:00-0700",
+              "2024-10-02T07:00:00-0700",
+              "2024-10-02T19:00:00-0700"
+            ],
+            "dayInd": [
+              "N",
+              "D",
+              "N",
+              "D",
+              "N",
+              "D",
+              "N"
+            ],
+            "num": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "daypartName": [
+              "Tonight",
+              "Tomorrow",
+              "Tomorrow night",
+              "Tuesday",
+              "Tuesday night",
+              "Wednesday",
+              "Wednesday night"
+            ],
+            "grassPollenIndex": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "grassPollenCategory": [
+              "None",
+              "None",
+              "None",
+              "None",
+              "None",
+              "None",
+              "None"
+            ],
+            "treePollenIndex": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "treePollenCategory": [
+              "None",
+              "None",
+              "None",
+              "None",
+              "None",
+              "None",
+              "None"
+            ],
+            "ragweedPollenIndex": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "ragweedPollenCategory": [
+              "None",
+              "None",
+              "None",
+              "None",
+              "None",
+              "None",
+              "None"
+            ]
+          }
+        }
+      },
+      "indices": {
+        "spring": {
+          "running": {
+            "metadata": {
+              "language": "en-US",
+              "transactionId": "1727658229120:410f86f00085de721895237ba686bb2e",
+              "version": "1",
+              "latitude": 49.26,
+              "longitude": -123.12,
+              "expireTimeGmt": 1727659999,
+              "statusCode": 200
+            },
+            "runWeatherIndex12hour": {
+              "fcstValid": [
+                1727661600,
+                1727704800,
+                1727748000,
+                1727791200,
+                1727834400,
+                1727877600,
+                1727920800
+              ],
+              "fcstValidLocal": [
+                "2024-09-29T19:00:00-0700",
+                "2024-09-30T07:00:00-0700",
+                "2024-09-30T19:00:00-0700",
+                "2024-10-01T07:00:00-0700",
+                "2024-10-01T19:00:00-0700",
+                "2024-10-02T07:00:00-0700",
+                "2024-10-02T19:00:00-0700"
+              ],
+              "dayInd": [
+                "N",
+                "D",
+                "N",
+                "D",
+                "N",
+                "D",
+                "N"
+              ],
+              "num": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "daypartName": [
+                "Tonight",
+                "Tomorrow",
+                "Tomorrow night",
+                "Tuesday",
+                "Tuesday night",
+                "Wednesday",
+                "Wednesday night"
+              ],
+              "longRunWeatherIndex": [
+                6,
+                8,
+                7,
+                5,
+                7,
+                9,
+                7
+              ],
+              "longRunWeatherCategory": [
+                "Fair",
+                "Good",
+                "Good",
+                "Fair",
+                "Good",
+                "Very Good",
+                "Good"
+              ],
+              "shortRunWeatherIndex": [
+                5,
+                7,
+                5,
+                4,
+                5,
+                9,
+                5
+              ],
+              "shortRunWeatherCategory": [
+                "Fair",
+                "Good",
+                "Fair",
+                "Poor",
+                "Fair",
+                "Very Good",
+                "Fair"
+              ]
+            }
+          },
+          "mosquito": {
+            "metadata": {
+              "language": "en-US",
+              "transactionId": "1727658229301:163f6b491f1c769464aff831cddf7ee4",
+              "version": "1",
+              "latitude": 49.26,
+              "longitude": -123.12,
+              "expireTimeGmt": 1727659999,
+              "statusCode": 200
+            },
+            "mosquitoIndex12hour": {
+              "fcstValid": [
+                1727661600,
+                1727704800,
+                1727748000,
+                1727791200,
+                1727834400,
+                1727877600,
+                1727920800
+              ],
+              "fcstValidLocal": [
+                "2024-09-29T19:00:00-0700",
+                "2024-09-30T07:00:00-0700",
+                "2024-09-30T19:00:00-0700",
+                "2024-10-01T07:00:00-0700",
+                "2024-10-01T19:00:00-0700",
+                "2024-10-02T07:00:00-0700",
+                "2024-10-02T19:00:00-0700"
+              ],
+              "dayInd": [
+                "N",
+                "D",
+                "N",
+                "D",
+                "N",
+                "D",
+                "N"
+              ],
+              "num": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "daypartName": [
+                "Tonight",
+                "Tomorrow",
+                "Tomorrow night",
+                "Tuesday",
+                "Tuesday night",
+                "Wednesday",
+                "Wednesday night"
+              ],
+              "mosquitoIndex": [
+                0,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+              ],
+              "mosquitoCategory": [
+                "None",
+                "Limited Activity",
+                "Limited Activity",
+                "Limited Activity",
+                "Limited Activity",
+                "Limited Activity",
+                "Limited Activity"
+              ]
+            },
+            "mosquitoIndex24hour": {
+              "fcstValid": [
+                1727618400,
+                1727704800,
+                1727791200,
+                1727877600
+              ],
+              "fcstValidLocal": [
+                "2024-09-29T07:00:00-0700",
+                "2024-09-30T07:00:00-0700",
+                "2024-10-01T07:00:00-0700",
+                "2024-10-02T07:00:00-0700"
+              ],
+              "dow": [
+                "Sunday",
+                "Monday",
+                "Tuesday",
+                "Wednesday"
+              ],
+              "num": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "eveningMosquitoIndex": [
+                1,
+                1,
+                1,
+                1
+              ],
+              "eveningMosquitoCategory": [
+                "Limited Activity",
+                "Limited Activity",
+                "Limited Activity",
+                "Limited Activity"
+              ]
+            }
+          },
+          "golf": {
+            "metadata": {
+              "language": "en-US",
+              "transactionId": "1727658229359:b4df9062a4180e752310f3d96e49c0b8",
+              "version": "1",
+              "latitude": 49.26,
+              "longitude": -123.12,
+              "expireTimeGmt": 1727659999,
+              "statusCode": 200
+            },
+            "golfIndex12hour": {
+              "fcstValid": [
+                1727661600,
+                1727704800,
+                1727748000,
+                1727791200,
+                1727834400,
+                1727877600,
+                1727920800
+              ],
+              "fcstValidLocal": [
+                "2024-09-29T19:00:00-0700",
+                "2024-09-30T07:00:00-0700",
+                "2024-09-30T19:00:00-0700",
+                "2024-10-01T07:00:00-0700",
+                "2024-10-01T19:00:00-0700",
+                "2024-10-02T07:00:00-0700",
+                "2024-10-02T19:00:00-0700"
+              ],
+              "dayInd": [
+                "N",
+                "D",
+                "N",
+                "D",
+                "N",
+                "D",
+                "N"
+              ],
+              "num": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "daypartName": [
+                "Tonight",
+                "Tomorrow",
+                "Tomorrow night",
+                "Tuesday",
+                "Tuesday night",
+                "Wednesday",
+                "Wednesday night"
+              ],
+              "golfIndex": [
+                null,
+                6,
+                null,
+                4,
+                null,
+                8,
+                null
+              ],
+              "golfCategory": [
+                "",
+                "Good",
+                "",
+                "Fair",
+                "",
+                "Very Good",
+                ""
+              ]
+            }
+          }
+        },
+        "winter": {
+          "heating": {
+            "metadata": {
+              "language": "en-US",
+              "transactionId": "1727658229478:474f3a701ff5d0e2ad1b3b08b76fcb0c",
+              "version": "1",
+              "latitude": 49.26,
+              "longitude": -123.12,
+              "expireTimeGmt": 1727659999,
+              "statusCode": 200
+            },
+            "heatingCoolingIndex12hour": {
+              "fcstValid": [
+                1727661600,
+                1727704800,
+                1727748000,
+                1727791200,
+                1727834400,
+                1727877600,
+                1727920800
+              ],
+              "fcstValidLocal": [
+                "2024-09-29T19:00:00-0700",
+                "2024-09-30T07:00:00-0700",
+                "2024-09-30T19:00:00-0700",
+                "2024-10-01T07:00:00-0700",
+                "2024-10-01T19:00:00-0700",
+                "2024-10-02T07:00:00-0700",
+                "2024-10-02T19:00:00-0700"
+              ],
+              "dayInd": [
+                "N",
+                "D",
+                "N",
+                "D",
+                "N",
+                "D",
+                "N"
+              ],
+              "num": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "daypartName": [
+                "Tonight",
+                "Tomorrow",
+                "Tomorrow night",
+                "Tuesday",
+                "Tuesday night",
+                "Wednesday",
+                "Wednesday night"
+              ],
+              "heatingCoolingIndex": [
+                -5,
+                -3,
+                -4,
+                -4,
+                -5,
+                -3,
+                -5
+              ],
+              "heatingCoolingCategory": [
+                "Some Heating for Comfort",
+                "Some Heating for Comfort",
+                "Some Heating for Comfort",
+                "Some Heating for Comfort",
+                "Some Heating for Comfort",
+                "Some Heating for Comfort",
+                "Some Heating for Comfort"
+              ]
+            }
+          },
+          "frost": {
+            "metadata": {
+              "language": "en-US",
+              "transactionId": "1727658229204:d7e4affc8d7b8e8d2a85c9f7e6d9aacc",
+              "version": "1",
+              "latitude": 49.26,
+              "longitude": -123.12,
+              "expireTimeGmt": 1727659999,
+              "statusCode": 200
+            },
+            "frostPotentialIndex12hour": {
+              "fcstValid": [
+                1727661600,
+                1727704800,
+                1727748000,
+                1727791200,
+                1727834400,
+                1727877600,
+                1727920800
+              ],
+              "fcstValidLocal": [
+                "2024-09-29T19:00:00-0700",
+                "2024-09-30T07:00:00-0700",
+                "2024-09-30T19:00:00-0700",
+                "2024-10-01T07:00:00-0700",
+                "2024-10-01T19:00:00-0700",
+                "2024-10-02T07:00:00-0700",
+                "2024-10-02T19:00:00-0700"
+              ],
+              "dayInd": [
+                "N",
+                "D",
+                "N",
+                "D",
+                "N",
+                "D",
+                "N"
+              ],
+              "num": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "daypartName": [
+                "Tonight",
+                "Tomorrow",
+                "Tomorrow night",
+                "Tuesday",
+                "Tuesday night",
+                "Wednesday",
+                "Wednesday night"
+              ],
+              "frostPotentialIndex": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "frostPotentialCategory": [
+                "None",
+                "None",
+                "None",
+                "None",
+                "None",
+                "None",
+                "None"
+              ]
+            }
+          },
+          "ski": {
+            "metadata": {
+              "language": "en-US",
+              "transactionId": "1727656427332:e960ea70ca279b1fffaeecc8945e2928",
+              "version": "1",
+              "latitude": 49.26,
+              "longitude": -123.12,
+              "expireTimeGmt": 1727658198,
+              "statusCode": 200
+            },
+            "skiIndex12hour": {
+              "fcstValid": [
+                1727661600,
+                1727704800,
+                1727748000,
+                1727791200,
+                1727834400,
+                1727877600,
+                1727920800
+              ],
+              "fcstValidLocal": [
+                "2024-09-29T19:00:00-0700",
+                "2024-09-30T07:00:00-0700",
+                "2024-09-30T19:00:00-0700",
+                "2024-10-01T07:00:00-0700",
+                "2024-10-01T19:00:00-0700",
+                "2024-10-02T07:00:00-0700",
+                "2024-10-02T19:00:00-0700"
+              ],
+              "dayInd": [
+                "N",
+                "D",
+                "N",
+                "D",
+                "N",
+                "D",
+                "N"
+              ],
+              "num": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "daypartName": [
+                "Tonight",
+                "Tomorrow",
+                "Tomorrow night",
+                "Tuesday",
+                "Tuesday night",
+                "Wednesday",
+                "Wednesday night"
+              ],
+              "skiIndex": [
+                6,
+                1,
+                4,
+                1,
+                6,
+                4,
+                7
+              ],
+              "skiCategory": [
+                "Good",
+                "Very Poor",
+                "Fair",
+                "Very Poor",
+                "Good",
+                "Fair",
+                "Good"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

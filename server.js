@@ -21,7 +21,21 @@ async function getWeather(lat, lon, countryCode) { // credit to Dalk
   // its like 1 am and im way too lazy to think of that better approach
   const currentUrl = await fetch(`https://api.weather.com/v3/wx/observations/current?geocode=${lat},${lon}&units=${config.units}&language=en-US&format=json&apiKey=${config.twcApiKey}`);
   const weeklyUrl = await fetch(`https://api.weather.com/v3/wx/forecast/daily/7day?geocode=${lat},${lon}&format=json&units=${config.units}&language=en-US&apiKey=${config.twcApiKey}`);
-  const alertsUrl = await fetch(`https://api.weather.com/v3/alerts/headlines?countryCode=${countryCode}&format=json&language=en-US&apiKey=${config.twcApiKey}`);
+  
+  let alerts = null
+
+  try {
+    const alertsUrl = await fetch(`https://api.weather.com/v3/alerts/headlines?geocode=${lat},${lon}&format=json&language=en-US&apiKey=${config.twcApiKey}`);
+    if (alertsUrl.status === 204) {
+      console.info(`There are no alerts in effect for ${lat},${lon}`)
+    } else {
+      const alerts = await alertsUrl.json();
+      console.info(`There are alerts in effect for ${lat},${lon}!:`, alerts)
+    }
+  } catch (error) {
+    console.error('Error fetching weather alerts.')
+  }
+  
   const radarUrl = await fetch(`https://api.weather.com/v2/maps/dynamic?geocode=${Math.round(lat)}.0,${Math.round(lon)}.0&h=320&h=320&w=568&lod=7&product=satrad&map=dark&language=en-US&format=png&apiKey=${config.twcApiKey}&a=0`)
   const aqiUrl = await fetch(`https://api.weather.com/v3/wx/globalAirQuality?geocode=${lat},${lon}&language=en-US&scale=EPA&format=json&apiKey=${config.twcApiKey}`);
   const pollenUrl = await fetch(`https://api.weather.com/v2/indices/pollen/daypart/3day?geocode=${lat},${lon}&language=en-US&format=json&apiKey=${config.twcApiKey}`);
@@ -33,7 +47,6 @@ async function getWeather(lat, lon, countryCode) { // credit to Dalk
   const heatingUrl = await fetch(`https://api.weather.com/v2/indices/heatCool/daypart/3day?geocode=${lat},${lon}&language=en-US&format=json&apiKey=${config.twcApiKey}`);
   const current = await currentUrl.json();
   const weekly = await weeklyUrl.json();
-  const alerts = await alertsUrl.json();
   const radar = radarUrl.url;
   const aqi = await aqiUrl.json();
   const pollen = await pollenUrl.json();
@@ -90,12 +103,16 @@ async function loadAllCities() {
 
       allWeather[location][currentCity].current = weather.current
       allWeather[location][currentCity].weekly = weather.weekly
-      allWeather[location][currentCity].alerts = weather.alerts
+      
       allWeather[location][currentCity].radar = weather.radar
       allWeather[location][currentCity].special = weather.special
       allWeather[location][currentCity].indices = weather.indices
 
       console.log(`Processed ${location} (${currentCity})`)
+
+      if (weather.alerts) {
+        allWeather[location][currentCity].alerts = weather.alerts
+      }
 
       currentCity++
 

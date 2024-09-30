@@ -1,1 +1,278 @@
-{}
+{
+  "Saskatoon, SK": {
+    "24": {
+      "coordinates": {
+        "lat": 52.128,
+        "lon": -106.662,
+        "country": "CA",
+        "adminDistrictCode": null
+      },
+      "current": {
+        "cloudCeiling": 16000,
+        "cloudCoverPhrase": "Cloudy",
+        "dayOfWeek": "Sunday",
+        "dayOrNight": "N",
+        "expirationTimeUtc": 1727658686,
+        "iconCode": 26,
+        "iconCodeExtend": 2600,
+        "obsQualifierCode": null,
+        "obsQualifierSeverity": null,
+        "precip1Hour": 0,
+        "precip6Hour": 0,
+        "precip24Hour": 0,
+        "pressureAltimeter": 29.47,
+        "pressureChange": 0.06,
+        "pressureMeanSeaLevel": 1000.3,
+        "pressureTendencyCode": 1,
+        "pressureTendencyTrend": "Rising",
+        "relativeHumidity": 58,
+        "snow1Hour": 0,
+        "snow6Hour": 0,
+        "snow24Hour": 0,
+        "sunriseTimeLocal": "2024-09-29T07:05:29-0600",
+        "sunriseTimeUtc": 1727615129,
+        "sunsetTimeLocal": "2024-09-29T18:46:52-0600",
+        "sunsetTimeUtc": 1727657212,
+        "temperature": 58,
+        "temperatureChange24Hour": -6,
+        "temperatureDewPoint": 44,
+        "temperatureFeelsLike": 55,
+        "temperatureHeatIndex": 58,
+        "temperatureMax24Hour": 76,
+        "temperatureMaxSince7Am": 76,
+        "temperatureMin24Hour": 54,
+        "temperatureWindChill": 55,
+        "uvDescription": "Low",
+        "uvIndex": 0,
+        "validTimeLocal": "2024-09-29T19:01:26-0600",
+        "validTimeUtc": 1727658086,
+        "visibility": 10,
+        "windDirection": 280,
+        "windDirectionCardinal": "W",
+        "windGust": 23,
+        "windSpeed": 14,
+        "wxPhraseLong": "Cloudy",
+        "wxPhraseMedium": "Cloudy",
+        "wxPhraseShort": "Cloudy"
+      },
+      "alerts": {
+        "metadata": {
+          "transaction_id": "1727658336015:1381264894",
+          "status_code": 400
+        },
+        "success": "false",
+        "error": {
+          "code": "QPV-0001",
+          "message": "The query field 'countryCode' contains an invalid value 'undefined'"
+        }
+      }
+    }
+  },
+  "Prince Albert, SK": {
+    "25": {
+      "coordinates": {
+        "lat": 53.203,
+        "lon": -105.754,
+        "country": "CA",
+        "adminDistrictCode": null
+      },
+      "current": {
+        "cloudCeiling": null,
+        "cloudCoverPhrase": "Cloudy",
+        "dayOfWeek": "Sunday",
+        "dayOrNight": "N",
+        "expirationTimeUtc": 1727658526,
+        "iconCode": 26,
+        "iconCodeExtend": 2600,
+        "obsQualifierCode": "OQ1026",
+        "obsQualifierSeverity": 1,
+        "precip1Hour": 0,
+        "precip6Hour": 0,
+        "precip24Hour": 0,
+        "pressureAltimeter": 29.41,
+        "pressureChange": 0.03,
+        "pressureMeanSeaLevel": 997.6,
+        "pressureTendencyCode": 1,
+        "pressureTendencyTrend": "Rising",
+        "relativeHumidity": 62,
+        "snow1Hour": 0,
+        "snow6Hour": 0,
+        "snow24Hour": 0,
+        "sunriseTimeLocal": "2024-09-29T07:02:14-0600",
+        "sunriseTimeUtc": 1727614934,
+        "sunsetTimeLocal": "2024-09-29T18:42:44-0600",
+        "sunsetTimeUtc": 1727656964,
+        "temperature": 64,
+        "temperatureChange24Hour": 3,
+        "temperatureDewPoint": 51,
+        "temperatureFeelsLike": 64,
+        "temperatureHeatIndex": 64,
+        "temperatureMax24Hour": 76,
+        "temperatureMaxSince7Am": 76,
+        "temperatureMin24Hour": 45,
+        "temperatureWindChill": 64,
+        "uvDescription": "Low",
+        "uvIndex": 0,
+        "validTimeLocal": "2024-09-29T18:58:46-0600",
+        "validTimeUtc": 1727657926,
+        "visibility": 10,
+        "windDirection": 290,
+        "windDirectionCardinal": "WNW",
+        "windGust": null,
+        "windSpeed": 8,
+        "wxPhraseLong": "Cloudy",
+        "wxPhraseMedium": "Cloudy",
+        "wxPhraseShort": "Cloudy"
+      },
+      "alerts": {
+        "metadata": {
+          "transaction_id": "1727658336227:-401997360",
+          "status_code": 400
+        },
+        "success": "false",
+        "error": {
+          "code": "QPV-0001",
+          "message": "The query field 'countryCode' contains an invalid value 'undefined'"
+        }
+      }
+    }
+  },
+  "North Battleford, SK": {
+    "26": {
+      "coordinates": {
+        "lat": 52.773,
+        "lon": -108.299,
+        "country": "CA",
+        "adminDistrictCode": null
+      },
+      "current": {
+        "cloudCeiling": null,
+        "cloudCoverPhrase": "Partly Cloudy",
+        "dayOfWeek": "Sunday",
+        "dayOrNight": "N",
+        "expirationTimeUtc": 1727658400,
+        "iconCode": 33,
+        "iconCodeExtend": 3300,
+        "obsQualifierCode": null,
+        "obsQualifierSeverity": null,
+        "precip1Hour": 0,
+        "precip6Hour": 0,
+        "precip24Hour": 0,
+        "pressureAltimeter": 29.54,
+        "pressureChange": 0.05,
+        "pressureMeanSeaLevel": 1002.4,
+        "pressureTendencyCode": 1,
+        "pressureTendencyTrend": "Rising",
+        "relativeHumidity": 63,
+        "snow1Hour": 0,
+        "snow6Hour": 0,
+        "snow24Hour": 0,
+        "sunriseTimeLocal": "2024-09-29T07:12:23-0600",
+        "sunriseTimeUtc": 1727615543,
+        "sunsetTimeLocal": "2024-09-29T18:53:13-0600",
+        "sunsetTimeUtc": 1727657593,
+        "temperature": 53,
+        "temperatureChange24Hour": -8,
+        "temperatureDewPoint": 41,
+        "temperatureFeelsLike": 49,
+        "temperatureHeatIndex": 53,
+        "temperatureMax24Hour": 62,
+        "temperatureMaxSince7Am": 62,
+        "temperatureMin24Hour": 48,
+        "temperatureWindChill": 49,
+        "uvDescription": "Low",
+        "uvIndex": 0,
+        "validTimeLocal": "2024-09-29T18:56:40-0600",
+        "validTimeUtc": 1727657800,
+        "visibility": 10,
+        "windDirection": 310,
+        "windDirectionCardinal": "NW",
+        "windGust": 21,
+        "windSpeed": 14,
+        "wxPhraseLong": "Fair",
+        "wxPhraseMedium": "Fair",
+        "wxPhraseShort": "Fair"
+      },
+      "alerts": {
+        "metadata": {
+          "transaction_id": "1727658336444:-407723489",
+          "status_code": 400
+        },
+        "success": "false",
+        "error": {
+          "code": "QPV-0001",
+          "message": "The query field 'countryCode' contains an invalid value 'undefined'"
+        }
+      }
+    }
+  },
+  "Winnipeg, MB": {
+    "27": {
+      "coordinates": {
+        "lat": 49.896,
+        "lon": -97.139,
+        "country": "CA",
+        "adminDistrictCode": null
+      },
+      "current": {
+        "cloudCeiling": null,
+        "cloudCoverPhrase": "Partly Cloudy",
+        "dayOfWeek": "Sunday",
+        "dayOrNight": "N",
+        "expirationTimeUtc": 1727658717,
+        "iconCode": 33,
+        "iconCodeExtend": 3300,
+        "obsQualifierCode": "OQ1050",
+        "obsQualifierSeverity": 1,
+        "precip1Hour": 0,
+        "precip6Hour": 0,
+        "precip24Hour": 0,
+        "pressureAltimeter": 29.63,
+        "pressureChange": -0.07,
+        "pressureMeanSeaLevel": 1005.3,
+        "pressureTendencyCode": 2,
+        "pressureTendencyTrend": "Falling",
+        "relativeHumidity": 37,
+        "snow1Hour": 0,
+        "snow6Hour": 0,
+        "snow24Hour": 0,
+        "sunriseTimeLocal": "2024-09-29T07:26:13-0500",
+        "sunriseTimeUtc": 1727612773,
+        "sunsetTimeLocal": "2024-09-29T19:09:43-0500",
+        "sunsetTimeUtc": 1727654983,
+        "temperature": 77,
+        "temperatureChange24Hour": 12,
+        "temperatureDewPoint": 49,
+        "temperatureFeelsLike": 77,
+        "temperatureHeatIndex": 77,
+        "temperatureMax24Hour": 83,
+        "temperatureMaxSince7Am": 83,
+        "temperatureMin24Hour": 54,
+        "temperatureWindChill": 77,
+        "uvDescription": "Low",
+        "uvIndex": 0,
+        "validTimeLocal": "2024-09-29T20:01:57-0500",
+        "validTimeUtc": 1727658117,
+        "visibility": 10,
+        "windDirection": 160,
+        "windDirectionCardinal": "SSE",
+        "windGust": null,
+        "windSpeed": 9,
+        "wxPhraseLong": "Fair",
+        "wxPhraseMedium": "Fair",
+        "wxPhraseShort": "Fair"
+      },
+      "alerts": {
+        "metadata": {
+          "transaction_id": "1727658336608:1375990861",
+          "status_code": 400
+        },
+        "success": "false",
+        "error": {
+          "code": "QPV-0001",
+          "message": "The query field 'countryCode' contains an invalid value 'undefined'"
+        }
+      }
+    }
+  }
+}
