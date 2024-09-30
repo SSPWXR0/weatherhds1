@@ -418,7 +418,7 @@ async function mainData() {
 
                 mainRadar()
                 //define the canvas with 
-                const sevenDayHighAndLow = document.getElementById('myChart');
+                const sevenDayHighAndLow = document.getElementById('sevenDayChart');
                 //we cannot reuse a canvas, once made, it needs to be destroyed. Easiest to do this reight before makinf the chart
                 if (chart) chart.destroy();
                 //These define the default option overides 
