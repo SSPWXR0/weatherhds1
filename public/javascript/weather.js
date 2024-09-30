@@ -71,6 +71,8 @@ let configGlobal;
 
 let isWeatherGood;
 
+let chart;
+
 async function mainData() {
 
     try {
