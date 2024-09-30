@@ -457,7 +457,7 @@ async function mainData() {
                       }
                     }
                   });
-                }
+                
 
             } else {
                 console.warn(`No valid current data found for ${locationName}`)
