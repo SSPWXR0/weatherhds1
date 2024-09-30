@@ -417,6 +417,45 @@ async function mainData() {
                 }
 
                 mainRadar()
+                //define the canvas with 
+                const sevenDayHighAndLow = document.getElementById('myChart');
+                //we cannot reuse a canvas, once made, it needs to be destroyed. Easiest to do this reight before makinf the chart
+                if (chart) chart.destroy();
+                //These define the default option overides 
+                Chart.defaults.backgroundColor = '#FFF';
+                Chart.defaults.borderColor = '#FFF';
+                Chart.defaults.color = '#FFF';
+                Chart.defaults.font.weight = 'bold';
+                  chart = new Chart(sevenDayHighAndLow, {
+                    type: 'line',
+                
+                	responsive: true,
+                    maintainAspectRatio: false,
+                	devicePixelRatio: 8,
+                	
+                    data: {
+                      labels: forecastData.dayOfWeek,
+                      datasets: [{
+                        label: 'Daily Low',
+                        data: forecastData.calendarDayTemperatureMin,
+                        borderWidth: 2
+                      },
+                      {
+                	label: 'Daily High',
+                	data:  forecastData.calendarDayTemperatureMax,
+                	borderWidth: 2
+                      }
+                ]
+                    },
+                    options: {
+                      scales: {
+                        y: {
+                          beginAtZero: false
+                        }
+                      }
+                    }
+                  });
+                }
 
             } else {
                 console.warn(`No valid current data found for ${locationName}`)
