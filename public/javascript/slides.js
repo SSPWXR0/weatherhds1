@@ -5,6 +5,7 @@ const presentationSlides = {
     "3": { title: "Day One Forecast", htmlID: "forecast-shortterm",},
     "4": { title: "Day Two Forecast", htmlID: "forecast-shortterm-d2",},
     "5": { title: "Extended Outlook", htmlID: "forecast-extended", },
+    "6": { title: "7 Day High and Lows", htmlID: "7day-graph", },
     //"6": { title: "Air Quality", htmlID: "airquality"}
 }
 
