@@ -405,6 +405,10 @@ hr {
 .aqidata {
 	font-size: 14pt;
 }
+.aqicdata {
+	font-size: 14pt;
+	text-align: center;
+}
 #flexcontainer{
   display: flex;
     flex-direction: row;
