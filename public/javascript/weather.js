@@ -71,6 +71,8 @@ let configGlobal;
 
 let isWeatherGood;
 
+let chart;
+
 async function mainData() {
 
     try {
@@ -130,6 +132,7 @@ async function mainData() {
               if (latestData && latestData.current) {
                 const currentData = latestData.current;
                 const forecastData = latestData.weekly;
+                const specialData = latestData.special;
 
                 currentLocationText.innerHTML = locationName;
 
@@ -405,6 +408,18 @@ async function mainData() {
                     setDayIcon(dayFiveIcon, 8);
                     setDayIcon(daySixIcon, 10);
                     setDayIcon(daySevenIcon, 12);
+
+                    const airQualityIndex = document.getElementById('airqaulityindex')
+                    const airQualityCategory = document.getElementById('airqaulitycategory')
+                    const airQualityPrimaryPol =document.getElementById('airqaulityprimarypollutant')
+		            const airQualityGeneral = document.getElementById('airqaulitygeneralmessage')
+		            const airQualitySensitive = document.getElementById('airqaulitysensitivemessage')
+
+                    airQualityIndex.innerHTML = `${specialData.aqi.globalairquality.airQualityIndex}`
+		            airQualityCategory.innerHTML = `${specialData.aqi.globalairquality.airQualityCategory}`
+		            airQualityPrimaryPol.innerHTML = `${specialData.aqi.globalairquality.primaryPollutant}`
+		            airQualityGeneral.innerHTML = `${specialData.aqi.globalairquality.messages.General.text}`
+		            airQualitySensitive.innerHTML = `${specialData.aqi.globalairquality.messages["Sensitive Group"].text}`
                 }
 
                 populateForecastSlides()
@@ -417,6 +432,45 @@ async function mainData() {
                 }
 
                 mainRadar()
+                //define the canvas with 
+                const sevenDayHighAndLow = document.getElementById('sevenDayChart');
+                //we cannot reuse a canvas, once made, it needs to be destroyed. Easiest to do this reight before makinf the chart
+                if (chart) chart.destroy();
+                //These define the default option overides 
+                Chart.defaults.backgroundColor = '#FFF';
+                Chart.defaults.borderColor = '#FFF';
+                Chart.defaults.color = '#FFF';
+                Chart.defaults.font.weight = 'bold';
+                  chart = new Chart(sevenDayHighAndLow, {
+                    type: 'line',
+                
+                	responsive: true,
+                    maintainAspectRatio: false,
+                	devicePixelRatio: 8,
+                	
+                    data: {
+                      labels: forecastData.dayOfWeek,
+                      datasets: [{
+                        label: 'Daily Low',
+                        data: forecastData.calendarDayTemperatureMin,
+                        borderWidth: 2
+                      },
+                      {
+                	label: 'Daily High',
+                	data:  forecastData.calendarDayTemperatureMax,
+                	borderWidth: 2
+                      }
+                ]
+                    },
+                    options: {
+                      scales: {
+                        y: {
+                          beginAtZero: false
+                        }
+                      }
+                    }
+                  });
+                
 
             } else {
                 console.warn(`No valid current data found for ${locationName}`)

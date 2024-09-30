@@ -195,10 +195,42 @@
                         <div id="forecast-day7-pop" class="main-forecast-pop"></div>
                     </div>
                 </div>
-
             </div>
+                <div id="7day-graph" class="main-slide">
+                    <div class="main-7day-container">
+		                <div id="main-7day-canvas-container">
+			                <canvas style="width:100%;height:100%;" id="sevenDayChart"></canvas> 
+		                </div>
+                    </div> 
+                </div>
+                
 
-            <!--<div id="airquality" class="main-slide">cuming soon</div> -->
+
+            <div id="airquality" class="main-slide">
+		<div class="main-aq-slide-container">
+				<div id="airqualitygeneralmessagelabel" class="aqilabels">General Population Consideratons</div>
+				<div id="airqaulitygeneralmessage" class="aqidata"></div>
+				<div id="airqualityprimarypollutant" class="aqilabels">Sensitive Population Consideratons</div>
+				<div id="airqaulitysensitivemessage" class="aqidata"></div>
+				<div id="flexcontainer">
+					<div id="aqi-category">
+						<div id="airqualitycatergorylabel" class="aqilabels">Air Quality Status</div>
+						<div id="airqaulitycategory" class="aqicdata">SHIT</div>
+					</div>
+					<div id="aqi-index">
+						<div id="airqualityindexlabel" class="aqilabels">Air Quality Index</div>
+						<div id="airqaulityindex" class="aqicdata"></div>
+					</div>
+					<div id="aqi-primary-pollutant">
+						<div id="airqualityprimarypollutant" class="aqilabels">Primary Pollutant</div>
+						<div id="airqaulityprimarypollutant" class="aqicdata"></div>
+					</div>
+				</div>
+
+
+
+		</div>
+	</div>
 
             <!--LIFESTYLE PRODUCTS-->
 
@@ -216,3 +248,4 @@
 <script type="text/javascript" src="/javascript/main.js"></script>
 <script type="text/javascript" src="/javascript/ldl.js"></script>
 <script type="text/javascript" src="/javascript/slides.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
