@@ -451,7 +451,7 @@ async function mainData() {
                         })
                         
                     } else {
-                        if (config.disableBrainrot === false) {
+                        if (config.disableBrainrot === true) {
                             alertsSlideContainer.innerHTML= `<h3 style="font-size: 16pt; text-shadow: 2pt 2pt 5pt #000000; font-weight: bold;" id="upnext-subtitle">Now... here is your weather,<h3>
                             <h1 style="font-size: 36pt; text-shadow: 2pt 2pt 5pt #000000; font-weight: 400; text-align: right;" id="upnext-location-header">${locationName}</h1>`
 
