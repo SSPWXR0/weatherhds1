@@ -356,6 +356,7 @@ hr {
   z-index: 2;
   width: 100%;
   height: 100%;
+  display: none;
 }
 .main-current-radar-container {
   position: absolute;
@@ -433,5 +434,25 @@ hr {
   float: left;
   width: 150px;
 }
-
- 
+/* ALERTS */
+.alert-box {
+  border-radius: var(--cornerRadius);
+  background-color: var(--primaryColourTransparent);
+  padding: 1%;
+  line-height: 0.2;
+}
+.main-alerts-standby {
+  text-align: center;
+  line-height: 0.2;
+  margin: 0 auto;
+  padding: 0.5%;
+  width: 100%;
+  height: 95%;
+  background-color: var(--primaryColourTransparent);
+  border-radius: var(--cornerRadius);
+}
+.main-alerts-standby-brainrot {
+  margin: 0 auto;
+  background-position: center;
+  background-repeat: no-repeat;
+}

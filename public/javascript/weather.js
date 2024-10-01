@@ -432,6 +432,70 @@ async function mainData() {
                 }
 
                 mainRadar()
+
+                function alerts() {
+                    const alertsSlideContainer = document.getElementById('alerts')
+
+                    alertsSlideContainer.innerHTML = "";
+
+                    if (latestData.alerts && Array.isArray(latestData.alerts.alerts) && latestData.alerts.alerts.length > 0) {
+
+                        latestData.alerts.alerts.forEach(function(alert) {
+                            alertsSlideContainer.innerHTML = "";
+                            let alertElement = document.createElement('div')
+                            alertElement.className = 'alert-box';
+                            alertElement.innerHTML = `
+                                            <h3>${alert.officeName} --- ${alert.eventDescription}</h3>
+                                            <p>for the area of ${alert.areaName};</P
+                                            <p>${alert.headlineText}</p>
+                                            `;
+                            alertsSlideContainer.appendChild(alertElement);
+                        })
+                        
+                    } else {
+                        async function alertSlideStandby() {
+
+                            alertsSlideContainer.innerHTML = "";
+
+                            console.info('Showing alert slide standby')
+                            
+                            try {
+                                const response = await fetch('./imageIndex.json');
+                                const imageIndex = await response.json();
+                            
+                                let standbyContainer = document.createElement('div');
+                                standbyContainer.className = `main-alerts-standby`;
+                                standbyContainer.innerHTML = `
+                                    <h4>There are no alerts in effect...</h4>
+                                    <h6>In the meantime, take 10 seconds before the slide changes to admire this random cat picture!</h6>
+                                `;
+                            
+                                alertsSlideContainer.appendChild(standbyContainer);
+                            
+                                if (imageIndex.brainrot && imageIndex.brainrot.length > 0) {
+                                    const randomIndex = Math.floor(Math.random() * imageIndex.brainrot.length);
+                                    const randomImage = imageIndex.brainrot[randomIndex];
+                            
+                                    let imageContainer = document.createElement('div');
+                                    imageContainer.className = `main-alerts-standby-brainrot`;
+                                    imageContainer.style.backgroundImage = `url(${randomImage})`;
+                                    imageContainer.style.backgroundSize = 'contain';
+                                    imageContainer.style.height = '70%';
+                                    imageContainer.style.width = '60%';
+
+                                    standbyContainer.appendChild(imageContainer);
+                                }
+                            } catch (error) {
+                                console.error('Error fetching imageIndex.json:', error);
+                            }
+                        }
+
+                        alertSlideStandby();
+                    }
+                }
+
+                alerts()
+
                 //define the canvas with 
                 const sevenDayHighAndLow = document.getElementById('sevenDayChart');
                 //we cannot reuse a canvas, once made, it needs to be destroyed. Easiest to do this reight before makinf the chart
