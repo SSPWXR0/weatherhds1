@@ -20,6 +20,7 @@
     ],
     "units": "e",
     "debugger": true,
+    "disableBrainrot": false,
     "enableVideoBackgrounds": false,
     "staticLDL": false,
     "staticIcons": false,

@@ -456,3 +456,19 @@ hr {
   background-position: center;
   background-repeat: no-repeat;
 }
+.main-alerts-standby-scrolltextdecorative {
+  position: absolute;
+  white-space: nowrap;
+  width: 100%;
+  bottom: 20%;
+  text-shadow: 1pt 1pt 1pt #000000;
+  animation: scroll 20s linear infinite;
+}
+@keyframes scroll {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
