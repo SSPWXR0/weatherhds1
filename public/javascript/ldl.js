@@ -6,13 +6,18 @@ async function LDLData() {
     let data;
     let config;
 
-    const [response, configResponse] = await Promise.all([
-        fetch('./ldlData.json'),
-        fetch('./config.json')
+    async function fetchTheLDLWeatherThingys() {    const [response, configResponse] = await Promise.all([
+      fetch('./ldlData.json'),
+      fetch('./config.json')
     ]);
-  
+
     data = await response.json();
     config = await configResponse.json();
+    }
+
+    fetchTheLDLWeatherThingys()
+
+    setInterval(fetchTheLDLWeatherThingys, 480000)
 
     let locationIndex = 0;
 
