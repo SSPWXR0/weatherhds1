@@ -51,4 +51,4 @@ function startSlideshow() {
     setTimeout(nextSlide, 10000)
 }
 
-window.onload = startSlideshow
+//window.onload = startSlideshow

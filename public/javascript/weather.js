@@ -499,6 +499,17 @@ async function mainData() {
     
                                         standbyContainer.appendChild(imageContainer);
                                     }
+
+                                    let decorativeContainer = document.createElement('div')
+                                    let decorative = document.createElement('div')
+        
+                                    decorative.className = `main-alerts-standby-scrolltextdecorative`
+                                    decorativeContainer.className = `main-alerts-standby-scrolltextcontainer`
+        
+                                    decorative.innerHTML = `${config.networkName}&nbsp;&nbsp;`.repeat(180);
+                                    alertsSlideContainer.appendChild(decorativeContainer);
+                                    decorativeContainer.appendChild(decorative);
+
                                 } catch (error) {
                                     console.error('Error fetching imageIndex.json:', error);
                                 }

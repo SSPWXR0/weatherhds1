@@ -20,7 +20,7 @@
     ],
     "units": "m",
     "debugger": true,
-    "disableBrainrot": false,
+    "disableBrainrot": true,
     "enableVideoBackgrounds": false,
     "staticLDL": false,
     "staticIcons": false,
