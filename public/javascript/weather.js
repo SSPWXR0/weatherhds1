@@ -455,10 +455,15 @@ async function mainData() {
                             alertsSlideContainer.innerHTML= `<h3 style="font-size: 16pt; text-shadow: 2pt 2pt 5pt #000000; font-weight: bold;" id="upnext-subtitle">Now... here is your weather,<h3>
                             <h1 style="font-size: 36pt; text-shadow: 2pt 2pt 5pt #000000; font-weight: 400; text-align: right;" id="upnext-location-header">${locationName}</h1>`
 
+                            let decorativeContainer = document.createElement('div')
                             let decorative = document.createElement('div')
+
                             decorative.className = `main-alerts-standby-scrolltextdecorative`
+                            decorativeContainer.className = `main-alerts-standby-scrolltextcontainer`
+
                             decorative.innerHTML = `${config.networkName}&nbsp;&nbsp;`.repeat(180);
-                            alertsSlideContainer.appendChild(decorative)
+                            alertsSlideContainer.appendChild(decorativeContainer);
+                            decorativeContainer.appendChild(decorative);
 
                             alertsSlideContainer.style.lineHeight = "0.1"
                         } else {
