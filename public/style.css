@@ -145,7 +145,7 @@ hr {
   display: none;
 }
 #stationid {
-  display: none;
+
 }
 #forecast-shortterm {
   display: none;
@@ -154,36 +154,77 @@ hr {
   display: none;
 }
 /* STATION ID */
-.main-current-stationid-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  justify-content: center;
+.main-info-container {
+  background-color: var(--primaryColourTransparent);
+  border-radius: 25px;
+  width: 100%;
+  height: 85%;
+  margin: 0 auto;
+  margin-top: 3%;
+}
+.main-info-channelLogo {
+  position: absolute;
+  top: 20%;
+  left: 10%;
+  height: 10%;
+}
+.main-info-operatorLogos {
+  position: absolute;
+  width: 33%;
+  height: 20%;
+  right: 8%;
+}
+.main-info-links {
+	position: absolute;
+	bottom: 23%;
+	left: 8%;
+	height: 16%;
+	line-height: 1.2;
+	font-size: 16pt;
+}
+.dataSource {
+  bottom: -2%;
+  position: relative;
   text-align: center;
-  text-shadow:#000000 2px 2px 4px;
-  background-color: var(--primaryColourTransparent);
-  border-radius: 10px;
-  width: 100%;
-  height: 92%;
+  font-size: 45%;
+  width: 50%;
+  margin: 0 auto;
 }
-.main-stationid-netlogo {
-  width: 60%;
-  margin: 5% auto;
+.main-info-hds1info {
+	position: absolute;
+	right: 5%;
+	bottom: 30%;
+	width: 24%;
+	height: 6%;
 }
-.main-current-stationid-extrainfo {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-  text-shadow:#000000 2px 2px 4px;
-  margin-top: 1.5%;
-  width: 100%;
-  height: 8%;
-  background-color: var(--primaryColourTransparent);
-  padding: 1px;
-  border-radius: 10px;
+.hdsLogo {
+  height: 50%;
 }
-.station-id-bottom-text {
-  margin: auto 0;
+.versionID {
+  top: -10%;
+  position: absolute;
+}
+.main-info-netlogo-container {
+	position: absolute;
+	top: 39%;
+	left: 6.5%;
+	width: 45%;
+	height: 10%;
+	background-image: url(/images/meteoch.png);
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.main-info-sspwxrlogo-container {
+	position: absolute;
+	top: 12%;
+	right: -16.5%;
+	width: 100%;
+	height: 35%;
+	background-image: url(/images/sspwxr.png);
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
 }
 /*  CURRENT CONDITIONS  */
 .main-current-slide-container {

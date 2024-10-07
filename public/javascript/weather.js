@@ -85,7 +85,7 @@ async function mainData() {
           const data = await response.json();
           const config = await configResponse.json();
 
-          configGlobal = config
+          configGlobal = config;
 
           console.log(data)
 
@@ -174,7 +174,7 @@ async function mainData() {
                 function populateStationIDSlide() {
                     affiliateName = document.getElementById('station-id-affiliatename');
                     channelID = document.getElementById('station-id-channelid');
-                    networkLogoStationID = document.getElementById('station-id-logo')
+                    networkLogoStationID = document.getElementById('main-info-channelLogo')
 
                     affiliateName.innerHTML = `${config.affiliateName}`
                     channelID.innerHTML = `${config.channelNumber}`
