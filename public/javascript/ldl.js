@@ -1,6 +1,6 @@
 const ldlPresentationSlides = {
-    "0": { htmlID: "ldl-current", durationMS: "5000" },
-    "1": { htmlID: "ldl-forecast", durationMS: "5000" },
+    "0": { htmlID: "ldl-current", durationMS: "20000" },
+    "1": { htmlID: "ldl-forecast", durationMS: "20000" },
     "2": { htmlID: "ldl-aqi", durationMS: "5000" },
 }
 
