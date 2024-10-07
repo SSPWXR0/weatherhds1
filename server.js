@@ -152,17 +152,20 @@ async function getLDLWeather(lat, lon, countryCode) { // credit to Dalk for the 
   const ldlWeeklyUrl = await fetch(`https://api.weather.com/v3/wx/forecast/daily/7day?geocode=${lat},${lon}&format=json&units=${config.units}&language=en-US&apiKey=${config.twcApiKey}`);
   const ldlAlertsUrl = await fetch(`https://api.weather.com/v3/alerts/headlines?countryCode=${countryCode}&format=json&language=en-US&apiKey=${config.twcApiKey}`);
   const ldlAqiUrl = await fetch(`https://api.weather.com/v3/wx/globalAirQuality?geocode=${lat},${lon}&language=en-US&scale=EPA&format=json&apiKey=${config.twcApiKey}`);
+  const ldlAlmanacUrl = await fetch(`https://api.weather.com/v3/wx/almanac/monthly/1month?geocode=${lat},${lon}&format=json&units=${config.units}&month=1&apiKey=${config.twcApiKey}`)
   const ldlCurrent = await ldlCurrentUrl.json();
   const ldlWeekly = await ldlWeeklyUrl.json();
   const ldlAlerts = await ldlAlertsUrl.json();
   const ldlAqi = await ldlAqiUrl.json();
+  const ldlAlmanac = await ldlAlmanacUrl.json();
   if(config.debugger) { console.log(`[server.js] | ${new Date().toLocaleString()} | Saved data for display on LDL`) }
 
   return {
       ldlCurrent: ldlCurrent,
       ldlWeekly: ldlWeekly,
       ldlAlerts: ldlAlerts,
-      ldlAqi: ldlAqi
+      ldlAqi: ldlAqi,
+      ldlAlmanac: ldlAlmanac,
       }
 }
 
@@ -209,6 +212,7 @@ for (const location of config.ldlLocations) {
     ldlWeather[location][currentLDLCity].alerts = weather.ldlAlerts
     ldlWeather[location][currentLDLCity].forecast = weather.ldlWeekly
     ldlWeather[location][currentLDLCity].aqi = weather.ldlAqi
+    ldlWeather[location][currentLDLCity].almanac = weather.ldlAlmanac
 
     console.log(`Processed ${location} (${currentLDLCity})`)
 

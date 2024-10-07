@@ -105,6 +105,7 @@ async function LDLData() {
                 }
     
                 currentCeiling.innerHTML = ceilingFormatted
+                currentMonthPrecip.innerHTML = `${latestData.almanac.precipitationAverage[0]}${endingRain}`
               }
     
               function appendForecast() {
