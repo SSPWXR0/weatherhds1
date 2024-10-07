@@ -22,7 +22,6 @@
     "debugger": true,
     "disableBrainrot": true,
     "enableVideoBackgrounds": false,
-    "staticLDL": false,
     "staticIcons": false,
     "webPort": 3000,
     "systemTimeZone": "America/Regina",

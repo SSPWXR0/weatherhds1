@@ -248,13 +248,121 @@
 
         <div class="ldl-weather">
             <hr id="ldl-divider">
-            <h2 id="ldl-weather-text"></h2>
+            <div class="ldl-container">
+                <div class="ldl-presentation">
+                    <div class="ldl-presentation-container">
+                        <div id="ldl-current" class="ldl-presentation-slide">
+                            <div class="ldl-slide-container">
+                                <div class="ldl-current-cond-temp">
+                                    <img class="ldl-icon" id="ldl-current-icon" src="/graphics/animated/partly-cloudy-day-rain.svg">
+                                    <div class="ldltext-primary" id="ldl-current-temp">100°C</div>
+                                    <div class="ldltext-secondary" id="ldl-current-condition">Sunny</div>
+                                </div>
+                                
+                                <div class="ldl-current-wind">
+                                    <div class="ldltext-secondary" id="ldl-current-wind-label">Wind</div>
+                                    <div class="ldltext-primarybutsmaller" id="ldl-current-wind-value">NNW, 120 km/h</div>
+                                </div>
+    
+                                <div class="ldl-current-module" id="ldl-current-module1">
+                                    <div class="ldl-current-humidity">
+                                        <div class="module-value" id="ldl-current-humidity-value">100%</div>
+                                        Humidity
+                                    </div>
+                                    <div class="ldl-current-dewpoint">
+                                        <div class="module-value" id="ldl-current-dewpoint-value">1000°C</div>
+                                        Dewpoint
+                                    </div>
+                                    <div class="ldl-current-pressure">
+                                        <div class="module-value" id="ldl-current-pressure-value">a lot</div>
+                                        Pressure
+                                    </div>
+                                </div>
+    
+                                <div class="ldl-current-module" id="ldl-current-module2">
+                                    <div class="ldl-current-visibility">
+                                        <div class="module-value" id="ldl-current-visibility-value">9999 km</div>
+                                        Visibility
+                                    </div>
+                                    <div class="ldl-current-ceiling">
+                                        <div class="module-value" id="ldl-current-ceiling-value">1600</div>
+                                        Ceiling
+                                    </div>
+                                    <div class="ldl-current-pressure">
+                                        <div class="module-value" id="ldl-current-monthprecip-value">1000 mm</div>
+                                        <div id="ldl-current-precip-monthly-label">Octovro Precip</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div id="ldl-forecast" class="ldl-presentation-slide">
+                            <div class="ldl-slide-container">
+                                <div class="ldl-day" id="ldl-forecast-day0-container">
+                                    <div class="ldl-forecast-day-cond">
+                                        <div class="ldltext-secondary" id="ldl-forecast-day0-name">Today</div>
+                                        <div class="ldltext-secondary" id="ldl-forecast-day0-condition">Sunny</div>
+                                    </div>
+        
+                                    <img class="ldl-icon" id="ldl-day0-icon" src="/graphics/animated/partly-cloudy-day-rain.svg">
+        
+                                    <div class="ldltext-primary" id="ldl-forecast-day0-temp">12°/17°</div>
+        
+                                    <div class="ldltext-primary" id="ldl-forecast-day0-pop-value">1000%</div>
+        
+                                    <div class="ldltext-secondary" id="ldl-forecast-day0-pop-value">Chance of<br>precipitation</div>
+                                </div>
+    
+                                <div class="ldl-day" id="ldl-forecast-day1-container">
+                                    <div class="ldl-forecast-day-cond">
+                                        <div class="ldltext-secondary" id="ldl-forecast-day1-name">Tomorrow</div>
+                                        <div class="ldltext-secondary" id="ldl-forecast-day1-condition">A mix of sun and cloud</div>
+                                    </div>
+        
+                                    <img class="ldl-icon" id="ldl-day1-icon" src="/graphics/animated/partly-cloudy-day-rain.svg">
+        
+                                    <div class="ldltext-primary" id="ldl-forecast-day1-temp">12°/17°</div>
+        
+                                    <div class="ldltext-primary" id="ldl-forecast-day1-pop-value">1000%</div>
+        
+                                    <div class="ldltext-secondary" id="ldl-forecast-day1-pop-value">Chance of<br>precipitation</div>
+                                </div>
+    
+                            </div>
+                        </div>
+    
+                        <div id="ldl-aqi" class="ldl-presentation-slide">
+                            <div class="ldl-slide-container">
+                                <div class="ldltext-secondary">Air Quality<br>Now</div>
+    
+                                <div class="ldltext-primary" id="ldl-aqi-status">Good</div>
+    
+                                <div class="ldltext-secondary">Air Quality<br>Index</div>
+    
+                                <div class="ldltext-primary" id="ldl-aqi-index">28</div>
+    
+                                <div class="ldltext-secondary">Primary<br>Pollutant</div>
+    
+                                <div class="ldltext-primary" id="ldl-aqi-primarypollutant">O3</div>
+    
+                            </div>
+                        </div>
+                    </div>
+                    <div id="ldl-location">
+                        <div id="ldl-location-label"></div>
+                        <div class="ldl-location-progressbar-container">
+                            <div id="ldl-location-progressbar"></div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
         </div>
 
     </div>
 </body>
-<script type="text/javascript" src="/javascript/weather.js"></script>
-<script type="text/javascript" src="/javascript/main.js"></script>
-<script type="text/javascript" src="/javascript/ldl.js"></script>
-<script type="text/javascript" src="/javascript/slides.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type="text/javascript" src="/javascript/weather.js" defer></script>
+<script type="text/javascript" src="/javascript/main.js" defer></script>
+<script type="text/javascript" src="/javascript/slides.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+<script type="text/javascript" src="/javascript/ldl.js" defer></script>

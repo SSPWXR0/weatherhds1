@@ -147,66 +147,78 @@ async function loadAllCities() {
   }
 }
 
-  async function getLDLWeather(lat, lon, countryCode) { // credit to Dalk for the twc api stuff
-    const ldlCurrentUrl = await fetch(`https://api.weather.com/v3/wx/observations/current?geocode=${lat},${lon}&units=${config.units}&language=en-US&format=json&apiKey=${config.twcApiKey}`);
-    const ldlAlertsUrl = await fetch(`https://api.weather.com/v3/alerts/headlines?countryCode=${countryCode}&format=json&language=en-US&apiKey=${config.twcApiKey}`);
-    const ldlCurrent = await ldlCurrentUrl.json();
-    const ldlAlerts = await ldlAlertsUrl.json();
-    if(config.debugger) { console.log(`[server.js] | ${new Date().toLocaleString()} | Saved data for display on LDL`) }
-    return { ldlCurrent: ldlCurrent, ldlAlerts: ldlAlerts}
-  }
-
-async function getLDLWeatherCoordinates(location) {
-  const coordinatesUrl = await fetch(`https://api.weather.com/v3/location/search?query=${location}&language=en-US&format=json&apiKey=${config.twcApiKey}`);
-  const coordinates = await coordinatesUrl.json();
-  const locationData = coordinates.location;
-  
-  if (!locationData) {
-    throw new Error(`Location data not found for ${location}`);
-  }
-
-  if(config.debugger) {
-    console.log(`[server.js] | ${new Date().toLocaleString()} | Successfully retrieved weather coordinates for ${location}`);
-  }
+async function getLDLWeather(lat, lon, countryCode) { // credit to Dalk for the twc api stuff
+  const ldlCurrentUrl = await fetch(`https://api.weather.com/v3/wx/observations/current?geocode=${lat},${lon}&units=${config.units}&language=en-US&format=json&apiKey=${config.twcApiKey}`);
+  const ldlWeeklyUrl = await fetch(`https://api.weather.com/v3/wx/forecast/daily/7day?geocode=${lat},${lon}&format=json&units=${config.units}&language=en-US&apiKey=${config.twcApiKey}`);
+  const ldlAlertsUrl = await fetch(`https://api.weather.com/v3/alerts/headlines?countryCode=${countryCode}&format=json&language=en-US&apiKey=${config.twcApiKey}`);
+  const ldlAqiUrl = await fetch(`https://api.weather.com/v3/wx/globalAirQuality?geocode=${lat},${lon}&language=en-US&scale=EPA&format=json&apiKey=${config.twcApiKey}`);
+  const ldlCurrent = await ldlCurrentUrl.json();
+  const ldlWeekly = await ldlWeeklyUrl.json();
+  const ldlAlerts = await ldlAlertsUrl.json();
+  const ldlAqi = await ldlAqiUrl.json();
+  if(config.debugger) { console.log(`[server.js] | ${new Date().toLocaleString()} | Saved data for display on LDL`) }
 
   return {
-    lat: locationData.latitude[0], 
-    lon: locationData.longitude[0], 
-    country: locationData.countryCode[0], 
-    adminDistrictCode: locationData.adminDistrictCode[0]
-  };
+      ldlCurrent: ldlCurrent,
+      ldlWeekly: ldlWeekly,
+      ldlAlerts: ldlAlerts,
+      ldlAqi: ldlAqi
+      }
+}
+
+async function getLDLWeatherCoordinates(location) {
+const coordinatesUrl = await fetch(`https://api.weather.com/v3/location/search?query=${location}&language=en-US&format=json&apiKey=${config.twcApiKey}`);
+const coordinates = await coordinatesUrl.json();
+const locationData = coordinates.location;
+
+if (!locationData) {
+  throw new Error(`Location data not found for ${location}`);
+}
+
+if(config.debugger) {
+  console.log(`[server.js] | ${new Date().toLocaleString()} | Successfully retrieved weather coordinates for ${location}`);
+}
+
+return {
+  lat: locationData.latitude[0], 
+  lon: locationData.longitude[0], 
+  country: locationData.countryCode[0], 
+  adminDistrictCode: locationData.adminDistrictCode[0]
+};
 }
 
 let currentLDLCity = 0
 
 async function loadAllLDLCities() {
-  // hope this workies
-  for (const location of config.ldlLocations) {
-    try {
-      const coordinates = await getLDLWeatherCoordinates(location)
+// hope this workies
+for (const location of config.ldlLocations) {
+  try {
+    const coordinates = await getLDLWeatherCoordinates(location)
 
-      ldlWeather[location] = {};
-      ldlWeather[location][currentLDLCity] = {};
-      ldlWeather[location][currentLDLCity].coordinates = coordinates;
+    ldlWeather[location] = {};
+    ldlWeather[location][currentLDLCity] = {};
+    ldlWeather[location][currentLDLCity].coordinates = coordinates;
 
-      const weather = await getLDLWeather(
-        ldlWeather[location][currentLDLCity].coordinates.lat,
-        ldlWeather[location][currentLDLCity].coordinates.lon,
-        ldlWeather[location][currentLDLCity].country
-      );
+    const weather = await getLDLWeather(
+      ldlWeather[location][currentLDLCity].coordinates.lat,
+      ldlWeather[location][currentLDLCity].coordinates.lon,
+      ldlWeather[location][currentLDLCity].country
+    );
 
-      ldlWeather[location][currentLDLCity].current = weather.ldlCurrent
-      ldlWeather[location][currentLDLCity].alerts = weather.ldlAlerts
+    ldlWeather[location][currentLDLCity].current = weather.ldlCurrent
+    ldlWeather[location][currentLDLCity].alerts = weather.ldlAlerts
+    ldlWeather[location][currentLDLCity].forecast = weather.ldlWeekly
+    ldlWeather[location][currentLDLCity].aqi = weather.ldlAqi
 
-      console.log(`Processed ${location} (${currentLDLCity})`)
+    console.log(`Processed ${location} (${currentLDLCity})`)
 
-      currentLDLCity++
+    currentLDLCity++
 
-    } catch (error) {
-      console.error(`Error processing ${location}: ${error.message}`);
-    }
-     
+  } catch (error) {
+    console.error(`Error processing ${location}: ${error.message}`);
   }
+   
+}
 }
 
 async function saveDataToJson() {
