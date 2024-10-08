@@ -20,13 +20,23 @@ function showSlide(index) {
     for (let key in presentationSlides) {
         const slideElement = document.getElementById(presentationSlides[key].htmlID)
         if (slideElement) {
+
+            setTimeout(() => {
+                slideElement.style.animation = `mainPresentationSlideIn 500ms ease-in-out`
+            }, duration - 500);
+
             slideElement.style.display = 'none';
         }
     }
 
     const currentSlideElement = document.getElementById(presentationSlides[index].htmlID)
     if (currentSlideElement) {
-        currentSlideElement.style.display = 'block';        
+
+        setTimeout(() => {
+            currentSlideElement.style.animation = `mainPresentationSlideOut 350ms ease-in-out 1 forwards`
+        }, duration - 300);
+
+        currentSlideElement.style.display = 'block';    
     }
 
     currentSlideText.innerHTML = `${presentationSlides[index].title}`
