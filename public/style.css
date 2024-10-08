@@ -556,7 +556,7 @@ hr {
 }
 
 .ldl-icon {
-  height: 32pt;
+  height: 25pt;
 }
 
 .ldl-slide-container {
@@ -610,13 +610,13 @@ hr {
 #ldl-forecast {
   position: relative;
   display: none;
-  width: 50%;
+  width: 70%;
 }
 
 #ldl-aqi {
   position: relative;
   display: block;
-  width: 60%;
+  width: 65%;
   display: none;
 }
 
@@ -627,7 +627,7 @@ hr {
   justify-content: space-between;
   align-items: center;
   height: 100%;
-  width: 85%;
+  width: 55%;
 }
 
 #ldl-current-condition {
@@ -680,11 +680,11 @@ hr {
 }
 
 #ldl-forecast-day0-container {
-
+  width: 100%;
 }
 
 #ldl-forecast-day1-container {
-
+  width: 100%;
 }
 
 /* ANIMATIONS */

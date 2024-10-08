@@ -10,14 +10,17 @@ let data;
 let ldlConfig;
 let ldlLocationIndex = 0;
 let ldlSlideIndex = 0;
+let ldlWeatherIcons;
 
-async function fetchLDLData() {    const [response, ldlConfigResponse] = await Promise.all([
+async function fetchLDLData() {    const [response, ldlConfigResponse, iconsResponse] = await Promise.all([
     fetch('./ldlData.json'),
-    fetch('./config.json')
+    fetch('./config.json'),
+    fetch('./images/icons.json')
   ]);
 
   data = await response.json();
   ldlConfig = await ldlConfigResponse.json();
+  ldlWeatherIcons = await iconsResponse.json();
 }
 
 async function LDLData() {
@@ -95,6 +98,11 @@ async function LDLData() {
                 currentDewpoint.innerHTML = `${latestData.current.temperatureDewPoint}${endingTemp}`
                 currentPressure.innerHTML = `${latestData.current.pressureAltimeter}${endingPressure}`
                 currentVisib.innerHTML = `${Math.round(latestData.current.visibility)}${endingDistance}`
+
+                const iconCode = latestData.current.iconCode;
+                const dayOrNight = latestData.current.dayOrNight;
+                const iconPath = ldlWeatherIcons[iconCode] ? ldlWeatherIcons[iconCode][dayOrNight === "D" ? 0 : 1] : 'not-available.svg'
+                currentIcon.src = `/graphics/${iconDir}/${iconPath}`
                 
                 let ceilingFormatted;
     
@@ -127,29 +135,31 @@ async function LDLData() {
     
                 const dayOneIconCode = latestData.forecast.daypart[0].iconCode[0] ?? latestData.forecast.daypart[0].iconCode[1];
                 const dayOrNight = latestData.forecast.daypart[0].dayOrNight[0] ?? latestData.forecast.daypart[0]?.dayOrNight[1];
-                const iconPath = weatherIcons[dayOneIconCode] ? weatherIcons[dayOneIconCode][dayOrNight === "D" ? 0 : 1] : 'not-available.svg'
-                forecast1Icon.src = `/graphics/${iconDir}/${iconPath}`
-    
+                const iconPath = ldlWeatherIcons[dayOneIconCode] ? ldlWeatherIcons[dayOneIconCode][dayOrNight === "D" ? 0 : 1] : 'not-available.svg'
+                forecast0Icon.src = `/graphics/${iconDir}/${iconPath}`
+
+                console.log(`${dayOneIconCode}, ${dayOrNight}, ${iconPath}`)
+
                 if (latestData.forecast.daypart[0].daypartName[0] === null) {
                     forecast1Name.innerHTML = latestData.forecast.daypart[0].daypartName[2]
                     forecast1Cond.innerHTML = latestData.forecast.daypart[0].wxPhraseShort[2]
                     forecast1Temp.innerHTML = `${latestData.forecast.daypart[0].temperature[2]}°`
                     forecast1Precip.innerHTML = `${latestData.forecast.daypart[0].precipChance[2]}%`    
     
-                    const dayTwoIconCode = latestData.forecast.daypart[0].iconCode[2];
-                    const dayOrNight2 = latestData.forecast.daypart[0].dayOrNight[2];
-                    const dayTwoIconPath = weatherIcons[dayTwoIconCode] ? weatherIcons[dayTwoIconCode][dayOrNight2 === "D" ? 0 : 1] : 'not-available.svg'
-                    forecast1Icon.src = `/graphics/${iconDir}/${dayTwoIconPath}`
+                    const dayTwoIconCode = latestData.forecast.daypart[0].iconCode[2]
+                    const dayOrNight = latestData.forecast.daypart[0].dayOrNight[2]
+                    const iconPath = ldlWeatherIcons[dayTwoIconCode] ? ldlWeatherIcons[dayTwoIconCode][dayOrNight === "D" ? 0 : 1] : 'not-available.svg'
+                    forecast1Icon.src = `/graphics/${iconDir}/${iconPath}`
                 } else {
                     forecast1Name.innerHTML = latestData.forecast.daypart[0].daypartName[1]
                     forecast1Cond.innerHTML = latestData.forecast.daypart[0].wxPhraseShort[1]
                     forecast1Temp.innerHTML = `${latestData.forecast.daypart[0].temperature[1]}°`
                     forecast1Precip.innerHTML = `${latestData.forecast.daypart[0].precipChance[1]}%`    
     
-                    const dayTwoIconCode = latestData.forecast.daypart[0].iconCode[1];
-                    const dayOrNight2 = latestData.forecast.daypart[0].dayOrNight[1];
-                    const dayTwoIconPath = weatherIcons[dayTwoIconCode] ? weatherIcons[dayTwoIconCode][dayOrNight2 === "D" ? 0 : 1] : 'not-available.svg'
-                    forecast1Icon.src = `/graphics/${iconDir}/${dayTwoIconPath}`
+                    const dayTwoIconCode = latestData.forecast.daypart[0].iconCode[1]
+                    const dayOrNight = latestData.forecast.daypart[0].dayOrNight[1]
+                    const iconPath = ldlWeatherIcons[dayTwoIconCode] ? ldlWeatherIcons[dayTwoIconCode][dayOrNight === "D" ? 0 : 1] : 'not-available.svg'
+                    forecast1Icon.src = `/graphics/${iconDir}/${iconPath}`
                 }
     
     

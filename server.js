@@ -5,12 +5,6 @@ const config = require('./public/config.json')
 const app = express();
 const indexBackgrounds = require('./indexBackgrounds.js')
 
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.listen(config.webPort, () => {
-  console.log(`Server is running on http://localhost:${config.webPort}`);
-});
-
 let allWeather = {};
 let ldlWeather = {};
 
@@ -243,3 +237,11 @@ async function runDataInterval() {
 
 runDataInterval()
 setInterval(runDataInterval, 600000)
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.listen(config.webPort, () => {
+  console.log(`### WEATHER HTML DISPLAY SYSTEM ###`);
+  console.log(`Created by SSPWXR and ScentedOrange`);
+  console.log(`Server is running on http://localhost:${config.webPort}`);
+});

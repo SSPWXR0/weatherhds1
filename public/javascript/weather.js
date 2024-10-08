@@ -1,54 +1,3 @@
-const weatherIcons = { // DAY / NIGHT
-    "0": ["tornado.svg", "tornado.svg"], // Tornado
-    "1": ["hurricane.svg", "hurricane.svg"], // Tropical Storm
-    "2": ["hurricane.svg", "hurricane.svg"], // Hurricane
-    "3": ["thunderstorms-day-extreme-rain.svg", "thunderstorms-night-extreme-rain.svg"], // Strong Storms
-    "4": ["thunderstorms-day.svg", "thunderstorms-night.svg"], // Thunderstorms
-    "5": ["overcast-day-sleet.svg", "overcast-night-sleet.svg"], // Rain / Snow
-    "6": ["overcast-day-sleet.svg", "overcast-night-sleet.svg"], // Rain / Sleet
-    "7": ["overcast-day-sleet.svg", "overcast-night-sleet.svg"], // Wintry Mix
-    "8": ["overcast-day-sleet.svg", "overcast-night-sleet.svg"], // Freezing Drizzle
-    "9": ["drizzle.svg", "drizzle.svg"], // Drizzle
-    "10": ["overcast-day-sleet.svg", "overcast-night-sleet.svg"], // Freezing Rain
-    "11": ["overcast-day-rain.svg", "overcast-night-rain.svg"], // Showers
-    "12": ["overcast-day-rain.svg", "overcast-night-rain.svg"], // Rain
-    "13": ["overcast-day-snow.svg", "overcast-night-snow.svg"], // Flurries
-    "14": ["overcast-day-snow.svg", "overcast-night-snow.svg"], // Snow Showers
-    "15": ["extreme-day-snow.svg", "extreme-night-snow.svg"], // Blowing / Drifting Snow
-    "16": ["overcast-day-snow.svg", "overcast-night-snow.svg"], // Snow
-    "17": ["extreme-day-hail.svg", "extreme-night-hail.svg"], // Hail
-    "18": ["overcast-day-sleet.svg", "overcast-night-sleet.svg"], // Sleet
-    "19": ["dust-wind.svg", "dust-wind.svg"], // Blowing Dust / Sandstorm
-    "20": ["overcast-day-fog.svg", "overcast-night-fog.svg"], // Foggy
-    "21": ["overcast-day-haze.svg", "overcast-night-haze.svg"], // Haze
-    "22": ["overcast-day-smoke.svg", "overcast-night-smoke.svg"], // Smoke
-    "23": ["wind.svg", "wind.svg"], // Breezy
-    "24": ["wind.svg", "wind.svg"], // Windy
-    "25": ["thermometer-colder.svg", "thermometer-colder.svg"], // Frigid / Ice Crystals
-    "26": ["cloudy.svg", "cloudy.svg"], // Cloudy
-    "27": ["overcast-night.svg", "overcast-night.svg"], // Mostly Cloudy (Night)
-    "28": ["overcast-day.svg", "overcast-day.svg"], // Mostly Cloudy (Day)
-    "29": ["partly-cloudy-night.svg", "partly-cloudy-night.svg"], // Partly Cloudy (Night)
-    "30": ["partly-cloudy-day.svg", "partly-cloudy-day.svg"], // Partly Cloudy (Day)
-    "31": ["clear-night.svg", "clear-night.svg"], // Clear (Night)
-    "32": ["clear-day.svg", "clear-day.svg"], // Sunny (Day)
-    "33": ["clear-night.svg", "clear-night.svg"], // Fair / Mostly Clear (Night)
-    "34": ["clear-day.svg", "clear-day.svg"], // Fair / Mostly Sunny (Day)
-    "35": ["extreme-hail.svg", "extreme-night-hail.svg"], // Mixed Rain and Hail
-    "36": ["thermometer-sun.svg", "thermometer-sun.svg"], // Hot
-    "37": ["thunderstorms-day.svg", "thunderstorms-day.svg"], // Isolated Thunderstorms (Day)
-    "38": ["thunderstorms-day.svg", "thunderstorms-night.svg"], // Scattered Thunderstorms
-    "39": ["overcast-day-rain.svg", "overcast-day-rain.svg"], // Scattered Showers (Day)
-    "40": ["extreme-day-rain.svg", "extreme-night-rain.svg"], // Heavy Rain
-    "41": ["snowflake.svg", "snowflake.svg"], // Scattered Snow Showers (Day)
-    "42": ["extreme-day-snow.svg", "extreme-night-snow.svg"], // Heavy Snow
-    "43": ["extreme-day-snow.svg", "extreme-night-snow.svg"], // Blizzard
-    "44": ["not-available.svg", "not-available.svg"], // Not Available (N/A)
-    "45": ["partly-cloudy-night-rain.svg", "partly-cloudy-night-rain.svg"], // Scattered Showers (Night)
-    "46": ["partly-cloudy-night-sleet.svg", "partly-cloudy-night-sleet.svg"], // Scattered Snow Showers (Night)
-    "47": ["thunderstorms-night.svg", "thunderstorms-night.svg"] // Scattered Thunderstorms (Night)
-};
-
 const animationFormat = 'avif';
 
 const weatherGifs = {
@@ -61,29 +10,29 @@ const weatherGifs = {
     "fog": ["20", "21", "22"] // Fog, Haze, Smoke
 };
 
-
-let locationIndex = 0;
-
 const upNextLocationText = document.getElementById('upnext-location');
 const currentLocationText = document.getElementById('current-location');
 
+let locationIndex = 0;
 let configGlobal;
-
 let isWeatherGood;
-
 let chart;
+
+let weatherIcons
 
 async function mainData() {
 
     try {
 
-        const [response, configResponse] = await Promise.all([
+        const [response, configResponse, iconsResponse] = await Promise.all([
             fetch('./wxData.json'),
-            fetch('./config.json')
+            fetch('./config.json'),
+            fetch('./images/icons.json')
           ]);
 
           const data = await response.json();
           const config = await configResponse.json();
+          weatherIcons = await iconsResponse.json();
 
           configGlobal = config;
 
