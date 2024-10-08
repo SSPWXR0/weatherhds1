@@ -7,7 +7,8 @@ const presentationSlides = {
     "5": { title: "Day Two Forecast", htmlID: "forecast-shortterm-d2", durationMS: "8000"},
     "6": { title: "Extended Outlook", htmlID: "forecast-extended", durationMS: "10000" },
     "7": { title: "7 Day High and Lows", htmlID: "7day-graph", durationMS: "10000" },
-    "8": { title: "Air Quality", htmlID: "airquality", durationMS: "8000"}
+    "8": { title: "Air Quality", htmlID: "airquality", durationMS: "8000"},
+    "9": { title: "Again... Current Conditions", htmlID: "current", durationMS: "10000"},
 }
 
 let slideIndex = 0;
@@ -40,6 +41,8 @@ function showSlide(index) {
     }
 
     currentSlideText.innerHTML = `${presentationSlides[index].title}`
+
+    console.log(`Showing Main Presentation Slide: ${presentationSlides[index].htmlID} for a duration of ${presentationSlides[index].durationMS}`)
 
     duration = Number(presentationSlides[index].durationMS);
 

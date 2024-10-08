@@ -56,12 +56,12 @@ async function getWeather(lat, lon, countryCode) { // credit to Dalk
   const radar = radarUrl.url;
   const aqi = await aqiUrl.json();
   const pollen = await pollenUrl.json();
-  const running = await runningUrl.json();
+  /* const running = await runningUrl.json();
   const frost = await frostUrl.json();
   const ski = await skiUrl.json();
   const mosquito = await mosquitoUrl.json();
   const golf = await golfUrl.json();
-  const heating = await heatingUrl.json();
+  const heating = await heatingUrl.json(); */
 
   if(config.debugger) { console.log(`[server.js] | ${new Date().toLocaleString()} | Successfully saved current weather conditions`) }
 
@@ -72,10 +72,10 @@ async function getWeather(lat, lon, countryCode) { // credit to Dalk
     alertDetails: alertDetails,
     radar: radar,
     special: { aqi: aqi, pollen: pollen },
-    indices: { 
+/*     indices: { 
       spring: { running: running, mosquito: mosquito, golf: golf },
       winter: { heating: heating, frost: frost, ski: ski }
-    }
+    } */
   };
 
   return weatherData;

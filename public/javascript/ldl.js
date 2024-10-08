@@ -75,7 +75,7 @@ async function LDLData() {
           if (latestData && latestData.current) {
 
               function appendCurrent() {
-                console.log(`Current location: ${locationName}`)
+                console.log(`Current LDL location: ${locationName}`)
     
                 // Temp and Condition
                 currentTemp = document.getElementById('ldl-current-temp');
@@ -137,8 +137,6 @@ async function LDLData() {
                 const dayOrNight = latestData.forecast.daypart[0].dayOrNight[0] ?? latestData.forecast.daypart[0]?.dayOrNight[1];
                 const iconPath = ldlWeatherIcons[dayOneIconCode] ? ldlWeatherIcons[dayOneIconCode][dayOrNight === "D" ? 0 : 1] : 'not-available.svg'
                 forecast0Icon.src = `/graphics/${iconDir}/${iconPath}`
-
-                console.log(`${dayOneIconCode}, ${dayOrNight}, ${iconPath}`)
 
                 if (latestData.forecast.daypart[0].daypartName[0] === null) {
                     forecast1Name.innerHTML = latestData.forecast.daypart[0].daypartName[2]

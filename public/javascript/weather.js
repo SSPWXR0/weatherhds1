@@ -85,6 +85,8 @@ async function mainData() {
 
                 currentLocationText.innerHTML = locationName;
 
+                console.log(`Current main presentation location: ${locationName}`)
+
                 upNextLocationText.innerHTML = `Next: ${nextLocationName}`;
                 
                 function istheweathergood() {
