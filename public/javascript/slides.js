@@ -1,16 +1,17 @@
 const presentationSlides = {
-    "0": { title: "Welcome!", htmlID: "stationid",},
-    "1": { title: "Weather Alerts", htmlID: "alerts" ,},
-    "2": { title: "Current Conditions", htmlID: "current",},
-    "3": { title: "Latest Radar Image", htmlID: "radar",},
-    "4": { title: "Day One Forecast", htmlID: "forecast-shortterm",},
-    "5": { title: "Day Two Forecast", htmlID: "forecast-shortterm-d2",},
-    "6": { title: "Extended Outlook", htmlID: "forecast-extended", },
-    "7": { title: "7 Day High and Lows", htmlID: "7day-graph", },
-    "8": { title: "Air Quality", htmlID: "airquality"}
+    "0": { title: "Welcome!", htmlID: "stationid", durationMS: "8000"},
+    "1": { title: "Weather Alerts", htmlID: "alerts", durationMS: "8000"},
+    "2": { title: "Current Conditions", htmlID: "current", durationMS: "10000"},
+    "3": { title: "Latest Radar Image", htmlID: "radar", durationMS: "8000"},
+    "4": { title: "Day One Forecast", htmlID: "forecast-shortterm", durationMS: "8000"},
+    "5": { title: "Day Two Forecast", htmlID: "forecast-shortterm-d2", durationMS: "8000"},
+    "6": { title: "Extended Outlook", htmlID: "forecast-extended", durationMS: "10000" },
+    "7": { title: "7 Day High and Lows", htmlID: "7day-graph", durationMS: "10000" },
+    "8": { title: "Air Quality", htmlID: "airquality", durationMS: "8000"}
 }
 
 let slideIndex = 0;
+let duration
 
 const slides = document.getElementsByClassName('main-slide')
 const currentSlideText = document.getElementById('current-slide');
@@ -30,7 +31,11 @@ function showSlide(index) {
 
     currentSlideText.innerHTML = `${presentationSlides[index].title}`
 
+    duration = Number(presentationSlides[index].durationMS);
+
 }
+
+
 
 function nextSlide() {
     slideIndex++;
@@ -43,12 +48,12 @@ function nextSlide() {
         nextLocation();
     }
 
-    setTimeout(nextSlide, 10000);
+    setTimeout(nextSlide, duration);
 }
 
 function startSlideshow() {
     showSlide(slideIndex);
-    setTimeout(nextSlide, 10000)
+    setTimeout(nextSlide, duration);
 }
 
 window.onload = startSlideshow

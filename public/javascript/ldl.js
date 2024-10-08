@@ -271,11 +271,11 @@ function triggerExitAnimation(slideID) {
 }
 
 function showLDLSlide() {
-    console.log(`Showing LDL slides`)
-
+    
     const slide = ldlPresentationSlides[ldlSlideIndex]
     const duration = slide.durationMS;
     
+    console.log(`Showing LDL slides: ${slide.htmlID} for a duration of ${duration}`)
 
     const slideElement = document.getElementById(slide.htmlID)
     slideElement.style.display = 'block';

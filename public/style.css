@@ -747,3 +747,20 @@ hr {
       opacity: 0;
   }
 }
+@keyframes mainPresentationSlideIn {
+  0% {
+    transform: translateX(300%);
+}
+  100% {
+    transform: translateX(0%);
+}
+}
+
+@keyframes mainPresentationSlideout {
+  0% {
+    transform: translateX(0%);
+}
+  100% {
+    transform: translateX(-300%);
+}
+}
