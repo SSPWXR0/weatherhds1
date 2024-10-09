@@ -4,6 +4,14 @@ const ldlPresentationSlides = {
     "2": { htmlID: "ldl-aqi", durationMS: "5000" },
 }
 
+let totalDuration = 0;
+let totalDurationSec = 0;
+
+for (let key in ldlPresentationSlides) {
+    totalDuration += Number(ldlPresentationSlides[key].durationMS);
+    totalDurationSec += Number(ldlPresentationSlides[key].durationMS) / 1000;
+}
+
 const locationLabel = document.getElementById('ldl-location-label')
 
 let data;
@@ -324,6 +332,8 @@ function nextLDLLocation() {
 
     showLocationLabel();
 
+    runProgressBar()
+
     ldlSlideIndex = 0;
 
     LDLData();
@@ -331,5 +341,22 @@ function nextLDLLocation() {
     showLDLSlide();
 }
 
+function runProgressBar() {
+  const progressBar = document.getElementById('ldl-location-progressbar')
+
+  progressBar.style.animation = `ldlProgressBar ${totalDurationSec}s linear`
+  progressBar.style.display = `block`
+
+  setTimeout(() => {
+    progressBar.style.display = `none`
+    progressBar.style.animation = ``
+  }, totalDuration);
+}
+
+runProgressBar()
+
 LDLData()
 showLDLSlide()
+
+console.log("Total Duration (ms):", totalDuration);
+console.log("Total Duration (sec):", totalDurationSec);
