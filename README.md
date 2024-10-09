@@ -11,14 +11,24 @@
   <p>Dependencies: express</p>
   <p>Main presentation and LDL locations can be edited in config.js. Please reload the page once restarting the server.</p>
   <p>The system rotates between locations once the last slide of the presentation is reached, it should loop back on the next location.</p>
-  <p>slides.js manages how the slides work. Currently, it switches between the HTML containers every 10 seconds.</p>
+  <p>slides.js manages how the slides work. Currently, it switches between the HTML containers every 8 to 10 seconds.</p>
+  <p>There are two alert standby screens that are shown when there are no alerts in effect on the alerts slide. One is normal, and the other one is used
+  on METEOchannel.</p>
+
   <h1>Features</h1>
   <s>-radar container that parses images from dd.weather.gc.ca and plasters it on a div on index.html.</s> <s>nevermind we got rid of the radar lol</s>
-  nevermind nevermind we brought back the radar
+  nevermind nevermind we brought back the radar. Sometimes it is not centered, because TWC API is weird. lmk if you find a solution lol.
 
   <h1>Credits</h1>
     <p>Credit to ScentedOrange for making the air quality and 7 day high and low pages. | https://github.com/ScentedOrangeDEV</p>
   <p>Weather icons (MIT): https://github.com/basmilius/weather-icons | Copy of license included in weather icon directory</p>
   <p>Google Material icons (APACHE 2.0): https://fonts.google.com/icons | https://www.apache.org/licenses/LICENSE-2.0</p>
   <p>weather videos (Pexels): https://www.pexels.com/license/</p>
+
+  <h1>version 2024.10.09: Known Issues</h1>
+  <p>Always report issues on the issues page!</p>
+  <ul>
+    <li>Progress bar will occasionally not show, but will show normally at the next location.</li>
+    <li>A few main presentation animations are a bit weird.</li>
+  </ul> 
 </body>
