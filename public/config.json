@@ -24,6 +24,8 @@
     "enableVideoBackgrounds": false,
     "staticIcons": false,
     "webPort": 3000,
+    "presentationType": 0,
+    "videoType": 1,
     "systemTimeZone": "America/Regina",
     "seasons": {
         "winter": true,

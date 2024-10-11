@@ -13,12 +13,26 @@ async function loadConfig() {
 
 loadConfig()
 
-function ScaleViewportToTheWindowIGuessLmao() {
+async function ScaleViewportToTheWindowIGuessLmao() {
+
+    await loadConfig()
+
     const containerWidth = window.innerWidth;
     const containerHeight = window.innerHeight;
 
-    const scaleRatioWidth = containerWidth / 640;
-    const scaleRatioHeight = containerHeight / 480;
+    let width = 640
+    let height = 480
+
+    if (config.videoType === 0) {
+        width = 640
+        height = 480
+    } else {
+        width = 1920
+        height = 1080
+    }
+
+    const scaleRatioWidth = containerWidth / width;
+    const scaleRatioHeight = containerHeight / height;
 
     const scaleRatio = Math.min(scaleRatioWidth, scaleRatioHeight);
 
