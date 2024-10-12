@@ -16,8 +16,15 @@
   on METEOchannel.</p>
 
   <h1>Features</h1>
-  <s>-radar container that parses images from dd.weather.gc.ca and plasters it on a div on index.html.</s> <s>nevermind we got rid of the radar lol</s>
-  nevermind nevermind we brought back the radar. Sometimes it is not centered, because TWC API is weird. lmk if you find a solution lol.
+  <ul>
+    <li>  <s>-radar container that parses images from dd.weather.gc.ca and plasters it on a div on index.html.</s> <s>nevermind we got rid of the radar lol</s>
+  nevermind nevermind we brought back the radar. Sometimes it is not centered, because TWC API is weird. lmk if you find a solution lol.</li>
+    <li>Switching between 4:3 (SDTV) and 16:9 (HDTV) aspect ratios. Rendered at canvas sizes of 640x480 and 854x480 respectively, and scaled to fit the viewport.</li>
+    <li>LDL only mode. Displays a black screen with only the LDL, which you could superimpose onto programming with OBS Studio.</li>
+    <li>Switching between metric and imperial.</li>
+    <li>Switching between static and animated weather icons.</li>
+  </ul> 
+
 
   <h1>Credits</h1>
     <p>Credit to ScentedOrange for making the air quality and 7 day high and low pages. | https://github.com/ScentedOrangeDEV</p>
@@ -25,10 +32,10 @@
   <p>Google Material icons (APACHE 2.0): https://fonts.google.com/icons | https://www.apache.org/licenses/LICENSE-2.0</p>
   <p>weather videos (Pexels): https://www.pexels.com/license/</p>
 
-  <h1>version 2024.10.09: Known Issues</h1>
+  <h1>version 2024.10.12: Known Issues</h1>
   <p>Always report issues on the issues page!</p>
   <ul>
     <li>Progress bar will occasionally not show, but will show normally at the next location.</li>
-    <li>A few main presentation animations are a bit weird.</li>
+    <li>A few main presentation animations are a bit weird. (radar slide animation has been improved)</li>
   </ul> 
 </body>
