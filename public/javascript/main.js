@@ -13,44 +13,24 @@ async function loadConfig() {
 
 loadConfig()
 
-let head = document.getElementsByTagName('head')[0];
+function ScaleViewportToTheWindowIGuessLmao() {
 
-async function determineCSS() {
-    await loadConfig()
-    let linkSD = document.createElement('link')
-    let linkHD = document.createElement('link')
-
-    linkSD.rel = 'stylesheet'
-    linkSD.type = 'text/css'
-    linkSD.href = './css/style.css'
-
-    linkHD.rel = 'stylesheet'
-    linkHD.type = 'text/css'
-    linkHD.href = './css/hdSqueezeback.css'
-
-    if (config.videoType === 0) {
-        head.appendChild(linkSD)
-    } else {
-        head.appendChild(linkSD)
-        head.appendChild(linkHD)
-    }
-}
-
-determineCSS()
-
-async function ScaleViewportToTheWindowIGuessLmao() {
     const containerWidth = window.innerWidth;
     const containerHeight = window.innerHeight;
 
-    let width = 640
-    let height = 480
+    let width
+    let height
 
     if (config.videoType === 0) {
         width = 640
         height = 480
+
+        viewport.style.width = `640px`
     } else {
-        width = 1920
-        height = 1080
+        width = 854
+        height = 480
+
+        viewport.style.width = `854px`
     }
 
     const scaleRatioWidth = containerWidth / width;
@@ -69,10 +49,11 @@ async function ScaleViewportToTheWindowIGuessLmao() {
     viewport.style.transform = `scale(${scaleRatio})`;
 }
 
+
+
 setTimeout(() => {
-    determineCSS();
-    ScaleViewportToTheWindowIGuessLmao();
-}, 500);
+    ScaleViewportToTheWindowIGuessLmao()
+}, 400);
 
 window.addEventListener('resize', ScaleViewportToTheWindowIGuessLmao);
 
