@@ -111,7 +111,19 @@ function presentationType() {
     }
 }
 
+const mainTheme = document.querySelector(':root')
+
+function imageRendering() {
+    if (config.textureFiltering === true) {
+        mainTheme.style.imageRendering = `auto`
+    }
+    if (config.textureFiltering === false) {
+        mainTheme.style.imageRendering = `pixelated`
+    }
+}
+
 setTimeout(() => {
+    imageRendering()
     ScaleViewportToTheWindowIGuessLmao()
     presentationType()
 }, 400);

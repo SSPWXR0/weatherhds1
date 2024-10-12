@@ -2,7 +2,6 @@
 
 :root {
   font-family: 'Red Hat Text';
-  image-rendering: pixelated;
   color: var(--textColour2);
   --primaryColour: #212529;
   --primaryColourTransparent: #212529cb;
@@ -14,6 +13,36 @@
 body {
   margin: 0 0;
   background-color: #000000;
+}
+
+/* THE MAIN SLIDES */
+
+#stationid {
+  display: none;
+}
+#alerts {
+  display: none;
+}
+#current {
+  display: none;
+}
+#radar {
+  display: none;
+}
+#forecast-shortterm {
+  display: none;
+}
+#forecast-shortterm-d2 {
+  display: none;
+}
+#forecast-extended {
+  display: none;
+}
+#\37 day-graph {
+  display: none;
+}
+#airquality {
+  display: none;
 }
 
 .view {
@@ -135,23 +164,9 @@ hr {
 	height: 95%;
   padding-top: 5px;
 }
-#stationid {
-  display: none;
-}
-#alerts {
-  display: none;
-}
-#current {
-  display: none;
-}
-#forecast-shortterm {
-  display: none;
-}
-#forecast-shortterm-d2 {
-  display: none;
-}
 /* STATION ID */
 .main-info-container {
+  position: relative;
   background-color: var(--primaryColourTransparent);
   border-radius: 25px;
   width: 100%;
@@ -166,16 +181,16 @@ hr {
   height: 10%;
 }
 .main-info-operatorLogos {
-  position: absolute;
-  width: 33%;
-  height: 20%;
-  right: 8%;
+	position: absolute;
+	width: 34%;
+	height: 35%;
+	left: 3%;
 }
 .main-info-links {
 	position: absolute;
-	bottom: 23%;
-	left: 8%;
-	height: 16%;
+	bottom: -1%;
+	left: 3%;
+	height: 30%;
 	line-height: 1.2;
 	font-size: 16pt;
 }
@@ -189,10 +204,10 @@ hr {
 }
 .main-info-hds1info {
 	position: absolute;
-	right: 5%;
-	bottom: 30%;
+	right: 9%;
+	bottom: 9%;
 	width: 24%;
-	height: 6%;
+	height: 16%;
 }
 .hdsLogo {
   height: 50%;
@@ -204,9 +219,9 @@ hr {
 .main-info-netlogo-container {
 	position: absolute;
 	top: 39%;
-	left: 6.5%;
-	width: 45%;
-	height: 10%;
+	left: 3%;
+	width: 37%;
+	height: 11%;
 	background-image: url(/images/meteoch.png);
 	background-size: contain;
 	background-repeat: no-repeat;
@@ -581,6 +596,8 @@ hr {
   height: 3px;
   position: relative;
   margin-bottom: 1pt;
+  background-color: #686d72;
+  border-radius: 15px;
 }
 
 #ldl-location-progressbar {
@@ -589,6 +606,7 @@ hr {
   width: 0%;
   max-width: 100%;
   background-color: white;
+  border-radius: 15px;
 }
 
 .ldltext-primary {
