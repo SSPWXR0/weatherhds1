@@ -1,6 +1,14 @@
 const viewport = document.getElementsByClassName("view")[0];
+const mainSlides = document.getElementsByClassName("main-slides")[0];
+const wallpaper = document.getElementsByClassName("wallpaper")[0];
+const topBar = document.getElementsByClassName("topbar")[0];
+const ldl = document.getElementsByClassName("ldl-presentation")[0];
+const ldlBranding = document.getElementsByClassName("ldl-netlogo")[0];
 const date = document.getElementById("date");
 const time = document.getElementById("time")
+const dateLDL = document.getElementById("dateLDL");
+const timeLDL = document.getElementById("timeLDL")
+
 
 let config;
 
@@ -49,12 +57,6 @@ function ScaleViewportToTheWindowIGuessLmao() {
     viewport.style.transform = `scale(${scaleRatio})`;
 }
 
-
-
-setTimeout(() => {
-    ScaleViewportToTheWindowIGuessLmao()
-}, 400);
-
 window.addEventListener('resize', ScaleViewportToTheWindowIGuessLmao);
 
 function clock() { // partially copied from weatherHDS 2
@@ -84,6 +86,32 @@ function clock() { // partially copied from weatherHDS 2
 
     date.innerText = `${dayOfWeek} ${month} ${dayOfMonth} ${year}`;
     time.innerText = formattedDate;
+
+    dateLDL.innerText = `${dayOfWeek} ${month} ${dayOfMonth} ${year}`;
+    timeLDL.innerText = formattedDate;
 }
 
 setInterval(clock, 1000)
+
+function presentationType() {
+    if (config.presentationType === 0) {
+        console.log(`Running main presentation. Presentation ID: ${config.presentationType}`)
+        ldl.style.width = `90%`
+        ldlBranding.style.display = `none`
+    } else {
+        console.log(`Running LDL-only presentation. Presentation ID: ${config.presentationType}`)
+
+        wallpaper.style.display = `none`
+        mainSlides.style.display = `none`
+        topBar.style.display = `none`
+
+        ldl.style.width = `75%`
+        ldlBranding.style.display = `block`
+
+    }
+}
+
+setTimeout(() => {
+    ScaleViewportToTheWindowIGuessLmao()
+    presentationType()
+}, 400);
