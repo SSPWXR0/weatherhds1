@@ -3,6 +3,7 @@ const mainSlides = document.getElementsByClassName("main-slides")[0];
 const wallpaper = document.getElementsByClassName("wallpaper")[0];
 const topBar = document.getElementsByClassName("topbar")[0];
 const ldl = document.getElementsByClassName("ldl-presentation")[0];
+const ldlContainer = document.getElementsByClassName("ldl-weather")[0];
 const ldlBranding = document.getElementsByClassName("ldl-netlogo")[0];
 const date = document.getElementById("date");
 const time = document.getElementById("time")
@@ -39,6 +40,7 @@ function ScaleViewportToTheWindowIGuessLmao() {
         height = 480
 
         viewport.style.width = `854px`
+        ldlContainer.style.bottom = `-3%`
     }
 
     const scaleRatioWidth = containerWidth / width;
