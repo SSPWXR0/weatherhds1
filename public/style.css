@@ -84,6 +84,7 @@ hr {
   background-repeat: no-repeat;
   background-position: center;
   transform-style: preserve-3d;
+  z-index: 99999;
 }
 .topbar {
   position: sticky;
