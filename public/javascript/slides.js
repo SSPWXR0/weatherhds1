@@ -1,5 +1,8 @@
+import { config } from './dataLoader.js'
+import { nextLocation, currentLocationText, upNextLocationText } from './weather.js';
+
 const presentationSlides = {
-    "0": { title: "Welcome!", htmlID: "stationid", durationMS: "8000"},
+    "0": { title: "Welcome!", htmlID: "stationid", durationMS: "6000"},
     "1": { title: "Weather Alerts", htmlID: "alerts", durationMS: "8000"},
     "2": { title: "Current Conditions", htmlID: "current", durationMS: "10000"},
     "3": { title: "Latest Radar Image", htmlID: "radar", durationMS: "8000"},
@@ -11,12 +14,12 @@ const presentationSlides = {
     "9": { title: "Again... Current Conditions", htmlID: "current", durationMS: "10000"},
 }
 
-let slideIndex = 0;
-
 let slideDurationMS
 let slideDurationSec
 let totalSlideDurationMS
 let totalSlideDurationSec
+export let slideIndex = 0;
+
 const weatherHDSVersionNumber = document.getElementsByClassName('versionID')[0].innerText
 
 for (let slide in presentationSlides) {
@@ -25,10 +28,9 @@ for (let slide in presentationSlides) {
 
 totalSlideDurationSec = totalSlideDurationMS / 1000;
 
-const slides = document.getElementsByClassName('main-slide')
 const currentSlideText = document.getElementById('current-slide');
 
-function showSlide(index) {
+export function showSlide(index) {
     slideDurationMS = Number(presentationSlides[index].durationMS);
     slideDurationSec = Number(presentationSlides[index].durationMS) / 1000;
 
@@ -121,4 +123,4 @@ function loadingScreen() {
 
 loadingScreen()
 
-window.onload = startSlideshow
+startSlideshow()

@@ -1,3 +1,5 @@
+import { config } from './dataLoader.js'
+
 const viewport = document.getElementsByClassName("view")[0];
 const mainSlides = document.getElementsByClassName("main-slides")[0];
 const wallpaper = document.getElementsByClassName("wallpaper")[0];
@@ -9,18 +11,6 @@ const date = document.getElementById("date");
 const time = document.getElementById("time")
 const dateLDL = document.getElementById("dateLDL");
 const timeLDL = document.getElementById("timeLDL")
-
-
-let config;
-
-async function loadConfig() {
-    const Response = await fetch('./config.json');
-    config = await Response.json();
-
-    console.log(`[main.js]: Loaded the following configuration: ${JSON.stringify(config, null, 2)}`)
-}
-
-loadConfig()
 
 function ScaleViewportToTheWindowIGuessLmao() {
 

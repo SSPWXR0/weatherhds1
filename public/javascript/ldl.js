@@ -1,3 +1,5 @@
+import { ldlData, config, weatherIcons } from './dataLoader.js'
+
 const ldlPresentationSlides = {
     "0": { htmlID: "ldl-current", durationMS: "20000" },
     "1": { htmlID: "ldl-forecast", durationMS: "20000" },
@@ -14,39 +16,23 @@ for (let key in ldlPresentationSlides) {
 
 const locationLabel = document.getElementById('ldl-location-label')
 
-let data;
-let ldlConfig;
 let ldlLocationIndex = 0;
 let ldlSlideIndex = 0;
-let ldlWeatherIcons;
-
-async function fetchLDLData() {    const [response, ldlConfigResponse, iconsResponse] = await Promise.all([
-    fetch('./ldlData.json'),
-    fetch('./config.json'),
-    fetch('./images/icons.json')
-  ]);
-
-  data = await response.json();
-  ldlConfig = await ldlConfigResponse.json();
-  ldlWeatherIcons = await iconsResponse.json();
-}
+let iconDir
+let endingTemp, endingWind, endingDistance, endingMeasurement, endingCeiling, endingPressure, endingSnow, endingRain;
 
 async function LDLData() {
     try {
   
-      await fetchLDLData()
-  
-      setInterval(fetchLDLData, 480000)
-
       function processnextLDLLocation() {
 
-        if (ldlConfig.staticIcons === true) {
+        if (config.staticIcons === true) {
             iconDir = "static"
         } else {
             iconDir = "animated"
         }
   
-        if (ldlConfig.units == "e") {
+        if (config.units == "e") {
           endingTemp = "°F"
           endingWind = "mph"
           endingDistance = "mi"
@@ -55,7 +41,7 @@ async function LDLData() {
           endingPressure = "hg"
           endingSnow = "in"
           endingRain = "in"
-      } else if(ldlConfig.units == "m") {
+      } else if(config.units == "m") {
           endingTemp = "°C"
           endingWind = "km/h"
           endingDistance = "km"
@@ -66,10 +52,10 @@ async function LDLData() {
           endingRain = "mm"
       }
   
-        if (ldlLocationIndex < ldlConfig.ldlLocations.length) {
+        if (ldlLocationIndex < config.ldlLocations.length) {
           
-          const locationName = ldlConfig.ldlLocations[ldlLocationIndex];
-          const locationData = data[locationName];
+          const locationName = config.ldlLocations[ldlLocationIndex];
+          const locationData = ldlData[locationName];
 
           locationLabel.innerHTML = `Conditons at ${locationName}`
   
@@ -86,18 +72,19 @@ async function LDLData() {
                 console.log(`Current LDL location: ${locationName}`)
     
                 // Temp and Condition
-                currentTemp = document.getElementById('ldl-current-temp');
-                currentIcon = document.getElementById('ldl-current-icon');
-                currentCondition = document.getElementById('ldl-current-condition');
+                const currentTemp = document.getElementById('ldl-current-temp');
+                const currentIcon = document.getElementById('ldl-current-icon');
+                const currentCondition = document.getElementById('ldl-current-condition');
                 // Wind
-                currentWind = document.getElementById('ldl-current-wind-value');
+                const currentWind = document.getElementById('ldl-current-wind-value');
                 // Extra Products
-                currentHumidity = document.getElementById('ldl-current-humidity-value');
-                currentDewpoint = document.getElementById('ldl-current-dewpoint-value');
-                currentPressure = document.getElementById('ldl-current-pressure-value');
-                currentVisib = document.getElementById('ldl-current-visibility-value');
-                currentCeiling = document.getElementById('ldl-current-ceiling-value');
-                currentMonthPrecip = document.getElementById('ldl-current-monthprecip-value');
+                const currentHumidity = document.getElementById('ldl-current-humidity-value');
+                const currentDewpoint = document.getElementById('ldl-current-dewpoint-value');
+                const currentPressure = document.getElementById('ldl-current-pressure-value');
+                const currentVisib = document.getElementById('ldl-current-visibility-value');
+                const currentCeiling = document.getElementById('ldl-current-ceiling-value');
+                const currentMonthPrecip = document.getElementById('ldl-current-monthprecip-value');
+
         
                 currentTemp.innerHTML = `${latestData.current.temperature}${endingTemp}`
                 currentCondition.innerHTML = latestData.current.wxPhraseMedium
@@ -109,7 +96,7 @@ async function LDLData() {
 
                 const iconCode = latestData.current.iconCode;
                 const dayOrNight = latestData.current.dayOrNight;
-                const iconPath = ldlWeatherIcons[iconCode] ? ldlWeatherIcons[iconCode][dayOrNight === "D" ? 0 : 1] : 'not-available.svg'
+                const iconPath = weatherIcons[iconCode] ? weatherIcons[iconCode][dayOrNight === "D" ? 0 : 1] : 'not-available.svg'
                 currentIcon.src = `/graphics/${iconDir}/${iconPath}`
                 
                 let ceilingFormatted;
@@ -125,16 +112,16 @@ async function LDLData() {
               }
     
               function appendForecast() {
-                forecast0Name = document.getElementById('ldl-forecast-day0-name');
-                forecast0Cond = document.getElementById('ldl-forecast-day0-condition');
-                forecast0Icon = document.getElementById('ldl-day0-icon');
-                forecast0Temp = document.getElementById('ldl-forecast-day0-temp');
-                forecast0Precip = document.getElementById('ldl-forecast-day0-pop-value');
-                forecast1Name = document.getElementById('ldl-forecast-day1-name');
-                forecast1Cond = document.getElementById('ldl-forecast-day1-condition');
-                forecast1Icon = document.getElementById('ldl-day1-icon');
-                forecast1Temp = document.getElementById('ldl-forecast-day1-temp');
-                forecast1Precip = document.getElementById('ldl-forecast-day1-pop-value');
+                const forecast0Name = document.getElementById('ldl-forecast-day0-name');
+                const forecast0Cond = document.getElementById('ldl-forecast-day0-condition');
+                const forecast0Icon = document.getElementById('ldl-day0-icon');
+                const forecast0Temp = document.getElementById('ldl-forecast-day0-temp');
+                const forecast0Precip = document.getElementById('ldl-forecast-day0-pop-value');
+                const forecast1Name = document.getElementById('ldl-forecast-day1-name');
+                const forecast1Cond = document.getElementById('ldl-forecast-day1-condition');
+                const forecast1Icon = document.getElementById('ldl-day1-icon');
+                const forecast1Temp = document.getElementById('ldl-forecast-day1-temp');
+                const forecast1Precip = document.getElementById('ldl-forecast-day1-pop-value');
     
                 forecast0Name.innerHTML = latestData.forecast.daypart[0].daypartName[0] ?? latestData.forecast.daypart[0].daypartName[1]
                 forecast0Cond.innerHTML = latestData.forecast.daypart[0].wxPhraseShort[0] ?? latestData.forecast.daypart[0].wxPhraseShort[1]
@@ -143,7 +130,7 @@ async function LDLData() {
     
                 const dayOneIconCode = latestData.forecast.daypart[0].iconCode[0] ?? latestData.forecast.daypart[0].iconCode[1];
                 const dayOrNight = latestData.forecast.daypart[0].dayOrNight[0] ?? latestData.forecast.daypart[0]?.dayOrNight[1];
-                const iconPath = ldlWeatherIcons[dayOneIconCode] ? ldlWeatherIcons[dayOneIconCode][dayOrNight === "D" ? 0 : 1] : 'not-available.svg'
+                const iconPath = weatherIcons[dayOneIconCode] ? weatherIcons[dayOneIconCode][dayOrNight === "D" ? 0 : 1] : 'not-available.svg'
                 forecast0Icon.src = `/graphics/${iconDir}/${iconPath}`
 
                 if (latestData.forecast.daypart[0].daypartName[0] === null) {
@@ -154,7 +141,7 @@ async function LDLData() {
     
                     const dayTwoIconCode = latestData.forecast.daypart[0].iconCode[2]
                     const dayOrNight = latestData.forecast.daypart[0].dayOrNight[2]
-                    const iconPath = ldlWeatherIcons[dayTwoIconCode] ? ldlWeatherIcons[dayTwoIconCode][dayOrNight === "D" ? 0 : 1] : 'not-available.svg'
+                    const iconPath = weatherIcons[dayTwoIconCode] ? weatherIcons[dayTwoIconCode][dayOrNight === "D" ? 0 : 1] : 'not-available.svg'
                     forecast1Icon.src = `/graphics/${iconDir}/${iconPath}`
                 } else {
                     forecast1Name.innerHTML = latestData.forecast.daypart[0].daypartName[1]
@@ -164,7 +151,7 @@ async function LDLData() {
     
                     const dayTwoIconCode = latestData.forecast.daypart[0].iconCode[1]
                     const dayOrNight = latestData.forecast.daypart[0].dayOrNight[1]
-                    const iconPath = ldlWeatherIcons[dayTwoIconCode] ? ldlWeatherIcons[dayTwoIconCode][dayOrNight === "D" ? 0 : 1] : 'not-available.svg'
+                    const iconPath = weatherIcons[dayTwoIconCode] ? weatherIcons[dayTwoIconCode][dayOrNight === "D" ? 0 : 1] : 'not-available.svg'
                     forecast1Icon.src = `/graphics/${iconDir}/${iconPath}`
                 }
     
@@ -172,10 +159,11 @@ async function LDLData() {
               }
     
               function appendAirQuality() {
-                aqiStatus = document.getElementById('ldl-aqi-status').style.color = `#${latestData.aqi.globalairquality.airQualityCategoryIndexColor}`
-                aqiIndex = document.getElementById('ldl-aqi-index');
-                aqiPrimaryPollutant = document.getElementById('ldl-aqi-primarypollutant');
+                const aqiStatus = document.getElementById('ldl-aqi-status');
+                const aqiIndex = document.getElementById('ldl-aqi-index');
+                const aqiPrimaryPollutant = document.getElementById('ldl-aqi-primarypollutant');
     
+                aqiStatus.style.color = `#${latestData.aqi.globalairquality.airQualityCategoryIndexColor}`
                 aqiStatus.innerHTML = latestData.aqi.globalairquality.airQualityCategory
                 aqiIndex.innerHTML = latestData.aqi.globalairquality.airQualityCategoryIndex
                 aqiPrimaryPollutant.innerHTML = latestData.aqi.globalairquality.primaryPollutant
@@ -329,7 +317,7 @@ function nextLDLSlide() {
 }
 
 function nextLDLLocation() {
-    ldlLocationIndex = (ldlLocationIndex + 1) % ldlConfig.locations.length;
+    ldlLocationIndex = (ldlLocationIndex + 1) % config.locations.length;
 
     showLocationLabel();
 

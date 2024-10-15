@@ -1,3 +1,6 @@
+import { data, config, weatherIcons } from './dataLoader.js'
+import { slideIndex, showSlide } from './slides.js';
+
 const animationFormat = 'avif';
 
 const weatherGifs = {
@@ -11,41 +14,28 @@ const weatherGifs = {
     "fog": ["20", "21", "22"], // Fog, Haze, Smoke
 };
 
-const upNextLocationText = document.getElementById('upnext-location');
-const currentLocationText = document.getElementById('current-location');
+export const upNextLocationText = document.getElementById('upnext-location');
+export const currentLocationText = document.getElementById('current-location');
 
 let locationIndex = 0;
-let configGlobal;
 let isWeatherGood;
 let chart;
 
-let weatherIcons
+
+let iconDir
+let endingTemp, endingWind, endingDistance, endingMeasurement, endingCeiling, endingPressure, endingSnow, endingRain;
+
+if (config.staticIcons === true) {
+    iconDir = "static"
+} else {
+    iconDir = "animated"
+}
 
 async function mainData() {
 
     try {
 
-        const [response, configResponse, iconsResponse] = await Promise.all([
-            fetch('./wxData.json'),
-            fetch('./config.json'),
-            fetch('./images/icons.json')
-          ]);
-
-          const data = await response.json();
-          const config = await configResponse.json();
-          weatherIcons = await iconsResponse.json();
-
-          configGlobal = config;
-
-          console.log(data)
-
           function processNextLocation() {
-
-            if (config.staticIcons === true) {
-                iconDir = "static"
-            } else {
-                iconDir = "animated"
-            }
 
             if (config.units == "e") {
                 endingTemp = "°F"
@@ -131,9 +121,9 @@ async function mainData() {
                 istheweathergood();
 
                 function populateStationIDSlide() {
-                    affiliateName = document.getElementById('station-id-affiliatename');
-                    channelID = document.getElementById('station-id-channelid');
-                    networkLogoStationID = document.getElementById('main-info-channelLogo')
+                    const affiliateName = document.getElementById('station-id-affiliatename');
+                    const channelID = document.getElementById('station-id-channelid');
+                    const networkLogoStationID = document.getElementById('main-info-channelLogo')
 
                     affiliateName.innerHTML = `${config.affiliateName}`
                     channelID.innerHTML = `${config.channelNumber}`
@@ -142,13 +132,13 @@ async function mainData() {
                 populateStationIDSlide()
 
                 function populateCurrentSlide() {
-                    currentText = document.getElementById('main-current-condition')
-                    currentIcon = document.getElementById('main-current-icon')
-                    currentTemp = document.getElementById('main-current-temp')
-                    currentExtraWxContainer = document.getElementsByClassName('main-current-rightcontainer')[0];
-                    currentExtraWxData = document.getElementById('main-current-extradata');
-                    currentExtraWxLabels = document.getElementById('main-current-extralabels');
-                    currentVideoBackground = document.getElementById('current-background');
+                    const currentText = document.getElementById('main-current-condition');
+                    const currentIcon = document.getElementById('main-current-icon');
+                    const currentTemp = document.getElementById('main-current-temp');
+                    const currentExtraWxContainer = document.getElementsByClassName('main-current-rightcontainer')[0];
+                    const currentExtraWxData = document.getElementById('main-current-extradata');
+                    const currentExtraWxLabels = document.getElementById('main-current-extralabels');
+                    const currentVideoBackground = document.getElementById('current-background');
 
                     //CLEAR
                     currentExtraWxData.innerHTML = ``;
@@ -164,7 +154,7 @@ async function mainData() {
 
 
                     // CURRENT CONDITIONS VIDEO BACKGROUNDS
-                    if (configGlobal.enableVideoBackgrounds === true) {
+                    if (config.enableVideoBackgrounds === true) {
                         let gifCurrent = `sun.avif`;
 
                         for (let gif in weatherGifs) {
@@ -177,13 +167,7 @@ async function mainData() {
                         document.getElementById('current-background').style.backgroundImage = `url(/images/gif/${gifCurrent})`;
                     }
 
-                    let ceilingFormatted;
-
-                    if (currentData.cloudCeiling === null) {
-                        ceilingFormatted = "Unlimited"
-                    } else {
-                        ceilingFormatted = `${currentData.cloudCeiling}${endingCeiling}`
-                    }
+                    const ceilingFormatted = currentData.cloudCeiling === null ? "Unlimited" : `${currentData.cloudCeiling}${endingCeiling}`;
 
                     const windLabel = document.createTextNode(`• Winds:`)
                     const humidityLabel = document.createTextNode(`• Humidity:`);
@@ -551,17 +535,20 @@ setTimeout(() => {
     console.log(isWeatherGood)
 }, 500);
 
-function nextLocation() {
+export function nextLocation() {
     locationIndex++;
-    if (locationIndex >= configGlobal.locations.length) {
+    if (locationIndex >= config.locations.length) {
         locationIndex = 0;
     }
-    mainData();
-    slideIndex = 0;
-    showSlide(slideIndex);
 
     currentLocationText.style.display = `none`
     upNextLocationText.style.display = `none`
+
+    setTimeout(() => {
+        mainData();
+        showSlide(slideIndex);
+    }, 200);
+
 }
 
 let isSeason = '';
