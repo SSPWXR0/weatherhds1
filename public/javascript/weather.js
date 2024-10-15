@@ -84,11 +84,18 @@ async function mainData() {
                 const forecastData = latestData.weekly;
                 const specialData = latestData.special;
 
+
+                currentLocationText.style.display = `none`
+                currentLocationText.style.animation = `switchModules 0.5s ease-in-out`
                 currentLocationText.innerHTML = locationName;
+                currentLocationText.style.display = `block`
 
                 console.log(`Current main presentation location: ${locationName}`)
 
+                upNextLocationText.style.display = `none`
+                upNextLocationText.style.animation = `switchModules 0.5s ease-in-out`
                 upNextLocationText.innerHTML = `Next: ${nextLocationName}`;
+                upNextLocationText.style.display = `block`
                 
                 function istheweathergood() {
                     if (!currentData || !currentData.iconCode) {
@@ -552,6 +559,9 @@ function nextLocation() {
     mainData();
     slideIndex = 0;
     showSlide(slideIndex);
+
+    currentLocationText.style.display = `none`
+    upNextLocationText.style.display = `none`
 }
 
 let isSeason = '';

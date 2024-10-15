@@ -220,6 +220,7 @@ function hideLocationLabel() {
 
     setTimeout(() => {
         locationLabel.style.display = 'none';
+        document.getElementsByClassName('loading-screen')
     }, 300);
 }
 
