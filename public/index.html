@@ -1,13 +1,20 @@
 <!DOCTYPE html>
 <head>
     <title>WeatherHDS TEXT HANDLER</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
     <link rel="icon" type="image/x-icon" href="./images/favicon.png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
 
 <body>
     <div class="view">
+        <div id="loading-screen">
+            <div id="loadingscreen-spinny"></div>
+            <p id="loadingscreen-versionID"></p>
+            <p id="loadingscreen-affiliatename"></p>
+            <p id="loadingscreen-locationname"></p>
+        </div>
+
         <div class="wallpaper"></div>
 
         <div class="topbar">
@@ -58,7 +65,7 @@
                     </div>
                     <div class="main-info-hds1info">
                         <img class="hdsLogo" src="/images/hdslogo_2024.png" alt="WeatherHDS 1 logo">
-                        <h6 class="versionID">version 1-2024.10.09</h3>
+                        <h6 class="versionID">version 1-2024.10.14</h3>
                     </div>
                 </div>
             </div>
@@ -249,6 +256,11 @@
         <div class="ldl-weather">
             <hr id="ldl-divider">
             <div class="ldl-container">
+                <div class="ldl-netlogo">
+                    <div id="ldl-netlogo-container"></div>
+                    <div id="dateLDL"></div>
+                    <div id="timeLDL"></div>
+                </div>
                 <div class="ldl-presentation">
                     <div class="ldl-presentation-container">
                         <div id="ldl-current" class="ldl-presentation-slide">
@@ -363,6 +375,6 @@
 </body>
 <script type="text/javascript" src="/javascript/weather.js" defer></script>
 <script type="text/javascript" src="/javascript/main.js" defer></script>
-<script type="text/javascript" src="/javascript/slides.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
 <script type="text/javascript" src="/javascript/ldl.js" defer></script>
+<script type="text/javascript" src="/javascript/slides.js" defer></script>

@@ -1,13 +1,14 @@
 const animationFormat = 'avif';
 
 const weatherGifs = {
-    "snow": ["13", "14", "15", "16", "42", "43"], // Snow events
+    "snow": ["13", "14", "16"], // Snow events
+    "snowstorm": ["43", "15", "42"], // Significant snow events
     "cloudy": ["26", "27", "28"], // Cloudy events
     "storm": ["3", "4", "37", "38", "47"], // Thunderstorms
     "rain": ["9", "11", "12", "40"], // Rain events
     "sun": ["32", "34"], // Sunny/Fair Day
     "partlycloudy": ["29", "30", "33"], // Partly Cloudy
-    "fog": ["20", "21", "22"] // Fog, Haze, Smoke
+    "fog": ["20", "21", "22"], // Fog, Haze, Smoke
 };
 
 const upNextLocationText = document.getElementById('upnext-location');
@@ -83,11 +84,18 @@ async function mainData() {
                 const forecastData = latestData.weekly;
                 const specialData = latestData.special;
 
+
+                currentLocationText.style.display = `none`
+                currentLocationText.style.animation = `switchModules 0.5s ease-in-out`
                 currentLocationText.innerHTML = locationName;
+                currentLocationText.style.display = `block`
 
                 console.log(`Current main presentation location: ${locationName}`)
 
+                upNextLocationText.style.display = `none`
+                upNextLocationText.style.animation = `switchModules 0.5s ease-in-out`
                 upNextLocationText.innerHTML = `Next: ${nextLocationName}`;
+                upNextLocationText.style.display = `block`
                 
                 function istheweathergood() {
                     if (!currentData || !currentData.iconCode) {
@@ -551,6 +559,9 @@ function nextLocation() {
     mainData();
     slideIndex = 0;
     showSlide(slideIndex);
+
+    currentLocationText.style.display = `none`
+    upNextLocationText.style.display = `none`
 }
 
 let isSeason = '';
