@@ -95,10 +95,10 @@ function loadingScreen() {
 
     document.getElementById('loadingscreen-versionID').innerHTML = `WeatherHDS ${weatherHDSVersionNumber}`
 
-    setInterval(() => {
+    setTimeout(() => {
         document.getElementById('loadingscreen-affiliatename').innerHTML = `Affiliate Name: ${config.affiliateName}`
         document.getElementById('loadingscreen-locationname').innerHTML = `System Location: ${config.locations[0]}`
-    }, 1000);
+    }, 2000);
     
 
     console.log(`${xEnd}, ${yEnd}`)
