@@ -114,8 +114,8 @@ function imageRendering() {
     }
 }
 
-setTimeout(() => {
+export function everythingConfigLmao() {
     imageRendering()
     ScaleViewportToTheWindowIGuessLmao()
     presentationType()
-}, 400);
+}

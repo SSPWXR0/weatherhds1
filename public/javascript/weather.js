@@ -22,20 +22,20 @@ let isWeatherGood;
 let chart;
 
 
-let iconDir
+let iconDir = "animated"
 let endingTemp, endingWind, endingDistance, endingMeasurement, endingCeiling, endingPressure, endingSnow, endingRain;
-
-if (config.staticIcons === true) {
-    iconDir = "static"
-} else {
-    iconDir = "animated"
-}
 
 async function mainData() {
 
     try {
 
           function processNextLocation() {
+
+            if (config.staticIcons === true) {
+                iconDir = "static"
+            } else {
+                iconDir = "animated"
+            }
 
             if (config.units == "e") {
                 endingTemp = "°F"
@@ -529,7 +529,9 @@ async function mainData() {
     }
 }
 
-mainData();
+export function getInitialData() {
+    mainData()
+}
 
 setTimeout(() => {
     console.log(isWeatherGood)

@@ -1,6 +1,8 @@
 import { config } from './dataLoader.js'
 import { nextLocation, currentLocationText, upNextLocationText } from './weather.js';
 
+const styleSheet = document.styleSheets[0];
+
 const presentationSlides = {
     "0": { title: "Welcome!", htmlID: "stationid", durationMS: "6000"},
     "1": { title: "Weather Alerts", htmlID: "alerts", durationMS: "8000"},
@@ -111,7 +113,6 @@ function loadingScreen() {
         100% { transform: rotateX(${xEnd}deg) rotateY(${yEnd}deg); }
     }`
 
-    const styleSheet = document.styleSheets[0];
     styleSheet.insertRule(keyframes, styleSheet.cssRules.length);
 
     spinningLogo.style.animation = `spinXandY ${Number(presentationSlides[0].durationMS)}ms linear`
@@ -121,6 +122,6 @@ function loadingScreen() {
     }, Number(presentationSlides[0].durationMS));
 }
 
-loadingScreen()
+window.onload = loadingScreen()
 
 startSlideshow()

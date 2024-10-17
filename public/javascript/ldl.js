@@ -342,10 +342,11 @@ function runProgressBar() {
   }, totalDuration);
 }
 
-runProgressBar()
-
-LDLData()
-showLDLSlide()
-
-console.log("Total Duration (ms):", totalDuration);
-console.log("Total Duration (sec):", totalDurationSec);
+export function runInitialLDL() {
+  runProgressBar()
+  LDLData()
+  showLDLSlide()
+  
+  console.log("Total Duration (ms):", totalDuration);
+  console.log("Total Duration (sec):", totalDurationSec);
+}
