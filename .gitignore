@@ -1,5 +1,4 @@
-*config.json
-*wxData.json
-*ldlData.json
-public/config.json
-public/config.json
+/node_modules
+/public/config.json
+/public/wxData.json
+/public/wxData.json

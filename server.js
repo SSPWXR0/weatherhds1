@@ -245,3 +245,6 @@ app.listen(config.webPort, () => {
   console.log(`Created by SSPWXR and ScentedOrange`);
   console.log(`Server is running on http://localhost:${config.webPort}`);
 });
+
+process.on('SIGINT', () => {console.log("Exiting WeatherHDS daemon"); process.exit();});
+process.on('SIGUSR2', () => {console.log("Exiting WeatherHDS daemon"); process.exit();});
