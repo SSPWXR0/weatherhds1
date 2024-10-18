@@ -28,7 +28,7 @@
 
   <h1>Credits</h1>
     <p>Credit to ScentedOrange for making the air quality and 7 day high and low pages. | https://github.com/ScentedOrangeDEV</p>
-    <p>Credit to Jaidenism for writing TWC API weather fetching functions. | https://github.com/Dalk21</p>
+    <p>Credit to Dalk for writing TWC API weather fetching functions. | https://github.com/Dalk21</p>
   <p>Weather icons (MIT): https://github.com/basmilius/weather-icons | Copy of license included in weather icon directory</p>
   <p>Google Material icons (APACHE 2.0): https://fonts.google.com/icons | https://www.apache.org/licenses/LICENSE-2.0</p>
   <p>weather videos (Pexels): https://www.pexels.com/license/</p>
