@@ -393,8 +393,7 @@ hr {
   padding-top: 4%;
 }
 .main-forecast-condition {
-  padding-top: 10px;
-  padding-bottom: 10px;
+  white-space: nowrap;
 }
 .main-forecast-icon {
   background-color: #21252988;
@@ -430,6 +429,8 @@ hr {
 }
 .main-forecast-wind {
   width: 100%;
+  font-size: 8pt;
+  white-space: nowrap;
   background-color: #2c3135a4;
 }
 /* RADAR */
@@ -526,6 +527,7 @@ hr {
   line-height: 0.2;
 }
 .main-alerts-standby {
+  position: relative;
   text-align: center;
   line-height: 0.2;
   margin: 0 auto;
@@ -541,15 +543,13 @@ hr {
   background-repeat: no-repeat;
 }
 .main-alerts-standby-scrolltextcontainer {
-  position: absolute;
-  white-space: nowrap;
-  text-wrap: nowrap;
-  width: 100%;
-  height: 5%;
-  left: 0%;
-  bottom: 20%;
-  text-shadow: 1pt 1pt 1pt #000000;
-  animation: alertsSlidein 1s ease-in-out 1;
+	position: relative;
+	white-space: nowrap;
+	width: 100%;
+	height: 5%;
+	left: 0%;
+	text-shadow: rgb(0, 0, 0) 1pt 1pt 1pt;
+	bottom: -64%;
 }
 .main-alerts-standby-scrolltextdecorative {
   animation: scroll 20s linear infinite;
@@ -561,15 +561,6 @@ hr {
   }
   100% {
     transform: translateX(100%);
-  }
-}
-
-@keyframes alertsSlidein {
-  0% {
-    transform: translateY(200px);
-  }
-  100% {
-    transform: translateY(0px);
   }
 }
 
@@ -587,7 +578,7 @@ hr {
   display: flex;
   flex-direction: column;
   width: 90%;
-  height: 70%;
+  height: 65%;
   max-width: 576px;
   overflow: hidden;
 }
@@ -640,26 +631,30 @@ hr {
 .ldl-bottomtext-container {
   display: flex;
   justify-content: space-between;
+  height: 100%;
 }
 
 .ldl-marquee {
-  width: 70%;
-  height: 100%;
-  background-color: rgba(206, 212, 218, 0.20);
-  border-radius: var(--cornerRadius);
-  font-weight: 700;
-  overflow: hidden;
-  font-size: auto;
+	width: 65%;
+	height: 100%;
+	background-color: rgba(206, 212, 218, 0.2);
+	border-radius: 4pt;
+	font-weight: 700;
+	overflow: hidden;
 }
 
 .ldl-locationlabel-container {
-  width: 25%;
+  width: 32%;
   height: 100%;
 }
 
 #ldl-location-label {
   overflow: visible;
-  text-wrap: nowrap;
+  white-space: nowrap;
+}
+
+#ldl-location {
+  height: 20%;
 }
 
 .ldltext-primary {
@@ -667,15 +662,17 @@ hr {
   align-self: center;
   margin-right: 10px;
   text-wrap: nowrap;
+  white-space: nowrap;
 }
 .ldltext-primarybutsmaller {
   font-size: 10pt;
   align-self: center;
   margin-right: 10px;
   text-wrap: nowrap;
+  white-space: nowrap;
 }
 .ldltext-secondary {
-  font-size: 6pt;
+  font-size: 8pt;
   font-weight: 400;
   align-self: center;
   margin-right: 5px;
@@ -725,7 +722,7 @@ hr {
   justify-content: space-between;
   align-items: center;
   height: 100%;
-  width: 55%;
+  width: 40%;
 }
 
 #ldl-current-condition {
@@ -734,10 +731,19 @@ hr {
 }
 
 .ldl-current-wind {
-  display: flex;
-  justify-content: space-between;
-  height: 100%;
-  width: 55%;
+	width: 35%;
+	align-self: center;
+}
+
+#ldl-current-wind-label {
+  font-size: 8pt;
+  font-weight: 300;
+
+}
+
+#ldl-current-wind-value {
+  font-size: 8pt;
+  font-weight: 500;
 }
 
 .ldl-current-module {
@@ -757,7 +763,7 @@ hr {
   text-wrap: nowrap;
   display: flex;
   flex-grow: 4;
-  font-size: small;
+  font-size: 8pt;
 }
 
 .module-value {

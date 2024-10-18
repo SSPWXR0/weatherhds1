@@ -12,20 +12,20 @@
         "cloudCoverPhrase": "Partly Cloudy",
         "dayOfWeek": "Friday",
         "dayOrNight": "D",
-        "expirationTimeUtc": 1729266961,
-        "iconCode": 32,
-        "iconCodeExtend": 3200,
-        "obsQualifierCode": "OQ1073",
-        "obsQualifierSeverity": 1,
+        "expirationTimeUtc": 1729272370,
+        "iconCode": 30,
+        "iconCodeExtend": 3000,
+        "obsQualifierCode": null,
+        "obsQualifierSeverity": null,
         "precip1Hour": 0,
         "precip6Hour": 0,
         "precip24Hour": 0,
-        "pressureAltimeter": 30.15,
-        "pressureChange": 0.07,
-        "pressureMeanSeaLevel": 1021.9,
+        "pressureAltimeter": 1023.03,
+        "pressureChange": 0.68,
+        "pressureMeanSeaLevel": 1023,
         "pressureTendencyCode": 1,
         "pressureTendencyTrend": "Rising",
-        "relativeHumidity": 66,
+        "relativeHumidity": 55,
         "snow1Hour": 0,
         "snow6Hour": 0,
         "snow24Hour": 0,
@@ -33,31 +33,31 @@
         "sunriseTimeUtc": 1729258700,
         "sunsetTimeLocal": "2024-10-18T18:04:19-0600",
         "sunsetTimeUtc": 1729296259,
-        "temperature": 36,
-        "temperatureChange24Hour": -10,
-        "temperatureDewPoint": 26,
-        "temperatureFeelsLike": 30,
-        "temperatureHeatIndex": 36,
-        "temperatureMax24Hour": 54,
-        "temperatureMaxSince7Am": 36,
-        "temperatureMin24Hour": 26,
-        "temperatureWindChill": 30,
+        "temperature": 6,
+        "temperatureChange24Hour": -2,
+        "temperatureDewPoint": -2,
+        "temperatureFeelsLike": 4,
+        "temperatureHeatIndex": 6,
+        "temperatureMax24Hour": 12,
+        "temperatureMaxSince7Am": 7,
+        "temperatureMin24Hour": -3,
+        "temperatureWindChill": 4,
         "uvDescription": "Low",
         "uvIndex": 1,
-        "validTimeLocal": "2024-10-18T09:46:01-0600",
-        "validTimeUtc": 1729266361,
-        "visibility": 10,
-        "windDirection": 230,
-        "windDirectionCardinal": "SW",
+        "validTimeLocal": "2024-10-18T11:16:10-0600",
+        "validTimeUtc": 1729271770,
+        "visibility": 16.09,
+        "windDirection": 170,
+        "windDirectionCardinal": "S",
         "windGust": null,
-        "windSpeed": 8,
-        "wxPhraseLong": "Sunny",
-        "wxPhraseMedium": "Sunny",
-        "wxPhraseShort": "Sunny"
+        "windSpeed": 10,
+        "wxPhraseLong": "Partly Cloudy",
+        "wxPhraseMedium": "Partly Cloudy",
+        "wxPhraseShort": "P Cloudy"
       },
       "alerts": {
         "metadata": {
-          "transaction_id": "1729266922465:541438374",
+          "transaction_id": "1729272215583:2034724849",
           "status_code": 400
         },
         "success": "false",
@@ -68,24 +68,24 @@
       },
       "forecast": {
         "calendarDayTemperatureMax": [
-          57,
-          63,
-          59,
-          52,
-          39,
-          50,
-          48,
-          49
+          14,
+          17,
+          15,
+          11,
+          4,
+          10,
+          9,
+          9
         ],
         "calendarDayTemperatureMin": [
-          24,
-          40,
-          41,
-          31,
-          25,
-          25,
-          26,
-          27
+          -4,
+          4,
+          5,
+          -1,
+          -4,
+          -4,
+          -4,
+          -3
         ],
         "dayOfWeek": [
           "Friday",
@@ -98,14 +98,14 @@
           "Friday"
         ],
         "expirationTimeUtc": [
-          1729268155,
-          1729268155,
-          1729268155,
-          1729268155,
-          1729268155,
-          1729268155,
-          1729268155,
-          1729268155
+          1729272618,
+          1729272618,
+          1729272618,
+          1729272618,
+          1729272618,
+          1729272618,
+          1729272618,
+          1729272618
         ],
         "moonPhase": [
           "Waning Gibbous",
@@ -138,54 +138,54 @@
           23
         ],
         "moonriseTimeLocal": [
-          "2024-10-18T18:17:50-0600",
-          "2024-10-19T18:43:20-0600",
-          "2024-10-20T19:20:54-0600",
-          "2024-10-21T20:13:42-0600",
-          "2024-10-22T21:22:44-0600",
-          "2024-10-23T22:39:49-0600",
-          "2024-10-24T23:59:11-0600",
+          "2024-10-18T18:17:55-0600",
+          "2024-10-19T18:43:29-0600",
+          "2024-10-20T19:21:06-0600",
+          "2024-10-21T20:13:55-0600",
+          "2024-10-22T21:22:56-0600",
+          "2024-10-23T22:39:58-0600",
+          "2024-10-24T23:59:17-0600",
           ""
         ],
         "moonriseTimeUtc": [
-          1729297070,
-          1729385000,
-          1729473654,
-          1729563222,
-          1729653764,
-          1729744789,
-          1729835951,
+          1729297075,
+          1729385009,
+          1729473666,
+          1729563235,
+          1729653776,
+          1729744798,
+          1729835957,
           null
         ],
         "moonsetTimeLocal": [
-          "2024-10-18T09:32:30-0600",
-          "2024-10-19T11:08:36-0600",
-          "2024-10-20T12:38:14-0600",
-          "2024-10-21T13:53:18-0600",
-          "2024-10-22T14:47:23-0600",
-          "2024-10-23T15:24:00-0600",
-          "2024-10-24T15:48:00-0600",
-          "2024-10-25T16:04:22-0600"
+          "2024-10-18T09:32:20-0600",
+          "2024-10-19T11:08:22-0600",
+          "2024-10-20T12:37:58-0600",
+          "2024-10-21T13:53:00-0600",
+          "2024-10-22T14:47:06-0600",
+          "2024-10-23T15:23:46-0600",
+          "2024-10-24T15:47:48-0600",
+          "2024-10-25T16:04:13-0600"
         ],
         "moonsetTimeUtc": [
-          1729265550,
-          1729357716,
-          1729449494,
-          1729540398,
-          1729630043,
-          1729718640,
-          1729806480,
-          1729893862
+          1729265540,
+          1729357702,
+          1729449478,
+          1729540380,
+          1729630026,
+          1729718626,
+          1729806468,
+          1729893853
         ],
         "narrative": [
-          "Sunshine. Highs in the upper 50s and lows in the upper 30s.",
-          "A few clouds. Highs in the low 60s and lows in the low 40s.",
-          "Partly cloudy. Highs in the upper 50s and lows in the low 40s.",
-          "Mostly cloudy. Highs in the mid 40s and lows in the upper 20s.",
-          "Mix of sun and clouds. Highs in the upper 30s and lows in the mid 20s.",
-          "Mainly sunny. Highs in the low 50s and lows in the mid 20s.",
-          "A few clouds. Highs in the upper 40s and lows in the upper 20s.",
-          "Mix of sun and clouds. Highs in the upper 40s and lows in the low 30s."
+          "Sunshine. Highs 13 to 15C and lows 3 to 5C.",
+          "A few clouds. Highs 16 to 18C and lows 4 to 6C.",
+          "Mix of sun and clouds. Highs 14 to 16C and lows 4 to 6C.",
+          "More clouds than sun. Highs 6 to 8C and lows -4 to -2C.",
+          "Mix of sun and clouds. Highs 3 to 5C and lows -5 to -3C.",
+          "Sunshine. Highs 9 to 11C and lows -5 to -3C.",
+          "More sun than clouds. Highs 8 to 10C and lows -4 to -2C.",
+          "Partly cloudy. Highs 8 to 10C and lows -2 to 0C."
         ],
         "qpf": [
           0,
@@ -208,64 +208,64 @@
           0
         ],
         "sunriseTimeLocal": [
-          "2024-10-18T07:38:26-0600",
-          "2024-10-19T07:40:12-0600",
-          "2024-10-20T07:41:58-0600",
-          "2024-10-21T07:43:44-0600",
-          "2024-10-22T07:45:30-0600",
-          "2024-10-23T07:47:16-0600",
-          "2024-10-24T07:49:03-0600",
-          "2024-10-25T07:50:49-0600"
+          "2024-10-18T07:38:20-0600",
+          "2024-10-19T07:40:06-0600",
+          "2024-10-20T07:41:52-0600",
+          "2024-10-21T07:43:38-0600",
+          "2024-10-22T07:45:24-0600",
+          "2024-10-23T07:47:10-0600",
+          "2024-10-24T07:48:56-0600",
+          "2024-10-25T07:50:43-0600"
         ],
         "sunriseTimeUtc": [
-          1729258706,
-          1729345212,
-          1729431718,
-          1729518224,
-          1729604730,
-          1729691236,
-          1729777743,
-          1729864249
+          1729258700,
+          1729345206,
+          1729431712,
+          1729518218,
+          1729604724,
+          1729691230,
+          1729777736,
+          1729864243
         ],
         "sunsetTimeLocal": [
-          "2024-10-18T18:04:18-0600",
-          "2024-10-19T18:02:13-0600",
-          "2024-10-20T18:00:09-0600",
-          "2024-10-21T17:58:07-0600",
-          "2024-10-22T17:56:05-0600",
-          "2024-10-23T17:54:04-0600",
-          "2024-10-24T17:52:04-0600",
-          "2024-10-25T17:50:05-0600"
+          "2024-10-18T18:04:19-0600",
+          "2024-10-19T18:02:14-0600",
+          "2024-10-20T18:00:11-0600",
+          "2024-10-21T17:58:08-0600",
+          "2024-10-22T17:56:06-0600",
+          "2024-10-23T17:54:06-0600",
+          "2024-10-24T17:52:06-0600",
+          "2024-10-25T17:50:07-0600"
         ],
         "sunsetTimeUtc": [
-          1729296258,
-          1729382533,
-          1729468809,
-          1729555087,
-          1729641365,
-          1729727644,
-          1729813924,
-          1729900205
+          1729296259,
+          1729382534,
+          1729468811,
+          1729555088,
+          1729641366,
+          1729727646,
+          1729813926,
+          1729900207
         ],
         "temperatureMax": [
-          57,
-          63,
-          59,
-          45,
-          39,
-          50,
-          48,
-          49
+          14,
+          17,
+          15,
+          7,
+          4,
+          10,
+          9,
+          9
         ],
         "temperatureMin": [
-          39,
-          41,
-          42,
-          28,
-          25,
-          26,
-          27,
-          31
+          4,
+          5,
+          5,
+          -3,
+          -4,
+          -4,
+          -3,
+          -1
         ],
         "validTimeLocal": [
           "2024-10-18T07:00:00-0600",
@@ -290,7 +290,7 @@
         "daypart": [
           {
             "cloudCover": [
-              10,
+              11,
               56,
               40,
               67,
@@ -380,22 +380,22 @@
               2900
             ],
             "narrative": [
-              "Abundant sunshine. High 57F. Winds SSW at 10 to 15 mph.",
-              "Partly cloudy. Low 39F. Winds S at 10 to 20 mph.",
-              "Generally sunny despite a few afternoon clouds. High 63F. Winds SW at 10 to 20 mph.",
-              "Considerable cloudiness. Low 41F. Winds WSW at 10 to 15 mph.",
-              "Partly cloudy. High 59F. Winds NE at 5 to 10 mph.",
-              "Partly cloudy in the evening with more clouds for later at night. Low 42F. ESE winds shifting to SW at 10 to 20 mph.",
-              "Mostly cloudy skies. High around 45F. Winds NNW at 10 to 20 mph.",
-              "Cloudy skies. Low 28F. Winds N at 5 to 10 mph.",
-              "Partly to mostly cloudy. High 39F. Winds WNW at 10 to 15 mph.",
-              "Mainly clear. Low near 25F. Winds SW at 10 to 15 mph.",
-              "Sunny skies. High near 50F. Winds W at 10 to 15 mph.",
-              "A few clouds from time to time. Low 26F. Winds W at 5 to 10 mph.",
-              "Sunshine along with some cloudy intervals. High 48F. Winds W at 5 to 10 mph.",
-              "A few clouds from time to time. Low 27F. Winds SSE at 5 to 10 mph.",
-              "Partly cloudy skies in the morning will give way to cloudy skies during the afternoon. High 49F. Winds ESE at 10 to 15 mph.",
-              "Partly cloudy. Low 31F. Winds SE at 5 to 10 mph."
+              "Abundant sunshine. High 14C. Winds SSW at 15 to 25 km/h.",
+              "Partly cloudy. Low 4C. Winds S at 15 to 30 km/h.",
+              "Sunny along with a few clouds. High 17C. Winds SW at 15 to 30 km/h.",
+              "Mostly cloudy. Low near 5C. Winds WSW at 15 to 25 km/h.",
+              "Partly cloudy skies. High near 15C. Winds NE at 10 to 15 km/h.",
+              "Partly to mostly cloudy. Low near 5C. ESE winds shifting to SW at 15 to 30 km/h.",
+              "More clouds than sun. High 7C. Winds NNW at 15 to 30 km/h.",
+              "Cloudy skies. Low -3C. Winds N at 10 to 15 km/h.",
+              "Partly to mostly cloudy. High 4C. Winds WNW at 15 to 25 km/h.",
+              "A mostly clear sky. Low -4C. Winds SW at 15 to 25 km/h.",
+              "Sunny skies. High near 10C. Winds W at 15 to 25 km/h.",
+              "Partly cloudy skies. Low -4C. Winds W at 10 to 15 km/h.",
+              "A few passing clouds, otherwise generally sunny. High 9C. Winds W at 10 to 15 km/h.",
+              "A few clouds. Low -3C. Winds SSE at 10 to 15 km/h.",
+              "Partly to mostly cloudy. High 9C. Winds ESE at 15 to 25 km/h.",
+              "A few clouds. Low -1C. Winds SE at 10 to 15 km/h."
             ],
             "precipChance": [
               0,
@@ -506,7 +506,7 @@
               null
             ],
             "relativeHumidity": [
-              43,
+              40,
               48,
               41,
               63,
@@ -542,58 +542,58 @@
               ""
             ],
             "temperature": [
-              57,
-              39,
-              63,
-              41,
-              59,
-              42,
-              45,
-              28,
-              39,
-              25,
-              50,
-              26,
-              48,
-              27,
-              49,
-              31
+              14,
+              4,
+              17,
+              5,
+              15,
+              5,
+              7,
+              -3,
+              4,
+              -4,
+              10,
+              -4,
+              9,
+              -3,
+              9,
+              -1
             ],
             "temperatureHeatIndex": [
-              57,
-              45,
-              63,
-              54,
-              59,
-              51,
-              45,
-              36,
-              39,
-              31,
-              50,
-              38,
-              48,
-              37,
-              49,
-              38
+              14,
+              7,
+              17,
+              12,
+              15,
+              10,
+              7,
+              2,
+              4,
+              0,
+              10,
+              3,
+              9,
+              3,
+              9,
+              4
             ],
             "temperatureWindChill": [
-              32,
-              33,
-              35,
-              41,
-              39,
-              37,
-              32,
-              22,
-              21,
-              18,
-              19,
-              20,
-              20,
-              21,
-              21,
-              25
+              6,
+              0,
+              2,
+              5,
+              4,
+              3,
+              0,
+              -5,
+              -6,
+              -8,
+              -7,
+              -7,
+              -7,
+              -6,
+              -6,
+              -4
             ],
             "thunderCategory": [
               "No thunder",
@@ -668,7 +668,7 @@
               0
             ],
             "windDirection": [
-              207,
+              203,
               183,
               233,
               237,
@@ -680,7 +680,7 @@
               236,
               266,
               264,
-              268,
+              267,
               148,
               115,
               144
@@ -704,40 +704,40 @@
               "SE"
             ],
             "windPhrase": [
-              "Winds SSW at 10 to 15 mph.",
-              "Winds S at 10 to 20 mph.",
-              "Winds SW at 10 to 20 mph.",
-              "Winds WSW at 10 to 15 mph.",
-              "Winds NE at 5 to 10 mph.",
-              "ESE winds shifting to SW at 10 to 20 mph.",
-              "Winds NNW at 10 to 20 mph.",
-              "Winds N at 5 to 10 mph.",
-              "Winds WNW at 10 to 15 mph.",
-              "Winds SW at 10 to 15 mph.",
-              "Winds W at 10 to 15 mph.",
-              "Winds W at 5 to 10 mph.",
-              "Winds W at 5 to 10 mph.",
-              "Winds SSE at 5 to 10 mph.",
-              "Winds ESE at 10 to 15 mph.",
-              "Winds SE at 5 to 10 mph."
+              "Winds SSW at 15 to 25 km/h.",
+              "Winds S at 15 to 30 km/h.",
+              "Winds SW at 15 to 30 km/h.",
+              "Winds WSW at 15 to 25 km/h.",
+              "Winds NE at 10 to 15 km/h.",
+              "ESE winds shifting to SW at 15 to 30 km/h.",
+              "Winds NNW at 15 to 30 km/h.",
+              "Winds N at 10 to 15 km/h.",
+              "Winds WNW at 15 to 25 km/h.",
+              "Winds SW at 15 to 25 km/h.",
+              "Winds W at 15 to 25 km/h.",
+              "Winds W at 10 to 15 km/h.",
+              "Winds W at 10 to 15 km/h.",
+              "Winds SSE at 10 to 15 km/h.",
+              "Winds ESE at 15 to 25 km/h.",
+              "Winds SE at 10 to 15 km/h."
             ],
             "windSpeed": [
-              11,
+              18,
+              25,
+              24,
+              19,
               15,
-              15,
-              12,
-              9,
-              15,
-              14,
+              25,
+              23,
+              16,
+              21,
+              19,
+              21,
               10,
               13,
               12,
-              13,
-              6,
-              8,
-              7,
-              11,
-              9
+              18,
+              14
             ],
             "wxPhraseLong": [
               "Sunny",
@@ -784,7 +784,7 @@
           "longitude": -106.68,
           "source": "Contains Copernicus Atmosphere Monitoring Service information 2024 and/or modified Copernicus Atmosphere Monitoring Service information 2024",
           "disclaimer": "Neither the European Commission nor ECMWF is responsible for any use of this information",
-          "airQualityIndex": 14,
+          "airQualityIndex": 13,
           "airQualityCategory": "Good",
           "airQualityCategoryIndex": 1,
           "airQualityCategoryIndexColor": "00E838",
@@ -793,7 +793,7 @@
             "CO": {
               "name": "CO",
               "phrase": "Carbon Monoxide",
-              "amount": 220,
+              "amount": 180,
               "unit": "µg/m3",
               "category": "Good",
               "categoryIndex": 1,
@@ -802,43 +802,43 @@
             "NO2": {
               "name": "NO2",
               "phrase": "Nitrogen Dioxide",
-              "amount": 26.14,
+              "amount": 18.57,
               "unit": "µg/m3",
               "category": "Good",
               "categoryIndex": 1,
-              "index": 12
+              "index": 8
             },
             "O3": {
               "name": "O3",
               "phrase": "Ozone",
-              "amount": 21.13,
+              "amount": 35.37,
               "unit": "µg/m3",
               "category": "Good",
               "categoryIndex": 1,
-              "index": 14
+              "index": 13
             },
             "PM10": {
               "name": "PM10",
               "phrase": "Particulate matter less than 10 microns",
-              "amount": 2.81,
+              "amount": 1.89,
               "unit": "µg/m3",
               "category": "Good",
               "categoryIndex": 1,
-              "index": 2
+              "index": 1
             },
             "PM2.5": {
               "name": "PM2.5",
               "phrase": "Particulate matter less than 2.5 microns",
-              "amount": 2.56,
+              "amount": 1.82,
               "unit": "µg/m3",
               "category": "Good",
               "categoryIndex": 1,
-              "index": 9
+              "index": 8
             },
             "SO2": {
               "name": "SO2",
               "phrase": "Sulfur Dioxide",
-              "amount": 4.61,
+              "amount": 3.3,
               "unit": "µg/m3",
               "category": "Good",
               "categoryIndex": 1,
@@ -855,7 +855,7 @@
               "text": "Air quality is considered satisfactory, and air pollution poses little or no risk."
             }
           },
-          "expireTimeGmt": 1729267248
+          "expireTimeGmt": 1729274433
         }
       },
       "almanac": {
@@ -875,10 +875,10 @@
           null
         ],
         "precipitationAverage": [
-          0.6
+          15.24
         ],
         "snowAccumulationAverage": [
-          7.3
+          18.6
         ],
         "stationId": [
           "CNST71866"
@@ -887,13 +887,13 @@
           "Saskatoon"
         ],
         "temperatureAverageMax": [
-          10
+          -13
         ],
         "temperatureAverageMin": [
-          -9
+          -23
         ],
         "temperatureMean": [
-          0
+          -18
         ],
         "temperatureRecordMax": [
           null
@@ -917,20 +917,20 @@
         "cloudCoverPhrase": "Partly Cloudy",
         "dayOfWeek": "Friday",
         "dayOrNight": "D",
-        "expirationTimeUtc": 1729267240,
-        "iconCode": 32,
-        "iconCodeExtend": 3200,
+        "expirationTimeUtc": 1729272651,
+        "iconCode": 34,
+        "iconCodeExtend": 3400,
         "obsQualifierCode": null,
         "obsQualifierSeverity": null,
         "precip1Hour": 0,
         "precip6Hour": 0,
         "precip24Hour": 0,
-        "pressureAltimeter": 30.1,
-        "pressureChange": 0.08,
-        "pressureMeanSeaLevel": 1019.6,
+        "pressureAltimeter": 1020.66,
+        "pressureChange": 1.69,
+        "pressureMeanSeaLevel": 1020.6,
         "pressureTendencyCode": 1,
         "pressureTendencyTrend": "Rising",
-        "relativeHumidity": 64,
+        "relativeHumidity": 52,
         "snow1Hour": 0,
         "snow6Hour": 0,
         "snow24Hour": 0,
@@ -938,31 +938,31 @@
         "sunriseTimeUtc": 1729258598,
         "sunsetTimeLocal": "2024-10-18T17:58:49-0600",
         "sunsetTimeUtc": 1729295929,
-        "temperature": 40,
-        "temperatureChange24Hour": -6,
-        "temperatureDewPoint": 29,
-        "temperatureFeelsLike": 34,
-        "temperatureHeatIndex": 40,
-        "temperatureMax24Hour": 53,
-        "temperatureMaxSince7Am": 40,
-        "temperatureMin24Hour": 34,
-        "temperatureWindChill": 34,
+        "temperature": 8,
+        "temperatureChange24Hour": -1,
+        "temperatureDewPoint": -1,
+        "temperatureFeelsLike": 6,
+        "temperatureHeatIndex": 8,
+        "temperatureMax24Hour": 12,
+        "temperatureMaxSince7Am": 8,
+        "temperatureMin24Hour": 1,
+        "temperatureWindChill": 6,
         "uvDescription": "Low",
         "uvIndex": 1,
-        "validTimeLocal": "2024-10-18T09:50:40-0600",
-        "validTimeUtc": 1729266640,
-        "visibility": 10,
+        "validTimeLocal": "2024-10-18T11:20:51-0600",
+        "validTimeUtc": 1729272051,
+        "visibility": 16.09,
         "windDirection": 260,
         "windDirectionCardinal": "W",
-        "windGust": null,
-        "windSpeed": 9,
-        "wxPhraseLong": "Sunny",
-        "wxPhraseMedium": "Sunny",
-        "wxPhraseShort": "Sunny"
+        "windGust": 27,
+        "windSpeed": 16,
+        "wxPhraseLong": "Fair",
+        "wxPhraseMedium": "Fair",
+        "wxPhraseShort": "Fair"
       },
       "alerts": {
         "metadata": {
-          "transaction_id": "1729266922701:-695506978",
+          "transaction_id": "1729272215781:-1676172168",
           "status_code": 400
         },
         "success": "false",
@@ -973,24 +973,24 @@
       },
       "forecast": {
         "calendarDayTemperatureMax": [
-          54,
-          60,
-          55,
-          44,
-          37,
-          47,
-          46,
-          45
+          12,
+          16,
+          13,
+          7,
+          3,
+          9,
+          8,
+          7
         ],
         "calendarDayTemperatureMin": [
-          32,
-          35,
-          37,
-          30,
-          24,
-          23,
-          25,
-          24
+          0,
+          2,
+          3,
+          -1,
+          -5,
+          -5,
+          -4,
+          -5
         ],
         "dayOfWeek": [
           "Friday",
@@ -1003,14 +1003,14 @@
           "Friday"
         ],
         "expirationTimeUtc": [
-          1729267582,
-          1729267582,
-          1729267582,
-          1729267582,
-          1729267582,
-          1729267582,
-          1729267582,
-          1729267582
+          1729272828,
+          1729272828,
+          1729272828,
+          1729272828,
+          1729272828,
+          1729272828,
+          1729272828,
+          1729272828
         ],
         "moonPhase": [
           "Waning Gibbous",
@@ -1043,54 +1043,54 @@
           23
         ],
         "moonriseTimeLocal": [
-          "2024-10-18T18:09:24-0600",
-          "2024-10-19T18:32:52-0600",
-          "2024-10-20T19:08:42-0600",
-          "2024-10-21T20:01:02-0600",
-          "2024-10-22T21:10:25-0600",
-          "2024-10-23T22:29:01-0600",
-          "2024-10-24T23:50:15-0600",
+          "2024-10-18T18:09:18-0600",
+          "2024-10-19T18:32:46-0600",
+          "2024-10-20T19:08:35-0600",
+          "2024-10-21T20:00:54-0600",
+          "2024-10-22T21:10:17-0600",
+          "2024-10-23T22:28:54-0600",
+          "2024-10-24T23:50:09-0600",
           ""
         ],
         "moonriseTimeUtc": [
-          1729296564,
-          1729384372,
-          1729472922,
-          1729562462,
-          1729653025,
-          1729744141,
-          1729835415,
+          1729296558,
+          1729384366,
+          1729472915,
+          1729562454,
+          1729653017,
+          1729744134,
+          1729835409,
           null
         ],
         "moonsetTimeLocal": [
           "2024-10-18T09:33:01-0600",
-          "2024-10-19T11:11:08-0600",
-          "2024-10-20T12:42:36-0600",
-          "2024-10-21T13:58:27-0600",
-          "2024-10-22T14:52:12-0600",
-          "2024-10-23T15:27:26-0600",
+          "2024-10-19T11:11:10-0600",
+          "2024-10-20T12:42:39-0600",
+          "2024-10-21T13:58:30-0600",
+          "2024-10-22T14:52:15-0600",
+          "2024-10-23T15:27:28-0600",
           "2024-10-24T15:49:49-0600",
           "2024-10-25T16:04:44-0600"
         ],
         "moonsetTimeUtc": [
           1729265581,
-          1729357868,
-          1729449756,
-          1729540707,
-          1729630332,
-          1729718846,
+          1729357870,
+          1729449759,
+          1729540710,
+          1729630335,
+          1729718848,
           1729806589,
           1729893884
         ],
         "narrative": [
-          "Mostly sunny. Highs in the mid 50s and lows in the mid 30s.",
-          "Mix of sun and clouds. Highs in the low 60s and lows in the upper 30s.",
-          "Considerable cloudiness. Highs in the mid 50s and lows in the upper 30s.",
-          "Cloudy. Highs in the low 40s and lows in the mid 20s.",
-          "Mostly cloudy. Highs in the upper 30s and lows in the low 20s.",
-          "Plenty of sun. Highs in the upper 40s and lows in the mid 20s.",
-          "Times of sun and clouds. Highs in the mid 40s and lows in the mid 20s.",
-          "Mostly cloudy. Highs in the mid 40s and lows in the upper 20s."
+          "Mostly sunny. Highs 11 to 13C and lows 0 to 2C.",
+          "Mix of sun and clouds. Highs 15 to 17C and lows 2 to 4C.",
+          "Considerable cloudiness. Highs 12 to 14C and lows 2 to 4C.",
+          "Cloudy. Highs 4 to 6C and lows -4 to -2C.",
+          "Mostly cloudy. Highs 2 to 4C and lows -6 to -4C.",
+          "A few clouds. Highs 8 to 10C and lows -5 to -3C.",
+          "Times of sun and clouds. Highs 7 to 9C and lows -6 to -4C.",
+          "Mostly cloudy. Highs 6 to 8C and lows -3 to -1C."
         ],
         "qpf": [
           0,
@@ -1113,64 +1113,64 @@
           0
         ],
         "sunriseTimeLocal": [
-          "2024-10-18T07:36:40-0600",
-          "2024-10-19T07:38:30-0600",
-          "2024-10-20T07:40:21-0600",
-          "2024-10-21T07:42:12-0600",
-          "2024-10-22T07:44:03-0600",
-          "2024-10-23T07:45:54-0600",
-          "2024-10-24T07:47:45-0600",
-          "2024-10-25T07:49:37-0600"
+          "2024-10-18T07:36:38-0600",
+          "2024-10-19T07:38:29-0600",
+          "2024-10-20T07:40:20-0600",
+          "2024-10-21T07:42:11-0600",
+          "2024-10-22T07:44:02-0600",
+          "2024-10-23T07:45:53-0600",
+          "2024-10-24T07:47:44-0600",
+          "2024-10-25T07:49:36-0600"
         ],
         "sunriseTimeUtc": [
-          1729258600,
-          1729345110,
-          1729431621,
-          1729518132,
-          1729604643,
-          1729691154,
-          1729777665,
-          1729864177
+          1729258598,
+          1729345109,
+          1729431620,
+          1729518131,
+          1729604642,
+          1729691153,
+          1729777664,
+          1729864176
         ],
         "sunsetTimeLocal": [
-          "2024-10-18T17:58:52-0600",
-          "2024-10-19T17:56:43-0600",
-          "2024-10-20T17:54:34-0600",
-          "2024-10-21T17:52:26-0600",
-          "2024-10-22T17:50:19-0600",
-          "2024-10-23T17:48:13-0600",
-          "2024-10-24T17:46:08-0600",
-          "2024-10-25T17:44:04-0600"
+          "2024-10-18T17:58:49-0600",
+          "2024-10-19T17:56:40-0600",
+          "2024-10-20T17:54:31-0600",
+          "2024-10-21T17:52:23-0600",
+          "2024-10-22T17:50:16-0600",
+          "2024-10-23T17:48:09-0600",
+          "2024-10-24T17:46:04-0600",
+          "2024-10-25T17:44:00-0600"
         ],
         "sunsetTimeUtc": [
-          1729295932,
-          1729382203,
-          1729468474,
-          1729554746,
-          1729641019,
-          1729727293,
-          1729813568,
-          1729899844
+          1729295929,
+          1729382200,
+          1729468471,
+          1729554743,
+          1729641016,
+          1729727289,
+          1729813564,
+          1729899840
         ],
         "temperatureMax": [
-          54,
-          60,
-          55,
-          40,
-          37,
-          47,
-          46,
-          45
+          12,
+          16,
+          13,
+          5,
+          3,
+          9,
+          8,
+          7
         ],
         "temperatureMin": [
-          34,
-          37,
-          37,
-          26,
-          23,
-          25,
-          24,
-          28
+          1,
+          3,
+          3,
+          -3,
+          -5,
+          -4,
+          -5,
+          -2
         ],
         "validTimeLocal": [
           "2024-10-18T07:00:00-0600",
@@ -1195,10 +1195,10 @@
         "daypart": [
           {
             "cloudCover": [
-              12,
+              11,
               56,
-              38,
-              74,
+              37,
+              75,
               70,
               92,
               94,
@@ -1285,22 +1285,22 @@
               2700
             ],
             "narrative": [
-              "Plenty of sunshine. High 54F. Winds WSW at 10 to 15 mph.",
-              "Partly cloudy skies early will give way to cloudy skies late. Low 34F. Winds S at 10 to 15 mph.",
-              "Intervals of clouds and sunshine. High near 60F. Winds WSW at 10 to 20 mph.",
-              "Cloudy skies. Low 37F. Winds W at 5 to 10 mph.",
-              "A mix of clouds and sun early, then becoming cloudy later in the day. High around 55F. Winds N at 5 to 10 mph.",
-              "Cloudy. Low 37F. Winds ENE at 10 to 15 mph.",
-              "Cloudy. High near 40F. Winds N at 10 to 20 mph.",
-              "Cloudy skies. Low 26F. Winds NNW at 5 to 10 mph.",
-              "More clouds than sun. High 37F. Winds WNW at 10 to 15 mph.",
-              "A few clouds. Low 23F. Winds WSW at 5 to 10 mph.",
-              "Mostly sunny skies. High 47F. Winds W at 10 to 20 mph.",
-              "A few clouds from time to time. Low around 25F. Winds W at 5 to 10 mph.",
-              "Sunshine and clouds mixed. High 46F. Winds W at 5 to 10 mph.",
-              "Partly cloudy skies. Low 24F. Winds light and variable.",
-              "Mainly cloudy. High around 45F. Winds E at 10 to 15 mph.",
-              "Considerable cloudiness. Low 28F. Winds E at 5 to 10 mph."
+              "A good deal of sunshine. High 12C. Winds SW at 15 to 25 km/h.",
+              "Partly cloudy skies this evening will become overcast overnight. Low 1C. Winds S at 15 to 25 km/h.",
+              "Intervals of clouds and sunshine. High 16C. Winds WSW at 15 to 30 km/h.",
+              "Overcast. Low 3C. Winds W at 10 to 15 km/h.",
+              "Partly cloudy skies in the morning will give way to cloudy skies during the afternoon. High 13C. Winds N at 10 to 15 km/h.",
+              "Cloudy skies. Low 3C. Winds ENE at 15 to 25 km/h.",
+              "Cloudy. High around 5C. Winds N at 15 to 30 km/h.",
+              "Overcast. Low -3C. Winds NNW at 10 to 15 km/h.",
+              "Mostly cloudy skies. High 3C. Winds WNW at 15 to 25 km/h.",
+              "A few clouds. Low near -5C. Winds WSW at 10 to 15 km/h.",
+              "Mostly sunny skies. High 9C. Winds W at 15 to 30 km/h.",
+              "Partly cloudy skies. Low -4C. Winds W at 10 to 15 km/h.",
+              "Sunshine and clouds mixed. High 8C. Winds W at 10 to 15 km/h.",
+              "Partly cloudy. Low near -5C. Winds light and variable.",
+              "Considerable cloudiness. High 7C. Winds E at 15 to 25 km/h.",
+              "Mostly cloudy skies. Low -2C. Winds E at 10 to 15 km/h."
             ],
             "precipChance": [
               0,
@@ -1411,17 +1411,17 @@
               null
             ],
             "relativeHumidity": [
-              48,
+              44,
               58,
               44,
               66,
               70,
-              82,
-              82,
-              85,
+              81,
+              81,
+              84,
               69,
               78,
-              60,
+              59,
               87,
               67,
               84,
@@ -1447,58 +1447,58 @@
               ""
             ],
             "temperature": [
-              54,
-              34,
-              60,
-              37,
-              55,
-              37,
-              40,
-              26,
-              37,
-              23,
-              47,
-              25,
-              46,
-              24,
-              45,
-              28
+              12,
+              1,
+              16,
+              3,
+              13,
+              3,
+              5,
+              -3,
+              3,
+              -5,
+              9,
+              -4,
+              8,
+              -5,
+              7,
+              -2
             ],
             "temperatureHeatIndex": [
-              54,
-              42,
-              60,
-              51,
-              55,
-              47,
-              40,
-              35,
-              37,
-              31,
-              47,
-              37,
-              46,
-              36,
-              45,
-              36
+              12,
+              6,
+              16,
+              11,
+              13,
+              9,
+              5,
+              2,
+              3,
+              -1,
+              9,
+              3,
+              8,
+              2,
+              7,
+              3
             ],
             "temperatureWindChill": [
-              34,
-              29,
-              33,
-              35,
-              35,
-              32,
-              31,
-              22,
-              20,
-              17,
-              19,
-              21,
-              22,
-              20,
-              20,
-              22
+              5,
+              -2,
+              1,
+              2,
+              2,
+              0,
+              -1,
+              -5,
+              -6,
+              -8,
+              -7,
+              -6,
+              -5,
+              -7,
+              -6,
+              -5
             ],
             "thunderCategory": [
               "No thunder",
@@ -1573,10 +1573,10 @@
               0
             ],
             "windDirection": [
-              244,
+              235,
               170,
-              239,
-              259,
+              238,
+              260,
               2,
               66,
               353,
@@ -1586,12 +1586,12 @@
               270,
               281,
               273,
-              265,
-              81,
-              101
+              275,
+              80,
+              100
             ],
             "windDirectionCardinal": [
-              "WSW",
+              "SW",
               "S",
               "WSW",
               "W",
@@ -1609,40 +1609,40 @@
               "E"
             ],
             "windPhrase": [
-              "Winds WSW at 10 to 15 mph.",
-              "Winds S at 10 to 15 mph.",
-              "Winds WSW at 10 to 20 mph.",
-              "Winds W at 5 to 10 mph.",
-              "Winds N at 5 to 10 mph.",
-              "Winds ENE at 10 to 15 mph.",
-              "Winds N at 10 to 20 mph.",
-              "Winds NNW at 5 to 10 mph.",
-              "Winds WNW at 10 to 15 mph.",
-              "Winds WSW at 5 to 10 mph.",
-              "Winds W at 10 to 20 mph.",
-              "Winds W at 5 to 10 mph.",
-              "Winds W at 5 to 10 mph.",
+              "Winds SW at 15 to 25 km/h.",
+              "Winds S at 15 to 25 km/h.",
+              "Winds WSW at 15 to 30 km/h.",
+              "Winds W at 10 to 15 km/h.",
+              "Winds N at 10 to 15 km/h.",
+              "Winds ENE at 15 to 25 km/h.",
+              "Winds N at 15 to 30 km/h.",
+              "Winds NNW at 10 to 15 km/h.",
+              "Winds WNW at 15 to 25 km/h.",
+              "Winds WSW at 10 to 15 km/h.",
+              "Winds W at 15 to 30 km/h.",
+              "Winds W at 10 to 15 km/h.",
+              "Winds W at 10 to 15 km/h.",
               "Winds light and variable.",
-              "Winds E at 10 to 15 mph.",
-              "Winds E at 5 to 10 mph."
+              "Winds E at 15 to 25 km/h.",
+              "Winds E at 10 to 15 km/h."
             ],
             "windSpeed": [
+              17,
+              19,
+              26,
               11,
               12,
-              16,
-              7,
-              8,
-              12,
-              14,
-              8,
-              12,
-              9,
-              14,
-              6,
+              19,
+              22,
+              13,
+              20,
+              15,
+              22,
               10,
-              5,
-              12,
-              8
+              16,
+              8,
+              19,
+              13
             ],
             "wxPhraseLong": [
               "Mostly Sunny",
@@ -1689,16 +1689,16 @@
           "longitude": -105.76,
           "source": "Contains Copernicus Atmosphere Monitoring Service information 2024 and/or modified Copernicus Atmosphere Monitoring Service information 2024",
           "disclaimer": "Neither the European Commission nor ECMWF is responsible for any use of this information",
-          "airQualityIndex": 18,
+          "airQualityIndex": 21,
           "airQualityCategory": "Good",
           "airQualityCategoryIndex": 1,
           "airQualityCategoryIndexColor": "00E838",
-          "primaryPollutant": "O3",
+          "primaryPollutant": "PM2.5",
           "pollutants": {
             "CO": {
               "name": "CO",
               "phrase": "Carbon Monoxide",
-              "amount": 190,
+              "amount": 160,
               "unit": "µg/m3",
               "category": "Good",
               "categoryIndex": 1,
@@ -1707,25 +1707,25 @@
             "NO2": {
               "name": "NO2",
               "phrase": "Nitrogen Dioxide",
-              "amount": 17.85,
+              "amount": 9.84,
               "unit": "µg/m3",
               "category": "Good",
               "categoryIndex": 1,
-              "index": 8
+              "index": 5
             },
             "O3": {
               "name": "O3",
               "phrase": "Ozone",
-              "amount": 23.61,
+              "amount": 37.91,
               "unit": "µg/m3",
               "category": "Good",
               "categoryIndex": 1,
-              "index": 18
+              "index": 16
             },
             "PM10": {
               "name": "PM10",
               "phrase": "Particulate matter less than 10 microns",
-              "amount": 13,
+              "amount": 5.43,
               "unit": "µg/m3",
               "category": "Good",
               "categoryIndex": 1,
@@ -1734,16 +1734,16 @@
             "PM2.5": {
               "name": "PM2.5",
               "phrase": "Particulate matter less than 2.5 microns",
-              "amount": 3.9,
+              "amount": 5.5,
               "unit": "µg/m3",
               "category": "Good",
               "categoryIndex": 1,
-              "index": 15
+              "index": 21
             },
             "SO2": {
               "name": "SO2",
               "phrase": "Sulfur Dioxide",
-              "amount": 3.96,
+              "amount": 2.47,
               "unit": "µg/m3",
               "category": "Good",
               "categoryIndex": 1,
@@ -1760,7 +1760,7 @@
               "text": "Air quality is considered satisfactory, and air pollution poses little or no risk."
             }
           },
-          "expireTimeGmt": 1729267307
+          "expireTimeGmt": 1729274480
         }
       },
       "almanac": {
@@ -1780,10 +1780,10 @@
           null
         ],
         "precipitationAverage": [
-          0.6
+          15.24
         ],
         "snowAccumulationAverage": [
-          6.8
+          17.3
         ],
         "stationId": [
           "CNUK71869"
@@ -1792,13 +1792,13 @@
           "Prince Albert"
         ],
         "temperatureAverageMax": [
-          7
+          -14
         ],
         "temperatureAverageMin": [
-          -15
+          -26
         ],
         "temperatureMean": [
-          -4
+          -20
         ],
         "temperatureRecordMax": [
           null
@@ -1822,20 +1822,20 @@
         "cloudCoverPhrase": "Partly Cloudy",
         "dayOfWeek": "Friday",
         "dayOrNight": "D",
-        "expirationTimeUtc": 1729267093,
-        "iconCode": 32,
-        "iconCodeExtend": 3200,
+        "expirationTimeUtc": 1729272621,
+        "iconCode": 34,
+        "iconCodeExtend": 3400,
         "obsQualifierCode": null,
         "obsQualifierSeverity": null,
         "precip1Hour": 0,
         "precip6Hour": 0,
         "precip24Hour": 0,
-        "pressureAltimeter": 30.13,
-        "pressureChange": 0.07,
-        "pressureMeanSeaLevel": 1021,
+        "pressureAltimeter": 1021.67,
+        "pressureChange": 0.34,
+        "pressureMeanSeaLevel": 1021.7,
         "pressureTendencyCode": 1,
         "pressureTendencyTrend": "Rising",
-        "relativeHumidity": 62,
+        "relativeHumidity": 47,
         "snow1Hour": 0,
         "snow6Hour": 0,
         "snow24Hour": 0,
@@ -1843,31 +1843,31 @@
         "sunriseTimeUtc": 1729259161,
         "sunsetTimeLocal": "2024-10-18T18:09:37-0600",
         "sunsetTimeUtc": 1729296577,
-        "temperature": 39,
-        "temperatureChange24Hour": -4,
-        "temperatureDewPoint": 27,
-        "temperatureFeelsLike": 34,
-        "temperatureHeatIndex": 39,
-        "temperatureMax24Hour": 54,
-        "temperatureMaxSince7Am": 39,
-        "temperatureMin24Hour": 27,
-        "temperatureWindChill": 34,
+        "temperature": 8,
+        "temperatureChange24Hour": 0,
+        "temperatureDewPoint": -2,
+        "temperatureFeelsLike": 7,
+        "temperatureHeatIndex": 8,
+        "temperatureMax24Hour": 12,
+        "temperatureMaxSince7Am": 8,
+        "temperatureMin24Hour": -3,
+        "temperatureWindChill": 7,
         "uvDescription": "Low",
-        "uvIndex": 0,
-        "validTimeLocal": "2024-10-18T09:48:13-0600",
-        "validTimeUtc": 1729266493,
-        "visibility": 10,
-        "windDirection": 210,
-        "windDirectionCardinal": "SSW",
+        "uvIndex": 1,
+        "validTimeLocal": "2024-10-18T11:20:21-0600",
+        "validTimeUtc": 1729272021,
+        "visibility": 14.48,
+        "windDirection": 170,
+        "windDirectionCardinal": "S",
         "windGust": null,
-        "windSpeed": 6,
-        "wxPhraseLong": "Sunny",
-        "wxPhraseMedium": "Sunny",
-        "wxPhraseShort": "Sunny"
+        "windSpeed": 10,
+        "wxPhraseLong": "Fair",
+        "wxPhraseMedium": "Fair",
+        "wxPhraseShort": "Fair"
       },
       "alerts": {
         "metadata": {
-          "transaction_id": "1729266922966:-1729005016",
+          "transaction_id": "1729272215966:-390236992",
           "status_code": 400
         },
         "success": "false",
@@ -1878,24 +1878,24 @@
       },
       "forecast": {
         "calendarDayTemperatureMax": [
-          56,
-          63,
-          57,
-          47,
-          39,
-          49,
-          48,
-          47
+          13,
+          17,
+          14,
+          8,
+          4,
+          9,
+          9,
+          8
         ],
         "calendarDayTemperatureMin": [
-          27,
-          39,
-          38,
-          30,
-          25,
-          28,
-          27,
-          28
+          -4,
+          3,
+          3,
+          -1,
+          -4,
+          -3,
+          -3,
+          -3
         ],
         "dayOfWeek": [
           "Friday",
@@ -1908,14 +1908,14 @@
           "Friday"
         ],
         "expirationTimeUtc": [
-          1729267300,
-          1729267300,
-          1729267300,
-          1729267300,
-          1729267300,
-          1729267300,
-          1729267300,
-          1729267300
+          1729272600,
+          1729272600,
+          1729272600,
+          1729272600,
+          1729272600,
+          1729272600,
+          1729272600,
+          1729272600
         ],
         "moonPhase": [
           "Waning Gibbous",
@@ -1948,54 +1948,54 @@
           23
         ],
         "moonriseTimeLocal": [
-          "2024-10-18T18:21:45-0600",
-          "2024-10-19T18:46:18-0600",
-          "2024-10-20T19:23:01-0600",
-          "2024-10-21T20:15:29-0600",
-          "2024-10-22T21:24:57-0600",
-          "2024-10-23T22:42:54-0600",
+          "2024-10-18T18:21:37-0600",
+          "2024-10-19T18:46:08-0600",
+          "2024-10-20T19:22:48-0600",
+          "2024-10-21T20:15:15-0600",
+          "2024-10-22T21:24:45-0600",
+          "2024-10-23T22:42:44-0600",
           "",
-          "2024-10-25T00:03:05-0600"
+          "2024-10-25T00:02:56-0600"
         ],
         "moonriseTimeUtc": [
-          1729297305,
-          1729385178,
-          1729473781,
-          1729563329,
-          1729653897,
-          1729744974,
+          1729297297,
+          1729385168,
+          1729473768,
+          1729563315,
+          1729653885,
+          1729744964,
           null,
-          1729836185
+          1729836176
         ],
         "moonsetTimeLocal": [
-          "2024-10-18T09:41:54-0600",
-          "2024-10-19T11:19:12-0600",
-          "2024-10-20T12:49:45-0600",
-          "2024-10-21T14:04:54-0600",
-          "2024-10-22T14:58:56-0600",
-          "2024-10-23T15:34:38-0600",
-          "2024-10-24T15:57:32-0600",
-          "2024-10-25T16:13:06-0600"
+          "2024-10-18T09:41:57-0600",
+          "2024-10-19T11:19:17-0600",
+          "2024-10-20T12:49:53-0600",
+          "2024-10-21T14:05:02-0600",
+          "2024-10-22T14:59:03-0600",
+          "2024-10-23T15:34:44-0600",
+          "2024-10-24T15:57:36-0600",
+          "2024-10-25T16:13:08-0600"
         ],
         "moonsetTimeUtc": [
-          1729266114,
-          1729358352,
-          1729450185,
-          1729541094,
-          1729630736,
-          1729719278,
-          1729807052,
-          1729894386
+          1729266117,
+          1729358357,
+          1729450193,
+          1729541102,
+          1729630743,
+          1729719284,
+          1729807056,
+          1729894388
         ],
         "narrative": [
-          "More sun than clouds. Highs in the mid 50s and lows in the upper 30s.",
-          "More clouds than sun. Highs in the low 60s and lows in the upper 30s.",
-          "Mostly cloudy. Highs in the upper 50s and lows in the upper 30s.",
-          "Cloudy. Highs in the low 40s and lows in the mid 20s.",
-          "Times of sun and clouds. Highs in the upper 30s and lows in the upper 20s.",
-          "Mostly sunny. Highs in the upper 40s and lows in the upper 20s.",
-          "Mix of sun and clouds. Highs in the upper 40s and lows in the upper 20s.",
-          "Mostly cloudy. Highs in the upper 40s and lows in the low 30s."
+          "Plenty of sun. Highs 12 to 14C and lows 2 to 4C.",
+          "More clouds than sun. Highs 16 to 18C and lows 2 to 4C.",
+          "Mostly cloudy. Highs 13 to 15C and lows 2 to 4C.",
+          "Cloudy. Highs 4 to 6C and lows -5 to -3C.",
+          "Times of sun and clouds. Highs 3 to 5C and lows -4 to -2C.",
+          "A few clouds. Highs 8 to 10C and lows -4 to -2C.",
+          "Mix of sun and clouds. Highs 8 to 10C and lows -4 to -2C.",
+          "Mostly cloudy. Highs 7 to 9C and lows -2 to 0C."
         ],
         "qpf": [
           0,
@@ -2024,7 +2024,7 @@
           "2024-10-21T07:51:21-0600",
           "2024-10-22T07:53:09-0600",
           "2024-10-23T07:54:57-0600",
-          "2024-10-24T07:56:45-0600",
+          "2024-10-24T07:56:46-0600",
           "2024-10-25T07:58:34-0600"
         ],
         "sunriseTimeUtc": [
@@ -2034,48 +2034,48 @@
           1729518681,
           1729605189,
           1729691697,
-          1729778205,
+          1729778206,
           1729864714
         ],
         "sunsetTimeLocal": [
-          "2024-10-18T18:09:40-0600",
-          "2024-10-19T18:07:32-0600",
-          "2024-10-20T18:05:25-0600",
-          "2024-10-21T18:03:20-0600",
-          "2024-10-22T18:01:16-0600",
-          "2024-10-23T17:59:13-0600",
-          "2024-10-24T17:57:11-0600",
-          "2024-10-25T17:55:10-0600"
+          "2024-10-18T18:09:35-0600",
+          "2024-10-19T18:07:27-0600",
+          "2024-10-20T18:05:20-0600",
+          "2024-10-21T18:03:15-0600",
+          "2024-10-22T18:01:11-0600",
+          "2024-10-23T17:59:08-0600",
+          "2024-10-24T17:57:06-0600",
+          "2024-10-25T17:55:05-0600"
         ],
         "sunsetTimeUtc": [
-          1729296580,
-          1729382852,
-          1729469125,
-          1729555400,
-          1729641676,
-          1729727953,
-          1729814231,
-          1729900510
+          1729296575,
+          1729382847,
+          1729469120,
+          1729555395,
+          1729641671,
+          1729727948,
+          1729814226,
+          1729900505
         ],
         "temperatureMax": [
-          56,
-          63,
-          57,
-          41,
-          39,
-          49,
-          48,
-          47
+          13,
+          17,
+          14,
+          5,
+          4,
+          9,
+          9,
+          8
         ],
         "temperatureMin": [
-          39,
-          38,
-          38,
-          25,
-          28,
-          27,
-          28,
-          31
+          3,
+          3,
+          3,
+          -4,
+          -3,
+          -3,
+          -3,
+          -1
         ],
         "validTimeLocal": [
           "2024-10-18T07:00:00-0600",
@@ -2100,7 +2100,7 @@
         "daypart": [
           {
             "cloudCover": [
-              16,
+              14,
               52,
               44,
               79,
@@ -2111,11 +2111,11 @@
               56,
               13,
               13,
-              48,
+              49,
               37,
               53,
               72,
-              47
+              48
             ],
             "dayOrNight": [
               "D",
@@ -2190,22 +2190,22 @@
               2900
             ],
             "narrative": [
-              "A good deal of sunshine. High 56F. Winds SSW at 5 to 10 mph.",
-              "A few clouds. Low 39F. Winds S at 10 to 20 mph.",
-              "A mix of clouds and sun early, then becoming cloudy later in the day. High 63F. Winds SW at 10 to 20 mph.",
-              "Cloudy. Low 38F. Winds WSW at 10 to 15 mph.",
-              "Partly cloudy skies in the morning will give way to cloudy skies during the afternoon. High 57F. SSW winds shifting to ESE at 10 to 15 mph.",
-              "Cloudy. Low 38F. ESE winds shifting to NW at 10 to 20 mph.",
-              "Cloudy. High 41F. Winds NNW at 10 to 20 mph.",
-              "Cloudy skies. Low near 25F. Winds NNW at 5 to 10 mph.",
-              "Partly to mostly cloudy. High 39F. Winds W at 10 to 20 mph.",
-              "Clear skies. Low 28F. Winds SW at 10 to 15 mph.",
-              "Generally sunny. High 49F. Winds W at 10 to 20 mph.",
-              "Partly cloudy. Low 27F. Winds WSW at 5 to 10 mph.",
-              "Intervals of clouds and sunshine. High 48F. Winds WSW at 5 to 10 mph.",
-              "Partly to mostly cloudy. Low 28F. Winds SE at 5 to 10 mph.",
-              "Cloudy. High 47F. Winds ESE at 10 to 15 mph.",
-              "A few clouds from time to time. Low 31F. Winds SE at 5 to 10 mph."
+              "A good deal of sunshine. High 13C. Winds S at 10 to 15 km/h.",
+              "Partly cloudy skies. Low 3C. Winds S at 15 to 30 km/h.",
+              "Partly cloudy skies during the morning hours will become overcast in the afternoon. High 17C. Winds SW at 15 to 30 km/h.",
+              "Cloudy. Low 3C. Winds WSW at 15 to 25 km/h.",
+              "Partly cloudy skies during the morning hours will become overcast in the afternoon. High 14C. SSW winds shifting to ESE at 15 to 25 km/h.",
+              "Overcast. Low 3C. ESE winds shifting to NNW at 15 to 30 km/h.",
+              "Overcast. High around 5C. Winds NNW at 15 to 30 km/h.",
+              "Cloudy. Low -4C. Winds NNW at 10 to 15 km/h.",
+              "Mostly cloudy skies early will become partly cloudy later in the day. High 4C. Winds W at 15 to 30 km/h.",
+              "Clear skies. Low -3C. Winds SW at 15 to 25 km/h.",
+              "Plentiful sunshine. High 9C. Winds W at 15 to 30 km/h.",
+              "A few clouds. Low -3C. Winds WSW at 10 to 15 km/h.",
+              "Intervals of clouds and sunshine. High 9C. Winds WSW at 10 to 15 km/h.",
+              "Partly cloudy early with increasing clouds overnight. Low -3C. Winds SE at 10 to 15 km/h.",
+              "Cloudy. High 8C. Winds ESE at 15 to 25 km/h.",
+              "A few clouds from time to time. Low -1C. Winds SE at 10 to 15 km/h."
             ],
             "precipChance": [
               0,
@@ -2216,7 +2216,7 @@
               12,
               17,
               24,
-              12,
+              13,
               3,
               3,
               6,
@@ -2233,7 +2233,7 @@
               "rain",
               "precip",
               "rain",
-              "precip",
+              "snow",
               "precip",
               "precip",
               "rain",
@@ -2316,17 +2316,17 @@
               null
             ],
             "relativeHumidity": [
-              43,
+              39,
               48,
-              45,
+              46,
               64,
               69,
-              79,
+              80,
               79,
               85,
               69,
               71,
-              58,
+              57,
               80,
               63,
               78,
@@ -2352,58 +2352,58 @@
               ""
             ],
             "temperature": [
-              56,
-              39,
-              63,
-              38,
-              57,
-              38,
-              41,
-              25,
-              39,
-              28,
-              49,
-              27,
-              48,
-              28,
-              47,
-              31
+              13,
+              3,
+              17,
+              3,
+              14,
+              3,
+              5,
+              -4,
+              4,
+              -3,
+              9,
+              -3,
+              9,
+              -3,
+              8,
+              -1
             ],
             "temperatureHeatIndex": [
-              56,
-              45,
-              63,
-              54,
-              57,
-              49,
-              41,
-              35,
-              39,
-              33,
-              49,
-              38,
-              48,
-              37,
-              47,
-              38
+              13,
+              7,
+              17,
+              12,
+              14,
+              9,
+              5,
+              1,
+              4,
+              0,
+              9,
+              3,
+              9,
+              3,
+              8,
+              3
             ],
             "temperatureWindChill": [
-              35,
-              33,
-              34,
-              37,
-              35,
-              32,
-              30,
-              19,
-              18,
-              20,
-              22,
-              21,
-              21,
-              20,
-              20,
-              25
+              6,
+              0,
+              0,
+              2,
+              1,
+              0,
+              -1,
+              -8,
+              -8,
+              -7,
+              -6,
+              -6,
+              -6,
+              -7,
+              -7,
+              -4
             ],
             "thunderCategory": [
               "No thunder",
@@ -2478,25 +2478,25 @@
               0
             ],
             "windDirection": [
-              199,
-              176,
-              229,
+              191,
+              175,
+              228,
               241,
               143,
-              68,
+              63,
               340,
               335,
               268,
-              226,
+              225,
               267,
               245,
               247,
-              138,
-              117,
-              140
+              137,
+              118,
+              138
             ],
             "windDirectionCardinal": [
-              "SSW",
+              "S",
               "S",
               "SW",
               "WSW",
@@ -2514,40 +2514,40 @@
               "SE"
             ],
             "windPhrase": [
-              "Winds SSW at 5 to 10 mph.",
-              "Winds S at 10 to 20 mph.",
-              "Winds SW at 10 to 20 mph.",
-              "Winds WSW at 10 to 15 mph.",
-              "SSW winds shifting to ESE at 10 to 15 mph.",
-              "ESE winds shifting to NW at 10 to 20 mph.",
-              "Winds NNW at 10 to 20 mph.",
-              "Winds NNW at 5 to 10 mph.",
-              "Winds W at 10 to 20 mph.",
-              "Winds SW at 10 to 15 mph.",
-              "Winds W at 10 to 20 mph.",
-              "Winds WSW at 5 to 10 mph.",
-              "Winds WSW at 5 to 10 mph.",
-              "Winds SE at 5 to 10 mph.",
-              "Winds ESE at 10 to 15 mph.",
-              "Winds SE at 5 to 10 mph."
+              "Winds S at 10 to 15 km/h.",
+              "Winds S at 15 to 30 km/h.",
+              "Winds SW at 15 to 30 km/h.",
+              "Winds WSW at 15 to 25 km/h.",
+              "SSW winds shifting to ESE at 15 to 25 km/h.",
+              "ESE winds shifting to NNW at 15 to 30 km/h.",
+              "Winds NNW at 15 to 30 km/h.",
+              "Winds NNW at 10 to 15 km/h.",
+              "Winds W at 15 to 30 km/h.",
+              "Winds SW at 15 to 25 km/h.",
+              "Winds W at 15 to 30 km/h.",
+              "Winds WSW at 10 to 15 km/h.",
+              "Winds WSW at 10 to 15 km/h.",
+              "Winds SE at 10 to 15 km/h.",
+              "Winds ESE at 15 to 25 km/h.",
+              "Winds SE at 10 to 15 km/h."
             ],
             "windSpeed": [
-              9,
-              15,
               14,
-              12,
-              11,
+              24,
+              22,
+              19,
+              18,
+              23,
+              23,
+              16,
+              22,
+              20,
+              21,
+              13,
+              13,
               15,
-              14,
-              10,
-              13,
-              13,
-              13,
-              8,
-              8,
-              9,
-              12,
-              10
+              20,
+              16
             ],
             "wxPhraseLong": [
               "Mostly Sunny",
@@ -2594,7 +2594,7 @@
           "longitude": -108.32,
           "source": "Contains Copernicus Atmosphere Monitoring Service information 2024 and/or modified Copernicus Atmosphere Monitoring Service information 2024",
           "disclaimer": "Neither the European Commission nor ECMWF is responsible for any use of this information",
-          "airQualityIndex": 15,
+          "airQualityIndex": 14,
           "airQualityCategory": "Good",
           "airQualityCategoryIndex": 1,
           "airQualityCategoryIndexColor": "00E838",
@@ -2603,7 +2603,7 @@
             "CO": {
               "name": "CO",
               "phrase": "Carbon Monoxide",
-              "amount": 240,
+              "amount": 190,
               "unit": "µg/m3",
               "category": "Good",
               "categoryIndex": 1,
@@ -2612,20 +2612,20 @@
             "NO2": {
               "name": "NO2",
               "phrase": "Nitrogen Dioxide",
-              "amount": 15.5,
+              "amount": 13.04,
               "unit": "µg/m3",
               "category": "Good",
               "categoryIndex": 1,
-              "index": 8
+              "index": 6
             },
             "O3": {
               "name": "O3",
               "phrase": "Ozone",
-              "amount": 28.55,
+              "amount": 38.67,
               "unit": "µg/m3",
               "category": "Good",
               "categoryIndex": 1,
-              "index": 15
+              "index": 14
             },
             "PM10": {
               "name": "PM10",
@@ -2634,21 +2634,21 @@
               "unit": "µg/m3",
               "category": "Good",
               "categoryIndex": 1,
-              "index": 2
+              "index": 1
             },
             "PM2.5": {
               "name": "PM2.5",
               "phrase": "Particulate matter less than 2.5 microns",
-              "amount": 2.31,
+              "amount": 1.25,
               "unit": "µg/m3",
               "category": "Good",
               "categoryIndex": 1,
-              "index": 9
+              "index": 7
             },
             "SO2": {
               "name": "SO2",
               "phrase": "Sulfur Dioxide",
-              "amount": 4.11,
+              "amount": 3.16,
               "unit": "µg/m3",
               "category": "Good",
               "categoryIndex": 1,
@@ -2665,7 +2665,7 @@
               "text": "Air quality is considered satisfactory, and air pollution poses little or no risk."
             }
           },
-          "expireTimeGmt": 1729267363
+          "expireTimeGmt": 1729274575
         }
       },
       "almanac": {
@@ -2685,10 +2685,10 @@
           null
         ],
         "precipitationAverage": [
-          0.7
+          17.78
         ],
         "snowAccumulationAverage": [
-          8.6
+          21.9
         ],
         "stationId": [
           "CNTR71876"
@@ -2697,13 +2697,13 @@
           "N. Battleford"
         ],
         "temperatureAverageMax": [
-          10
+          -13
         ],
         "temperatureAverageMin": [
-          -9
+          -22
         ],
         "temperatureMean": [
-          1
+          -17
         ],
         "temperatureRecordMax": [
           null
@@ -2723,11 +2723,11 @@
         "adminDistrictCode": null
       },
       "current": {
-        "cloudCeiling": 11000,
+        "cloudCeiling": 21000,
         "cloudCoverPhrase": "Cloudy",
         "dayOfWeek": "Friday",
         "dayOrNight": "D",
-        "expirationTimeUtc": 1729266991,
+        "expirationTimeUtc": 1729272400,
         "iconCode": 26,
         "iconCodeExtend": 2600,
         "obsQualifierCode": "OQ1026",
@@ -2735,12 +2735,12 @@
         "precip1Hour": 0,
         "precip6Hour": 0,
         "precip24Hour": 0,
-        "pressureAltimeter": 30.1,
-        "pressureChange": 0.12,
-        "pressureMeanSeaLevel": 1019.6,
+        "pressureAltimeter": 1020.66,
+        "pressureChange": 2.37,
+        "pressureMeanSeaLevel": 1020.8,
         "pressureTendencyCode": 1,
         "pressureTendencyTrend": "Rising",
-        "relativeHumidity": 74,
+        "relativeHumidity": 60,
         "snow1Hour": 0,
         "snow6Hour": 0,
         "snow24Hour": 0,
@@ -2748,31 +2748,31 @@
         "sunriseTimeUtc": 1729256169,
         "sunsetTimeLocal": "2024-10-18T18:30:27-0500",
         "sunsetTimeUtc": 1729294227,
-        "temperature": 49,
+        "temperature": 11,
         "temperatureChange24Hour": -4,
-        "temperatureDewPoint": 41,
-        "temperatureFeelsLike": 49,
-        "temperatureHeatIndex": 49,
-        "temperatureMax24Hour": 66,
-        "temperatureMaxSince7Am": 49,
-        "temperatureMin24Hour": 47,
-        "temperatureWindChill": 49,
+        "temperatureDewPoint": 4,
+        "temperatureFeelsLike": 11,
+        "temperatureHeatIndex": 11,
+        "temperatureMax24Hour": 19,
+        "temperatureMaxSince7Am": 11,
+        "temperatureMin24Hour": 8,
+        "temperatureWindChill": 11,
         "uvDescription": "Low",
         "uvIndex": 0,
-        "validTimeLocal": "2024-10-18T10:46:31-0500",
-        "validTimeUtc": 1729266391,
-        "visibility": 10,
-        "windDirection": 140,
-        "windDirectionCardinal": "SE",
+        "validTimeLocal": "2024-10-18T12:16:40-0500",
+        "validTimeUtc": 1729271800,
+        "visibility": 16.09,
+        "windDirection": 10,
+        "windDirectionCardinal": "N",
         "windGust": null,
-        "windSpeed": 0,
+        "windSpeed": 8,
         "wxPhraseLong": "Cloudy",
         "wxPhraseMedium": "Cloudy",
         "wxPhraseShort": "Cloudy"
       },
       "alerts": {
         "metadata": {
-          "transaction_id": "1729266923168:-1237119459",
+          "transaction_id": "1729272216206:-214990748",
           "status_code": 400
         },
         "success": "false",
@@ -2783,24 +2783,24 @@
       },
       "forecast": {
         "calendarDayTemperatureMax": [
-          56,
-          57,
-          68,
-          70,
-          53,
-          45,
-          50,
-          51
+          13,
+          14,
+          20,
+          21,
+          12,
+          7,
+          10,
+          11
         ],
         "calendarDayTemperatureMin": [
-          44,
-          36,
-          48,
-          46,
-          36,
-          31,
-          33,
-          33
+          7,
+          2,
+          9,
+          8,
+          2,
+          -1,
+          1,
+          0
         ],
         "dayOfWeek": [
           "Friday",
@@ -2813,14 +2813,14 @@
           "Friday"
         ],
         "expirationTimeUtc": [
-          1729267649,
-          1729267649,
-          1729267649,
-          1729267649,
-          1729267649,
-          1729267649,
-          1729267649,
-          1729267649
+          1729272797,
+          1729272797,
+          1729272797,
+          1729272797,
+          1729272797,
+          1729272797,
+          1729272797,
+          1729272797
         ],
         "moonPhase": [
           "Waning Gibbous",
@@ -2854,60 +2854,60 @@
         ],
         "moonriseTimeLocal": [
           "2024-10-18T18:49:09-0500",
-          "2024-10-19T19:17:32-0500",
-          "2024-10-20T19:57:39-0500",
-          "2024-10-21T20:51:53-0500",
-          "2024-10-22T21:58:54-0500",
-          "2024-10-23T23:13:17-0500",
+          "2024-10-19T19:17:31-0500",
+          "2024-10-20T19:57:38-0500",
+          "2024-10-21T20:51:51-0500",
+          "2024-10-22T21:58:52-0500",
+          "2024-10-23T23:13:16-0500",
           "",
           "2024-10-25T00:29:43-0500"
         ],
         "moonriseTimeUtc": [
           1729295349,
-          1729383452,
-          1729472259,
-          1729561913,
-          1729652334,
-          1729743197,
+          1729383451,
+          1729472258,
+          1729561911,
+          1729652332,
+          1729743196,
           null,
           1729834183
         ],
         "moonsetTimeLocal": [
-          "2024-10-18T09:42:34-0500",
-          "2024-10-19T11:15:02-0500",
-          "2024-10-20T12:42:17-0500",
-          "2024-10-21T13:55:37-0500",
-          "2024-10-22T14:51:35-0500",
-          "2024-10-23T15:30:26-0500",
-          "2024-10-24T15:57:55-0500",
-          "2024-10-25T16:17:49-0500"
+          "2024-10-18T09:42:38-0500",
+          "2024-10-19T11:15:07-0500",
+          "2024-10-20T12:42:24-0500",
+          "2024-10-21T13:55:44-0500",
+          "2024-10-22T14:51:41-0500",
+          "2024-10-23T15:30:32-0500",
+          "2024-10-24T15:58:01-0500",
+          "2024-10-25T16:17:54-0500"
         ],
         "moonsetTimeUtc": [
-          1729262554,
-          1729354502,
-          1729446137,
-          1729536937,
-          1729626695,
-          1729715426,
-          1729803475,
-          1729891069
+          1729262558,
+          1729354507,
+          1729446144,
+          1729536944,
+          1729626701,
+          1729715432,
+          1729803481,
+          1729891074
         ],
         "narrative": [
-          "Mostly cloudy. Highs in the mid 50s and lows in the mid 30s.",
-          "Partly cloudy. Highs in the upper 50s and lows in the upper 40s.",
-          "Times of sun and clouds. Highs in the upper 60s and lows in the mid 40s.",
-          "Mix of sun and clouds. Highs in the low 70s and lows in the low 40s.",
-          "Showers ending by midday. Highs in the upper 40s and lows in the low 30s.",
-          "Mix of sun and clouds. Highs in the mid 40s and lows in the low 30s.",
-          "Mix of sun and clouds. Highs in the low 50s and lows in the low 30s.",
-          "Mix of sun and clouds. Highs in the low 50s and lows in the upper 30s."
+          "Mostly cloudy. Highs 12 to 14C and lows 1 to 3C.",
+          "Times of sun and clouds. Highs 13 to 15C and lows 8 to 10C.",
+          "Mix of sun and clouds. Highs 19 to 21C and lows 7 to 9C.",
+          "Mix of sun and clouds. Highs 20 to 22C and lows 5 to 7C.",
+          "Morning showers. Highs 8 to 10C and lows -2 to 0C.",
+          "Partly cloudy. Highs 6 to 8C and lows 0 to 2C.",
+          "Partly cloudy. Highs 9 to 11C and lows -1 to 1C.",
+          "Mix of sun and clouds. Highs 10 to 12C and lows 3 to 5C."
         ],
         "qpf": [
           0,
           0,
           0,
           0,
-          0.07,
+          1.8,
           0,
           0,
           0
@@ -2923,64 +2923,64 @@
           0
         ],
         "sunriseTimeLocal": [
-          "2024-10-18T07:56:05-0500",
-          "2024-10-19T07:57:43-0500",
-          "2024-10-20T07:59:21-0500",
-          "2024-10-21T08:00:59-0500",
-          "2024-10-22T08:02:38-0500",
-          "2024-10-23T08:04:17-0500",
-          "2024-10-24T08:05:56-0500",
-          "2024-10-25T08:07:36-0500"
+          "2024-10-18T07:56:09-0500",
+          "2024-10-19T07:57:46-0500",
+          "2024-10-20T07:59:25-0500",
+          "2024-10-21T08:01:03-0500",
+          "2024-10-22T08:02:42-0500",
+          "2024-10-23T08:04:21-0500",
+          "2024-10-24T08:06:00-0500",
+          "2024-10-25T08:07:39-0500"
         ],
         "sunriseTimeUtc": [
-          1729256165,
-          1729342663,
-          1729429161,
-          1729515659,
-          1729602158,
-          1729688657,
-          1729775156,
-          1729861656
+          1729256169,
+          1729342666,
+          1729429165,
+          1729515663,
+          1729602162,
+          1729688661,
+          1729775160,
+          1729861659
         ],
         "sunsetTimeLocal": [
-          "2024-10-18T18:30:25-0500",
-          "2024-10-19T18:28:27-0500",
-          "2024-10-20T18:26:30-0500",
-          "2024-10-21T18:24:34-0500",
-          "2024-10-22T18:22:38-0500",
-          "2024-10-23T18:20:44-0500",
-          "2024-10-24T18:18:51-0500",
-          "2024-10-25T18:16:59-0500"
+          "2024-10-18T18:30:27-0500",
+          "2024-10-19T18:28:28-0500",
+          "2024-10-20T18:26:31-0500",
+          "2024-10-21T18:24:35-0500",
+          "2024-10-22T18:22:40-0500",
+          "2024-10-23T18:20:45-0500",
+          "2024-10-24T18:18:52-0500",
+          "2024-10-25T18:17:00-0500"
         ],
         "sunsetTimeUtc": [
-          1729294225,
-          1729380507,
-          1729466790,
-          1729553074,
-          1729639358,
-          1729725644,
-          1729811931,
-          1729898219
+          1729294227,
+          1729380508,
+          1729466791,
+          1729553075,
+          1729639360,
+          1729725645,
+          1729811932,
+          1729898220
         ],
         "temperatureMax": [
-          56,
-          57,
-          68,
-          70,
-          47,
-          44,
-          50,
-          51
+          13,
+          14,
+          20,
+          21,
+          9,
+          7,
+          10,
+          11
         ],
         "temperatureMin": [
-          36,
-          48,
-          46,
-          43,
-          31,
-          33,
-          33,
-          39
+          2,
+          9,
+          8,
+          6,
+          -1,
+          1,
+          0,
+          4
         ],
         "validTimeLocal": [
           "2024-10-18T07:00:00-0500",
@@ -3005,10 +3005,10 @@
         "daypart": [
           {
             "cloudCover": [
-              95,
+              98,
               51,
               47,
-              28,
+              27,
               39,
               12,
               38,
@@ -3095,22 +3095,22 @@
               2900
             ],
             "narrative": [
-              "Overcast. Slight chance of a rain shower. High 56F. Winds light and variable.",
-              "Cloudy early with some clearing expected late. Low 36F. Winds light and variable.",
-              "Intervals of clouds and sunshine. High 57F. Winds S at 5 to 10 mph.",
-              "Clear skies with a few passing clouds. Low 48F. Winds SSW at 5 to 10 mph.",
-              "Sunshine and clouds mixed. High 68F. Winds light and variable.",
-              "Clear skies. Low 46F. Winds light and variable.",
-              "Sunshine and clouds mixed. High near 70F. Winds light and variable.",
-              "Partly cloudy skies in the evening, then becoming cloudy overnight. Low 43F. Winds light and variable.",
-              "Showers in the morning, then cloudy in the afternoon. High 47F. Winds NNW at 5 to 10 mph. Chance of rain 50%.",
-              "Partly cloudy skies. Low 31F. Winds light and variable.",
-              "Sunshine and clouds mixed. High 44F. Winds light and variable.",
-              "Mainly clear early, then a few clouds later on. Low 33F. Winds light and variable.",
-              "Sunshine and clouds mixed. High near 50F. Winds light and variable.",
-              "Clear to partly cloudy. Low 33F. Winds light and variable.",
-              "Sunshine and clouds mixed. High 51F. Winds light and variable.",
-              "Mostly cloudy skies early, then partly cloudy after midnight. Low 39F. Winds light and variable."
+              "Generally cloudy. Slight chance of a rain shower. High 13C. Winds light and variable.",
+              "Cloudy early, becoming mostly clear after midnight. Low 2C. Winds light and variable.",
+              "Sunshine and clouds mixed. High 14C. Winds S at 10 to 15 km/h.",
+              "Mostly clear skies. Low 9C. Winds SSW at 10 to 15 km/h.",
+              "Intervals of clouds and sunshine. High around 20C. Winds light and variable.",
+              "A mostly clear sky. Low 8C. Winds light and variable.",
+              "Sunshine and clouds mixed. High 21C. Winds light and variable.",
+              "Partly cloudy skies in the evening, then becoming cloudy overnight. Low 6C. Winds light and variable.",
+              "Showers in the morning, then cloudy in the afternoon. High 9C. Winds NNW at 10 to 15 km/h. Chance of rain 50%.",
+              "Partly cloudy. Low -1C. Winds light and variable.",
+              "Intervals of clouds and sunshine. High 7C. Winds light and variable.",
+              "Mainly clear early, then a few clouds later on. Low 1C. Winds light and variable.",
+              "Intervals of clouds and sunshine. High near 10C. Winds light and variable.",
+              "A few clouds. Low near 0C. Winds light and variable.",
+              "Partly cloudy. High 11C. Winds light and variable.",
+              "Considerable clouds early. Some decrease in clouds late. Low 4C. Winds light and variable."
             ],
             "precipChance": [
               15,
@@ -3157,7 +3157,7 @@
               0,
               0,
               0,
-              0.07,
+              1.8,
               0,
               0,
               0,
@@ -3221,7 +3221,7 @@
               null
             ],
             "relativeHumidity": [
-              56,
+              50,
               63,
               60,
               58,
@@ -3257,58 +3257,58 @@
               ""
             ],
             "temperature": [
-              56,
-              36,
-              57,
-              48,
-              68,
-              46,
-              70,
-              43,
-              47,
-              31,
-              44,
-              33,
-              50,
-              33,
-              51,
-              39
+              13,
+              2,
+              14,
+              9,
+              20,
+              8,
+              21,
+              6,
+              9,
+              -1,
+              7,
+              1,
+              10,
+              0,
+              11,
+              4
             ],
             "temperatureHeatIndex": [
-              56,
-              52,
-              57,
-              53,
-              68,
-              59,
-              70,
-              62,
-              47,
-              41,
-              44,
-              41,
-              50,
-              44,
-              51,
-              47
+              13,
+              11,
+              14,
+              12,
+              20,
+              15,
+              21,
+              17,
+              9,
+              5,
+              7,
+              5,
+              10,
+              7,
+              11,
+              8
             ],
             "temperatureWindChill": [
-              49,
-              36,
-              37,
-              47,
-              48,
-              46,
-              47,
-              43,
-              38,
-              31,
-              32,
-              33,
-              34,
-              33,
-              34,
-              38
+              11,
+              2,
+              3,
+              8,
+              9,
+              8,
+              8,
+              6,
+              4,
+              -1,
+              0,
+              1,
+              1,
+              0,
+              1,
+              3
             ],
             "thunderCategory": [
               "No thunder",
@@ -3383,8 +3383,8 @@
               0
             ],
             "windDirection": [
-              336,
-              256,
+              337,
+              257,
               186,
               203,
               266,
@@ -3395,9 +3395,9 @@
               318,
               276,
               230,
-              291,
+              292,
               309,
-              161,
+              164,
               140
             ],
             "windDirectionCardinal": [
@@ -3421,13 +3421,13 @@
             "windPhrase": [
               "Winds light and variable.",
               "Winds light and variable.",
-              "Winds S at 5 to 10 mph.",
-              "Winds SSW at 5 to 10 mph.",
+              "Winds S at 10 to 15 km/h.",
+              "Winds SSW at 10 to 15 km/h.",
               "Winds light and variable.",
               "Winds light and variable.",
               "Winds light and variable.",
               "Winds light and variable.",
-              "Winds NNW at 5 to 10 mph.",
+              "Winds NNW at 10 to 15 km/h.",
               "Winds light and variable.",
               "Winds light and variable.",
               "Winds light and variable.",
@@ -3437,22 +3437,22 @@
               "Winds light and variable."
             ],
             "windSpeed": [
+              4,
               0,
-              0,
-              9,
+              15,
+              12,
               8,
-              5,
+              4,
+              7,
+              9,
+              10,
+              8,
+              9,
+              7,
+              4,
               2,
               5,
-              6,
-              6,
-              5,
-              6,
-              4,
-              3,
-              1,
-              3,
-              4
+              7
             ],
             "wxPhraseLong": [
               "Cloudy",
@@ -3499,7 +3499,7 @@
           "longitude": -97.12,
           "source": "Contains Copernicus Atmosphere Monitoring Service information 2024 and/or modified Copernicus Atmosphere Monitoring Service information 2024",
           "disclaimer": "Neither the European Commission nor ECMWF is responsible for any use of this information",
-          "airQualityIndex": 40,
+          "airQualityIndex": 39,
           "airQualityCategory": "Good",
           "airQualityCategoryIndex": 1,
           "airQualityCategoryIndexColor": "00E838",
@@ -3508,7 +3508,7 @@
             "CO": {
               "name": "CO",
               "phrase": "Carbon Monoxide",
-              "amount": 210,
+              "amount": 190,
               "unit": "µg/m3",
               "category": "Good",
               "categoryIndex": 1,
@@ -3517,43 +3517,43 @@
             "NO2": {
               "name": "NO2",
               "phrase": "Nitrogen Dioxide",
-              "amount": 13.97,
+              "amount": 9.21,
               "unit": "µg/m3",
               "category": "Good",
               "categoryIndex": 1,
-              "index": 7
+              "index": 4
             },
             "O3": {
               "name": "O3",
               "phrase": "Ozone",
-              "amount": 20.58,
+              "amount": 39.46,
               "unit": "µg/m3",
               "category": "Good",
               "categoryIndex": 1,
-              "index": 15
+              "index": 14
             },
             "PM10": {
               "name": "PM10",
               "phrase": "Particulate matter less than 10 microns",
-              "amount": 12.42,
+              "amount": 7.83,
               "unit": "µg/m3",
               "category": "Good",
               "categoryIndex": 1,
-              "index": 10
+              "index": 8
             },
             "PM2.5": {
               "name": "PM2.5",
               "phrase": "Particulate matter less than 2.5 microns",
-              "amount": 9.72,
+              "amount": 8.98,
               "unit": "µg/m3",
               "category": "Good",
               "categoryIndex": 1,
-              "index": 40
+              "index": 39
             },
             "SO2": {
               "name": "SO2",
               "phrase": "Sulfur Dioxide",
-              "amount": 1.51,
+              "amount": 1.46,
               "unit": "µg/m3",
               "category": "Good",
               "categoryIndex": 1,
@@ -3570,7 +3570,7 @@
               "text": "Air quality is considered satisfactory, and air pollution poses little or no risk."
             }
           },
-          "expireTimeGmt": 1729267307
+          "expireTimeGmt": 1729274554
         }
       },
       "almanac": {
@@ -3590,10 +3590,10 @@
           null
         ],
         "precipitationAverage": [
-          0.8
+          20.32
         ],
         "snowAccumulationAverage": [
-          8.9
+          22.6
         ],
         "stationId": [
           "CNOK71852"
@@ -3602,13 +3602,13 @@
           "Winnipeg Int'L Arpt"
         ],
         "temperatureAverageMax": [
-          8
+          -13
         ],
         "temperatureAverageMin": [
-          -11
+          -23
         ],
         "temperatureMean": [
-          -1
+          -18
         ],
         "temperatureRecordMax": [
           null
