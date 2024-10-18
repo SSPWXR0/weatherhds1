@@ -5,6 +5,8 @@
     <link rel="icon" type="image/x-icon" href="./images/favicon.png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <script type="module" src="/javascript/dataLoader.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/jquery.marquee@1.6.0/jquery.marquee.min.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -365,7 +367,15 @@
                         <div class="ldl-location-progressbar-container">
                             <div id="ldl-location-progressbar"></div>
                         </div>
-                        <div class="ldltext-secondary" id="ldl-location-label"></div>
+                        
+                        <div class="ldl-bottomtext-container">
+                            <div class="ldl-locationlabel-container">
+                                <div class="ldltext-secondary" id="ldl-location-label"></div>
+                            </div>
+                            <div class="ldl-marquee">
+                                <div class="ldltext-secondary" id="marquee-ticker"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 

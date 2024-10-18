@@ -114,8 +114,26 @@ function imageRendering() {
     }
 }
 
+function scrollTicker() {
+    document.getElementById('marquee-ticker').innerHTML = config.tickerContent
+
+    $(document).ready(function(){
+        $('#marquee-ticker').marquee({
+            duration: 9000,
+            gap: 360,
+            delayBeforeStart: 0,
+            direction: 'left',
+            duplicated: true, 
+            pauseOnHover: true,
+        })
+    })
+}
+
+
+
 export function everythingConfigLmao() {
     imageRendering()
     ScaleViewportToTheWindowIGuessLmao()
     presentationType()
+    scrollTicker()
 }

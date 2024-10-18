@@ -28,6 +28,7 @@
     "videoType": 0,
     "textureFiltering": true,
     "systemTimeZone": "America/Regina",
+    "tickerContent": "Edit this message in config.json. Leave blank for no scroll",
     "seasons": {
         "winter": true,
         "spring": true

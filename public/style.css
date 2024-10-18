@@ -637,6 +637,31 @@ hr {
   border-radius: 15px;
 }
 
+.ldl-bottomtext-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ldl-marquee {
+  width: 70%;
+  height: 100%;
+  background-color: rgba(206, 212, 218, 0.20);
+  border-radius: var(--cornerRadius);
+  font-weight: 700;
+  overflow: hidden;
+  font-size: auto;
+}
+
+.ldl-locationlabel-container {
+  width: 25%;
+  height: 100%;
+}
+
+#ldl-location-label {
+  overflow: visible;
+  text-wrap: nowrap;
+}
+
 .ldltext-primary {
   font-size: 16pt;
   align-self: center;
