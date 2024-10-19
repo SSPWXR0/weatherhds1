@@ -33,10 +33,10 @@
   <p>Google Material icons (APACHE 2.0): https://fonts.google.com/icons | https://www.apache.org/licenses/LICENSE-2.0</p>
   <p>weather videos (Pexels): https://www.pexels.com/license/</p>
 
-  <h1>version 2024.10.12: Known Issues</h1>
+  <h1>version 2024.10.18: Known Issues</h1>
   <p>Always report issues on the issues page!</p>
   <ul>
     <li>Progress bar will occasionally not show, but will show normally at the next location.</li>
-    <li>A few main presentation animations are a bit weird. (radar slide animation has been improved)</li>
+
   </ul> 
 </body>
