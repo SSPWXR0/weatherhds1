@@ -7,10 +7,11 @@ const topBar = document.getElementsByClassName("topbar")[0];
 const ldl = document.getElementsByClassName("ldl-presentation")[0];
 const ldlContainer = document.getElementsByClassName("ldl-weather")[0];
 const ldlBranding = document.getElementsByClassName("ldl-netlogo")[0];
+const ldlLineThing = document.getElementById('ldl-divider');
 const date = document.getElementById("date");
-const time = document.getElementById("time")
+const time = document.getElementById("time");
 const dateLDL = document.getElementById("dateLDL");
-const timeLDL = document.getElementById("timeLDL")
+const timeLDL = document.getElementById("timeLDL");
 
 function ScaleViewportToTheWindowIGuessLmao() {
 
@@ -20,12 +21,12 @@ function ScaleViewportToTheWindowIGuessLmao() {
     let width
     let height
 
-    if (config.videoType === 0) {
+    if (config.videoType === 0) { // 4:3 aspect ratio
         width = 640
         height = 480
 
         viewport.style.width = `640px`
-    } else {
+    } else { // 16:9 aspect ratio
         width = 854
         height = 480
 
@@ -86,11 +87,11 @@ function clock() { // partially copied from weatherHDS 2
 setInterval(clock, 1000)
 
 function presentationType() {
-    if (config.presentationType === 0) {
+    if (config.presentationType === 0) { // runs all presentations
         console.log(`Running main presentation. Presentation ID: ${config.presentationType}`)
         ldl.style.width = `90%`
         ldlBranding.style.display = `none`
-    } else {
+    } else { // ldl only presentation, and make LDL thinner
         console.log(`Running LDL-only presentation. Presentation ID: ${config.presentationType}`)
 
         wallpaper.style.display = `none`
@@ -101,15 +102,32 @@ function presentationType() {
         ldlBranding.style.display = `block`
 
     }
+
+    if (config.transparentLDL === 1) { // make ldl transparent
+        ldlContainer.style.backgroundColor = `rgba(0,0,0,0)`
+    }
+    if (config.transparentLDL === 2) { // make ldl transparent, and remove the white line at the top
+        ldlContainer.style.backgroundColor = `rgba(0,0,0,0)`
+        ldlLineThing.remove()
+    }
+    if (config.transparentLDL === 3) { // like option one, but with text shadow
+        ldlContainer.style.backgroundColor = `rgba(0,0,0,0)`
+        ldlContainer.style.textShadow = `black 1.1px 1.5px 3px;`
+    }
+    if (config.transparentLDL === 4) { // like option two, but with text shadow
+        ldlContainer.style.backgroundColor = `rgba(0,0,0,0)`
+        ldlContainer.style.textShadow = `black 1.1px 1.5px 3px;`
+        ldlLineThing.remove()
+    }
 }
 
 const mainTheme = document.querySelector(':root')
 
 function imageRendering() {
-    if (config.textureFiltering === true) {
+    if (config.textureFiltering === true) { // smoothes images when scaled
         mainTheme.style.imageRendering = `auto`
     }
-    if (config.textureFiltering === false) {
+    if (config.textureFiltering === false) { // pixelates images when scaled
         mainTheme.style.imageRendering = `pixelated`
     }
 }

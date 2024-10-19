@@ -3,7 +3,7 @@
     "affiliateName": "Mist Streaming",
     "channelNumber": "sspwxr02",
     
-    "twcApiKey": "e1f10a1e78da46f5b10a1e78da96f525",
+    "twcApiKey": "",
 
     "locations": [
         "Saskatoon, SK",
@@ -24,6 +24,7 @@
     "enableVideoBackgrounds": true,
     "staticIcons": false,
     "webPort": 3000,
+    "transparentLDL": 3,
     "presentationType": 0,
     "videoType": 0,
     "textureFiltering": true,

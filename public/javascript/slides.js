@@ -1,5 +1,5 @@
 import { config } from './dataLoader.js'
-import { nextLocation, currentLocationText, upNextLocationText } from './weather.js';
+import { nextLocation } from './weather.js';
 
 const styleSheet = document.styleSheets[0];
 
