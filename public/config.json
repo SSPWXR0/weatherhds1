@@ -3,20 +3,20 @@
     "affiliateName": "Mist Streaming",
     "channelNumber": "sspwxr02",
     
-    "twcApiKey": "",
+    "twcApiKey": "e1f10a1e78da46f5b10a1e78da96f525",
 
     "locations": [
-        "Saskatoon, SK",
-        "Regina, SK",
-        "Edmonton, AB",
-        "Calgary, AB",
-        "Vancouver, BC"
+        "Saskatoon",
+        "Regina",
+        "Edmonton",
+        "Calgary",
+        "Vancouver"
     ],
     "ldlLocations": [
-        "Saskatoon, SK",
-        "Prince Albert, SK",
-        "North Battleford, SK",
-        "Winnipeg, MB"
+        "Saskatoon",
+        "Prince Albert",
+        "North Battleford",
+        "Winnipeg"
     ],
     "units": "m",
     "debugger": true,
@@ -24,7 +24,7 @@
     "enableVideoBackgrounds": true,
     "staticIcons": false,
     "webPort": 3000,
-    "transparentLDL": 3,
+    "transparentLDL": 0,
     "presentationType": 0,
     "videoType": 0,
     "textureFiltering": true,

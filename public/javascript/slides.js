@@ -94,8 +94,8 @@ function startSlideshow() {
 function loadingScreen() {
     const spinningLogo = document.getElementById('loadingscreen-spinny')
 
-    const xEnd = Math.floor(Math.random() * (360 - 240 + 1)) + 240;
-    const yEnd = Math.floor(Math.random() * (360 - 240 + 1)) + 240;
+    const xEnd = Math.floor(Math.random() * 360);
+    const yEnd = Math.floor(Math.random() * 360);
 
     document.getElementById('loadingscreen-versionID').innerHTML = `WeatherHDS ${weatherHDSVersionNumber}`
 

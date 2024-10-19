@@ -390,6 +390,10 @@ async function mainData() {
                                             <p>for the area of ${alert.areaName};</P
                                             <p>${alert.headlineText}</p>
                                             `;
+
+                            alertElement.style.lineHeight = `1`
+                            alertElement.style.fontSize = `9pt`
+
                             alertsSlideContainer.appendChild(alertElement);
                         })
                         
