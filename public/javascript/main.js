@@ -103,6 +103,11 @@ function presentationType() {
 
     }
 
+    if (config.ldlClock === false) {
+        timeLDL.style.display = `none`
+        dateLDL.style.display = `none`
+    }
+
     if (config.transparentLDL === 1) { // make ldl transparent
         ldlContainer.style.backgroundColor = `rgba(0,0,0,0)`
     }
