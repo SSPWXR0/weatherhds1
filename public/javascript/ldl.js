@@ -57,7 +57,7 @@ async function LDLData() {
           const locationName = config.ldlLocations[ldlLocationIndex];
           const locationData = ldlData[locationName];
 
-          locationLabel.innerHTML = `Conditons at ${locationName}`
+          locationLabel.innerHTML = `Weather for ${locationName}`
   
           if (locationData) {
             const latestKey = Object.keys(locationData)
