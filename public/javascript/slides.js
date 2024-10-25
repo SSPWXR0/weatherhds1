@@ -115,7 +115,7 @@ function startSlideshow() {
 function loadingScreen() {
     const spinningLogo = document.getElementById('loadingscreen-spinny')
 
-    document.getElementById('loading-screen').style.display = `none`
+    //document.getElementById('loading-screen').style.display = `none` // for when im debugging and i dont want the loading screen
 
     const xEnd = Math.floor(Math.random() * 360);
     const yEnd = Math.floor(Math.random() * 360);
