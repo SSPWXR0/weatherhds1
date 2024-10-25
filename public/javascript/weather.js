@@ -135,14 +135,7 @@ async function mainData() {
                     const currentText = document.getElementById('main-current-condition');
                     const currentIcon = document.getElementById('main-current-icon');
                     const currentTemp = document.getElementById('main-current-temp');
-                    const currentExtraWxContainer = document.getElementsByClassName('main-current-rightcontainer')[0];
-                    const currentExtraWxData = document.getElementById('main-current-extradata');
-                    const currentExtraWxLabels = document.getElementById('main-current-extralabels');
                     const currentVideoBackground = document.getElementById('current-background');
-
-                    //CLEAR
-                    currentExtraWxData.innerHTML = ``;
-                    currentExtraWxLabels.innerHTML = ``;
 
                     currentText.innerHTML = `${currentData.wxPhraseLong}`
                     currentTemp.innerHTML = `${currentData.temperature}${endingTemp}`
@@ -169,55 +162,84 @@ async function mainData() {
 
                     const ceilingFormatted = currentData.cloudCeiling === null ? "Unlimited" : `${currentData.cloudCeiling}${endingCeiling}`;
 
-                    const windLabel = document.createTextNode(`• Winds:`)
-                    const humidityLabel = document.createTextNode(`• Humidity:`);
-                    const pressureLabel = document.createTextNode(`• Pressure:`);
-                    const ceilingLabel = document.createTextNode(`• Ceiling:`);
-                    const visibilityLabel = document.createTextNode(`• Visibility:`);
-                    const moonLabel = document.createTextNode(`• Moon Phase:`);
-                    const dewpointLabel = document.createTextNode(`• Dewpoint:`);
-                    const uviLabel = document.createTextNode(`• UV Index:`)
+                    const windValue = document.getElementById('main-current-windvalue')
+                    const gustValue = document.getElementById('main-current-windvalue-gust')
+                    const feelsLike = document.getElementById('main-current-feelslikevalue')
+                    const sunrise = document.getElementById('main-current-sunrise-value')
+                    const sunset = document.getElementById('main-current-sunset-value')
+                    const humidity = document.getElementById('main-current-humidityvalue')
+                    const pressure = document.getElementById('main-current-pressurevalue')
+                    const ceiling = document.getElementById('main-current-ceilingvalue')
+                    const visibility = document.getElementById('main-current-visibvalue')
+                    const dewpoint = document.getElementById('main-current-dewpointvalue')
+                    const uvIndex = document.getElementById('main-current-uvvalue')
+                    const tempChange = document.getElementById('main-current-tempchangevalue')
+                    const windIcon = document.getElementById('main-current-windicon')
+                    const feelsLikeIcon = document.getElementById('main-current-feelslikeicon')
 
-                    const wind = document.createTextNode(`${currentData.windDirectionCardinal}, @ ${currentData.windSpeed} ${endingWind}`)
-                    const humidity = document.createTextNode(`${currentData.relativeHumidity}%`);
-                    const pressure = document.createTextNode(`${currentData.pressureAltimeter}${endingPressure} and ${currentData.pressureTendencyTrend}`);
-                    const ceiling = document.createTextNode(ceilingFormatted);
-                    const visibility = document.createTextNode(`${currentData.visibility} ${endingDistance}`);
-                    const moon = document.createTextNode(`${latestData.weekly.moonPhase[0]}`);
-                    const dewpoint = document.createTextNode(`${currentData.temperatureDewPoint}${endingTemp}`);
-                    const uvi = document.createTextNode(`${currentData.uvIndex} of 11, or ${currentData.uvDescription}`)
+                    const date0 = new Date(latestData.weekly.sunriseTimeLocal[0])
+                    const date1 = new Date(latestData.weekly.sunsetTimeLocal[0])
 
-                    currentExtraWxLabels.appendChild(windLabel);
-                    currentExtraWxLabels.appendChild(document.createElement('br'));
-                    currentExtraWxLabels.appendChild(humidityLabel);
-                    currentExtraWxLabels.appendChild(document.createElement('br'));
-                    currentExtraWxLabels.appendChild(pressureLabel);
-                    currentExtraWxLabels.appendChild(document.createElement('br'));
-                    currentExtraWxLabels.appendChild(ceilingLabel);
-                    currentExtraWxLabels.appendChild(document.createElement('br'));
-                    currentExtraWxLabels.appendChild(visibilityLabel);
-                    currentExtraWxLabels.appendChild(document.createElement('br'));
-                    currentExtraWxLabels.appendChild(moonLabel);
-                    currentExtraWxLabels.appendChild(document.createElement('br'));
-                    currentExtraWxLabels.appendChild(dewpointLabel)
-                    currentExtraWxLabels.appendChild(document.createElement('br'));
-                    currentExtraWxLabels.appendChild(uviLabel);
+                    let hours0 = date0.getHours();
+                    const minutes0 = date0.getMinutes();
+                    let hours1 = date1.getHours();
+                    const minutes1 = date1.getMinutes();
 
-                    currentExtraWxData.appendChild(wind);
-                    currentExtraWxData.appendChild(document.createElement('br'));
-                    currentExtraWxData.appendChild(humidity);
-                    currentExtraWxData.appendChild(document.createElement('br'));
-                    currentExtraWxData.appendChild(pressure);
-                    currentExtraWxData.appendChild(document.createElement('br'));
-                    currentExtraWxData.appendChild(ceiling);
-                    currentExtraWxData.appendChild(document.createElement('br'));
-                    currentExtraWxData.appendChild(visibility);
-                    currentExtraWxData.appendChild(document.createElement('br'));
-                    currentExtraWxData.appendChild(moon);
-                    currentExtraWxData.appendChild(document.createElement('br'));
-                    currentExtraWxData.appendChild(dewpoint)
-                    currentExtraWxData.appendChild(document.createElement('br'));
-                    currentExtraWxData.appendChild(uvi);
+                    const period0 = hours0 >= 12 ? 'p' : 'a';
+                    hours0 = hours0 % 12 || 12;
+                    const period1 = hours1 >= 12 ? 'p' : 'a';
+                    hours1 = hours1 % 12 || 12;
+
+                    const fortmattedSunrise = `${hours0}:${minutes0.toString().padStart(2, '0')}${period0}`
+                    const fortmattedSunset = `${hours1}:${minutes1.toString().padStart(2, '0')}${period1}`
+
+                    windValue.innerHTML = `${currentData.windDirectionCardinal}, @ ${currentData.windSpeed}${endingWind}`
+                    feelsLike.innerHTML = `${currentData.temperatureFeelsLike}${endingTemp}`
+                    sunrise.innerHTML = fortmattedSunrise
+                    sunset.innerHTML = fortmattedSunset
+                    humidity.innerHTML = `${currentData.relativeHumidity}%`
+                    pressure.innerHTML = `${currentData.pressureAltimeter}${endingPressure}, and ${currentData.pressureTendencyTrend}`
+                    ceiling.innerHTML = ceilingFormatted
+                    visibility.innerHTML = `${currentData.visibility}${endingDistance}`
+                    dewpoint.innerHTML = `${currentData.temperatureDewPoint}${endingTemp}`
+                    tempChange.innerHTML = `${currentData.temperatureChange24Hour}${endingTemp}`
+                    
+                    if (currentData.dayOrNight === "N") {
+                        uvIndex.innerHTML = `n/a`
+                    } else {
+                        uvIndex.innerHTML = `${currentData.uvIndex} or ${currentData.uvDescription}`
+                    }
+
+                    if (currentData.windGust === null) {
+                        gustValue.innerHTML = ``
+                        windIcon.src = `/graphics/${iconDir}/windsock-weak.svg`
+                    } else {
+                        gustValue.innerHTML = `Gusting to ${currentData.windGust}${endingWind}`
+                        windIcon.src = `/graphics/${iconDir}/windsock.svg`
+                    }
+
+                    if (config.units == "m") {
+                        if (currentData.temperatureFeelsLike < 0) {
+                            feelsLikeIcon.src = `/graphics/${iconDir}/thermometer-colder.svg`
+                        } else {
+                            feelsLikeIcon.src = `/graphics/${iconDir}/thermometer.svg`
+                        }
+                    } else {
+                        if (currentData.temperatureFeelsLike < 0) {
+                            feelsLikeIcon.src = `/graphics/${iconDir}/thermometer-colder.svg`
+                        } else {
+                            feelsLikeIcon.src = `/graphics/${iconDir}/thermometer.svg`
+                        }
+                    }
+                    if (config.units == "e") {
+                        if (currentData.temperatureFeelsLike < 32) {
+                            feelsLikeIcon.src = `/graphics/${iconDir}/thermometer-colder.svg`
+                        } else {
+                            feelsLikeIcon.src = `/graphics/${iconDir}/thermometer.svg`
+                        }
+                    }
+                    
+
                 }
 
                 populateCurrentSlide()

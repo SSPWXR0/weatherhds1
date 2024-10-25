@@ -26,7 +26,7 @@
     "webPort": 3000,
     "transparentLDL": 0,
     "ldlClock": false,
-    "presentationType": 1,
+    "presentationType": 0,
     "videoType": 0,
     "textureFiltering": true,
     "systemTimeZone": "America/Regina",

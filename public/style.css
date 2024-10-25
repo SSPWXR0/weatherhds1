@@ -24,7 +24,7 @@ body {
   display: none;
 }
 #current {
-  display: none;
+  display: block;
 }
 #radar {
   display: none;
@@ -286,6 +286,7 @@ hr {
 }
 .main-current-rightcontainer {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   background-color: var(--primaryColourTransparent);
   width: 64%;
@@ -314,13 +315,73 @@ hr {
   text-align: center;
   width: 100%;
   font-size: 32pt;
+  font-weight: 300;
 }
-#main-current-extralabels {
-  width: 40%;
-  font-weight: bold;
+.main-current-conditions-slotone {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  height: 40%;
 }
-#main-current-extradata {
-  text-align: right;
+.main-current-condtions-box {
+  width: 30%;
+  height: 100%;
+  text-align: center;
+  white-space: nowrap;
+  border-radius: var(--cornerRadius);
+  background-color: #535658f1;
+  font-size: 9pt;
+}
+.main-current-icon-container {
+  width: 100%;
+  height: 30%;
+
+}
+#main-current-windicon {
+  height: 100%;
+}
+#main-current-feelslikeicon {
+  height: 100%;
+}
+.main-current-boxlabel {
+  font-weight: 200;
+}
+#main-current-windvalue {
+  font-weight: 200;
+}
+#main-current-windvalue-gust {
+  font-size: 7pt;
+  font-weight: lighter;
+}
+#main-current-feelslikevalue {
+  font-weight: 200;
+  font-size: 14pt;
+}
+.main-current-sunicon {
+  height: 18pt;
+}
+.main-current-sunrisesunset-container {
+  display: flex;
+  margin: auto auto;
+  justify-content: space-between;
+  width: 65%;
+  font-size: 10pt;
+}
+.main-current-conditions-slottwo {
+  overflow: hidden;
+  height: 55%;
+}
+.main-current-extraproducts {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 300;
+  overflow: hidden;
+}
+.main-current-module1 {
+  display: none;
+}
+.main-current-module2 {
+  display: none;
 }
 /* SHORT-TERM FORECAST */
 .main-shortterm-slide-container {
@@ -370,6 +431,7 @@ hr {
   text-align: center;
   width: 100%;
   font-size: 32pt;
+  font-weight: 300;
 }
 /* EXTENDED FORECAST */ 
 .main-forecast-slide-container {

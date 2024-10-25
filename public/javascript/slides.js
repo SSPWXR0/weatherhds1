@@ -6,7 +6,7 @@ const styleSheet = document.styleSheets[0];
 const presentationSlides = {
     "0": { title: "Welcome!", htmlID: "stationid", durationMS: "6000"},
     "1": { title: "Weather Alerts", htmlID: "alerts", durationMS: "8000"},
-    "2": { title: "Current Conditions", htmlID: "current", durationMS: "10000"},
+    "2": { title: "Current Conditions", htmlID: "current", durationMS: "20000"},
     "3": { title: "Latest Radar Image", htmlID: "radar", durationMS: "8000"},
     "4": { title: "Day One Forecast", htmlID: "forecast-shortterm", durationMS: "8000"},
     "5": { title: "Day Two Forecast", htmlID: "forecast-shortterm-d2", durationMS: "8000"},
@@ -32,6 +32,25 @@ totalSlideDurationSec = totalSlideDurationMS / 1000;
 
 const currentSlideText = document.getElementById('current-slide');
 
+function runMainCurrentSlide() {
+    const module1 = document.getElementsByClassName('main-current-module1')[0]
+    const module2 = document.getElementsByClassName('main-current-module2')[0]
+
+    module1.style.display = 'block';
+    module2.style.display = 'none';
+
+    setTimeout(() => {
+        module1.style.animation = 'fadeModule 0.4s ease-out 1';
+
+        setTimeout(() => {
+            module1.style.display = 'none';
+            module1.style.animation = '';
+            module2.style.display = 'block';
+            module2.style.animation = 'switchModules 0.5s ease-out';
+        }, 300);
+    }, slideDurationMS / 2 - 500);
+}
+
 export function showSlide(index) {
     slideDurationMS = Number(presentationSlides[index].durationMS);
     slideDurationSec = Number(presentationSlides[index].durationMS) / 1000;
@@ -39,7 +58,6 @@ export function showSlide(index) {
     for (let key in presentationSlides) {
         const slideElement = document.getElementById(presentationSlides[key].htmlID)
         if (slideElement) {
-
             setTimeout(() => {
                 slideElement.style.animation = `mainPresentationSlideIn 500ms ease-in-out`
             }, slideDurationMS - 500);
@@ -56,7 +74,6 @@ export function showSlide(index) {
     const currentSlideElement = document.getElementById(presentationSlides[index].htmlID)
 
     if (currentSlideElement) {
-
         setTimeout(() => {
             currentSlideElement.style.animation = `mainPresentationSlideOut 350ms ease-in-out 1 forwards`
         }, slideDurationMS - 300);
@@ -69,6 +86,10 @@ export function showSlide(index) {
     }
 
     console.log(`Showing Main Presentation Slide: ${presentationSlides[index].htmlID} for a duration of ${slideDurationMS}`)
+
+    if (presentationSlides[index].htmlID === 'current') {
+        runMainCurrentSlide()
+    }
 }
 
 function nextSlide() {
@@ -93,6 +114,8 @@ function startSlideshow() {
 
 function loadingScreen() {
     const spinningLogo = document.getElementById('loadingscreen-spinny')
+
+    document.getElementById('loading-screen').style.display = `none`
 
     const xEnd = Math.floor(Math.random() * 360);
     const yEnd = Math.floor(Math.random() * 360);
