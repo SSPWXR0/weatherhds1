@@ -138,18 +138,25 @@ function imageRendering() {
 }
 
 function scrollTicker() {
-    document.getElementById('marquee-ticker').innerHTML = config.tickerContent
+    if (config.tickerContent === "") {
+        document.getElementsByClassName('ldl-marquee')[0].style.display = `none`
+    } else {
+        
+        document.getElementById('marquee-ticker').innerHTML = config.tickerContent
 
-    $(document).ready(function(){
-        $('#marquee-ticker').marquee({
-            duration: 9000,
-            gap: 360,
-            delayBeforeStart: 0,
-            direction: 'left',
-            duplicated: true, 
-            pauseOnHover: true,
+        $(document).ready(function(){
+            $('#marquee-ticker').marquee({
+                duration: 9000,
+                gap: 360,
+                delayBeforeStart: 0,
+                direction: 'left',
+                duplicated: true, 
+                pauseOnHover: true,
+            })
         })
-    })
+
+    }
+
 }
 
 
