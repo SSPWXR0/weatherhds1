@@ -38,6 +38,24 @@ function runMainCurrentSlide() {
 
     module1.style.display = 'block';
     module2.style.display = 'none';
+    document.getElementsByClassName('main-current-extraproducts')[0].style.display = `none`
+    document.getElementsByClassName('main-current-extraproducts')[1].style.display = `none`
+    document.getElementsByClassName('main-current-extraproducts')[2].style.display = `none`
+    document.getElementsByClassName('main-current-extraproducts')[3].style.display = `none`
+
+    setTimeout(() => {
+        document.getElementsByClassName('main-current-extraproducts')[0].style.animation = `mainPresentationSlideIn 500ms ease-in-out`
+        document.getElementsByClassName('main-current-extraproducts')[1].style.animation = `mainPresentationSlideIn 600ms ease-in-out`
+        document.getElementsByClassName('main-current-extraproducts')[2].style.animation = `mainPresentationSlideIn 700ms ease-in-out`
+        document.getElementsByClassName('main-current-extraproducts')[3].style.animation = `mainPresentationSlideIn 800ms ease-in-out`
+
+        document.getElementsByClassName('main-current-extraproducts')[0].style.display = `flex`
+        document.getElementsByClassName('main-current-extraproducts')[1].style.display = `flex`
+        document.getElementsByClassName('main-current-extraproducts')[2].style.display = `flex`
+        document.getElementsByClassName('main-current-extraproducts')[3].style.display = `flex`
+    }, 500);
+
+
 
     setTimeout(() => {
         module1.style.animation = 'fadeModule 0.4s ease-out 1';
