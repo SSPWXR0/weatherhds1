@@ -207,7 +207,7 @@ async function mainData() {
                             console.log('LENGTH OF SUN', lengthOfSun)
                             console.log('PERCENT OF SUN', percentOfSun)
 
-                            if (percentOfSun < 0.46) {
+                            if (percentOfSun < hourDataIssued / lengthOfSun + 0.3) {
                                 ccBoxFilter.style = `background: linear-gradient(180deg, ${earlyMorningGradientStart} 0%, ${earlyMorningGradientEnd} 100%);`
                             }
                             if (percentOfSun > 0.85) {
