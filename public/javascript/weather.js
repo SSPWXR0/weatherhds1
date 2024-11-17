@@ -199,7 +199,7 @@ async function mainData() {
                             const lengthOfSun = sunset12 - sunrise12 + 12;
 
                             const percentOfSunDec = hourDataIssued / lengthOfSun;
-                            const percentOfSun = Math.round(percentOfSunDec * 10) / 10
+                            const percentOfSun = Math.round(percentOfSunDec * 100) / 100
 
                             console.log('SUNRISE', sunrise12)
                             console.log('SUNSET', sunset12)
@@ -207,7 +207,7 @@ async function mainData() {
                             console.log('LENGTH OF SUN', lengthOfSun)
                             console.log('PERCENT OF SUN', percentOfSun)
 
-                            if (percentOfSun < 0.4) {
+                            if (percentOfSun < 0.46) {
                                 ccBoxFilter.style = `background: linear-gradient(180deg, ${earlyMorningGradientStart} 0%, ${earlyMorningGradientEnd} 100%);`
                             }
                             if (percentOfSun > 0.85) {
