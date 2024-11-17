@@ -136,6 +136,7 @@ async function mainData() {
                     const currentIcon = document.getElementById('main-current-icon');
                     const currentTemp = document.getElementById('main-current-temp');
                     const currentVideoBackground = document.getElementById('current-background');
+                    const ccBoxFilter = document.getElementById('main-current-box-filter')
 
                     currentText.innerHTML = `${currentData.wxPhraseLong}`
                     currentTemp.innerHTML = `${currentData.temperature}${endingTemp}`
@@ -145,9 +146,35 @@ async function mainData() {
                     const iconPath = weatherIcons[iconCode] ? weatherIcons[iconCode][dayOrNight === "D" ? 0 : 1] : 'not-available.svg'
                     currentIcon.src = `/graphics/${iconDir}/${iconPath}`
 
+                    const date0 = new Date(latestData.weekly.sunriseTimeLocal[0])
+                    const date1 = new Date(latestData.weekly.sunsetTimeLocal[0])
+
+                    const dateDataIssued = new Date(currentData.validTimeLocal)
+
+                    let hourDataIssued = dateDataIssued.getHours();
+
+                    let hours0 = date0.getHours();
+                    const minutes0 = date0.getMinutes();
+                    let hours1 = date1.getHours();
+                    const minutes1 = date1.getMinutes();
+
+                    const period0 = hours0 >= 12 ? 'p' : 'a';
+                    hours0 = hours0 % 12 || 12;
+                    const period1 = hours1 >= 12 ? 'p' : 'a';
+                    hours1 = hours1 % 12 || 12;
+
+                    const fortmattedSunrise = `${hours0}:${minutes0.toString().padStart(2, '0')}${period0}`
+                    const fortmattedSunset = `${hours1}:${minutes1.toString().padStart(2, '0')}${period1}`
+
+                    const nightGradientStart = 'rgba(0,0,0,0.8)'
+                    const nightGradientEnd = 'rgba(14,36,50,0.8)'
+                    const earlyMorningGradientStart = 'rgba(28,32,75,0.8)'
+                    const earlyMorningGradientEnd = 'rgba(77,59,81,0.8)'
+                    const eveningGradientStart = 'rgba(28,9,53,0.8)'
+                    const eveningGradientEnd = 'rgba(226,193,151,0.8)'
 
                     // CURRENT CONDITIONS VIDEO BACKGROUNDS
-                    if (config.enableVideoBackgrounds === true) {
+                    if (config.videoBackgrounds === true) {
                         let gifCurrent = `sun.avif`;
 
                         for (let gif in weatherGifs) {
@@ -159,6 +186,38 @@ async function mainData() {
 
                         document.getElementById('current-background').style.backgroundImage = `url(/images/gif/${gifCurrent})`;
                     }
+
+                    if (config.currentConditionsGradient === true) {
+                        if (currentData.dayOrNight === "N") {
+                            ccBoxFilter.style = `background: linear-gradient(180deg, ${nightGradientStart} 0%, ${nightGradientEnd} 100%);`
+                        }
+                        if (currentData.dayOrNight === "D") {
+
+                            const sunrise12 = date0.getHours();
+                            const sunset12 = date1.getHours();
+
+                            const lengthOfSun = sunset12 - sunrise12 + 12;
+
+                            const percentOfSunDec = hourDataIssued / lengthOfSun;
+                            const percentOfSun = Math.round(percentOfSunDec * 10) / 10
+
+                            console.log('SUNRISE', sunrise12)
+                            console.log('SUNSET', sunset12)
+                            console.log('DATAISSUED', hourDataIssued)
+                            console.log('LENGTH OF SUN', lengthOfSun)
+                            console.log('PERCENT OF SUN', percentOfSun)
+
+                            if (percentOfSun < 0.4) {
+                                ccBoxFilter.style = `background: linear-gradient(180deg, ${earlyMorningGradientStart} 0%, ${earlyMorningGradientEnd} 100%);`
+                            }
+                            if (percentOfSun > 0.85) {
+                                ccBoxFilter.style = `background: linear-gradient(180deg, ${eveningGradientStart} 0%, ${eveningGradientEnd} 100%);`
+                            }
+                            
+                        }
+                    }
+
+                    
 
                     const ceilingFormatted = currentData.cloudCeiling === null ? "Unlimited" : `${currentData.cloudCeiling}${endingCeiling}`;
 
@@ -176,22 +235,6 @@ async function mainData() {
                     const tempChange = document.getElementById('main-current-tempchangevalue')
                     const windIcon = document.getElementById('main-current-windicon')
                     const feelsLikeIcon = document.getElementById('main-current-feelslikeicon')
-
-                    const date0 = new Date(latestData.weekly.sunriseTimeLocal[0])
-                    const date1 = new Date(latestData.weekly.sunsetTimeLocal[0])
-
-                    let hours0 = date0.getHours();
-                    const minutes0 = date0.getMinutes();
-                    let hours1 = date1.getHours();
-                    const minutes1 = date1.getMinutes();
-
-                    const period0 = hours0 >= 12 ? 'p' : 'a';
-                    hours0 = hours0 % 12 || 12;
-                    const period1 = hours1 >= 12 ? 'p' : 'a';
-                    hours1 = hours1 % 12 || 12;
-
-                    const fortmattedSunrise = `${hours0}:${minutes0.toString().padStart(2, '0')}${period0}`
-                    const fortmattedSunset = `${hours1}:${minutes1.toString().padStart(2, '0')}${period1}`
 
                     windValue.innerHTML = `${currentData.windDirectionCardinal}, @ ${currentData.windSpeed}${endingWind}`
                     feelsLike.innerHTML = `${currentData.temperatureFeelsLike}${endingTemp}`

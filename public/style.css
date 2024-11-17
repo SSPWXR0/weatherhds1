@@ -284,6 +284,11 @@ hr {
   border-radius: var(--cornerRadius);
   text-shadow: 1px 1px 5px rgb(0, 0, 0);
 }
+#main-current-box-filter {
+  border-radius: var(--cornerRadius);
+  width: 100%;
+  height: 100%;
+}
 .main-current-rightcontainer {
   display: flex;
   flex-direction: column;

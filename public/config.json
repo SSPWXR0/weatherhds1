@@ -21,7 +21,8 @@
     "units": "m",
     "debugger": true,
     "disableBrainrot": true,
-    "enableVideoBackgrounds": true,
+    "videoBackgrounds": true,
+    "currentConditionsGradient": true,
     "staticIcons": false,
     "webPort": 3000,
     "transparentLDL": 0,
@@ -30,7 +31,7 @@
     "videoType": 0,
     "textureFiltering": true,
     "systemTimeZone": "America/Regina",
-    "tickerContent": "Edit this message in config.json. Leave blank for no scroll",
+    "tickerContent": "",
     "seasons": {
         "winter": true,
         "spring": true

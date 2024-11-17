@@ -131,36 +131,46 @@ function startSlideshow() {
 }
 
 function loadingScreen() {
-    const spinningLogo = document.getElementById('loadingscreen-spinny')
+    let loadingScreen = true
 
-    //document.getElementById('loading-screen').style.display = `none` // for when im debugging and i dont want the loading screen
+    switch (loadingScreen) {
+        case true:
 
-    const xEnd = Math.floor(Math.random() * 360);
-    const yEnd = Math.floor(Math.random() * 360);
+                const spinningLogo = document.getElementById('loadingscreen-spinny')
 
-    document.getElementById('loadingscreen-versionID').innerHTML = `WeatherHDS ${weatherHDSVersionNumber}`
-
-    setTimeout(() => {
-        document.getElementById('loadingscreen-affiliatename').innerHTML = `Affiliate Name: ${config.affiliateName}`
-        document.getElementById('loadingscreen-locationname').innerHTML = `System Location: ${config.locations[0]}`
-    }, 2000);
+                const xEnd = Math.floor(Math.random() * 360);
+                const yEnd = Math.floor(Math.random() * 360);
+            
+                document.getElementById('loadingscreen-versionID').innerHTML = `WeatherHDS ${weatherHDSVersionNumber}`
+            
+                setTimeout(() => {
+                    document.getElementById('loadingscreen-affiliatename').innerHTML = `Affiliate Name: ${config.affiliateName}`
+                    document.getElementById('loadingscreen-locationname').innerHTML = `System Location: ${config.locations[0]}`
+                }, 2000);
+                
+            
+                console.log(`${xEnd}, ${yEnd}`)
+            
+                const keyframes = `
+                    @keyframes spinXandY {
+                    1% { transform: rotateX(0deg) rotateY(0deg);}
+                    100% { transform: rotateX(${xEnd}deg) rotateY(${yEnd}deg); }
+                }`
+            
+                styleSheet.insertRule(keyframes, styleSheet.cssRules.length);
+            
+                spinningLogo.style.animation = `spinXandY ${Number(presentationSlides[0].durationMS)}ms linear`
+            
+                setTimeout(() => {
+                    document.getElementById('loading-screen').remove();
+                }, Number(presentationSlides[0].durationMS));
+            
+            break;
     
-
-    console.log(`${xEnd}, ${yEnd}`)
-
-    const keyframes = `
-        @keyframes spinXandY {
-        1% { transform: rotateX(0deg) rotateY(0deg);}
-        100% { transform: rotateX(${xEnd}deg) rotateY(${yEnd}deg); }
-    }`
-
-    styleSheet.insertRule(keyframes, styleSheet.cssRules.length);
-
-    spinningLogo.style.animation = `spinXandY ${Number(presentationSlides[0].durationMS)}ms linear`
-
-    setTimeout(() => {
-        document.getElementById('loading-screen').remove();
-    }, Number(presentationSlides[0].durationMS));
+        default:
+            document.getElementById('loading-screen').style.display = `none` // for when im debugging and i dont want the loading screen
+            break;
+    }
 }
 
 window.onload = loadingScreen()
