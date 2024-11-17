@@ -200,14 +200,16 @@ async function mainData() {
 
                             const percentOfSunDec = hourDataIssued / lengthOfSun;
                             const percentOfSun = Math.round(percentOfSunDec * 100) / 100
+                            const earlyMorningEnd = sunrise12 / lengthOfSun + 0.02
 
                             console.log('SUNRISE', sunrise12)
                             console.log('SUNSET', sunset12)
                             console.log('DATAISSUED', hourDataIssued)
                             console.log('LENGTH OF SUN', lengthOfSun)
                             console.log('PERCENT OF SUN', percentOfSun)
+                            console.log('EARLY MORNING END PERCENT', earlyMorningEnd)
 
-                            if (percentOfSun < hourDataIssued / lengthOfSun + 0.3) {
+                            if (percentOfSun < earlyMorningEnd) {
                                 ccBoxFilter.style = `background: linear-gradient(180deg, ${earlyMorningGradientStart} 0%, ${earlyMorningGradientEnd} 100%);`
                             }
                             if (percentOfSun > 0.85) {

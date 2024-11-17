@@ -19,12 +19,12 @@ async function getWeather(lat, lon, countryCode) { // credit to Dalk
   const radarUrl = await fetch(`https://api.weather.com/v2/maps/dynamic?geocode=${Math.round(lat)}.0,${Math.round(lon)}.0&h=320&h=320&w=568&lod=7&product=satrad&map=dark&language=en-US&format=png&apiKey=${config.twcApiKey}&a=0`)
   const aqiUrl = await fetch(`https://api.weather.com/v3/wx/globalAirQuality?geocode=${lat},${lon}&language=en-US&scale=EPA&format=json&apiKey=${config.twcApiKey}`);
   const pollenUrl = await fetch(`https://api.weather.com/v2/indices/pollen/daypart/3day?geocode=${lat},${lon}&language=en-US&format=json&apiKey=${config.twcApiKey}`);
-  const runningUrl = await fetch(`https://api.weather.com/v2/indices/runWeather/daypart/3day?geocode=${lat},${lon}&language=en-US&format=json&apiKey=${config.twcApiKey}`);
+/*   const runningUrl = await fetch(`https://api.weather.com/v2/indices/runWeather/daypart/3day?geocode=${lat},${lon}&language=en-US&format=json&apiKey=${config.twcApiKey}`);
   const frostUrl = await fetch(`https://api.weather.com/v2/indices/frost/daypart/3day?geocode=${lat},${lon}&language=en-US&format=json&apiKey=${config.twcApiKey}`);
   const skiUrl = await fetch(`https://api.weather.com/v2/indices/ski/daypart/3day?geocode=${lat},${lon}&language=en-US&format=json&apiKey=${config.twcApiKey}`);
   const mosquitoUrl = await fetch(`https://api.weather.com/v2/indices/mosquito/daily/3day?geocode=${lat},${lon}&language=en-US&format=json&apiKey=${config.twcApiKey}`);
   const golfUrl = await fetch(`https://api.weather.com/v2/indices/golf/daypart/3day?geocode=${lat},${lon}&language=en-US&format=json&apiKey=${config.twcApiKey}`);
-  const heatingUrl = await fetch(`https://api.weather.com/v2/indices/heatCool/daypart/3day?geocode=${lat},${lon}&language=en-US&format=json&apiKey=${config.twcApiKey}`);
+  const heatingUrl = await fetch(`https://api.weather.com/v2/indices/heatCool/daypart/3day?geocode=${lat},${lon}&language=en-US&format=json&apiKey=${config.twcApiKey}`); */
   const current = await currentUrl.json();
   const weekly = await weeklyUrl.json();
 
@@ -233,18 +233,18 @@ async function runDataInterval() {
   await loadAllLDLCities()
   saveDataToJson()
   console.log("Ran data and text generation intervals.")
-}
-
-runDataInterval()
-setInterval(runDataInterval, 600000)
-
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.listen(config.webPort, () => {
+  console.log("============================================")
   console.log(`### WEATHER HTML DISPLAY SYSTEM ###`);
   console.log(`Created by SSPWXR and ScentedOrange`);
   console.log(`Server is running on http://localhost:${config.webPort}`);
-});
+}
+
+runDataInterval()
+setInterval(runDataInterval, 480000)
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.listen(config.webPort, () => {});
 
 process.on('SIGINT', () => {console.log("Exiting WeatherHDS daemon"); process.exit();});
 process.on('SIGUSR2', () => {console.log("Exiting WeatherHDS daemon"); process.exit();});
