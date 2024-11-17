@@ -2,6 +2,8 @@
 <body>
   <h1>WeatherHDS (Weather HTML Display System)</h1>
 
+  <img src="https://github.com/SSPWXR0/weatherhds1/blob/master/public/images/hds_screenshots.png">
+
   <p>A basic web app that displays weather from the weather.com API in the style of a 24/7 weather channel broadcast.</p>
 
   <h1>Configuration</h1>
@@ -33,10 +35,10 @@
   <p>Google Material icons (APACHE 2.0): https://fonts.google.com/icons | https://www.apache.org/licenses/LICENSE-2.0</p>
   <p>weather videos (Pexels): https://www.pexels.com/license/</p>
 
-  <h1>version 2024.10.18: Known Issues</h1>
+  <h1>Unresolved Issues</h1>
   <p>Always report issues on the issues page!</p>
   <ul>
     <li>Progress bar will occasionally not show, but will show normally at the next location.</li>
-    <li>For some reason, the 7 day high and low chart will occasionally be all white.</li>
+    <li>For some reason, the 7 day high and low chart will be all white.</li>
   </ul> 
 </body>
