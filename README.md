@@ -2,7 +2,7 @@
 <body>
   <h1>WeatherHDS (Weather HTML Display System)</h1>
 
-  <img src="https://github.com/SSPWXR0/weatherhds1/blob/master/public/images/hds_screenshots.png">
+  <img src="https://github.com/SSPWXR0/weatherhds1/blob/master/public/images/hds_screenshots.jpg">
 
   <p>A basic web app that displays weather from the weather.com API in the style of a 24/7 weather channel broadcast.</p>
 
