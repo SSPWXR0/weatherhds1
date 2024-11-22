@@ -3,8 +3,10 @@
 :root {
   font-family: 'Poppins';
   color: var(--textColour2);
-  --primaryColour: #212529;
-  --primaryColourTransparent: #212529cb;
+  --primaryColour: #212121;
+  --secondaryColour: #555555;
+  --thirdColour: #3f3f3f;
+  --primaryColourTransparent: #212121cb;
   --textColour1: #CED4DA;
   --textColour2: #F8F9FA;
   --cornerRadius: 10px;
@@ -95,7 +97,7 @@ hr {
   width: 90%;
   max-width: 576px;
   height: 15%;
-  background-color: #212529a6;
+  background-color: var(--primaryColourTransparent);
   border-radius: 10px;
   backdrop-filter: blur(30px);
 }
@@ -334,7 +336,7 @@ hr {
   text-align: center;
   white-space: nowrap;
   border-radius: var(--cornerRadius);
-  background-color: #535658f1;
+  background-color: var(--thirdColour);
   font-size: 9pt;
 }
 .main-current-icon-container {
