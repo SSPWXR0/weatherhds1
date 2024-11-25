@@ -424,12 +424,14 @@ async function mainData() {
                     const airQualityPrimaryPol =document.getElementById('airqaulityprimarypollutant')
 		            const airQualityGeneral = document.getElementById('airqaulitygeneralmessage')
 		            const airQualitySensitive = document.getElementById('airqaulitysensitivemessage')
+                    const airQualityStatusGradient = document.getElementById('main-aq-statusbox')
 
                     airQualityIndex.innerHTML = `${specialData.aqi.globalairquality.airQualityIndex}`
 		            airQualityCategory.innerHTML = `${specialData.aqi.globalairquality.airQualityCategory}`
 		            airQualityPrimaryPol.innerHTML = `${specialData.aqi.globalairquality.primaryPollutant}`
 		            airQualityGeneral.innerHTML = `${specialData.aqi.globalairquality.messages.General.text}`
 		            airQualitySensitive.innerHTML = `${specialData.aqi.globalairquality.messages["Sensitive Group"].text}`
+                    airQualityStatusGradient.style.backgroundImage = `linear-gradient(#${specialData.aqi.globalairquality.airQualityCategoryIndexColor}, #00000073)`
                 }
 
                 populateForecastSlides()

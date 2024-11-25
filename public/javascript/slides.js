@@ -69,6 +69,26 @@ function runMainCurrentSlide() {
     }, slideDurationMS / 2 - 500);
 }
 
+function runAirQualitySlide() {
+    
+    document.getElementsByClassName('main-aq-messagebox')[0].style.display = `none`
+    document.getElementsByClassName('main-aq-messagebox')[1].style.display = `none`
+
+    setTimeout(() => {
+        document.getElementsByClassName('main-aq-messagebox')[0].style.display = `block`
+    }, 10);
+
+    setTimeout(() => {
+        document.getElementsByClassName('main-aq-messagebox')[0].style.animation = `fadeModule 0.5s ease-out`
+        document.getElementsByClassName('main-aq-messagebox')[0].style.display = `none`
+
+        setTimeout(() => {
+            document.getElementsByClassName('main-aq-messagebox')[1].style.display = `block`
+            document.getElementsByClassName('main-aq-messagebox')[1].style.animation = `switchModules 0.5s ease-in-out`
+        }, 500);
+    }, slideDurationMS / 2);
+}
+
 export function showSlide(index) {
     slideDurationMS = Number(presentationSlides[index].durationMS);
     slideDurationSec = Number(presentationSlides[index].durationMS) / 1000;
@@ -107,6 +127,10 @@ export function showSlide(index) {
 
     if (presentationSlides[index].htmlID === 'current') {
         runMainCurrentSlide()
+    }
+
+    if (presentationSlides[index].htmlID === 'airquality') {
+        runAirQualitySlide()
     }
 }
 

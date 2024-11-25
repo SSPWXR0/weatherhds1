@@ -14,8 +14,7 @@
   <p>Main presentation and LDL locations can be edited in config.js. Please reload the page once restarting the server.</p>
   <p>The system rotates between locations once the last slide of the presentation is reached, it should loop back on the next location.</p>
   <p>slides.js manages how the slides work. Currently, it switches between the HTML containers every 8 to 10 seconds.</p>
-  <p>There are two alert standby screens that are shown when there are no alerts in effect on the alerts slide. One is normal, and the other one is used
-  on METEOchannel.</p>
+  <p>The alerts page will show an intro slide whenever there are no alerts in effect.</p>
 
   <h1>Features</h1>
   <ul>
