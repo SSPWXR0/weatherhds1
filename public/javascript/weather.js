@@ -17,7 +17,7 @@ const weatherGifs = {
 export const upNextLocationText = document.getElementById('upnext-location');
 export const currentLocationText = document.getElementById('current-location');
 
-let locationIndex = 0;
+export let locationIndex = 0;
 let isWeatherGood;
 let chart;
 
@@ -465,7 +465,7 @@ async function mainData() {
                         })
                         
                     } else {
-                        if (config.disableBrainrot === true) {
+                        async function alertSlideStandby() {
                             alertsSlideContainer.innerHTML= `<h3 style="font-size: 16pt; text-shadow: 2pt 2pt 5pt #000000; font-weight: bold;" id="upnext-subtitle">Now... here is your weather,<h3>
                             <h1 style="font-size: 36pt; text-shadow: 2pt 2pt 5pt #000000; font-weight: 400; text-align: right;" id="upnext-location-header">${locationName}</h1>`
 
@@ -480,58 +480,9 @@ async function mainData() {
                             decorativeContainer.appendChild(decorative);
 
                             alertsSlideContainer.style.lineHeight = "0.1"
-                        } else {
-                            async function alertSlideStandby() {
-
-                                alertsSlideContainer.innerHTML = "";
-    
-                                console.info('Showing alert slide standby')
-                                
-                                try {
-                                    const response = await fetch('./imageIndex.json');
-                                    const imageIndex = await response.json();
-                                
-                                    let standbyContainer = document.createElement('div');
-                                    standbyContainer.className = `main-alerts-standby`;
-                                    standbyContainer.innerHTML = `
-                                        <h4>There are no alerts in effect...</h4>
-                                        <h6>In the meantime, take 10 seconds before the slide changes to admire this random cat picture!</h6>
-                                    `;
-                                
-                                    alertsSlideContainer.appendChild(standbyContainer);
-                                
-                                    if (imageIndex.brainrot && imageIndex.brainrot.length > 0) {
-                                        const randomIndex = Math.floor(Math.random() * imageIndex.brainrot.length);
-                                        const randomImage = imageIndex.brainrot[randomIndex];
-                                
-                                        let imageContainer = document.createElement('div');
-                                        imageContainer.className = `main-alerts-standby-brainrot`;
-                                        imageContainer.style.backgroundImage = `url(${randomImage})`;
-                                        imageContainer.style.backgroundSize = 'contain';
-                                        imageContainer.style.height = '70%';
-                                        imageContainer.style.width = '60%';
-    
-                                        standbyContainer.appendChild(imageContainer);
-                                    }
-
-                                    let decorativeContainer = document.createElement('div')
-                                    let decorative = document.createElement('div')
-        
-                                    decorative.className = `main-alerts-standby-scrolltextdecorative`
-                                    decorativeContainer.className = `main-alerts-standby-scrolltextcontainer`
-        
-                                    decorative.innerHTML = `${config.networkName}&nbsp;&nbsp;`.repeat(180);
-                                    alertsSlideContainer.appendChild(decorativeContainer);
-                                    decorativeContainer.appendChild(decorative);
-
-                                } catch (error) {
-                                    console.error('Error fetching imageIndex.json:', error);
-                                }
-                            }
-    
-                            alertSlideStandby();
                         }
-                        
+
+                        alertSlideStandby();
                     }
                 }
 
@@ -628,51 +579,55 @@ let isSeason = '';
 
 async function backgroundCycle() {
     const backgroundElement = document.querySelector('.wallpaper')
-    
-    const seasons = [
-        "winter",
-        "spring",
-        "summer",
-        "autumn"
-    ]
 
-    // calculate the day of the year as a number
-    var now = new Date();
-    var currentDate = new Date(now.toUTCString());
-    var start = new Date(currentDate.getFullYear(), 0, 0);
-    var diff = currentDate - start;
-    var oneDay = 1000 * 60 * 60 * 24;
-    var day = Math.floor(diff / oneDay);
+    if (config.overrideBackgroundImage) {
+        backgroundElement.style.backgroundImage = `url("${config.overrideBackgroundImage}")`;
+    } else {
+        const seasons = [
+            "winter",
+            "spring",
+            "summer",
+            "autumn"
+        ]
 
-    // determin tge seasno
-    if (day <= 78) {
-        isSeason = seasons[0]; // winter
-    } else if (day >= 78 && day <= 171) {
-        isSeason = seasons[1]; // spring
-    } else if (day >= 171 && day <= 265) {
-        isSeason = seasons[2]; // summer
-    } else if (day >= 265 && day <= 355) {
-        isSeason = seasons[3]; // autumn
-    } else if (day >= 355 && day <= 365) {
-        isSeason = seasons[0]; // winter
+        // calculate the day of the year as a number
+        var now = new Date();
+        var currentDate = new Date(now.toUTCString());
+        var start = new Date(currentDate.getFullYear(), 0, 0);
+        var diff = currentDate - start;
+        var oneDay = 1000 * 60 * 60 * 24;
+        var day = Math.floor(diff / oneDay);
+
+        // determin tge seasno
+        if (day <= 78) {
+            isSeason = seasons[0]; // winter
+        } else if (day >= 78 && day <= 171) {
+            isSeason = seasons[1]; // spring
+        } else if (day >= 171 && day <= 265) {
+            isSeason = seasons[2]; // summer
+        } else if (day >= 265 && day <= 355) {
+            isSeason = seasons[3]; // autumn
+        } else if (day >= 355 && day <= 365) {
+            isSeason = seasons[0]; // winter
+        }
+
+        const response = await fetch('./imageIndex.json')
+        const imageIndex = await response.json();
+
+        const seasonBG = imageIndex[`bg_${isSeason}`]
+        console.log(isSeason)
+        const { wxbad, wxgood } = seasonBG;
+
+        const bgCategory = isWeatherGood ? 'wxgood' : 'wxbad';
+        console.log('isWeatherGood equals: ', isWeatherGood)
+        const images = seasonBG[bgCategory];
+        console.log('Background image category: ', bgCategory)
+        const randomize = images[Math.floor(Math.random() * images.length)];
+
+        console.log('Chosen image:', randomize)
+
+        backgroundElement.style.backgroundImage = `url('${randomize}')`;
     }
-
-    const response = await fetch('./imageIndex.json')
-    const imageIndex = await response.json();
-
-    const seasonBG = imageIndex[`bg_${isSeason}`]
-    console.log(isSeason)
-    const { wxbad, wxgood } = seasonBG;
-
-    const bgCategory = isWeatherGood ? 'wxgood' : 'wxbad';
-    console.log('isWeatherGood equals: ', isWeatherGood)
-    const images = seasonBG[bgCategory];
-    console.log('Background image category: ', bgCategory)
-    const randomize = images[Math.floor(Math.random() * images.length)];
-
-    console.log('Chosen image:', randomize)
-
-    backgroundElement.style.backgroundImage = `url('${randomize}')`;
 }
 
 setTimeout(backgroundCycle, 500)

@@ -9,7 +9,6 @@ function buildBackgroundIndex() {
       bg_spring: { wxbad: [], wxgood: [] },
       bg_summer: { wxbad: [], wxgood: [] },
       bg_winter: { wxbad: [], wxgood: [] },
-      brainrot: [],
     };
   
   
@@ -54,8 +53,6 @@ function buildBackgroundIndex() {
     exploreDirectory(path.join(rootImg, 'bg_summer'), 'bg_summer');
     exploreDirectory(path.join(rootImg, 'bg_winter'), 'bg_winter');
 
-    exploreRandomDir(path.join(rootImg, 'brainrot'))
-    
     const indexPath = path.join(__dirname, 'public', 'imageIndex.json');
     fs.writeFileSync(indexPath, JSON.stringify(imageIndex, null, 2));
     console.log('Built background image index:', imageIndex)
