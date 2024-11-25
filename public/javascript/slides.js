@@ -160,10 +160,16 @@ function loadingScreen() {
     switch (loadingScreen) {
         case true:
 
+                let time = 0
+
                 const spinningLogo = document.getElementById('loadingscreen-spinny')
 
-                const xEnd = Math.floor(Math.random() * 360);
-                const yEnd = Math.floor(Math.random() * 360);
+                const startxx = Math.random() * 1000;
+                const startxy = Math.random() * 1000;
+                const startyx = Math.random() * 1000;
+                const startyy = Math.random() * 1000;
+                const startzx = Math.random() * 1000;
+                const startzy = Math.random() * 1000;
             
                 document.getElementById('loadingscreen-versionID').innerHTML = `WeatherHDS ${weatherHDSVersionNumber}`
             
@@ -171,20 +177,20 @@ function loadingScreen() {
                     document.getElementById('loadingscreen-affiliatename').innerHTML = `Affiliate Name: ${config.affiliateName}`
                     document.getElementById('loadingscreen-locationname').innerHTML = `System Location: ${config.locations[0]}`
                 }, 2000);
-                
-            
-                console.log(`${xEnd}, ${yEnd}`)
-            
-                const keyframes = `
-                    @keyframes spinXandY {
-                    1% { transform: rotateX(0deg) rotateY(0deg);}
-                    100% { transform: rotateX(${xEnd}deg) rotateY(${yEnd}deg); }
-                }`
-            
-                styleSheet.insertRule(keyframes, styleSheet.cssRules.length);
-            
-                spinningLogo.style.animation = `spinXandY ${Number(presentationSlides[0].durationMS)}ms linear`
-            
+                    
+                const rotateAnimation = () => {
+                    const rotatex = perlin.get(startxx + time, startxy + time) * 2;
+                    const rotatey = perlin.get(startyx + time, startyy + time) * 2;
+                    const rotatez = perlin.get(startzx + time, startzy + time) * 2;
+                    spinningLogo.style.transition = "transform 1s linear";
+                    spinningLogo.style.transform = `rotateX(${rotatex}turn) rotateY(${rotatey}turn) rotateZ(${rotatez}turn)`;
+                }
+
+                setInterval(() => {
+                    time += 0.005;
+                    rotateAnimation()
+                }, 100);
+                    
                 setTimeout(() => {
                     document.getElementById('loading-screen').remove();
                 }, Number(presentationSlides[0].durationMS));

@@ -620,7 +620,7 @@ async function backgroundCycle() {
         console.log(isSeason)
         const { wxbad, wxgood } = seasonBG;
 
-        const bgCategory = isWeatherGood ? 'wxgood' : 'wxbad';
+        const bgCategory = (isWeatherGood ?? true) ? 'wxgood' : 'wxbad';
         console.log('isWeatherGood equals: ', isWeatherGood)
         const images = seasonBG[bgCategory];
         console.log('Background image category: ', bgCategory)
