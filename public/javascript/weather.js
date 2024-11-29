@@ -21,7 +21,8 @@ export let locationIndex = 0;
 let isWeatherGood;
 let chart;
 
-
+let latestData;
+export let mainLocData;
 let iconDir = "animated"
 let endingTemp, endingWind, endingDistance, endingMeasurement, endingCeiling, endingPressure, endingSnow, endingRain;
 
@@ -60,6 +61,7 @@ async function mainData() {
             if (locationIndex < config.locations.length) {
               const locationName = config.locations[locationIndex];
               const locationData = data[locationName];
+              const mainLocName = config.locations[0];
               const nextLocationName = config.locations[(locationIndex + 1) % config.locations.length];
 
               if (locationData) {
@@ -67,13 +69,13 @@ async function mainData() {
                   .map(Number)
                   .sort((a, b) => b - a)[0];
       
-                const latestData = locationData[latestKey];
+                latestData = locationData[latestKey];
+                mainLocData = data[mainLocName][latestKey]
       
               if (latestData && latestData.current) {
                 const currentData = latestData.current;
                 const forecastData = latestData.weekly;
                 const specialData = latestData.special;
-
 
                 currentLocationText.style.display = `none`
                 currentLocationText.style.animation = `switchModules 0.5s ease-in-out`
@@ -579,7 +581,7 @@ export function nextLocation() {
 
 let isSeason = '';
 
-async function backgroundCycle() {
+export async function backgroundCycle() {
     const backgroundElement = document.querySelector('.wallpaper')
 
     if (config.overrideBackgroundImage) {
@@ -631,6 +633,3 @@ async function backgroundCycle() {
         backgroundElement.style.backgroundImage = `url('${randomize}')`;
     }
 }
-
-setTimeout(backgroundCycle, 500)
-setInterval(backgroundCycle, 600000)

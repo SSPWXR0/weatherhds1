@@ -1,4 +1,5 @@
 import { config } from './dataLoader.js'
+import { backgroundCycle } from './weather.js';
 
 const viewport = document.getElementsByClassName("view")[0];
 const mainSlides = document.getElementsByClassName("main-slides")[0];
@@ -159,11 +160,14 @@ function scrollTicker() {
 
 }
 
-
-
 export function everythingConfigLmao() {
     imageRendering()
     ScaleViewportToTheWindowIGuessLmao()
     presentationType()
     scrollTicker()
+    backgroundCycle()
+
+    setInterval(() => {
+        backgroundCycle()
+    }, 300000);
 }
