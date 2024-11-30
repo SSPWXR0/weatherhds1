@@ -38,6 +38,5 @@
   <p>Always report issues on the issues page!</p>
   <ul>
     <li>Progress bar will occasionally not show, but will show normally at the next location.</li>
-    <li>For some reason, the 7 day high and low chart will be all white.</li>
   </ul> 
 </body>
