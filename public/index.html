@@ -7,6 +7,12 @@
     <script type="module" src="/javascript/dataLoader.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="//cdn.jsdelivr.net/npm/jquery.marquee@1.6.0/jquery.marquee.min.js" type="text/javascript"></script>
+    <script type="module" src="javascript/weather.js" defer></script>
+    <script type="module" src="javascript/main.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+    <script type="module" src="javascript/ldl.js" defer></script>
+    <script type="module" src="javascript/slides.js" defer></script>
+    <script src='https://joeiddon.github.io/perlin/perlin.js'></script>
 </head>
 
 <body>
@@ -68,7 +74,7 @@
                     </div>
                     <div class="main-info-hds1info">
                         <img class="hdsLogo" src="/images/hdslogo_2024.png" alt="WeatherHDS 1 logo">
-                        <h6 class="versionID">version 1-2024.10.25</h3>
+                        <h6 class="versionID">version 1-2024.11.28</h3>
                     </div>
                 </div>
             </div>
@@ -86,9 +92,11 @@
             <div id="current" class="main-slide">
                 <div class="main-current-slide-container">
                     <div id="current-background" class="main-current-leftcontainer">
-                        <div id="main-current-condition">No Data</div>
-                        <img src="/graphics/animated/not-available.svg" id="main-current-icon">
-                        <div id="main-current-temp">--°C</div>
+                        <div id="main-current-box-filter">
+                            <div id="main-current-condition">No Data</div>
+                            <img src="/graphics/animated/not-available.svg" id="main-current-icon">
+                            <div id="main-current-temp">--°C</div>     
+                        </div>
                     </div>
                     <div class="main-current-rightcontainer">
 
@@ -113,7 +121,6 @@
 
                             </div>
                             <div class="main-current-condtions-box">
-
                                 <div class="main-current-boxlabel" id="main-current-sunlabel">Sunrise & Sunset</div>
                                 <div class="main-current-sunrisesunset-container">
                                     <img class="main-current-sunicon" src="/graphics/animated/sunrise.svg">
@@ -123,7 +130,6 @@
                                     <img class="main-current-sunicon" src="/graphics/animated/sunset.svg">
                                     <div id="main-current-sunset-value">9:00p</div>
                                 </div>
-
                             </div>
                         </div>
                         
@@ -309,29 +315,36 @@
 
 
             <div id="airquality" class="main-slide">
-		<div class="main-aq-slide-container">
-				<div id="airqualitygeneralmessagelabel" class="aqilabels">General Population Consideratons</div>
-				<div id="airqaulitygeneralmessage" class="aqidata"></div>
-				<div id="airqualityprimarypollutant" class="aqilabels">Sensitive Population Consideratons</div>
-				<div id="airqaulitysensitivemessage" class="aqidata"></div>
-				<div id="flexcontainer">
-					<div id="aqi-category">
-						<div id="airqualitycatergorylabel" class="aqilabels">Air Quality Status</div>
-						<div id="airqaulitycategory" class="aqicdata">SHIT</div>
-					</div>
-					<div id="aqi-index">
-						<div id="airqualityindexlabel" class="aqilabels">Air Quality Index</div>
-						<div id="airqaulityindex" class="aqicdata"></div>
-					</div>
-					<div id="aqi-primary-pollutant">
-						<div id="airqualityprimarypollutant" class="aqilabels">Primary Pollutant</div>
-						<div id="airqaulityprimarypollutant" class="aqicdata"></div>
-					</div>
-				</div>
+                    <div class="main-aq-slide-container">
 
+                        <div class="main-aq-flexcontainer">
 
+                            <div class="main-aq-box" id="main-aq-statusbox">
+                                <div class="main-aq-status-label">Status</div>
+                                <div id="airqaulitycategory" class="aqicdata">SHIT</div>
+                            </div>
+                            <div class="main-aq-box">
+                                <div class="main-aq-index-label">Index</div>
+                                <div id="airqaulityindex" class="aqicdata"></div>
+                            </div>
+                            <div class="main-aq-box">
+                                <div class="main-aq-index-label">Primary Pollutant</div>
+                                <div id="airqaulityprimarypollutant" class="aqicdata"></div>
+                            </div>
 
-		</div>
+                        </div>
+                        
+                        <div class="main-aq-messages">
+                            <div class="main-aq-messagebox">
+                                <div id="airqualitygeneralmessagelabel" class="aqilabels">General Population Consideratons</div>
+                                <div id="airqaulitygeneralmessage"></div>
+                            </div>
+                            <div class="main-aq-messagebox">
+                                <div id="airqualityprimarypollutant" class="aqilabels">Sensitive Population Consideratons</div>
+                                <div id="airqaulitysensitivemessage"></div>
+                            </div>
+                        </div>
+                    </div>
 	</div>
 
             <!--LIFESTYLE PRODUCTS-->
@@ -467,8 +480,3 @@
 
     </div>
 </body>
-<script type="module" src="/javascript/weather.js" defer></script>
-<script type="module" src="/javascript/main.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
-<script type="module" src="/javascript/ldl.js" defer></script>
-<script type="module" src="/javascript/slides.js" defer></script>

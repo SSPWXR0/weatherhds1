@@ -3,11 +3,21 @@
 :root {
   font-family: 'Poppins';
   color: var(--textColour2);
-  --primaryColour: #212529;
-  --primaryColourTransparent: #212529cb;
-  --textColour1: #CED4DA;
-  --textColour2: #F8F9FA;
+  --primaryColour: #0076b6d8;
+  --secondaryColour: #023e8ad8;
+  --thirdColour: #2424243a;
+  --fourthColour: #bde0fe42;
+  --fifthColour: #82ade64f;
+  --sixthColour: #0c1b29c5;
+  --seventhColour: #006affd2;
+  --mainGradient: linear-gradient(var(--primaryColour), var(--secondaryColour));
+  --secondGradient: linear-gradient(var(--fifthColour), var(--fourthColour));
+  --thirdGradient: linear-gradient(var(--sixthColour), var(--seventhColour));
+  --thirdColourTransparent: #a2d2ffcb;
+  --textColour1: #ffffffe1;
+  --textColour2: #ffffff;
   --cornerRadius: 10px;
+  --defaultOutline: 4.8px solid var(--secondaryColour);
 }
 
 body {
@@ -24,7 +34,7 @@ body {
   display: none;
 }
 #current {
-  display: block;
+  display: none;
 }
 #radar {
   display: none;
@@ -42,7 +52,7 @@ body {
   display: none;
 }
 #airquality {
-  display: none;
+  display: block;
 }
 
 .view {
@@ -72,6 +82,7 @@ hr {
   height: 100%;
   background: linear-gradient(180deg, rgb(0,0,0) 0%, rgb(27, 27, 27) 100%);
   text-align: center;
+  z-index: 1000;
 }
 #loadingscreen-spinny {
   position: absolute;
@@ -95,7 +106,7 @@ hr {
   width: 90%;
   max-width: 576px;
   height: 15%;
-  background-color: #212529a6;
+  background-image: var(--mainGradient);
   border-radius: 10px;
   backdrop-filter: blur(30px);
 }
@@ -177,7 +188,8 @@ hr {
   margin: auto auto;
   color: var(--textColour2);
   bottom: 0%;
-  background-color: var(--primaryColourTransparent);
+  background: var(--mainGradient);
+  
 }
 
 
@@ -195,7 +207,7 @@ hr {
 /* STATION ID */
 .main-info-container {
   position: relative;
-  background-color: var(--primaryColourTransparent);
+  background-image: var(--mainGradient);
   border-radius: 25px;
   width: 100%;
   height: 85%;
@@ -275,7 +287,7 @@ hr {
 }
 .main-current-leftcontainer {
   display: block;
-  background-color: var(--primaryColourTransparent);
+  background-image: var(--mainGradient);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 0px;
@@ -284,18 +296,23 @@ hr {
   border-radius: var(--cornerRadius);
   text-shadow: 1px 1px 5px rgb(0, 0, 0);
 }
+#main-current-box-filter {
+  border-radius: var(--cornerRadius);
+  width: 100%;
+  height: 100%;
+}
 .main-current-rightcontainer {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: var(--primaryColourTransparent);
+  border-radius: var(--cornerRadius);
+  background-image: var(--mainGradient);
   width: 64%;
   height: 91.545%;
   padding: 2%;
   line-height: 1.6;
   font-weight: 600;
   font-size: 14pt;
-  border-radius: var(--cornerRadius);
 }
 #main-current-condition {
   padding-top: 20%;
@@ -329,8 +346,10 @@ hr {
   text-align: center;
   white-space: nowrap;
   border-radius: var(--cornerRadius);
-  background-color: #535658f1;
+  background-image: var(--secondGradient);
   font-size: 9pt;
+
+  outline: var(--defaultOutline);
 }
 .main-current-icon-container {
   width: 100%;
@@ -392,7 +411,7 @@ hr {
 }
 .forecast-shortterm-summary {
   display: block;
-  background-color: var(--primaryColourTransparent);
+  background-image: var(--mainGradient);
   width: 30%;
   height: 100%;
   border-radius: var(--cornerRadius);
@@ -400,7 +419,7 @@ hr {
 .forecast-shortterm-text {
   display: flex;
   justify-content: space-between;
-  background-color: var(--primaryColourTransparent);
+  background-image: var(--mainGradient);
   width: 64%;
   height: 91.545%;
   padding: 2%;
@@ -445,12 +464,12 @@ hr {
   height: 100%;
   width: 18%;
   border-radius: 10px;
-  background-color: var(--primaryColourTransparent);
+  background-image: var(--mainGradient);
 }
 .main-forecast-title {
   height: 10%;
   width: 100%;
-  background-color: var(--primaryColour);
+  background-image: var(--thirdGradient);
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   padding-top: 4%;
@@ -459,7 +478,7 @@ hr {
   white-space: nowrap;
 }
 .main-forecast-icon {
-  background-color: #21252988;
+  background-image: var(--thirdGradient);
   width: 100%;
   height: 20%;
 }
@@ -494,7 +513,7 @@ hr {
   width: 100%;
   font-size: 8pt;
   white-space: nowrap;
-  background-color: #2c3135a4;
+  background-image: var(--thirdGradient);
 }
 /* RADAR */
 #radar {
@@ -523,7 +542,7 @@ hr {
   justify-content: center;
   text-align: center;
   /*text-shadow:#000000 2px 2px 4px;*/
-  background-color: var(--primaryColourTransparent);
+  background-image: var(--mainGradient);
   border-radius: 10px;
   width: 100%;
   height: 100%;
@@ -534,17 +553,16 @@ hr {
   margin-left: 1px;
   height: 100%;
 }
-
+/* AIR QUALITY */
 .main-aq-slide-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  justify-content: center;
-  text-shadow:#000000 2px 2px 4px;
-  background-color: var(--primaryColourTransparent);
-  border-radius: 10px;
   width: 100%;
   height: 100%;
+}
+.main-aq-index-label {
+  font-weight: 200;
+}
+.main-aq-messagebox {
+  display: none;
 }
 .aqilabels {
 	font-weight: bold;
@@ -557,16 +575,38 @@ hr {
 	padding-right: 15px;
 }
 .aqicdata {
-	font-size: 14pt;
+	font-size: 18pt;
+  font-weight: 300;
 	text-align: center;
 }
-#flexcontainer{
+.main-aq-box {
+  border-radius: var(--cornerRadius);
+  background-image: var(--mainGradient);
   display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 500px;
-    margin: 0 auto;
+  flex-direction: column;
+  text-align: center;
+  white-space: nowrap;
+  width: 30%;
+  height: 100%;
+}
+.main-aq-flexcontainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 500px;
+  margin: 0 auto;
+  width: 100%;
+  height: 25%;
+}
 
+.main-aq-messages {
+  overflow: hidden;
+  border-radius: var(--cornerRadius);
+  background-image: var(--mainGradient);
+  margin-top: 2%;
+  width: 96.6%;
+  height: 65%;
+  padding: 10px;
 }
 #aqi-category {
   float: left;
@@ -585,7 +625,7 @@ hr {
 /* ALERTS */
 .alert-box {
   border-radius: var(--cornerRadius);
-  background-color: var(--primaryColourTransparent);
+  background-image: var(--mainGradient);
   padding: 1%;
   line-height: 0.2;
 }
@@ -597,7 +637,7 @@ hr {
   padding: 0.5%;
   width: 100%;
   height: 90%;
-  background-color: var(--primaryColourTransparent);
+  background-image: var(--mainGradient);
   border-radius: var(--cornerRadius);
 }
 .main-alerts-standby-brainrot {

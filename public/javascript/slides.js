@@ -1,5 +1,5 @@
 import { config } from './dataLoader.js'
-import { nextLocation } from './weather.js';
+import { nextLocation, locationIndex } from './weather.js';
 
 const styleSheet = document.styleSheets[0];
 
@@ -69,6 +69,26 @@ function runMainCurrentSlide() {
     }, slideDurationMS / 2 - 500);
 }
 
+function runAirQualitySlide() {
+    
+    document.getElementsByClassName('main-aq-messagebox')[0].style.display = `none`
+    document.getElementsByClassName('main-aq-messagebox')[1].style.display = `none`
+
+    setTimeout(() => {
+        document.getElementsByClassName('main-aq-messagebox')[0].style.display = `block`
+    }, 10);
+
+    setTimeout(() => {
+        document.getElementsByClassName('main-aq-messagebox')[0].style.animation = `fadeModule 0.5s ease-out`
+        document.getElementsByClassName('main-aq-messagebox')[0].style.display = `none`
+
+        setTimeout(() => {
+            document.getElementsByClassName('main-aq-messagebox')[1].style.display = `block`
+            document.getElementsByClassName('main-aq-messagebox')[1].style.animation = `switchModules 0.5s ease-in-out`
+        }, 500);
+    }, slideDurationMS / 2);
+}
+
 export function showSlide(index) {
     slideDurationMS = Number(presentationSlides[index].durationMS);
     slideDurationSec = Number(presentationSlides[index].durationMS) / 1000;
@@ -108,6 +128,10 @@ export function showSlide(index) {
     if (presentationSlides[index].htmlID === 'current') {
         runMainCurrentSlide()
     }
+
+    if (presentationSlides[index].htmlID === 'airquality') {
+        runAirQualitySlide()
+    }
 }
 
 function nextSlide() {
@@ -131,36 +155,52 @@ function startSlideshow() {
 }
 
 function loadingScreen() {
-    const spinningLogo = document.getElementById('loadingscreen-spinny')
+    let loadingScreen = true
 
-    //document.getElementById('loading-screen').style.display = `none` // for when im debugging and i dont want the loading screen
+    switch (loadingScreen) {
+        case true:
 
-    const xEnd = Math.floor(Math.random() * 360);
-    const yEnd = Math.floor(Math.random() * 360);
+                let time = 0
 
-    document.getElementById('loadingscreen-versionID').innerHTML = `WeatherHDS ${weatherHDSVersionNumber}`
+                const spinningLogo = document.getElementById('loadingscreen-spinny')
 
-    setTimeout(() => {
-        document.getElementById('loadingscreen-affiliatename').innerHTML = `Affiliate Name: ${config.affiliateName}`
-        document.getElementById('loadingscreen-locationname').innerHTML = `System Location: ${config.locations[0]}`
-    }, 2000);
+                const startxx = Math.random() * 1000;
+                const startxy = Math.random() * 1000;
+                const startyx = Math.random() * 1000;
+                const startyy = Math.random() * 1000;
+                const startzx = Math.random() * 1000;
+                const startzy = Math.random() * 1000;
+            
+                document.getElementById('loadingscreen-versionID').innerHTML = `WeatherHDS ${weatherHDSVersionNumber}`
+            
+                setTimeout(() => {
+                    document.getElementById('loadingscreen-affiliatename').innerHTML = `Affiliate Name: ${config.affiliateName}`
+                    document.getElementById('loadingscreen-locationname').innerHTML = `System Location: ${config.locations[0]}`
+                }, 2000);
+                    
+                const rotateAnimation = () => {
+                    const rotatex = perlin.get(startxx + time, startxy + time) * 2;
+                    const rotatey = perlin.get(startyx + time, startyy + time) * 2;
+                    const rotatez = perlin.get(startzx + time, startzy + time) * 2;
+                    spinningLogo.style.transition = "transform 1s linear";
+                    spinningLogo.style.transform = `rotateX(${rotatex}turn) rotateY(${rotatey}turn) rotateZ(${rotatez}turn)`;
+                }
+
+                setInterval(() => {
+                    time += 0.005;
+                    rotateAnimation()
+                }, 100);
+                    
+                setTimeout(() => {
+                    document.getElementById('loading-screen').remove();
+                }, Number(presentationSlides[0].durationMS));
+            
+            break;
     
-
-    console.log(`${xEnd}, ${yEnd}`)
-
-    const keyframes = `
-        @keyframes spinXandY {
-        1% { transform: rotateX(0deg) rotateY(0deg);}
-        100% { transform: rotateX(${xEnd}deg) rotateY(${yEnd}deg); }
-    }`
-
-    styleSheet.insertRule(keyframes, styleSheet.cssRules.length);
-
-    spinningLogo.style.animation = `spinXandY ${Number(presentationSlides[0].durationMS)}ms linear`
-
-    setTimeout(() => {
-        document.getElementById('loading-screen').remove();
-    }, Number(presentationSlides[0].durationMS));
+        default:
+            document.getElementById('loading-screen').style.display = `none` // for when im debugging and i dont want the loading screen
+            break;
+    }
 }
 
 window.onload = loadingScreen()

@@ -1,6 +1,6 @@
 {
   "name": "weatherhds1",
-  "version": "1.2024-10-25",
+  "version": "1.328.0-0",
   "description": "A basic web app that displays weather from the weather.com API in the style of a 24/7 weather channel broadcast.",
   "main": "server.js",
   "scripts": {

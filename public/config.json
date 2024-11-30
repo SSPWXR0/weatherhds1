@@ -1,36 +1,34 @@
 {
-    "networkName": "METEOChannel",
+    "networkName": "LocalScope + HDS",
     "affiliateName": "Mist Streaming",
-    "channelNumber": "sspwxr02",
+    "channelNumber": "localscope_weather",
     
-    "twcApiKey": "",
+    "twcApiKey": "e1f10a1e78da46f5b10a1e78da96f525",
 
     "locations": [
-        "Saskatoon",
-        "Regina",
-        "Edmonton",
-        "Calgary",
-        "Vancouver"
+        "Pittsburgh",
+        "Nixon",
+        "Moon Township"
     ],
     "ldlLocations": [
-        "Saskatoon",
-        "Prince Albert",
-        "North Battleford",
-        "Winnipeg"
+        "Pittsburgh",
+        "Nixon",
+        "Moon Township"
     ],
-    "units": "m",
-    "debugger": true,
-    "disableBrainrot": true,
-    "enableVideoBackgrounds": true,
+    "units": "e",
+    "debugger": false,
+    "videoBackgrounds": true,
+    "currentConditionsGradient": true,
     "staticIcons": false,
     "webPort": 3000,
     "transparentLDL": 0,
     "ldlClock": false,
     "presentationType": 0,
-    "videoType": 0,
+    "videoType": 2,
     "textureFiltering": true,
-    "systemTimeZone": "America/Regina",
-    "tickerContent": "Edit this message in config.json. Leave blank for no scroll",
+    "systemTimeZone": "America/New+York",
+    "tickerContent": "",
+    "overrideBackgroundImage": "",
     "seasons": {
         "winter": true,
         "spring": true
