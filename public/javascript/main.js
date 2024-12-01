@@ -27,11 +27,17 @@ function ScaleViewportToTheWindowIGuessLmao() {
         height = 480
 
         viewport.style.width = `640px`
-    } else { // 16:9 aspect ratio
+    } else if (config.videoType === 1) { // 16:9 aspect ratio
         width = 854
         height = 480
 
         viewport.style.width = `854px`
+        ldlContainer.style.bottom = `-3%`
+    } else { // 16:10 aspect ratio
+        width = 768
+        height = 480
+
+        viewport.style.width = `768px`
         ldlContainer.style.bottom = `-3%`
     }
 

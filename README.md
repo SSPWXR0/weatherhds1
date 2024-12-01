@@ -20,7 +20,7 @@
   <ul>
     <li>  <s>-radar container that parses images from dd.weather.gc.ca and plasters it on a div on index.html.</s> <s>nevermind we got rid of the radar lol</s>
   nevermind nevermind we brought back the radar. Sometimes it is not centered, because TWC API is weird. lmk if you find a solution lol.</li>
-    <li>Switching between 4:3 (SDTV) and 16:9 (HDTV) aspect ratios. Rendered at canvas sizes of 640x480 and 854x480 respectively, and scaled to fit the viewport. This is controlled by `videoType` in the config file.</li>
+    <li>Switching between 4:3 (SDTV), 16:9 (HDTV), and 16:10 (Tablet) aspect ratios. Rendered at canvas sizes of 640x480, 854x480, and 768x480 respectively, and scaled to fit the viewport. This is controlled by `videoType` in the config file.</li>
     <li>LDL only mode. Displays a black screen with only the LDL, which you could superimpose onto programming with OBS Studio. This is controlled by `presentationType` in the config file.</li>
     <li>Switching between metric and imperial.</li>
     <li>Switching between static and animated weather icons.</li>
@@ -38,6 +38,5 @@
   <p>Always report issues on the issues page!</p>
   <ul>
     <li>Progress bar will occasionally not show, but will show normally at the next location.</li>
-    <li>For some reason, the 7 day high and low chart will be all white.</li>
   </ul> 
 </body>

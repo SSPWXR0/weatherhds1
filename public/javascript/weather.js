@@ -513,12 +513,16 @@ async function mainData() {
                       datasets: [{
                         label: 'Daily Low',
                         data: forecastData.calendarDayTemperatureMin,
-                        borderWidth: 2
+                        borderWidth: 2,
+                        borderColor: "#08F",
+                        backgroundColor: "#08F"
                       },
                       {
                 	label: 'Daily High',
                 	data:  forecastData.calendarDayTemperatureMax,
-                	borderWidth: 2
+                	borderWidth: 2,
+                    borderColor: "#F80",
+                    backgroundColor: "#F80"
                       }
                 ]
                     },
