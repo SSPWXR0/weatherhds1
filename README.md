@@ -35,10 +35,9 @@
   <p>Google Material icons (APACHE 2.0): https://fonts.google.com/icons | https://www.apache.org/licenses/LICENSE-2.0</p>
   <p>weather videos (Pexels): https://www.pexels.com/license/</p>
 
-<!--
   <h1>Unresolved Issues</h1>
   <p>Always report issues on the issues page!</p>
   <ul>
-    <li>Progress bar will occasionally not show, but will show normally at the next location.</li>
-  </ul> -->
+    <li>There are currently no unresolved issues!</li>
+  </ul> 
 </body>
