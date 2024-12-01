@@ -3,13 +3,13 @@
 :root {
   font-family: 'Poppins';
   color: var(--textColour2);
-  --primaryColour: #0076b6d8;
-  --secondaryColour: #023e8ad8;
+  --primaryColour: #101218e1;
+  --secondaryColour: #101218e1;
   --thirdColour: #2424243a;
   --fourthColour: #bde0fe42;
   --fifthColour: #82ade64f;
-  --sixthColour: #0c1b29c5;
-  --seventhColour: #006affd2;
+  --sixthColour: #3f465ae1;
+  --seventhColour: #212121;
   --mainGradient: linear-gradient(var(--primaryColour), var(--secondaryColour));
   --secondGradient: linear-gradient(var(--fifthColour), var(--fourthColour));
   --thirdGradient: linear-gradient(var(--sixthColour), var(--seventhColour));
@@ -46,13 +46,13 @@ body {
   display: none;
 }
 #forecast-extended {
-  display: none;
+  display: block;
 }
 #\37 day-graph {
   display: none;
 }
 #airquality {
-  display: block;
+  display: none;
 }
 
 .view {
@@ -189,7 +189,7 @@ hr {
   color: var(--textColour2);
   bottom: 0%;
   background: var(--mainGradient);
-  
+  backdrop-filter: blur(10px);
 }
 
 
