@@ -334,6 +334,7 @@ function runProgressBar() {
   const progressBar = document.getElementById('ldl-location-progressbar')
 
   progressBar.style.animation = `ldlProgressBar ${totalDurationSec}s linear`
+  progressBar.offsetHeight
   progressBar.style.display = `block`
 
   setTimeout(() => {
