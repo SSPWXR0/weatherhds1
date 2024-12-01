@@ -3,3 +3,5 @@
 /public/wxData.json
 /public/wxData.json
 public/ldlData.json
+.DS_Store
+**/.DS_Store
