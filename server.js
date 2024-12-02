@@ -3,12 +3,9 @@ const path = require('path');
 const fs = require('fs').promises
 const config = require('./public/config.json')
 const app = express();
-const indexBackgrounds = require('./indexBackgrounds.js')
 
 let allWeather = {};
 let ldlWeather = {};
-
-indexBackgrounds();
 
 async function getWeather(lat, lon, countryCode) { // credit to Dalk
   // theres definitely a better approach to this
