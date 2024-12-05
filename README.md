@@ -4,12 +4,11 @@
 
   <img src="https://github.com/SSPWXR0/weatherhds1/blob/master/public/images/hds_screenshots.jpg">
 
-  <p>A basic web app that displays weather from the weather.com API in the style of a 24/7 weather channel broadcast.</p>
+  <h2>Present continuous weather data on display screens, with easy deployment and free and open source software.</h2>
+  <p>WeatherHDS is a Node.JS app that simplifies the presentation of modern and updated weather graphics on digital displays or other types of broadcasts. Designed with modularity and infinite customizability in mind, thanks to WeatherHDS's simplified
+  underlying system completly built on standard web technologies.</p>
 
   <h1>Configuration</h1>
-
-  <p>*Node.js is required!</p>
-
   <p>Dependencies: express</p>
   <p>Main presentation and LDL locations can be edited in config.js. Please reload the page once restarting the server.</p>
   <p>The system rotates between locations once the last slide of the presentation is reached, it should loop back on the next location.</p>
@@ -18,8 +17,8 @@
 
   <h1>Features</h1>
   <ul>
-    <li>  <s>-radar container that parses images from dd.weather.gc.ca and plasters it on a div on index.html.</s> <s>nevermind we got rid of the radar lol</s>
-  nevermind nevermind we brought back the radar. Sometimes it is not centered, because TWC API is weird. lmk if you find a solution lol.</li>
+    <li>Built and designed for developers to adapt and improve the system.</li>
+    <li>Completly customizable locations, no automatic geolocation</li>
     <li>Switching between 4:3 (SDTV), 16:9 (HDTV), and 16:10 (Tablet) aspect ratios. Rendered at canvas sizes of 640x480, 854x480, and 768x480 respectively, and scaled to fit the viewport. This is controlled by `videoType` in the config file.</li>
     <li>LDL only mode. Displays a black screen with only the LDL, which you could superimpose onto programming with OBS Studio. This is controlled by `presentationType` in the config file.</li>
     <li>Switching between metric and imperial.</li>
