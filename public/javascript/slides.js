@@ -89,6 +89,22 @@ function runAirQualitySlide() {
     }, slideDurationMS / 2);
 }
 
+function runExtendedSlide() {
+    document.getElementsByClassName('main-forecast-day')[0].style.animation = `switchModules 0.6s ease-in-out`
+    document.getElementsByClassName('main-forecast-day')[1].style.animation = `switchModules 0.7s ease-in-out`
+    document.getElementsByClassName('main-forecast-day')[2].style.animation = `switchModules 0.8s ease-in-out`
+    document.getElementsByClassName('main-forecast-day')[3].style.animation = `switchModules 0.9s ease-in-out`
+    document.getElementsByClassName('main-forecast-day')[4].style.animation = `switchModules 1s ease-in-out`
+
+    setTimeout(() => {
+        document.getElementsByClassName('main-forecast-day')[0].style.animation = ``
+        document.getElementsByClassName('main-forecast-day')[1].style.animation = ``
+        document.getElementsByClassName('main-forecast-day')[2].style.animation = ``
+        document.getElementsByClassName('main-forecast-day')[3].style.animation = ``
+        document.getElementsByClassName('main-forecast-day')[4].style.animation = ``
+    }, slideDurationMS);
+}
+
 export function showSlide(index) {
     slideDurationMS = Number(presentationSlides[index].durationMS);
     slideDurationSec = Number(presentationSlides[index].durationMS) / 1000;
@@ -131,6 +147,9 @@ export function showSlide(index) {
 
     if (presentationSlides[index].htmlID === 'airquality') {
         runAirQualitySlide()
+    }
+    if (presentationSlides[index].htmlID === 'forecast-extended') {
+        runExtendedSlide()
     }
 }
 
