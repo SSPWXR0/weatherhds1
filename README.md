@@ -19,7 +19,7 @@
   <ul>
     <li>Built and designed for developers to adapt and improve the system.</li>
     <li>Completly customizable locations, no automatic geolocation</li>
-    <li>Switching between 4:3 (SDTV), 16:9 (HDTV), and 16:10 (Tablet) aspect ratios. Rendered at canvas sizes of 640x480, 854x480, and 768x480 respectively, and scaled to fit the viewport. This is controlled by `videoType` in the config file.</li>
+    <li>Switching between 4:3 (VGA), 16:9 (HDTV), 16:10 (Tablet), and 3:2 (NTSC DV) aspect ratios. Rendered at canvas sizes of 640x480, 854x480, and 768x480 respectively, and scaled to fit the viewport. This is controlled by `videoType` in the config file.</li>
     <li>LDL only mode. Displays a black screen with only the LDL, which you could superimpose onto programming with OBS Studio. This is controlled by `presentationType` in the config file.</li>
     <li>Switching between metric and imperial.</li>
     <li>Switching between static and animated weather icons.</li>

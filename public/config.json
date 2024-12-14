@@ -27,7 +27,7 @@
     "transparentLDL": 0,
     "ldlClock": true,
     "presentationType": 0,
-    "videoType": 0,
+    "videoType": 2,
     "textureFiltering": true,
     "systemTimeZone": "America/Regina",
     "tickerContent": "",
