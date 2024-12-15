@@ -105,6 +105,23 @@ function runExtendedSlide() {
     }, slideDurationMS);
 }
 
+function runSigmaText() {
+    function generator(x, y) {
+        let noiseValue = perlin.get(x, y)
+        return noiseValue > 0 ? 1 : 0;
+    }
+
+    let x = Math.random() * 10; // Random x-coordinate
+    let y = Math.random() * 10; // Random y-coordinate
+        
+    if (generator(x, y) === 1) {
+        console.log(`ive activated my rizz`)
+        document.getElementById('sigmatext').style.display = `block`
+    } else {
+        document.getElementById('sigmatext').style.display = `none`
+    }
+}
+
 export function showSlide(index) {
     slideDurationMS = Number(presentationSlides[index].durationMS);
     slideDurationSec = Number(presentationSlides[index].durationMS) / 1000;
@@ -150,6 +167,9 @@ export function showSlide(index) {
     }
     if (presentationSlides[index].htmlID === 'forecast-extended') {
         runExtendedSlide()
+    }
+    if (presentationSlides[index].htmlID === 'stationid') {
+        runSigmaText()
     }
 }
 
