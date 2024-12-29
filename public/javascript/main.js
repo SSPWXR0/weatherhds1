@@ -178,9 +178,15 @@ export function everythingConfigLmao() {
     ScaleViewportToTheWindowIGuessLmao()
     presentationType()
     scrollTicker()
-    backgroundCycle()
-
-    setInterval(() => {
-        backgroundCycle()
-    }, 300000);
+    
+    switch (config.enableBackgrounds) {
+        case false:
+            break;
+        default:
+            backgroundCycle()
+            setInterval(() => {
+                backgroundCycle()
+            }, 300000);
+            break;
+    }
 }

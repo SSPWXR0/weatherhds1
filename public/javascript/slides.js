@@ -169,7 +169,7 @@ export function showSlide(index) {
         runExtendedSlide()
     }
     if (presentationSlides[index].htmlID === 'stationid') {
-        runSigmaText()
+        //runSigmaText()
     }
 }
 

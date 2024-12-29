@@ -1,6 +1,6 @@
 {
     "networkName": "METEOChannel",
-    "affiliateName": "Mist Streaming",
+    "affiliateName": "SSPWXR Media Group",
     "channelNumber": "sspwxr02",
     
     "twcApiKey": "",
@@ -27,11 +27,12 @@
     "transparentLDL": 0,
     "ldlClock": true,
     "presentationType": 0,
-    "videoType": 2,
+    "videoType": 1,
     "textureFiltering": true,
     "systemTimeZone": "America/Regina",
     "tickerContent": "",
     "overrideBackgroundImage": "",
+    "enableBackgrounds": false,
     "seasons": {
         "winter": true,
         "spring": true
