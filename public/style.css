@@ -540,7 +540,7 @@ hr {
   image-rendering: pixelated !important;
   background-size: cover;
   background-position: center;
-  background-image: url(/images/default.jpg);
+  background-image: url(/images/nerd-emoji-nerd.gif);
 }
 .main-7day-container {
   display: flex;
