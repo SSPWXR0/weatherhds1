@@ -28,8 +28,13 @@ fetchData()
 
 async function runInitialProcesses() {
   await fetchData()
-  getInitialData()
-  runInitialLDL()
+
+  if (config.presentationType != 1) {
+    getInitialData()
+  }
+  if (config.presentationType != 2) {
+    runInitialLDL()
+  }
   everythingConfigLmao()
 }
 

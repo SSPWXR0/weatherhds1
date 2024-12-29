@@ -27,12 +27,12 @@
     "transparentLDL": 0,
     "ldlClock": true,
     "presentationType": 0,
-    "videoType": 1,
+    "videoType": 0,
     "textureFiltering": true,
     "systemTimeZone": "America/Regina",
     "tickerContent": "",
     "overrideBackgroundImage": "",
-    "enableBackgrounds": false,
+    "enableBackgrounds": true,
     "seasons": {
         "winter": true,
         "spring": true

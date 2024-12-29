@@ -105,7 +105,8 @@ function presentationType() {
         console.log(`Running main presentation. Presentation ID: ${config.presentationType}`)
         ldl.style.width = `90%`
         ldlBranding.style.display = `none`
-    } else { // ldl only presentation, and make LDL thinner
+    }
+    if (config.presentationType === 1) { // ldl only presentation, and make LDL thinner
         console.log(`Running LDL-only presentation. Presentation ID: ${config.presentationType}`)
 
         wallpaper.style.display = `none`
@@ -116,12 +117,13 @@ function presentationType() {
         ldlBranding.style.display = `block`
 
     }
-
+    if (config.presentationType === 2) { // no LDL mode
+        ldlContainer.style.display = `none`;
+    }
     if (config.ldlClock === false) {
         timeLDL.style.display = `none`
         dateLDL.style.display = `none`
     }
-
     if (config.transparentLDL === 1) { // make ldl transparent
         ldlContainer.style.backgroundColor = `rgba(0,0,0,0)`
     }
@@ -178,7 +180,7 @@ export function everythingConfigLmao() {
     ScaleViewportToTheWindowIGuessLmao()
     presentationType()
     scrollTicker()
-    
+
     switch (config.enableBackgrounds) {
         case false:
             break;
