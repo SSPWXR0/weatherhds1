@@ -1,4 +1,4 @@
-import { data, config, weatherIcons } from './dataLoader.js'
+import { data, config, weatherIcons, imageIndex } from './dataLoader.js'
 import { slideIndex, showSlide } from './slides.js';
 
 const animationFormat = 'avif';
@@ -586,11 +586,14 @@ export function nextLocation() {
 let isSeason = '';
 
 export async function backgroundCycle() {
+    console.log(imageIndex)
+
     const backgroundElement = document.querySelector('.wallpaper')
 
     if (config.overrideBackgroundImage) {
         backgroundElement.style.backgroundImage = `url("${config.overrideBackgroundImage}")`;
     } else {
+
         const seasons = [
             "winter",
             "spring",
@@ -606,6 +609,8 @@ export async function backgroundCycle() {
         var oneDay = 1000 * 60 * 60 * 24;
         var day = Math.floor(diff / oneDay);
 
+        console.log(`Day of the year:`, day)
+
         // determin tge seasno
         if (day <= 78) {
             isSeason = seasons[0]; // winter
@@ -615,16 +620,13 @@ export async function backgroundCycle() {
             isSeason = seasons[2]; // summer
         } else if (day >= 265 && day <= 355) {
             isSeason = seasons[3]; // autumn
-        } else if (day >= 355 && day <= 365) {
+        } else if (day >= 355) {
             isSeason = seasons[0]; // winter
         }
 
-        const response = await fetch('./imageIndex.json')
-        const imageIndex = await response.json();
-
-        const seasonBG = imageIndex[`bg_${isSeason}`]
+        let seasonBG = imageIndex[`bg_${isSeason}`]
         console.log(isSeason)
-        const { wxbad, wxgood } = seasonBG;
+        let { wxbad, wxgood } = seasonBG;
 
         const bgCategory = (isWeatherGood ?? true) ? 'wxgood' : 'wxbad';
         console.log('isWeatherGood equals: ', isWeatherGood)
