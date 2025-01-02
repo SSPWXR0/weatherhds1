@@ -70,23 +70,20 @@ function runMainCurrentSlide() {
 }
 
 function runAirQualitySlide() {
-    
-    document.getElementsByClassName('main-aq-messagebox')[0].style.display = `none`
+    document.getElementsByClassName('main-aq-messagebox')[0].style.display = `block`
+    document.getElementsByClassName('main-aq-messagebox')[0].style.display = `block`
+    document.getElementsByClassName('main-aq-messagebox')[1].style.display = `none`
     document.getElementsByClassName('main-aq-messagebox')[1].style.display = `none`
 
     setTimeout(() => {
-        document.getElementsByClassName('main-aq-messagebox')[0].style.display = `block`
-    }, 10);
-
-    setTimeout(() => {
-        document.getElementsByClassName('main-aq-messagebox')[0].style.animation = `fadeModule 0.5s ease-out`
-        document.getElementsByClassName('main-aq-messagebox')[0].style.display = `none`
-
+        document.getElementsByClassName('main-aq-messagebox')[0].style.animation = `fadeModule 300ms ease-in-out`
+        
         setTimeout(() => {
+            document.getElementsByClassName('main-aq-messagebox')[0].style.display = `none`
             document.getElementsByClassName('main-aq-messagebox')[1].style.display = `block`
-            document.getElementsByClassName('main-aq-messagebox')[1].style.animation = `switchModules 0.5s ease-in-out`
-        }, 500);
-    }, slideDurationMS / 2);
+            document.getElementsByClassName('main-aq-messagebox')[1].style.animation = `switchModules 500ms ease-in-out`
+        }, 300);
+    }, slideDurationMS / 2 - 500);
 }
 
 function runExtendedSlide() {
