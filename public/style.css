@@ -712,7 +712,8 @@ hr {
   position: relative;
   display: flex;
   width: 100%;
-  height: 40%;
+  height: 50%;
+  line-height: 1;
 }
 
 .ldl-presentation-slide {
@@ -722,7 +723,7 @@ hr {
 }
 
 .ldl-icon {
-  height: 25pt;
+  height: 100%;
 }
 
 .ldl-slide-container {
@@ -777,7 +778,7 @@ hr {
 #ldl-location-label {
   overflow: visible;
   white-space: nowrap;
-  font-size: 10pt;
+  font-size: 8pt;
 }
 
 #ldl-location {
@@ -785,7 +786,7 @@ hr {
 }
 
 .ldltext-primary {
-  font-size: 12pt;
+  font-size: 14pt;
   align-self: center;
   margin-right: 10px;
   text-wrap: nowrap;
@@ -799,7 +800,7 @@ hr {
   white-space: nowrap;
 }
 .ldltext-secondary {
-  font-size: 8pt;
+  font-size: 9pt;
   font-weight: 400;
   align-self: center;
   margin-right: 5px;
