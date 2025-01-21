@@ -3,7 +3,7 @@
     "affiliateName": "SSPWXR Media Group",
     "channelNumber": "sspwxr02",
     
-    "twcApiKey": "",
+    "twcApiKey": "e1f10a1e78da46f5b10a1e78da96f525",
 
     "locations": [
         "Saskatoon",
@@ -13,10 +13,13 @@
         "Vancouver"
     ],
     "ldlLocations": [
-        "Saskatoon",
-        "Prince Albert",
-        "North Battleford",
-        "Winnipeg"
+        "Saskatoon, SK",
+        "Outlook, SK",
+        "Rosetown, SK",
+        "Melfort, SK",
+		"North Battleford, SK",
+		"Lloydminster, AB",
+		"Regina, SK"
     ],
     "units": "m",
     "debugger": true,

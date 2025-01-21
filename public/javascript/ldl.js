@@ -83,7 +83,7 @@ async function LDLData() {
                 const currentPressure = document.getElementById('ldl-current-pressure-value');
                 const currentVisib = document.getElementById('ldl-current-visibility-value');
                 const currentCeiling = document.getElementById('ldl-current-ceiling-value');
-                const currentMonthPrecip = document.getElementById('ldl-current-monthprecip-value');
+                const currentFeelsLike = document.getElementById('ldl-current-feelslike-value');
 
         
                 currentTemp.innerHTML = `${latestData.current.temperature}${endingTemp}`
@@ -93,6 +93,7 @@ async function LDLData() {
                 currentDewpoint.innerHTML = `${latestData.current.temperatureDewPoint}${endingTemp}`
                 currentPressure.innerHTML = `${latestData.current.pressureAltimeter}${endingPressure}`
                 currentVisib.innerHTML = `${Math.round(latestData.current.visibility)}${endingDistance}`
+                currentFeelsLike.innerHTML = `${latestData.current.temperatureFeelsLike}${endingTemp}`
 
                 const iconCode = latestData.current.iconCode;
                 const dayOrNight = latestData.current.dayOrNight;
@@ -108,7 +109,6 @@ async function LDLData() {
                 }
     
                 currentCeiling.innerHTML = ceilingFormatted
-                currentMonthPrecip.innerHTML = `${latestData.almanac.precipitationAverage[0]}${endingRain}`
               }
     
               function appendForecast() {
