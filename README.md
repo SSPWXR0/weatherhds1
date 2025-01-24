@@ -37,6 +37,6 @@
   <h1>Unresolved Issues</h1>
   <p>Always report issues on the issues page!</p>
   <ul>
-    <li>There are currently no unresolved issues!</li>
+    <li>Memory leak (accumulating memory usage as the program operates)</li>
   </ul> 
 </body>
