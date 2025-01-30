@@ -1,7 +1,6 @@
-import { config } from './dataLoader.js'
-import { nextLocation, locationIndex } from './weather.js';
-
-const styleSheet = document.styleSheets[0];
+import { config } from "./config.js";
+import { nextLocation } from './weather.js';
+import { locationsList } from './dataLoader.js';
 
 const presentationSlides = {
     "0": { title: "Welcome!", htmlID: "stationid", durationMS: "6000"},
@@ -102,23 +101,6 @@ function runExtendedSlide() {
     }, slideDurationMS);
 }
 
-function runSigmaText() {
-    function generator(x, y) {
-        let noiseValue = perlin.get(x, y)
-        return noiseValue > 0 ? 1 : 0;
-    }
-
-    let x = Math.random() * 10; // Random x-coordinate
-    let y = Math.random() * 10; // Random y-coordinate
-        
-    if (generator(x, y) === 1) {
-        console.log(`ive activated my rizz`)
-        document.getElementById('sigmatext').style.display = `block`
-    } else {
-        document.getElementById('sigmatext').style.display = `none`
-    }
-}
-
 export function showSlide(index) {
     slideDurationMS = Number(presentationSlides[index].durationMS);
     slideDurationSec = Number(presentationSlides[index].durationMS) / 1000;
@@ -165,9 +147,6 @@ export function showSlide(index) {
     if (presentationSlides[index].htmlID === 'forecast-extended') {
         runExtendedSlide()
     }
-    if (presentationSlides[index].htmlID === 'stationid') {
-        //runSigmaText()
-    }
 }
 
 function nextSlide() {
@@ -211,7 +190,7 @@ function loadingScreen() {
             
                 setTimeout(() => {
                     document.getElementById('loadingscreen-affiliatename').innerHTML = `Affiliate Name: ${config.affiliateName}`
-                    document.getElementById('loadingscreen-locationname').innerHTML = `System Location: ${config.locations[0]}`
+                    document.getElementById('loadingscreen-locationname').innerHTML = `System Location: ${locationsList.locationIndex.locations[0]}`
                 }, 2000);
                     
                 const rotateAnimation = () => {

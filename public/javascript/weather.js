@@ -1,5 +1,7 @@
-import { data, config, weatherIcons, imageIndex } from './dataLoader.js'
+import { data, imageIndex } from './dataLoader.js'
 import { slideIndex, showSlide } from './slides.js';
+import { config, weatherIcons } from "./config.js";
+import { locationsList } from './dataLoader.js';
 
 const animationFormat = 'avif';
 
@@ -38,7 +40,7 @@ async function mainData() {
                 iconDir = "animated"
             }
 
-            if (config.units == "e") {
+            if (locationsList.units == "e") {
                 endingTemp = "°F"
                 endingWind = "mph"
                 endingDistance = "mi"
@@ -47,7 +49,7 @@ async function mainData() {
                 endingPressure = "hg"
                 endingSnow = "in"
                 endingRain = "in"
-            } else if(config.units == "m") {
+            } else if(locationsList.units == "m") {
                 endingTemp = "°C"
                 endingWind = "km/h"
                 endingDistance = "km"
@@ -58,11 +60,11 @@ async function mainData() {
                 endingRain = "mm"
             }
 
-            if (locationIndex < config.locations.length) {
-              const locationName = config.locations[locationIndex];
+            if (locationIndex < locationsList.locationIndex.locations.length) {
+              const locationName = locationsList.locationIndex.locations[locationIndex];
               const locationData = data[locationName];
-              const mainLocName = config.locations[0];
-              const nextLocationName = config.locations[(locationIndex + 1) % config.locations.length];
+              const mainLocName = locationsList.locationIndex.locations[0];
+              const nextLocationName = locationsList.locationIndex.locations[(locationIndex + 1) % locationsList.locationIndex.locations.length];
 
               if (locationData) {
                 const latestKey = Object.keys(locationData)
@@ -569,7 +571,7 @@ setTimeout(() => {
 
 export function nextLocation() {
     locationIndex++;
-    if (locationIndex >= config.locations.length) {
+    if (locationIndex >= locationsList.locationIndex.locations.length) {
         locationIndex = 0;
     }
 

@@ -1,4 +1,6 @@
-import { ldlData, config, weatherIcons } from './dataLoader.js'
+import { ldlData } from './dataLoader.js'
+import { config, weatherIcons } from "./config.js";
+import { locationsList } from './dataLoader.js';
 
 const ldlPresentationSlides = {
     "0": { htmlID: "ldl-current", durationMS: "20000" },
@@ -32,29 +34,29 @@ async function LDLData() {
             iconDir = "animated"
         }
   
-        if (config.units == "e") {
+        if (locationsList.units == "e") {
           endingTemp = "°F"
           endingWind = "mph"
           endingDistance = "mi"
           endingMeasurement = "in"
-          endingCeiling= ""
+          endingCeiling= "ft"
           endingPressure = "hg"
           endingSnow = "in"
           endingRain = "in"
-      } else if(config.units == "m") {
-          endingTemp = "°C"
-          endingWind = "km/h"
-          endingDistance = "km"
-          endingMeasurement = "mm"
-          endingCeiling = "m"
-          endingPressure = "mb"
-          endingSnow = "cm"
-          endingRain = "mm"
-      }
+        } else if(locationsList.units == "m") {
+            endingTemp = "°C"
+            endingWind = "km/h"
+            endingDistance = "km"
+            endingMeasurement = "mm"
+            endingCeiling = "m"
+            endingPressure = "mb"
+            endingSnow = "cm"
+            endingRain = "mm"
+        }
   
-        if (ldlLocationIndex < config.ldlLocations.length) {
+        if (ldlLocationIndex < locationsList.locationIndex.ldlLocations.length) {
           
-          const locationName = config.ldlLocations[ldlLocationIndex];
+          const locationName = locationsList.locationIndex.ldlLocations[ldlLocationIndex];
           const locationData = ldlData[locationName];
 
           locationLabel.innerHTML = `Weather for ${locationName}`
@@ -317,7 +319,7 @@ function nextLDLSlide() {
 }
 
 function nextLDLLocation() {
-    ldlLocationIndex = (ldlLocationIndex + 1) % config.locations.length;
+    ldlLocationIndex = (ldlLocationIndex + 1) % locationsList.locationIndex.locations.length;
 
     showLocationLabel();
 

@@ -1,4 +1,4 @@
-import { config } from './dataLoader.js'
+import { config } from "./config.js";
 import { backgroundCycle } from './weather.js';
 
 const viewport = document.getElementsByClassName("view")[0];
