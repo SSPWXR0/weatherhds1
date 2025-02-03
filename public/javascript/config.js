@@ -2,7 +2,6 @@ export let config = {
     "networkName": "METEOChannel",
     "affiliateName": "SSPWXR Media Group",
     "channelNumber": "sspwxr02",
-    "debugger": true,
     "videoBackgrounds": true,
     "currentConditionsGradient": true,
     "staticIcons": false,

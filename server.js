@@ -27,11 +27,6 @@ const serverConfig = {
       "Regina, SK"
     ],
   },
-
-  "seasons": {
-    "winter": true,
-    "spring": true
-  }
 }
 
 let allWeather = {};
@@ -90,7 +85,7 @@ async function getWeather(lat, lon, countryCode) { // credit to Dalk
   const golf = await golfUrl.json();
   const heating = await heatingUrl.json(); */
 
-  if(serverConfig.debugger) { console.log(`[server.js] | ${new Date().toLocaleString()} | Successfully saved current weather conditions`) }
+  console.log(`[server.js] | ${new Date().toLocaleString()} | Successfully saved current weather conditions`)
 
   const weatherData = {
     current: current,
@@ -117,10 +112,8 @@ async function getWeatherCoordinates(location) {
     throw new Error(`Location data not found for ${location}`);
   }
 
-  if(serverConfig.debugger) {
-    console.log(`[server.js] | ${new Date().toLocaleString()} | Successfully retrieved weather coordinates for ${location}`);
-  }
-
+  console.log(`[server.js] | ${new Date().toLocaleString()} | Successfully retrieved weather coordinates for ${location}`);
+  
   return {
     lat: locationData.latitude[0], 
     lon: locationData.longitude[0], 
@@ -179,7 +172,8 @@ async function getLDLWeather(lat, lon, countryCode) { // credit to Dalk for the 
   const ldlAlerts = await ldlAlertsUrl.json();
   const ldlAqi = await ldlAqiUrl.json();
   const ldlAlmanac = await ldlAlmanacUrl.json();
-  if(serverConfig.debugger) { console.log(`[server.js] | ${new Date().toLocaleString()} | Saved data for display on LDL`) }
+
+  console.log(`[server.js] | ${new Date().toLocaleString()} | Saved data for display on LDL`)
 
   return {
       ldlCurrent: ldlCurrent,
@@ -199,9 +193,8 @@ if (!locationData) {
   throw new Error(`Location data not found for ${location}`);
 }
 
-if(serverConfig.debugger) {
-  console.log(`[server.js] | ${new Date().toLocaleString()} | Successfully retrieved weather coordinates for ${location}`);
-}
+console.log(`[server.js] | ${new Date().toLocaleString()} | Successfully retrieved weather coordinates for ${location}`);
+
 
 return {
   lat: locationData.latitude[0], 
