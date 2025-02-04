@@ -4,7 +4,7 @@ const fs = require('fs').promises
 const app = express();
 
 const serverConfig = {
-  "twcApiKey": "e1f10a1e78da46f5b10a1e78da96f525",
+  "twcApiKey": "",
   "units": "m",
 
   "webPort": 3000,
