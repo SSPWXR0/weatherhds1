@@ -4,7 +4,7 @@ const fs = require('fs').promises
 const app = express();
 
 const serverConfig = {
-  "twcApiKey": "",
+  "twcApiKey": "e1f10a1e78da46f5b10a1e78da96f525",
   "units": "m",
 
   "webPort": 3000,
@@ -239,19 +239,9 @@ for (const location of serverConfig.locationIndex.ldlLocations) {
 }
 }
 
-async function saveDataToJson() {
-  const jsonFile = path.join(__dirname, 'public/wxData.json')
-  const ldlFile = path.join(__dirname, 'public/ldlData.json')
-
-  await fs.writeFile(jsonFile, JSON.stringify(allWeather, null, 2))
-  await fs.writeFile(ldlFile, JSON.stringify(ldlWeather, null, 2))
-
-}
-
 async function runDataInterval() {
   await loadAllCities()
   await loadAllLDLCities()
-  saveDataToJson()
   console.log("Ran data and text generation intervals.")
   console.log("============================================")
   console.log(`### WEATHER HTML DISPLAY SYSTEM ###`);
@@ -269,6 +259,13 @@ app.listen(serverConfig.webPort, () => {});
 app.get('/locations', (req, res) => {
   res.json({
     locationIndex: serverConfig.locationIndex,
+    })
+})
+
+app.get('/data', (req, res) => {
+  res.json({
+    mainPresentation: allWeather,
+    ldlPresentation: ldlWeather,
     units: serverConfig.units
     })
 })

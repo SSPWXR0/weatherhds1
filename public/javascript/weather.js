@@ -1,7 +1,6 @@
-import { data, imageIndex } from './dataLoader.js'
+import { data, imageIndex, locationsList, units } from './dataLoader.js'
 import { slideIndex, showSlide } from './slides.js';
 import { config, weatherIcons } from "./config.js";
-import { locationsList } from './dataLoader.js';
 
 const animationFormat = 'avif';
 
@@ -40,7 +39,7 @@ async function mainData() {
                 iconDir = "animated"
             }
 
-            if (locationsList.units == "e") {
+            if (units == "e") {
                 endingTemp = "°F"
                 endingWind = "mph"
                 endingDistance = "mi"
@@ -49,7 +48,7 @@ async function mainData() {
                 endingPressure = "hg"
                 endingSnow = "in"
                 endingRain = "in"
-            } else if(locationsList.units == "m") {
+            } else if (units == "m") {
                 endingTemp = "°C"
                 endingWind = "km/h"
                 endingDistance = "km"

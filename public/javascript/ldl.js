@@ -1,6 +1,5 @@
-import { ldlData } from './dataLoader.js'
+import { ldlData, locationsList, units } from './dataLoader.js'
 import { config, weatherIcons } from "./config.js";
-import { locationsList } from './dataLoader.js';
 
 const ldlPresentationSlides = {
     "0": { htmlID: "ldl-current", durationMS: "20000" },
@@ -34,7 +33,7 @@ async function LDLData() {
             iconDir = "animated"
         }
   
-        if (locationsList.units == "e") {
+        if (units == "e") {
           endingTemp = "°F"
           endingWind = "mph"
           endingDistance = "mi"
@@ -43,7 +42,7 @@ async function LDLData() {
           endingPressure = "hg"
           endingSnow = "in"
           endingRain = "in"
-        } else if(locationsList.units == "m") {
+        } else if (units == "m") {
             endingTemp = "°C"
             endingWind = "km/h"
             endingDistance = "km"

@@ -2,6 +2,8 @@ export let data;
 export let ldlData
 export let imageIndex;
 export let locationsList;
+export let units;
+let allData;
 
 import { getInitialData } from "./weather.js";
 import { runInitialLDL } from "./ldl.js";
@@ -11,18 +13,20 @@ import { config } from "./config.js";
 async function fetchData() {
   data = null;
   ldlData = null;
-  imageIndex = null;
+  allData = null;
+  units = null;
 
-  const [response, ldlResponse] = await Promise.all([
-    fetch('./wxData.json'),
-    fetch('./ldlData.json'),
+  const [response] = await Promise.all([
+    fetch('/data'),
   ]);
 
-  data = await response.json();
-  ldlData = await ldlResponse.json();
+  allData = await response.json();
+  data = allData.mainPresentation;
+  ldlData = allData.ldlPresentation;
+  units = allData.units;
+
 
   console.log(`[dataLoader.js] Loaded the following data files:`, data, ldlData)
-  console.log(`[dataLoader.js] Loaded the background image index:`, imageIndex)
 }
 
 fetchData()
@@ -45,6 +49,8 @@ async function fetchBackgroundsIndex() {
   ])
 
   imageIndex = await imageIndexResponse.json();
+
+  console.log(`[dataLoader.js] Loaded the background image index:`, imageIndex)
 }
 
 fetchLocationsList()
