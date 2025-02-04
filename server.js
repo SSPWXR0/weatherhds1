@@ -247,6 +247,10 @@ async function runDataInterval() {
   console.log(`### WEATHER HTML DISPLAY SYSTEM ###`);
   console.log(`Created by SSPWXR and ScentedOrange`);
   console.log(`Server is running on http://localhost:${serverConfig.webPort}`);
+
+  if (serverConfig.twcApiKey.length === 0) {
+    console.error(`NO API KEY PRESENT! PLEASE ENTER A WEATHER.COM API KEY...`)
+  }
 }
 
 runDataInterval()
