@@ -83,7 +83,9 @@ async function mainData() {
                 currentLocationText.innerHTML = locationName;
                 currentLocationText.style.display = `block`
 
-                console.log(`Current main presentation location: ${locationName}`)
+                if (config.verboseLogging === true) {
+                    console.log(`Current main presentation location: ${locationName}`)
+                }
 
                 upNextLocationText.style.display = `none`
                 upNextLocationText.style.animation = `switchModules 0.5s ease-in-out`
@@ -205,12 +207,14 @@ async function mainData() {
                             const percentOfSun = Math.round(percentOfSunDec * 100) / 100
                             const earlyMorningEnd = sunrise12 / lengthOfSun + 0.02
 
-                            console.log('SUNRISE', sunrise12)
-                            console.log('SUNSET', sunset12)
-                            console.log('DATAISSUED', hourDataIssued)
-                            console.log('LENGTH OF SUN', lengthOfSun)
-                            console.log('PERCENT OF SUN', percentOfSun)
-                            console.log('EARLY MORNING END PERCENT', earlyMorningEnd)
+                            if (config.verboseLogging === true) {
+                                console.log('SUNRISE', sunrise12)
+                                console.log('SUNSET', sunset12)
+                                console.log('DATAISSUED', hourDataIssued)
+                                console.log('LENGTH OF SUN', lengthOfSun)
+                                console.log('PERCENT OF SUN', percentOfSun)
+                                console.log('EARLY MORNING END PERCENT', earlyMorningEnd)
+                            }
 
                             if (percentOfSun < earlyMorningEnd) {
                                 ccBoxFilter.style = `background: linear-gradient(180deg, ${earlyMorningGradientStart} 0%, ${earlyMorningGradientEnd} 100%);`
@@ -564,10 +568,6 @@ export function getInitialData() {
     mainData()
 }
 
-setTimeout(() => {
-    console.log(isWeatherGood)
-}, 500);
-
 export function nextLocation() {
     locationIndex++;
     if (locationIndex >= locationsList.locationIndex.locations.length) {
@@ -587,7 +587,6 @@ export function nextLocation() {
 let isSeason = '';
 
 export async function backgroundCycle() {
-    console.log(imageIndex)
 
     const backgroundElement = document.querySelector('.wallpaper')
 
@@ -610,8 +609,6 @@ export async function backgroundCycle() {
         var oneDay = 1000 * 60 * 60 * 24;
         var day = Math.floor(diff / oneDay);
 
-        console.log(`Day of the year:`, day)
-
         // determin tge seasno
         if (day <= 78) {
             isSeason = seasons[0]; // winter
@@ -626,16 +623,19 @@ export async function backgroundCycle() {
         }
 
         let seasonBG = imageIndex[`bg_${isSeason}`]
-        console.log(isSeason)
         let { wxbad, wxgood } = seasonBG;
 
         const bgCategory = (isWeatherGood ?? true) ? 'wxgood' : 'wxbad';
-        console.log('isWeatherGood equals: ', isWeatherGood)
         const images = seasonBG[bgCategory];
-        console.log('Background image category: ', bgCategory)
         const randomize = images[Math.floor(Math.random() * images.length)];
 
-        console.log('Chosen image:', randomize)
+        if (config.verboseLogging === true) {
+            console.log(`Day of the year:`, day)
+            console.log('Chosen image:', randomize)
+            console.log('Background image category: ', bgCategory)
+        }
+
+
 
         backgroundElement.style.backgroundImage = `url('${randomize}')`;
     }

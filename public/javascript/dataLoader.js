@@ -24,9 +24,6 @@ async function fetchData() {
   data = allData.mainPresentation;
   ldlData = allData.ldlPresentation;
   units = allData.units;
-
-
-  console.log(`[dataLoader.js] Loaded the following data files:`, data, ldlData)
 }
 
 fetchData()
@@ -50,7 +47,6 @@ async function fetchBackgroundsIndex() {
 
   imageIndex = await imageIndexResponse.json();
 
-  console.log(`[dataLoader.js] Loaded the background image index:`, imageIndex)
 }
 
 fetchLocationsList()

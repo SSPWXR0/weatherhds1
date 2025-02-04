@@ -135,7 +135,9 @@ export function showSlide(index) {
         currentSlideElement.style.display = 'block';    
     }
 
-    console.log(`Showing Main Presentation Slide: ${presentationSlides[index].htmlID} for a duration of ${slideDurationMS}`)
+    if (config.verboseLogging === true) {
+        console.log(`Showing Main Presentation Slide: ${presentationSlides[index].htmlID} for a duration of ${slideDurationMS}`)       
+    }
 
     if (presentationSlides[index].htmlID === 'current') {
         runMainCurrentSlide()

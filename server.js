@@ -1,10 +1,9 @@
 const express = require('express');
 const path = require('path');
-const fs = require('fs').promises
 const app = express();
 
 const serverConfig = {
-  "twcApiKey": "",
+  "twcApiKey": "e1f10a1e78da46f5b10a1e78da96f525",
   "units": "m",
 
   "webPort": 3000,

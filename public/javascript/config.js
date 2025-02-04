@@ -14,6 +14,7 @@ export let config = {
     "tickerContent": "",
     "overrideBackgroundImage": "",
     "enableBackgrounds": true,
+    "verboseLogging": false
 }
 
 export const weatherIcons = {

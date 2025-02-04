@@ -70,8 +70,10 @@ async function LDLData() {
           if (latestData && latestData.current) {
 
               function appendCurrent() {
-                console.log(`Current LDL location: ${locationName}`)
-    
+                if (config.verboseLogging === true) {
+                  console.log(`Current LDL location: ${locationName}`)
+                }
+
                 // Temp and Condition
                 const currentTemp = document.getElementById('ldl-current-temp');
                 const currentIcon = document.getElementById('ldl-current-icon');
@@ -280,9 +282,11 @@ function showLDLSlide() {
     
     const slide = ldlPresentationSlides[ldlSlideIndex]
     const duration = slide.durationMS;
-    
-    console.log(`Showing LDL slides: ${slide.htmlID} for a duration of ${duration}`)
 
+    if (config.verboseLogging === true) {
+      console.log(`Showing LDL slides: ${slide.htmlID} for a duration of ${duration}`)             
+    }
+    
     const slideElement = document.getElementById(slide.htmlID)
     slideElement.style.display = 'block';
     slideElement.style.animation = 'slideIn 1s ease-out';
@@ -348,7 +352,9 @@ export function runInitialLDL() {
   runProgressBar()
   LDLData()
   showLDLSlide()
-  
-  console.log("Total Duration (ms):", totalDuration);
-  console.log("Total Duration (sec):", totalDurationSec);
+
+  if (config.verboseLogging === true) {
+    console.log("Total Duration (ms):", totalDuration);
+    console.log("Total Duration (sec):", totalDurationSec);             
+  }
 }
