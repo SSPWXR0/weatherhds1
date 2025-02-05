@@ -584,22 +584,15 @@ export function nextLocation() {
 
 }
 
-let isSeason = '';
-
 export async function backgroundCycle() {
+    
+let isSeason = '';
 
     const backgroundElement = document.querySelector('.wallpaper')
 
     if (config.overrideBackgroundImage) {
         backgroundElement.style.backgroundImage = `url("${config.overrideBackgroundImage}")`;
     } else {
-
-        const seasons = [
-            "winter",
-            "spring",
-            "summer",
-            "autumn"
-        ]
 
         // calculate the day of the year as a number
         var now = new Date();
@@ -611,15 +604,15 @@ export async function backgroundCycle() {
 
         // determin tge seasno
         if (day <= 78) {
-            isSeason = seasons[0]; // winter
+            isSeason = "winter"; // winter
         } else if (day >= 78 && day <= 171) {
-            isSeason = seasons[1]; // spring
+            isSeason = "spring"; // spring
         } else if (day >= 171 && day <= 265) {
-            isSeason = seasons[2]; // summer
+            isSeason = "summer"; // summer
         } else if (day >= 265 && day <= 355) {
-            isSeason = seasons[3]; // autumn
+            isSeason = "autumn"; // autumn
         } else if (day >= 355) {
-            isSeason = seasons[0]; // winter
+            isSeason = "winter"; // winter
         }
 
         let seasonBG = imageIndex[`bg_${isSeason}`]
