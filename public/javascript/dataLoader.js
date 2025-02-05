@@ -26,35 +26,22 @@ async function fetchData() {
   units = allData.units;
 }
 
-fetchData()
 
-async function fetchLocationsList() {
-  locationsList = null;
-
-  const [locationsResponse] = await Promise.all([
-    fetch('/locations')
-  ])
-
-  locationsList = await locationsResponse.json();
-}
-
-async function fetchBackgroundsIndex() {
-  imageIndex = null;
-
-  const [imageIndexResponse] = await Promise.all([
+async function indexLists() {
+  const [locationsResponse, imageIndexResponse] = await Promise.all([
+    fetch('/locations'),
     fetch('./imageIndex.json')
   ])
 
+  locationsList = await locationsResponse.json();
   imageIndex = await imageIndexResponse.json();
-
 }
 
-fetchLocationsList()
-fetchBackgroundsIndex()
+indexLists()
+
 
 async function runInitialProcesses() {
   await fetchData()
-  
   if (config.presentationType != 1) {
     getInitialData()
   }
