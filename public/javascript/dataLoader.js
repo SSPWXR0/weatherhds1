@@ -5,7 +5,7 @@ export let locationsList;
 export let units;
 let allData;
 
-import { getInitialData } from "./weather.js";
+import { getInitialData, backgroundCycle } from "./weather.js";
 import { runInitialLDL } from "./ldl.js";
 import { everythingConfigLmao } from "./main.js";
 import { config } from "./config.js";
@@ -41,15 +41,29 @@ indexLists()
 
 
 async function runInitialProcesses() {
-  await fetchData()
+  await indexLists();
+  await fetchData();
+
   if (config.presentationType != 1) {
-    getInitialData()
+    getInitialData();
   }
   if (config.presentationType != 2) {
-    runInitialLDL()
+    runInitialLDL();
   }
-  everythingConfigLmao()
+  everythingConfigLmao();
+
+  switch (config.enableBackgrounds) {
+    case false:
+      break;
+    default:
+      backgroundCycle();
+      setInterval(() => {
+        backgroundCycle();
+      }, 300000);
+      break;
+  }
 }
+
 
 setInterval(fetchData, 1500000)
 

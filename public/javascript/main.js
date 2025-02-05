@@ -1,5 +1,4 @@
 import { config } from "./config.js";
-import { backgroundCycle } from './weather.js';
 
 const viewport = document.getElementsByClassName("view")[0];
 const mainSlides = document.getElementsByClassName("main-slides")[0];
@@ -180,15 +179,4 @@ export function everythingConfigLmao() {
     ScaleViewportToTheWindowIGuessLmao()
     presentationType()
     scrollTicker()
-
-    switch (config.enableBackgrounds) {
-        case false:
-            break;
-        default:
-            backgroundCycle()
-            setInterval(() => {
-                backgroundCycle()
-            }, 300000);
-            break;
-    }
 }
