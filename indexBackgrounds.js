@@ -38,15 +38,6 @@ function exploreDirectory(currentDir, category) {
 });
 }
 
-function exploreRandomDir(currentDir) {
-  const files = fs.readdirSync(currentDir);
-
-  files.forEach(file => {
-    const filePath = path.join('/images', 'bg_images', 'brainrot', file).replace(/\\/g, '/');
-    imageIndex.brainrot.push(filePath);
-  })
-}
-  
 exploreDirectory(path.join(rootImg, 'bg_autumn'), 'bg_autumn');
 exploreDirectory(path.join(rootImg, 'bg_spring'), 'bg_spring');
 exploreDirectory(path.join(rootImg, 'bg_summer'), 'bg_summer');

@@ -273,5 +273,16 @@ app.get('/data', (req, res) => {
     })
 })
 
+app.get('/bing-background', async (req, res) => {
+  try {
+      const response = await fetch('https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=en-US');
+      const data = await response.json();
+      res.json(data);
+      console.log("Client requested Bing background image.")
+  } catch (error) {
+      res.status(500).json({ error: 'Failed to fetch Bing background' });
+  }
+});
+
 process.on('SIGINT', () => {console.log("Exiting WeatherHDS daemon"); process.exit();});
 process.on('SIGUSR2', () => {console.log("Exiting WeatherHDS daemon"); process.exit();});
