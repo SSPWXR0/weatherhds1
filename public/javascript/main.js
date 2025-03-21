@@ -180,3 +180,7 @@ export function everythingConfigLmao() {
     presentationType()
     scrollTicker()
 }
+
+setTimeout(() => {
+    location.reload();
+  }, 172800000);
