@@ -100,28 +100,21 @@ function clock() { // partially copied from weatherHDS 2
 setInterval(clock, 1000)
 
 function presentationType() {
-    if (window.location.search.length > 0) {
-        console.log("Queries detected.")
-    }
-    if (config.presentationType === 0) { // runs all presentations
-        console.log(`Running main presentation. Presentation ID: ${config.presentationType}`)
-        ldl.style.width = `90%`
-        ldlBranding.style.display = `none`
-    }
-    if (config.presentationType === 1) { // ldl only presentation, and make LDL thinner
-        console.log(`Running LDL-only presentation. Presentation ID: ${config.presentationType}`)
-
+    if (config.presentationConfig.main != true) {
         wallpaper.style.display = `none`
         mainSlides.style.display = `none`
         topBar.style.display = `none`
-
-        ldl.style.width = `75%`
-        ldlBranding.style.display = `block`
-
+    } else {
+        ldlBranding.style.display = `none`
     }
-    if (config.presentationType === 2) { // no LDL mode
+
+    if (config.presentationConfig.ldl != true) {
+        if (config.presentationConfig.ldlClock) {
+            ldlBranding.style.display = `block`
+        }
         ldlContainer.style.display = `none`;
     }
+
     if (config.ldlClock === false) {
         timeLDL.style.display = `none`
         dateLDL.style.display = `none`

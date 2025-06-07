@@ -80,10 +80,10 @@ async function runInitialProcesses() {
   await indexLists();
   await fetchData();
 
-  if (config.presentationType != 1) {
+  if (config.presentationConfig.main) {
     getInitialData();
   }
-  if (config.presentationType != 2) {
+  if (config.presentationConfig.ldl) {
     runInitialLDL();
   }
   everythingConfigLmao();
