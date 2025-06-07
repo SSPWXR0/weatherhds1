@@ -1,3 +1,5 @@
+// WeatherHDS client configuration. To configure server-side data, please edit server.js.
+
 export let config = {
     "networkName": "METEOChannel", // sets the network name.
     "affiliateName": "SSPWXR Media Group", // your affiliate.
@@ -7,14 +9,20 @@ export let config = {
     "staticIcons": false, // would you like icons that dont move?
     "transparentLDL": 0, // adjusts the background opacity of the LDL.
     "ldlClock": true, // when in LDL only mode, choose if you want to show the clock and the network logo on the LDL.
-    "presentationType": 0, // 0 = main presentation, 1 = ldl only, and 2 = no ldl and only main presentation.
+    
+    "presentationConfig": {
+        "main": true,
+        "ldl": true,
+        "ldlClock": true
+    },
+
     "videoType": 0, // sets the aspect ratio
     "textureFiltering": true, // ONLY AFFECTS RADAR. whether to use pixelated or smooth image rendering.
     "systemTimeZone": "America/Regina", // tz_database. https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
     "tickerContent": "", // empty = hides scroll. add any text to it to show a crawl on the LDL.
     "overrideBackgroundImage": "", // skips the background rotation and uses the URL provided.
     "enableBackgrounds": true, // enables or disables the background
-    "backgroundSource": "online", // set to local to use the locally stored default backgrounds, set value to online to use the Bing background api thing.
+    "backgroundSource": "local", // set to local to use the locally stored default backgrounds, set value to online to use the Bing background api thing.
     "verboseLogging": false // enables or disables console.log
 }
 

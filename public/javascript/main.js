@@ -100,6 +100,9 @@ function clock() { // partially copied from weatherHDS 2
 setInterval(clock, 1000)
 
 function presentationType() {
+    if (window.location.search.length > 0) {
+        console.log("Queries detected.")
+    }
     if (config.presentationType === 0) { // runs all presentations
         console.log(`Running main presentation. Presentation ID: ${config.presentationType}`)
         ldl.style.width = `90%`
