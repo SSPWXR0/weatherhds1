@@ -16,6 +16,9 @@ export let config = {
         "ldlClock": true
     },
 
+    "loadingScreen": false,
+    "topbarStyle": "domestic", // domestic or weatherscan.
+    "mainRepeat": false,
     "videoType": 0, // sets the aspect ratio
     "textureFiltering": true, // ONLY AFFECTS RADAR. whether to use pixelated or smooth image rendering.
     "systemTimeZone": "America/Regina", // tz_database. https://en.wikipedia.org/wiki/List_of_tz_database_time_zones

@@ -159,8 +159,17 @@ function nextSlide() {
     if (slideIndex < totalSlides) {
         showSlide(slideIndex);
     } else {
-        slideIndex = 0;
-        nextLocation();
+        switch (config.mainRepeat) {
+            case false:
+                    cancelSlideshow()
+                break;
+        
+            case true:
+                    slideIndex = 0;
+                    nextLocation();
+                break;
+        }
+
     }
 
     setTimeout(nextSlide, slideDurationMS);
@@ -171,10 +180,21 @@ function startSlideshow() {
     setTimeout(nextSlide, slideDurationMS);
 }
 
-function loadingScreen() {
-    let loadingScreen = true
+function cancelSlideshow() {
+    const wallpaper = document.getElementsByClassName('wallpaper')[0]
+    const topbar = document.getElementsByClassName('topbar')[0]
+    wallpaper.style.animation = `mainPresentationSlideOut 600ms ease-in-out 1 forwards`
+    topbar.style.animation = `fadeModule 600ms ease-in-out 1 forwards`
+    setTimeout(() => {
+        wallpaper.style.display = `none`
+        wallpaper.style.animation = ``
+        topbar.style.display = `none`
+        topbar.style.animation = ``
+    }, 650);
+}
 
-    switch (loadingScreen) {
+function loadingScreen() {
+    switch (config.loadingScreen) {
         case true:
 
                 let time = 0
