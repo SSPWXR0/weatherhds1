@@ -116,12 +116,6 @@ function presentationType() {
     if (enabledPresentations !== null) {
         const enabledList = enabledPresentations.split(',').map(item => item.trim());
 
-        for (const key in config.presentationConfig) {
-            if (config.presentationConfig.hasOwnProperty(key)) {
-                config.presentationConfig[key] = false;
-            }
-        }
-
         for (const key of Object.keys(config.presentationConfig)) {
             if (enabledList.includes(key.toLowerCase())) {
                 config.presentationConfig[key] = true;
