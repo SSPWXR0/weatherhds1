@@ -13,18 +13,18 @@ export let config = {
     "presentationConfig": {
         "main": true,
         "ldl": true,
-        "ldlClock": true
+        "ldlClock": true,
+        "backgrounds": true,
+        "repeatMain": false,
     },
 
     "loadingScreen": false,
     "topbarStyle": "domestic", // domestic or weatherscan.
-    "mainRepeat": false,
     "videoType": 0, // sets the aspect ratio
     "textureFiltering": true, // ONLY AFFECTS RADAR. whether to use pixelated or smooth image rendering.
     "systemTimeZone": "America/Regina", // tz_database. https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
     "tickerContent": "", // empty = hides scroll. add any text to it to show a crawl on the LDL.
     "overrideBackgroundImage": "", // skips the background rotation and uses the URL provided.
-    "enableBackgrounds": true, // enables or disables the background
     "backgroundSource": "local", // set to local to use the locally stored default backgrounds, set value to online to use the Bing background api thing.
     "verboseLogging": false // enables or disables console.log
 }

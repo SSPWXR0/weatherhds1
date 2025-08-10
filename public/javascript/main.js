@@ -15,6 +15,15 @@ const timeLDL = document.getElementById("timeLDL");
 
 function ScaleViewportToTheWindowIGuessLmao() {
 
+    const videoTypeParam = new URLSearchParams(window.location.search).get('videoType');
+
+    if (videoTypeParam !== null) {
+        const parsed = parseInt(videoTypeParam, 10);
+            if (!isNaN(parsed)) {
+                config.videoType = parsed;
+            }
+}
+
     const containerWidth = window.innerWidth;
     const containerHeight = window.innerHeight;
 
@@ -100,6 +109,26 @@ function clock() { // partially copied from weatherHDS 2
 setInterval(clock, 1000)
 
 function presentationType() {
+
+
+    const enabledPresentations = new URLSearchParams(window.location.search).get('enabledPresentations');
+
+    if (enabledPresentations !== null) {
+        const enabledList = enabledPresentations.split(',').map(item => item.trim());
+
+        for (const key in config.presentationConfig) {
+            if (config.presentationConfig.hasOwnProperty(key)) {
+                config.presentationConfig[key] = false;
+            }
+        }
+
+        for (const key of Object.keys(config.presentationConfig)) {
+            if (enabledList.includes(key.toLowerCase())) {
+                config.presentationConfig[key] = true;
+            }
+        }
+    }
+
     if (config.presentationConfig.main != true) {
         wallpaper.style.display = `none`
         mainSlides.style.display = `none`
@@ -115,7 +144,7 @@ function presentationType() {
         ldlContainer.style.display = `none`;
     }
 
-    if (config.ldlClock === false) {
+    if (config.presentationConfig.ldlClock === false) {
         timeLDL.style.display = `none`
         dateLDL.style.display = `none`
     }

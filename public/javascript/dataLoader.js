@@ -59,7 +59,7 @@ async function fetchOnlineBackground() {
 }
 
 async function runBackground() {
-  if (!config.enableBackgrounds) return;
+  if (!config.presentationConfig.backgrounds) return;
 
   if (config.backgroundSource === "local") {
     backgroundCycle();

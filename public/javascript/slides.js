@@ -159,7 +159,7 @@ function nextSlide() {
     if (slideIndex < totalSlides) {
         showSlide(slideIndex);
     } else {
-        switch (config.mainRepeat) {
+        switch (config.presentationConfig.repeatMain) {
             case false:
                     cancelSlideshow()
                 break;
