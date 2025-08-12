@@ -15,7 +15,7 @@ export let config = {
         "ldl": true,
         "ldlClock": true,
         "backgrounds": true,
-        "repeatMain": false,
+        "repeatMain": true,
     },
 
     "loadingScreen": false,

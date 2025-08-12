@@ -111,16 +111,34 @@ setInterval(clock, 1000)
 function presentationType() {
 
 
-    const enabledPresentations = new URLSearchParams(window.location.search).get('enabledPresentations');
+    const mainPres = new URLSearchParams(window.location.search).get('main');
+    const ldlPres = new URLSearchParams(window.location.search).get('ldl');
+    const backgrounds = new URLSearchParams(window.location.search).get('backgrounds');
+    const repeatMain = new URLSearchParams(window.location.search).get('repeatMain');
+    const ldlClock = new URLSearchParams(window.location.search).get('ldlClock');
 
-    if (enabledPresentations !== null) {
-        const enabledList = enabledPresentations.split(',').map(item => item.trim());
+    if (mainPres !== null) {
+        const parsed = mainPres.toLowerCase() === 'true';
+        config.presentationConfig.main = parsed;
+    }
 
-        for (const key of Object.keys(config.presentationConfig)) {
-            if (enabledList.includes(key.toLowerCase())) {
-                config.presentationConfig[key] = true;
-            }
-        }
+    if (ldlPres !== null) {
+        const parsed = ldlPres.toLowerCase() === 'true';
+        config.presentationConfig.ldl = parsed;
+    }
+    
+    if (backgrounds !== null) {
+        const parsed = backgrounds.toLowerCase() === 'true';
+        config.presentationConfig.backgrounds = parsed;
+    }
+    if (repeatMain !== null) {
+        const parsed = repeatMain.toLowerCase() === 'true';
+        config.presentationConfig.repeatMain = parsed;
+    }
+
+    if (ldlClock !== null) {
+        const parsed = ldlClock.toLowerCase() === 'true';
+        config.presentationConfig.ldlClock = parsed;
     }
 
     if (config.presentationConfig.main != true) {
@@ -129,6 +147,12 @@ function presentationType() {
         topBar.style.display = `none`
     } else {
         ldlBranding.style.display = `none`
+    }
+
+    if (config.presentationConfig.backgrounds != true) {
+        wallpaper.style.display = `none`
+    } else {
+        wallpaper.style.display = `block`
     }
 
     if (config.presentationConfig.ldl != true) {
