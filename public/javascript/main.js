@@ -18,10 +18,8 @@ function ScaleViewportToTheWindowIGuessLmao() {
     const videoTypeParam = new URLSearchParams(window.location.search).get('videoType');
 
     if (videoTypeParam !== null) {
-        const parsed = parseInt(videoTypeParam, 10);
-            if (!isNaN(parsed)) {
-                config.videoType = parsed;
-            }
+        const parsed = String(videoTypeParam).toLowerCase();
+        config.videoType = parsed;
 }
 
     const containerWidth = window.innerWidth;
@@ -30,30 +28,23 @@ function ScaleViewportToTheWindowIGuessLmao() {
     let width
     let height
 
-    if (config.videoType === 0) { // 4:3 aspect ratio
-        width = 640
-        height = 480
+    const videoModes = {
+        vga: { width: 640, height: 480, viewportWidth: `640px`, bottom: null },
+        hdtv: { width: 854, height: 480, viewportWidth: `854px`, bottom: `-3%` },
+        ntsc: { width: 720, height: 480, viewportWidth: `720px`, bottom: `-3%` },
+        tablet: { width: 768, height: 480, viewportWidth: `768px`, bottom: `-3%` }
+    };
 
-        viewport.style.width = `640px`
-    } else if (config.videoType === 1) { // 16:9 aspect ratio
-        width = 854
-        height = 480
+    const mode = videoModes[config.videoType] || videoModes.vga;
 
-        viewport.style.width = `854px`
-        ldlContainer.style.bottom = `-3%`
-    } else if (config.videoType === 2) { // NTSC aspect ratio
-        width = 720
-        height = 480
+    width = mode.width;
+    height = mode.height;
+    viewport.style.width = mode.viewportWidth;
 
-        viewport.style.width = `720px`
-        ldlContainer.style.bottom = `-3%`
-    } else { // 16:10 aspect ratio
-        width = 768
-        height = 480
-
-        viewport.style.width = `768px`
-        ldlContainer.style.bottom = `-3%`
+    if (mode.bottom !== null) {
+        ldlContainer.style.bottom = mode.bottom;
     }
+
     
 
     const scaleRatioWidth = containerWidth / width;

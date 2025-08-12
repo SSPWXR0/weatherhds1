@@ -2,8 +2,8 @@
 
 export let config = {
     "networkName": "METEOChannel", // sets the network name.
-    "affiliateName": "SSPWXR Media Group", // your affiliate.
-    "channelNumber": "sspwxr02", // channel id.
+    "affiliateName": "Mist Weather Media", // your affiliate.
+    "channelNumber": "/sspwxr", // channel id.
     "videoBackgrounds": true, // enables or disables the video backgrounds on the current conditions slide.
     "currentConditionsGradient": true, // current conditions gradient based on current time relative to sunrise or sunset.
     "staticIcons": false, // would you like icons that dont move?
@@ -20,7 +20,7 @@ export let config = {
 
     "loadingScreen": false,
     "topbarStyle": "domestic", // domestic or weatherscan.
-    "videoType": 0, // sets the aspect ratio
+    "videoType": "hdtv", // sets the aspect ratio
     "textureFiltering": true, // ONLY AFFECTS RADAR. whether to use pixelated or smooth image rendering.
     "systemTimeZone": "America/Regina", // tz_database. https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
     "tickerContent": "", // empty = hides scroll. add any text to it to show a crawl on the LDL.
