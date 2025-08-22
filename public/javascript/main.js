@@ -31,8 +31,8 @@ function ScaleViewportToTheWindowIGuessLmao() {
     const videoModes = {
         vga: { width: 640, height: 480, viewportWidth: `640px`, bottom: null },
         hdtv: { width: 854, height: 480, viewportWidth: `854px`, bottom: `-3%` },
-        ntsc: { width: 720, height: 480, viewportWidth: `720px`, bottom: `-3%` },
-        tablet: { width: 768, height: 480, viewportWidth: `768px`, bottom: `-3%` }
+        ntsc: { width: 720, height: 480, viewportWidth: `720px`, bottom: null },
+        tablet: { width: 768, height: 480, viewportWidth: `768px`, bottom: null }
     };
 
     const mode = videoModes[config.videoType] || videoModes.vga;
