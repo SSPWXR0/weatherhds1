@@ -50,7 +50,7 @@
 </ul>
 
 <h3>URL parameters </h3>
-<i>(<code>?main=true</code> or <code>false</code>)</i>
+<i>Example: <code>http://localhost:3000/?videoType=hdtv&ldl=true&background=true</code></i>
 <ul>
   <li><code>videoType</code>: Sets the video type. Please see entry #3 of features.</li>
   <li><code>main</code>: Enables/disables main presentation mode.</li>
