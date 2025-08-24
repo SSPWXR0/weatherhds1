@@ -1,6 +1,7 @@
 import { data, imageIndex, locationsList, units } from './dataLoader.js'
 import { slideIndex, showSlide } from './slides.js';
 import { config, weatherIcons } from "./config.js";
+import { drawMap, resizeThing } from './radar.js';
 
 const animationFormat = 'avif';
 
@@ -77,6 +78,8 @@ async function mainData() {
                 const currentData = latestData.current;
                 const forecastData = latestData.weekly;
                 const specialData = latestData.special;
+                const lat = latestData.coordinates.lat;
+                const lon = latestData.coordinates.lon;
 
                 currentLocationText.style.display = `none`
                 currentLocationText.style.animation = `switchModules 0.5s ease-in-out`
@@ -443,14 +446,15 @@ async function mainData() {
 
                 populateForecastSlides()
 
-                function mainRadar() {
-                    const radarContainer = document.getElementsByClassName('main-current-radar-container')[0];
-                    const radarImgLink = latestData.radar
+                async function mainRadar() {
+                   
+                    drawMap(lat, lon);
+                    resizeThing()
 
-                    radarContainer.style.backgroundImage = `url(${radarImgLink})`
                 }
 
-                mainRadar()
+                mainRadar();
+
 
                 function alerts() {
                     const alertsSlideContainer = document.getElementById('alerts')

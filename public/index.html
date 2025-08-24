@@ -13,11 +13,15 @@
     <script type="module" src="javascript/ldl.js" defer></script>
     <script type="module" src="javascript/slides.js" defer></script>
     <script type="module" src="javascript/config.js" defer></script>
+    <script type="module" src="javascript/radar.js" defer></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.js"></script>
     <script src='https://joeiddon.github.io/perlin/perlin.js'></script>
 </head>
 
 <body>
     <div class="view">
+
         <div id="loading-screen">
             <div id="loadingscreen-spinny"></div>
             <p id="loadingscreen-versionID"></p>
@@ -58,6 +62,9 @@
             </div>
         </div>
 
+        <div class="main-radar" id="radar-div-so-that-mapbox-will-be-happy"></div>
+
+
         <div class="main-slides">
 
             <div id="stationid" class="main-slide">
@@ -75,16 +82,12 @@
                     </div>
                     <div class="main-info-hds1info">
                         <img class="hdsLogo" src="/images/hdslogo_2024.png" alt="WeatherHDS 1 logo">
-                        <h6 class="versionID">version 1-2025.08.12</h3>
+                        <h6 class="versionID">version 1-2025.08.24</h3>
                     </div>
                 </div>
             </div>
 
-            <div id="radar" class="main-slide">
-                <div class="main-current-radar-container">
-                    
-                </div>
-            </div>
+            <div id="radar" class="main-slide"></div>
 
             <div id="alerts" class="main-slide">
 

@@ -31,7 +31,7 @@ body {
 /* THE MAIN SLIDES */
 
 #stationid {
-  display: block;
+  display: none;
 }
 #alerts {
   display: none;
@@ -40,7 +40,7 @@ body {
   display: none;
 }
 #radar {
-  display: none;
+  display: block;
 }
 #forecast-shortterm {
   display: none;
@@ -512,22 +512,32 @@ hr {
 }
 /* RADAR */
 #radar {
+  position: relative;
 	z-index: -1;
 	width: 100%;
-	height: 100%;
+	height: 480px;
 	max-width: 100% !important;
 	position: absolute;
-	top: -1%;
 }
-.main-current-radar-container {
-  background-color: #000000;
+.mapboxgl-control-container {
+  width: 100%;
+  height: 480px !important;
+  image-rendering: pixelated;
+}
+
+.main-radar {
+  position: absolute !important;
   width: 100%;
   height: 100%;
-  top: 0px;
-  image-rendering: pixelated !important;
-  background-size: cover;
-  background-position: center;
-  background-image: url(/images/nerd-emoji-nerd.gif);
+  top: 0%;
+  opacity: 0%;
+  z-index: -1;
+  pointer-events: none;
+  will-change: opacity, transform;
+}
+
+.mapboxgl-ctrl-bottom-left, .mapboxgl-ctrl-bottom-right {
+  opacity: 0%;
 }
 .main-7day-container {
   display: flex;
@@ -951,6 +961,15 @@ hr {
   }
   100% {
       opacity: 0;
+  }
+}
+
+@keyframes fadeInTypeBeat {
+  0% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 1;
   }
 }
 

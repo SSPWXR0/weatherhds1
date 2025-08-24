@@ -2,6 +2,8 @@ const express = require('express');
 const path = require('path');
 const app = express();
 
+const logTheFrickinTime = `[server.js] | ${new Date().toLocaleString()} |`
+
 const serverConfig = {
   "twcApiKey": "e1f10a1e78da46f5b10a1e78da96f525",
   "units": "m",
@@ -37,7 +39,6 @@ async function getWeather(lat, lon, countryCode) { // credit to Dalk
   const currentUrl = await fetch(`https://api.weather.com/v3/wx/observations/current?geocode=${lat},${lon}&units=${serverConfig.units}&language=en-US&format=json&apiKey=${serverConfig.twcApiKey}`);
   const weeklyUrl = await fetch(`https://api.weather.com/v3/wx/forecast/daily/7day?geocode=${lat},${lon}&format=json&units=${serverConfig.units}&language=en-US&apiKey=${serverConfig.twcApiKey}`);
   const alertsUrl = await fetch(`https://api.weather.com/v3/alerts/headlines?geocode=${lat},${lon}&format=json&language=en-US&apiKey=${serverConfig.twcApiKey}`);
-  const radarUrl = await fetch(`https://api.weather.com/v2/maps/dynamic?geocode=${lat.toFixed(1)}0,${lon.toFixed(1)}0&h=320&w=568&lod=8&product=twcRadarHcMosaic&map=dark&language=en-US&format=png&apiKey=${serverConfig.twcApiKey}&a=0`)
   const aqiUrl = await fetch(`https://api.weather.com/v3/wx/globalAirQuality?geocode=${lat},${lon}&language=en-US&scale=EPA&format=json&apiKey=${serverConfig.twcApiKey}`);
   const pollenUrl = await fetch(`https://api.weather.com/v2/indices/pollen/daypart/3day?geocode=${lat},${lon}&language=en-US&format=json&apiKey=${serverConfig.twcApiKey}`);
 /*   const runningUrl = await fetch(`https://api.weather.com/v2/indices/runWeather/daypart/3day?geocode=${lat},${lon}&language=en-US&format=json&apiKey=${serverConfig.twcApiKey}`);
@@ -54,11 +55,11 @@ async function getWeather(lat, lon, countryCode) { // credit to Dalk
 
   try {
     if (alertsUrl.status === 204) {
-      console.info(`No alerts in effect for ${lat}, ${lon}`);
+      console.info(`${logTheFrickinTime} No alerts in effect for ${lat}, ${lon}`);
       alerts = [];
     } else {
       alerts = await alertsUrl.json();
-      console.info(`Fetched alerts for ${lat}, ${lon}:`);
+      console.info(`${logTheFrickinTime} Fetched alerts for ${lat}, ${lon}:`);
 
       if (alerts.alerts && alerts.alerts.length > 0) {
         const alertId = alerts.alerts[0].detailKey;
@@ -67,14 +68,13 @@ async function getWeather(lat, lon, countryCode) { // credit to Dalk
         if (alertDetailsUrl.ok) {
           alertDetails = await alertDetailsUrl.json();
         } else {
-          console.error(`Failed to fetch alert details: ${alertDetailsUrl.status} ${alertDetailsUrl.statusText}`);
+          console.error(`${logTheFrickinTime} Failed to fetch alert details: ${alertDetailsUrl.status} ${alertDetailsUrl.statusText}`);
         }
       }
     }
   } catch (error) {
-    console.error('Error fetching weather alerts:', error);
+    console.error('${logTheFrickinTime} Error fetching weather alerts:', error);
   }
-  const radar = radarUrl.url;
   const aqi = await aqiUrl.json();
   const pollen = await pollenUrl.json();
   /* const running = await runningUrl.json();
@@ -84,14 +84,13 @@ async function getWeather(lat, lon, countryCode) { // credit to Dalk
   const golf = await golfUrl.json();
   const heating = await heatingUrl.json(); */
 
-  console.log(`[server.js] | ${new Date().toLocaleString()} | Successfully saved current weather conditions`)
+  console.log(`${logTheFrickinTime} Successfully saved current weather conditions`)
 
   const weatherData = {
     current: current,
     weekly: weekly,
     alerts: alerts,
     alertDetails: alertDetails,
-    radar: radar,
     special: { aqi: aqi, pollen: pollen },
 /*     indices: { 
       spring: { running: running, mosquito: mosquito, golf: golf },
@@ -278,9 +277,9 @@ app.get('/bing-background', async (req, res) => {
       const response = await fetch('https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=en-US');
       const data = await response.json();
       res.json(data);
-      console.log("Client requested Bing background image.")
+      console.log("${logTheFrickinTime} Client requested Bing background image.")
   } catch (error) {
-      res.status(500).json({ error: 'Failed to fetch Bing background' });
+      res.status(500).json(`${logTheFrickinTime} Error fetching Bing background image: ${error}`);
   }
 });
 

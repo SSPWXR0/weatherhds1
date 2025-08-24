@@ -1,12 +1,13 @@
 import { config } from "./config.js";
 import { nextLocation } from './weather.js';
 import { locationsList } from './dataLoader.js';
+import { resizeThing } from "./radar.js";
 
 const presentationSlides = {
     "0": { title: "Welcome!", htmlID: "stationid", durationMS: "6000"},
     "1": { title: "Weather Alerts", htmlID: "alerts", durationMS: "8000"},
     "2": { title: "Current Conditions", htmlID: "current", durationMS: "20000"},
-    "3": { title: "Latest Radar Image", htmlID: "radar", durationMS: "8000"},
+    "3": { title: "3 Hour Radar", htmlID: "radar", durationMS: "8000"},
     "4": { title: "Day One Forecast", htmlID: "forecast-shortterm", durationMS: "8000"},
     "5": { title: "Day Two Forecast", htmlID: "forecast-shortterm-d2", durationMS: "8000"},
     "6": { title: "Extended Outlook", htmlID: "forecast-extended", durationMS: "10000" },
@@ -20,6 +21,8 @@ let slideDurationSec
 let totalSlideDurationMS
 let totalSlideDurationSec
 export let slideIndex = 0;
+const radarDiv = document.getElementsByClassName('main-radar')[0]
+const topBarDiv = document.getElementsByClassName('topbar')[0]
 
 const weatherHDSVersionNumber = document.getElementsByClassName('versionID')[0].innerText
 
@@ -58,6 +61,8 @@ function runMainCurrentSlide() {
 
     setTimeout(() => {
         module1.style.animation = 'fadeModule 0.4s ease-out 1';
+        radarDiv.style.display = `block` // radar shit ignore
+        resizeThing()
 
         setTimeout(() => {
             module1.style.display = 'none';
@@ -99,6 +104,14 @@ function runExtendedSlide() {
         document.getElementsByClassName('main-forecast-day')[3].style.animation = ``
         document.getElementsByClassName('main-forecast-day')[4].style.animation = ``
     }, slideDurationMS);
+}
+
+function runRadarSlide() {
+    radarDiv.style.animation = `fadeInTypeBeat 300ms ease forwards`
+    setTimeout(() => {
+        radarDiv.style.animation = `fadeModule 300ms ease`
+    }, slideDurationMS + 100);
+    radarDiv.style.display = `block`
 }
 
 export function showSlide(index) {
@@ -149,6 +162,9 @@ export function showSlide(index) {
     if (presentationSlides[index].htmlID === 'forecast-extended') {
         runExtendedSlide()
     }
+        if (presentationSlides[index].htmlID === 'radar') {
+        runRadarSlide()
+    }
 }
 
 function nextSlide() {
@@ -176,6 +192,7 @@ function nextSlide() {
 }
 
 function startSlideshow() {
+    radarDiv.style.display = `none`
     showSlide(slideIndex);
     setTimeout(nextSlide, slideDurationMS);
 }
