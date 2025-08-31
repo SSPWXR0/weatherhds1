@@ -217,4 +217,4 @@ export function everythingConfigLmao() {
 
 setTimeout(() => {
     location.reload();
-  }, 172800000);
+  }, 28800000);
