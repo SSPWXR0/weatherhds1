@@ -165,13 +165,24 @@ runDataInterval()
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.listen(serverConfig.webPort, () => {
-  console.log(`http server listening on http://localhost:${serverConfig.webPort}`);
+let preferredPort = process.env.PORT || serverConfig.webPort;
 
-  setInterval(() => {
-    console.log(`http server listening on http://localhost:${serverConfig.webPort}`);
-  }, 3600000);
-});
+function startServer(port) {
+    const server = app.listen(port, () => {
+        console.log(`HTTP server listening on http://localhost:${port}`);
+    });
+
+    server.on('error', (error) => {
+        if (error.code === 'EADDRINUSE') {
+            console.warn(`Port ${port} is already in use, trying port ${port + 1}`);
+            startServer(port + 1);
+        } else {
+            console.error('Server error:', error);
+        }
+    });
+}
+
+startServer(preferredPort);
 
 app.get('/data', (req, res) => {
   res.send("ARE YOU HAVE STUPID??? YOU ARE SUPOSED TO AD PARAMTER LIKE /data/MEMPHOS?loctype=primary!!!!!")
