@@ -1,4 +1,4 @@
-// WeatherHDS client configuration. To configure server-side data, please edit server.js.
+// WeatherHDS system and presentation configuration.
 
 export let config = {
     "networkName": "METEOChannel", // sets the network name.
@@ -21,12 +21,51 @@ export let config = {
     "loadingScreen": false,
     "topbarStyle": "domestic", // domestic or weatherscan.
     "videoType": "hdtv", // sets the aspect ratio
-    "textureFiltering": true, // ONLY AFFECTS RADAR. whether to use pixelated or smooth image rendering.
     "systemTimeZone": "America/Regina", // tz_database. https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
     "tickerContent": "", // empty = hides scroll. add any text to it to show a crawl on the LDL.
-    "overrideBackgroundImage": "", // skips the background rotation and uses the URL provided.
-    "backgroundSource": "local", // set to local to use the locally stored default backgrounds, set value to online to use the Bing background api thing.
+    "overrideBackgroundImage": "https://media.discordapp.net/attachments/1348858070658453525/1409929202265751693/image.png?ex=68b71365&is=68b5c1e5&hm=4e4ece49820cef27a2584c52a0853880948b54bdbf224ef8c8dc5df0e5395b31&=&width=283&height=856", // skips the background rotation and uses the URL provided.
+    "backgroundSource": "online", // set to local to use the locally stored default backgrounds, set value to online to use the Bing background api thing.
     "verboseLogging": false // enables or disables console.log
+}
+
+export const locationConfig = {
+  locations: [
+    { name: "DUMMY LOCATION", type: "startPadding" },
+    { name: "Saskatoon, SK", type: "primary" },
+    { name: "Warman, SK", type: "secondary" },
+    { name: "Outlook, SK", type: "secondary"},
+    { name: "North Battleford, SK", type: "secondary" },
+    { name: "Humboldt, SK", type: "secondary" },
+
+    { name: "Prince Albert, SK", type: "primary" },
+    { name: "Melfort, SK", type: "secondary" },
+    { name: "Rosthern, SK", type: "secondary" },
+    { name: "Waskesiu Lake, SK", type: "secondary" },
+    { name: "Wakaw, SK", type: "secondary" },
+
+    { name: "Regina, SK", type: "regional" },
+    { name: "Winnipeg, MB", type: "regional" },
+    { name: "Edmonton, AB", type: "regional" },
+    { name: "Calgary, AB", type: "regional" },
+    { name: "Vancouver, BC", type: "regional" },
+  ],
+
+  ldlLocations: [
+    "Saskatoon, SK",
+    "Outlook, SK",
+    "Rosetown, SK",
+    "Melfort, SK",
+    "North Battleford, SK",
+    "Lloydminster, AB",
+    "Regina, SK"
+  ]
+};
+
+export const serverConfig = {
+  "twcApiKey": "e1f10a1e78da46f5b10a1e78da96f525",
+  "units": "m",
+  "webPort": 3000,
+  "cacheValidTime": 480 //in seconds
 }
 
 export const weatherIcons = {
@@ -79,3 +118,5 @@ export const weatherIcons = {
     "46": ["partly-cloudy-night-sleet.svg", "partly-cloudy-night-sleet.svg"],
     "47": ["thunderstorms-night.svg", "thunderstorms-night.svg"]
 }
+
+export const versionID = '1-2025.09.08'

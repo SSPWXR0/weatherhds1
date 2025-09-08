@@ -11,11 +11,7 @@ const maxLoops = 12;
 let i = 0;
 let map = null;
 
-export function resizeThing() {
-    map.resize()
-}
-
-export async function drawMap(lat, lon) {
+export async function drawMap(lat, lon, product, zoom, htmlID) {
 
     let cityLngLat = [lon, lat];
     console.log(cityLngLat)
@@ -28,19 +24,26 @@ export async function drawMap(lat, lon) {
     let radar_frame_rate = total_frames / total_time_s;
     console.log(radar_frame_rate);
 
-
-    map = new mapboxgl.Map({
-        container: "radar-div-so-that-mapbox-will-be-happy",
-        style: 'mapbox://styles/peytonwdym/clov0gd3u00mj01pe1wmhb2j5',
+    if (!map) {
+        map = new mapboxgl.Map({
+        container: htmlID,
+        style: 'mapbox://styles/mapbox/navigation-night-v1',
         center: cityLngLat,
         accessToken: config.token,
         telemetry: false,
         interactive: false,
         dragging: false,
-        zoom: 6,
+        zoom: zoom,
     });
+    map.on('load', fetchTiles);
 
-    map.on('load', async () => {
+    } else {
+        map.setCenter(cityLngLat);
+        map.setZoom(zoom);
+        fetchTiles();
+    }
+
+    async function fetchTiles() {
             map.resize()
 
             i = 0;
@@ -60,9 +63,9 @@ export async function drawMap(lat, lon) {
                         source: {
                             type: "raster",
                             tiles: [
-                                `https://api.weather.com/v3/TileServer/tile/twcRadarMosaic?ts=${timestamp.ts}&xyz={x}:{y}:{z}&apiKey=${config.twcApiKey}`
+                                `https://api.weather.com/v3/TileServer/tile/${product}?ts=${timestamp.ts}&xyz={x}:{y}:{z}&apiKey=${config.twcApiKey}`
                             ],
-                            tileSize: 512
+                            tileSize: 256
                         },
                         layout: {
                             visibility: index === 0 ? 'visible' : 'none'
@@ -71,11 +74,23 @@ export async function drawMap(lat, lon) {
                 }
             });
         animateRadar();
-    });
+
+          map.getStyle().layers.forEach(layer => {
+            if (layer.type === 'symbol' && layer.layout && layer.layout['text-size']) {
+                map.setLayoutProperty(layer.id, 'text-size', 40);
+                map.setLayoutProperty('road-number-shield-navigation', 'text-size', 18);
+            }
+
+            map.on('error', e => {
+
+            if (e && e.error !== 'Error: Not Found')
+                console.error(e);
+            });
+        });
+    }
+
 }
-
-
-    //const weatherRadarTime = document.getElementById("main-radar-current-time"); not implemented yet too lazy
+    const weatherRadarTime = document.getElementById("main-radar-time");
 
     function animateRadar() {
         if (!radarTimeSlices || radarTimeSlices.length === 0) return;
@@ -94,7 +109,7 @@ export async function drawMap(lat, lon) {
                 const timestamp = radarTimeSlices[i];
                 const localDate = new Date(timestamp.ts * 1000);
                 const timeString = localDate.toLocaleTimeString();
-                //weatherRadarTime.innerHTML = `Time: ${timeString}`;
+                weatherRadarTime.innerHTML = `Time: ${timeString}`;
 
                 radarTimeSlices.forEach((t, idx) => {
                     map.setLayoutProperty(`radarlayer_${t.ts}`, "visibility", idx === i ? "visible" : "none");

@@ -1,5 +1,5 @@
-import { ldlData, locationsList, units } from './dataLoader.js'
-import { config, weatherIcons } from "./config.js";
+import { locationsList, units } from './data.js'
+import { config, weatherIcons } from "../config.js";
 
 const ldlPresentationSlides = {
     "0": { htmlID: "ldl-current", durationMS: "20000" },
@@ -20,7 +20,67 @@ const locationLabel = document.getElementById('ldl-location-label')
 let ldlLocationIndex = 0;
 let ldlSlideIndex = 0;
 let iconDir
+
 let endingTemp, endingWind, endingDistance, endingMeasurement, endingCeiling, endingPressure, endingSnow, endingRain;
+
+const bulletinCrawlContainer = document.getElementsByClassName('ldl-bulletin-crawl')[0]
+
+bulletinCrawlContainer.style.display = `none`
+
+export function showBulletinCrawl(text, alertCategory, headlineText) {
+
+  /*
+    W = warning
+    S = advisory
+    A = watch
+  */
+
+  bulletinCrawlContainer.style.display = `block`
+  const beep = new Audio('../audio/beep.flac');
+  document.getElementById('ldl-bulletin-text').innerText = text
+  document.getElementById('ldl-bulletin-metadata-text').innerText = headlineText
+
+  switch (alertCategory) {
+    case "W":
+      bulletinCrawlContainer.style.background = `radial-gradient(circle,rgba(188, 57, 33, 1) 4%, rgba(56, 8, 0, 1) 100%)`
+      break;
+    case "A":
+      bulletinCrawlContainer.style.background = `radial-gradient(circle,rgba(247, 231, 136, 1) 4%, rgba(56, 35, 0, 1) 100%)`
+      break;
+    case "S":
+      bulletinCrawlContainer.style.background = `radial-gradient(circle,rgba(87, 170, 87, 1) 4%, rgba(0, 56, 53, 1) 100%)`
+      break;
+    case "Y":
+      bulletinCrawlContainer.style.background = `radial-gradient(circle,rgba(87, 170, 87, 1) 4%, rgba(0, 56, 53, 1) 100%)`
+      break;
+  }
+
+  bulletinCrawlContainer.animate(
+    [
+      { backgroundPosition: '10% 60%' },
+      { backgroundPosition: '10% 500%' },
+      { backgroundPosition: '10% 60%' },
+    ],
+    {
+      duration: 3000,
+      iterations: Infinity,
+      direction: 'alternate',
+      easing: 'ease-in-out'
+    }
+  )
+
+
+  $(document).ready(function(){
+            $('#ldl-bulletin-text').marquee({
+                duration: 20000,
+                gap: 1024,
+                direction: 'left',
+                duplicated: true, 
+                pauseOnHover: true,
+            })
+        })
+  beep.play();
+}
 
 async function LDLData() {
     try {
@@ -52,7 +112,7 @@ async function LDLData() {
             endingSnow = "cm"
             endingRain = "mm"
         }
-  
+
         if (ldlLocationIndex < locationsList.locationIndex.ldlLocations.length) {
           
           const locationName = locationsList.locationIndex.ldlLocations[ldlLocationIndex];
@@ -349,9 +409,9 @@ function runProgressBar() {
 }
 
 export function runInitialLDL() {
-  runProgressBar()
-  LDLData()
-  showLDLSlide()
+  //runProgressBar()
+  //LDLData()
+  //showLDLSlide()
 
   if (config.verboseLogging === true) {
     console.log("Total Duration (ms):", totalDuration);

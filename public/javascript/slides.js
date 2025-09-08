@@ -1,201 +1,352 @@
-import { config } from "./config.js";
-import { nextLocation } from './weather.js';
-import { locationsList } from './dataLoader.js';
-import { resizeThing } from "./radar.js";
+import { config, locationConfig, versionID } from "../config.js";
+import { appendDatatoMain, animateIntraday } from "./weather.js";
 
-const presentationSlides = {
-    "0": { title: "Welcome!", htmlID: "stationid", durationMS: "6000"},
-    "1": { title: "Weather Alerts", htmlID: "alerts", durationMS: "8000"},
-    "2": { title: "Current Conditions", htmlID: "current", durationMS: "20000"},
-    "3": { title: "3 Hour Radar", htmlID: "radar", durationMS: "8000"},
-    "4": { title: "Day One Forecast", htmlID: "forecast-shortterm", durationMS: "8000"},
-    "5": { title: "Day Two Forecast", htmlID: "forecast-shortterm-d2", durationMS: "8000"},
-    "6": { title: "Extended Outlook", htmlID: "forecast-extended", durationMS: "10000" },
-    "7": { title: "7 Day High and Lows", htmlID: "7day-graph", durationMS: "10000" },
-    "8": { title: "Air Quality", htmlID: "airquality", durationMS: "8000"},
-    "9": { title: "Again... Current Conditions", htmlID: "current", durationMS: "10000"},
+const playlistSettings = {
+    defaultAnimationIn: `mainPresentationSlideIn 500ms ease-in-out`,
+    defaultAnimationOut: `mainPresentationSlideOut 500ms ease-in-out forwards`,
 }
+
+const preferredPlaylist = {
+
+    startPadding: [
+        {
+            htmlID: "stationid",
+            title: "Welcome!",
+            duration: 10000,
+            animationIn: playlistSettings.defaultAnimationIn,
+            animationOut: playlistSettings.defaultAnimationOut
+        }
+    ],
+
+    mainPlaylist: [
+        {
+            htmlID: "current",
+            title: "Current Conditions",
+            duration: 10000,
+            dynamicFunction: runMainCurrentSlide,
+            animationIn: playlistSettings.defaultAnimationIn,
+            animationOut: playlistSettings.defaultAnimationOut
+        },
+        {
+            htmlID: "radar",
+            title: "3 Hour Radar",
+            duration: 10000,
+            dynamicFunction: runRadarSlide,
+            animationIn: playlistSettings.defaultAnimationIn,
+            animationOut: playlistSettings.defaultAnimationOut
+        },
+        {
+            htmlID: "forecast-intraday",
+            title: "Intraday Forecast",
+            duration: 10000,
+            dynamicFunction: animateIntraday,
+            animationIn: playlistSettings.defaultAnimationIn,
+            animationOut: playlistSettings.defaultAnimationOut
+        },
+        {
+            htmlID: "forecast-shortterm-d1",
+            title: "Day One",
+            duration: 10000,
+            dynamicFunction: null,
+            animationIn: playlistSettings.defaultAnimationIn,
+            animationOut: playlistSettings.defaultAnimationOut
+        },
+        {
+            htmlID: "forecast-shortterm-d2",
+            title: "Day Two",
+            duration: 10000,
+            dynamicFunction: null,
+            animationIn: playlistSettings.defaultAnimationIn,
+            animationOut: playlistSettings.defaultAnimationOut
+        },
+        {
+            htmlID: "forecast-extended",
+            title: "Beyond",
+            duration: 10000,
+            dynamicFunction: runExtendedSlide,
+            animationIn: playlistSettings.defaultAnimationIn,
+            animationOut: playlistSettings.defaultAnimationOut
+        },
+        {
+            htmlID: "7day-graph",
+            title: "Daily Highs & Lows",
+            duration: 10000,
+            dynamicFunction: null,
+            animationIn: playlistSettings.defaultAnimationIn,
+            animationOut: playlistSettings.defaultAnimationOut
+        },
+        {
+            htmlID: "airquality",
+            title: "Current AQI",
+            duration: 10000,
+            dynamicFunction: null,
+            animationIn: playlistSettings.defaultAnimationIn,
+            animationOut: playlistSettings.defaultAnimationOut
+        },
+    ],
+    secondaryLocalePlaylist: [
+        {
+            htmlID: "current",
+            title: "Current Conditions",
+            duration: 10000,
+            dynamicFunction: runMainCurrentSlide,
+            animationIn: playlistSettings.defaultAnimationIn,
+            animationOut: playlistSettings.defaultAnimationOut
+        },
+        {
+            htmlID: "radar",
+            title: "3 Hour Radar",
+            duration: 10000,
+            dynamicFunction: runRadarSlide,
+            animationIn: playlistSettings.defaultAnimationIn,
+            animationOut: playlistSettings.defaultAnimationOut
+        },
+        {
+            htmlID: "forecast-shortterm-d1",
+            title: "Short-term Forecast",
+            duration: 10000,
+            dynamicFunction: null,
+            animationIn: playlistSettings.defaultAnimationIn,
+            animationOut: playlistSettings.defaultAnimationOut
+        },
+        {
+            htmlID: "forecast-shortterm-d2",
+            title: "Short-term Forecast",
+            duration: 10000,
+            dynamicFunction: null,
+            animationIn: playlistSettings.defaultAnimationIn,
+            animationOut: playlistSettings.defaultAnimationOut
+        },
+    ],
+    regionalLocalePlaylist: [
+        {
+            htmlID: "current",
+            title: "Current Conditions",
+            duration: 10000,
+            dynamicFunction: runMainCurrentSlide,
+            animationIn: playlistSettings.defaultAnimationIn,
+            animationOut: playlistSettings.defaultAnimationOut
+        },
+        {
+            htmlID: "radar",
+            title: "3 Hour Radar",
+            duration: 10000,
+            dynamicFunction: runRadarSlide,
+            animationIn: playlistSettings.defaultAnimationIn,
+            animationOut: playlistSettings.defaultAnimationOut
+        },
+    ]
+};
+
 
 let slideDurationMS
-let slideDurationSec
+//let slideDurationSec
 let totalSlideDurationMS
 let totalSlideDurationSec
-export let slideIndex = 0;
+
+const logTheFrickinTime = `[weather.js] | ${new Date().toLocaleString()} |`;
 const radarDiv = document.getElementsByClassName('main-radar')[0]
-const topBarDiv = document.getElementsByClassName('topbar')[0]
 
-const weatherHDSVersionNumber = document.getElementsByClassName('versionID')[0].innerText
-
-for (let slide in presentationSlides) {
-    totalSlideDurationMS += Number(presentationSlides[slide].durationMS);
-}
-
-totalSlideDurationSec = totalSlideDurationMS / 1000;
-
+document.getElementById('station-id-hdsver').innerText = versionID
+document.getElementById('loadingscreen-versionID').innerHTML = `WeatherHDS ${versionID}`
 const currentSlideText = document.getElementById('current-slide');
-
-function runMainCurrentSlide() {
-    const module1 = document.getElementsByClassName('main-current-module1')[0]
-    const module2 = document.getElementsByClassName('main-current-module2')[0]
-
-    module1.style.display = 'block';
-    module2.style.display = 'none';
-    document.getElementsByClassName('main-current-extraproducts')[0].style.display = `none`
-    document.getElementsByClassName('main-current-extraproducts')[1].style.display = `none`
-    document.getElementsByClassName('main-current-extraproducts')[2].style.display = `none`
-    document.getElementsByClassName('main-current-extraproducts')[3].style.display = `none`
-
-    setTimeout(() => {
-        document.getElementsByClassName('main-current-extraproducts')[0].style.animation = `mainPresentationSlideIn 500ms ease-in-out`
-        document.getElementsByClassName('main-current-extraproducts')[1].style.animation = `mainPresentationSlideIn 600ms ease-in-out`
-        document.getElementsByClassName('main-current-extraproducts')[2].style.animation = `mainPresentationSlideIn 700ms ease-in-out`
-        document.getElementsByClassName('main-current-extraproducts')[3].style.animation = `mainPresentationSlideIn 800ms ease-in-out`
-
-        document.getElementsByClassName('main-current-extraproducts')[0].style.display = `flex`
-        document.getElementsByClassName('main-current-extraproducts')[1].style.display = `flex`
-        document.getElementsByClassName('main-current-extraproducts')[2].style.display = `flex`
-        document.getElementsByClassName('main-current-extraproducts')[3].style.display = `flex`
-    }, 500);
+const currentLocationText = document.getElementById('current-location');
+const upNextLocationText = document.getElementById('upnext-location')
+currentSlideText.style.display = 'none';
+currentLocationText.style.display = 'none';
+upNextLocationText.style.display = 'none';
 
 
+let localeIndex = 0
 
-    setTimeout(() => {
-        module1.style.animation = 'fadeModule 0.4s ease-out 1';
-        radarDiv.style.display = `block` // radar shit ignore
-        resizeThing()
+let slideNearEnd, slideEnd;
 
-        setTimeout(() => {
-            module1.style.display = 'none';
-            module1.style.animation = '';
-            module2.style.display = 'block';
-            module2.style.animation = 'switchModules 0.5s ease-out';
-        }, 300);
-    }, slideDurationMS / 2 - 500);
-}
+async function runPlaylist(locale, call) {
+    const loc = locationConfig.locations.find(l => l.name === locale);
+    let selectedPlaylist = preferredPlaylist.mainPlaylist;
 
-function runAirQualitySlide() {
-    document.getElementsByClassName('main-aq-messagebox')[0].style.display = `block`
-    document.getElementsByClassName('main-aq-messagebox')[0].style.display = `block`
-    document.getElementsByClassName('main-aq-messagebox')[1].style.display = `none`
-    document.getElementsByClassName('main-aq-messagebox')[1].style.display = `none`
+    clearTimeout(slideNearEnd);
+    clearTimeout(slideEnd);
 
-    setTimeout(() => {
-        document.getElementsByClassName('main-aq-messagebox')[0].style.animation = `fadeModule 300ms ease-in-out`
-        
-        setTimeout(() => {
-            document.getElementsByClassName('main-aq-messagebox')[0].style.display = `none`
-            document.getElementsByClassName('main-aq-messagebox')[1].style.display = `block`
-            document.getElementsByClassName('main-aq-messagebox')[1].style.animation = `switchModules 500ms ease-in-out`
-        }, 300);
-    }, slideDurationMS / 2 - 500);
-}
-
-function runExtendedSlide() {
-    document.getElementsByClassName('main-forecast-day')[0].style.animation = `switchModules 0.6s ease-in-out`
-    document.getElementsByClassName('main-forecast-day')[1].style.animation = `switchModules 0.7s ease-in-out`
-    document.getElementsByClassName('main-forecast-day')[2].style.animation = `switchModules 0.8s ease-in-out`
-    document.getElementsByClassName('main-forecast-day')[3].style.animation = `switchModules 0.9s ease-in-out`
-    document.getElementsByClassName('main-forecast-day')[4].style.animation = `switchModules 1s ease-in-out`
-
-    setTimeout(() => {
-        document.getElementsByClassName('main-forecast-day')[0].style.animation = ``
-        document.getElementsByClassName('main-forecast-day')[1].style.animation = ``
-        document.getElementsByClassName('main-forecast-day')[2].style.animation = ``
-        document.getElementsByClassName('main-forecast-day')[3].style.animation = ``
-        document.getElementsByClassName('main-forecast-day')[4].style.animation = ``
-    }, slideDurationMS);
-}
-
-function runRadarSlide() {
-    radarDiv.style.animation = `fadeInTypeBeat 300ms ease forwards`
-    setTimeout(() => {
-        radarDiv.style.animation = `fadeModule 300ms ease`
-    }, slideDurationMS + 100);
-    radarDiv.style.display = `block`
-}
-
-export function showSlide(index) {
-    slideDurationMS = Number(presentationSlides[index].durationMS);
-    slideDurationSec = Number(presentationSlides[index].durationMS) / 1000;
-
-    for (let key in presentationSlides) {
-        const slideElement = document.getElementById(presentationSlides[key].htmlID)
-        if (slideElement) {
-            setTimeout(() => {
-                slideElement.style.animation = `mainPresentationSlideIn 500ms ease-in-out`
-            }, slideDurationMS - 500);
-
-            currentSlideText.style.display = `none`
-            currentSlideText.style.animation = `switchModules 0.5s ease-in-out`
-            currentSlideText.innerHTML = `${presentationSlides[index].title}`
-            currentSlideText.style.display = `block`
-
-            slideElement.style.display = 'none';
-        }
+    switch (loc.type) {
+        case "startPadding": selectedPlaylist = preferredPlaylist.startPadding; break;
+        case "secondary": selectedPlaylist = preferredPlaylist.secondaryLocalePlaylist; break;
+        case "regional": selectedPlaylist = preferredPlaylist.regionalLocalePlaylist; break;
+        case "primary":
+        default: selectedPlaylist = preferredPlaylist.mainPlaylist; break;
     }
 
-    const currentSlideElement = document.getElementById(presentationSlides[index].htmlID)
-
-    if (currentSlideElement) {
-        setTimeout(() => {
-            currentSlideElement.style.animation = `mainPresentationSlideOut 350ms ease-in-out 1 forwards`
-        }, slideDurationMS - 300);
-
-        setTimeout(() => {
-            currentSlideText.style.animation = `fadeModule 0.5s ease-out`
-        }, slideDurationMS - 500);
-
-        currentSlideElement.style.display = 'block';    
+    if (locale !== "DUMMY LOCATION" && selectedPlaylist !== preferredPlaylist.startPadding) {
+        await appendDatatoMain(locale, loc?.type);
+        await new Promise(r => setTimeout(r, 300));
     }
 
-    if (config.verboseLogging === true) {
-        console.log(`Showing Main Presentation Slide: ${presentationSlides[index].htmlID} for a duration of ${slideDurationMS}`)       
-    }
+    const slides = document.querySelectorAll('.main-slide');
+    const activeSlides = selectedPlaylist.filter(item =>
+        Array.from(slides).some(el => el.id === item.htmlID)
+    );
 
-    if (presentationSlides[index].htmlID === 'current') {
-        runMainCurrentSlide()
-    }
+    let slideIndex = 0;
 
-    if (presentationSlides[index].htmlID === 'airquality') {
-        runAirQualitySlide()
-    }
-    if (presentationSlides[index].htmlID === 'forecast-extended') {
-        runExtendedSlide()
-    }
-        if (presentationSlides[index].htmlID === 'radar') {
-        runRadarSlide()
-    }
-}
-
-function nextSlide() {
-    
-    slideIndex++;
-    const totalSlides = Object.keys(presentationSlides).length;
-
-    if (slideIndex < totalSlides) {
-        showSlide(slideIndex);
-    } else {
-        switch (config.presentationConfig.repeatMain) {
-            case false:
-                    cancelSlideshow()
-                break;
-        
-            case true:
-                    slideIndex = 0;
-                    nextLocation();
-                break;
+    function showNextSlide() {
+        if (slideIndex >= activeSlides.length) {
+            slides.forEach(s => s.style.display = "none");
+            call?.();
+            return;
         }
 
+        const slide = activeSlides[slideIndex];
+        const el = document.getElementById(slide.htmlID);
+
+        slideDurationMS = slide.duration;
+
+        slides.forEach(s => s.style.display = "none");
+
+        if (el) {
+            el.style.display = "block";
+            el.style.animation = slide.animationIn;
+
+            if (typeof slide.dynamicFunction === "function") {
+                slide.dynamicFunction();
+            }
+        }
+
+        currentSlideText.innerHTML = slide.title;
+        currentSlideText.style.display = "block";
+        currentSlideText.style.animation = `switchModules 0.5s ease-in-out`;
+
+        slideNearEnd = setTimeout(() => {
+            if (el) el.style.animation = slide.animationOut;
+            currentSlideText.style.animation = `fadeModule 0.2s ease-in-out forwards`;
+        }, slide.duration - 500);
+
+        slideEnd = setTimeout(() => {
+            currentSlideText.style.display = "none";
+            currentSlideText.style.animation = "";
+
+            if (!config.presentationConfig.repeatMain && slideIndex === activeSlides.length - 1) {
+                slides.forEach(s => s.style.display = "none");
+                call?.();
+                return;
+            }
+
+            slideIndex++;
+            showNextSlide();
+        }, slide.duration);
     }
 
-    setTimeout(nextSlide, slideDurationMS);
+    showNextSlide();
 }
 
-function startSlideshow() {
-    radarDiv.style.display = `none`
-    showSlide(slideIndex);
-    setTimeout(nextSlide, slideDurationMS);
+function loopLocations() {
+
+    function runNextLocation() {
+
+
+        const location = locationConfig.locations[localeIndex];
+
+        currentLocationText.style.display = `none`
+        currentLocationText.style.animation = `switchModules 0.5s ease-in-out`
+        if (location.name === "DUMMY LOCATION") {
+            currentLocationText.innerHTML = "Please Standby..."
+        } else {
+            currentLocationText.innerHTML = location.name;
+        }
+        currentLocationText.style.display = `block`
+
+        let nextLocation = locationConfig.locations[(localeIndex + 1) % locationConfig.locations.length];
+        
+        upNextLocationText.style.display = `none`
+        upNextLocationText.style.animation = `switchModules 0.5s ease-in-out`
+        upNextLocationText.innerHTML = `Next: ${nextLocation.name}`;
+        upNextLocationText.style.display = `block`
+
+        runPlaylist(location.name, () => {
+            localeIndex = (localeIndex + 1) % locationConfig.locations.length;
+            runNextLocation();
+        });
+
+    }
+
+    runNextLocation();
 }
+
+window.addEventListener('load', loopLocations)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function cancelSlideshow() {
     const wallpaper = document.getElementsByClassName('wallpaper')[0]
@@ -224,8 +375,6 @@ function loadingScreen() {
                 const startyy = Math.random() * 1000;
                 const startzx = Math.random() * 1000;
                 const startzy = Math.random() * 1000;
-            
-                document.getElementById('loadingscreen-versionID').innerHTML = `WeatherHDS ${weatherHDSVersionNumber}`
             
                 setTimeout(() => {
                     document.getElementById('loadingscreen-affiliatename').innerHTML = `Affiliate Name: ${config.affiliateName}`
@@ -259,4 +408,72 @@ function loadingScreen() {
 
 window.onload = loadingScreen()
 
-startSlideshow()
+//startSlideshow()
+
+
+
+
+
+
+
+function runMainCurrentSlide() {
+    const module1 = document.getElementsByClassName('main-current-module1')[0]
+    const module2 = document.getElementsByClassName('main-current-module2')[0]
+
+    module1.style.display = 'block';
+    module2.style.display = 'none';
+    document.getElementsByClassName('main-current-extraproducts')[0].style.display = `none`
+    document.getElementsByClassName('main-current-extraproducts')[1].style.display = `none`
+    document.getElementsByClassName('main-current-extraproducts')[2].style.display = `none`
+    document.getElementsByClassName('main-current-extraproducts')[3].style.display = `none`
+
+    setTimeout(() => {
+        document.getElementsByClassName('main-current-extraproducts')[0].style.animation = `mainPresentationSlideIn 500ms ease-in-out`
+        document.getElementsByClassName('main-current-extraproducts')[1].style.animation = `mainPresentationSlideIn 600ms ease-in-out`
+        document.getElementsByClassName('main-current-extraproducts')[2].style.animation = `mainPresentationSlideIn 700ms ease-in-out`
+        document.getElementsByClassName('main-current-extraproducts')[3].style.animation = `mainPresentationSlideIn 800ms ease-in-out`
+
+        document.getElementsByClassName('main-current-extraproducts')[0].style.display = `flex`
+        document.getElementsByClassName('main-current-extraproducts')[1].style.display = `flex`
+        document.getElementsByClassName('main-current-extraproducts')[2].style.display = `flex`
+        document.getElementsByClassName('main-current-extraproducts')[3].style.display = `flex`
+    }, 500);
+
+
+
+    setTimeout(() => {
+        module1.style.animation = 'fadeModule 0.4s ease-out 1';
+        radarDiv.style.display = `block` // radar shit ignore
+
+        setTimeout(() => {
+            module1.style.display = 'none';
+            module1.style.animation = '';
+            module2.style.display = 'block';
+            module2.style.animation = 'switchModules 0.5s ease-out';
+        }, 300);
+    }, slideDurationMS / 2 - 500);
+}
+
+function runExtendedSlide() {
+    document.getElementsByClassName('main-forecast-day')[0].style.animation = `switchModules 0.6s ease-in-out`
+    document.getElementsByClassName('main-forecast-day')[1].style.animation = `switchModules 0.7s ease-in-out`
+    document.getElementsByClassName('main-forecast-day')[2].style.animation = `switchModules 0.8s ease-in-out`
+    document.getElementsByClassName('main-forecast-day')[3].style.animation = `switchModules 0.9s ease-in-out`
+    document.getElementsByClassName('main-forecast-day')[4].style.animation = `switchModules 1s ease-in-out`
+
+    setTimeout(() => {
+        document.getElementsByClassName('main-forecast-day')[0].style.animation = ``
+        document.getElementsByClassName('main-forecast-day')[1].style.animation = ``
+        document.getElementsByClassName('main-forecast-day')[2].style.animation = ``
+        document.getElementsByClassName('main-forecast-day')[3].style.animation = ``
+        document.getElementsByClassName('main-forecast-day')[4].style.animation = ``
+    }, slideDurationMS);
+}
+
+function runRadarSlide() {
+    radarDiv.style.animation = `fadeInTypeBeat 300ms ease forwards`
+    setTimeout(() => {
+        radarDiv.style.animation = `fadeModule 300ms ease`
+    }, slideDurationMS + 100);
+    radarDiv.style.display = `block`
+}

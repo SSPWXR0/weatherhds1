@@ -1,45 +1,28 @@
-export let data;
-export let ldlData
 export let imageIndex;
 export let locationsList;
 export let units;
+
+
+
 let onlineBg;
-let allData;
+const logTheFrickinTime = `[dataLoader.js] | ${new Date().toLocaleString()} |`;
 
-
-import { getInitialData, backgroundCycle } from "./weather.js";
 import { runInitialLDL } from "./ldl.js";
 import { everythingConfigLmao } from "./main.js";
-import { config } from "./config.js";
+import { config, locationConfig } from "../config.js";
 
-async function fetchData() {
-  data = null;
-  ldlData = null;
-  allData = null;
-  units = null;
-
-  const [response] = await Promise.all([
-    fetch('/data'),
-  ]);
-
-  allData = await response.json();
-  data = allData.mainPresentation;
-  ldlData = allData.ldlPresentation;
-  units = allData.units;
+export async function requestWxData(location, locType) { // we request the fine shyts from tha backend
+  const wxResponse = await fetch(`/data/${encodeURIComponent(location)}?locType=${locType}`);
+  let wxData = await wxResponse.json();
+  console.log(wxData)
+  return wxData;
 }
 
-
-async function indexLists() {
-  const [locationsResponse, imageIndexResponse] = await Promise.all([
-    fetch('/locations'),
-    fetch('./imageIndex.json')
-  ]);
-
-  locationsList = await locationsResponse.json();
+async function fetchBackgroundIndex() {
+  const imageIndexResponse = await fetch('./imageIndex.json')
   imageIndex = await imageIndexResponse.json();
 }
 
-indexLists()
 
 async function fetchOnlineBackground() {
   try {
@@ -47,14 +30,14 @@ async function fetchOnlineBackground() {
     onlineBg = await response.json();
 
     if (!onlineBg || !onlineBg.images || !onlineBg.images[0] || !onlineBg.images[0].url) {
-      console.error("Invalid response from /bing-background:", onlineBg);
+      console.error(logTheFrickinTime, "Invalid response from /bing-background:", onlineBg);
       return;
     }
 
     document.querySelector('.wallpaper').style.backgroundImage = `url(https://bing.com${onlineBg.images[0].url})`;
 
   } catch (error) {
-    console.error("Error fetching online background:", error);
+    console.error(logTheFrickinTime, "Error fetching online background:", error);
   }
 }
 
@@ -62,8 +45,8 @@ async function runBackground() {
   if (!config.presentationConfig.backgrounds) return;
 
   if (config.backgroundSource === "local") {
-    backgroundCycle();
-    setInterval(backgroundCycle, 300000);
+    //backgroundCycle();
+    //setInterval(backgroundCycle, 300000);
   }
 
   if (config.backgroundSource === "online") {
@@ -74,14 +57,11 @@ async function runBackground() {
   }
 }
 
-
-
 async function runInitialProcesses() {
-  await indexLists();
-  await fetchData();
+  await fetchBackgroundIndex();
 
   if (config.presentationConfig.main) {
-    getInitialData();
+    //getInitialData();
   }
   if (config.presentationConfig.ldl) {
     runInitialLDL();
@@ -89,8 +69,5 @@ async function runInitialProcesses() {
   everythingConfigLmao();
   runBackground();
 }
-
-
-setInterval(fetchData, 1500000)
 
 runInitialProcesses()

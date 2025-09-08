@@ -1,250 +1,160 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+const { serverConfig, versionID } = require("./public/config.js");
+const nodecache = require('node-cache')
 
-const logTheFrickinTime = `[server.js] | ${new Date().toLocaleString()} |`
+const cache = new nodecache({stdTTL: serverConfig.cacheValidTime})
 
-const serverConfig = {
-  "twcApiKey": "e1f10a1e78da46f5b10a1e78da96f525",
-  "units": "m",
+process.stdout.write('\x1Bc');
+console.log(Buffer.from("ICAgICAgICAgICAgICAgICAgICDilojilogKICAgICAgICAgICDilojiloggICAgICAg4paI4paIICAgICDilojilogKICAgICAgICAgICAg4paI4paI4paIICAgICAgICAgIOKWiOKWiOKWiCAgICAgICAgICAgICAgICAgIOKWiOKWiOKWiOKWiCAgICAgICAg4paI4paI4paIICDilojilojilojilojilojilojilojilojilojiloggICAgICAgICDilojilojilojilojilojilojilojilogKICAgICAgICAgIOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiCAgICAgICAgICAgICAgIOKWiOKWiCAgICDilojilojilojiloggICAgICAgIOKWiOKWiOKWiCAg4paI4paI4paI4paI4paI4paI4paI4paI4paI4paI4paI4paI4paIICAgIOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiCAgICDilojilojilogKICAgICAgICDilojilojilojilojilogg4paI4paI4paI4paI4paIICAgIOKWiOKWiCAgICAgICAgICAgIOKWiOKWiOKWiOKWiOKWiOKWiCAgIOKWiOKWiOKWiOKWiCAgICAgICAg4paI4paI4paIICDilojilojilojiloggICAgIOKWiOKWiOKWiOKWiOKWiOKWiCDilojilojilojilojilojiloggICAg4paI4paI4paI4paIICAg4paI4paI4paI4paI4paI4paICiAgICAg4paI4paI4paI4paI4paIICAgICAg4paI4paI4paI4paI4paI4paI4paI4paI4paIICAg4paI4paI4paIICAg4paI4paI4paI4paI4paI4paI4paIICAgICDilojilojilojilojilojilojilojilojilojilojilojilojilojilojiloggIOKWiOKWiOKWiOKWiCAgICAgIOKWiOKWiOKWiOKWiOKWiOKWiCDilojilojilojilojilojilojilojilojiloggICAgICAgICDilojilojilojilojilojilojilogKICAg4paI4paI4paI4paI4paI4paI4paIICAgICAgICDilojilojilojilojilojilojiloggICAgICAgIOKWiOKWiOKWiOKWiOKWiCAgICAgICAg4paI4paI4paI4paI4paI4paI4paI4paI4paI4paI4paI4paI4paI4paI4paIICDilojilojilojiloggICAgICAg4paI4paI4paI4paI4paIICDilojilojilojilojilojilojilojilojilojilojilojiloggICAgICAg4paI4paI4paI4paI4paI4paICiAgIOKWiOKWiCAg4paIICAgICAgICAgICAgICAg4paI4paIICAgICAgICAg4paI4paI4paI4paI4paI4paIICAgICAg4paI4paI4paI4paIICAgICAgICDilojilojiloggIOKWiOKWiOKWiOKWiCAgICAgIOKWiOKWiOKWiOKWiOKWiCAgICAgICAgIOKWiOKWiOKWiOKWiOKWiOKWiOKWiCAgICDilojilojilojilojilojilojilogKICDilojiloggICAg4paI4paIICAgICAgICAgICAgIOKWiOKWiCAgICAgICAgICAg4paI4paI4paI4paI4paI4paIICAgIOKWiOKWiOKWiOKWiCAgICAgICAg4paI4paI4paIICDilojilojilojiloggICAgICDilojilojilojilojilogg4paI4paI4paI4paI4paIICAgICAg4paI4paI4paI4paIICAg4paI4paI4paI4paI4paI4paICiDilojilojiloggICAg4paI4paI4paIIOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiCAgICAgICAgICAgICAg4paI4paI4paI4paIICAg4paI4paI4paI4paIICAgICAgICDilojilojiloggIOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiCAgIOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiCAg4paI4paI4paI4paI4paICiAgIOKWiOKWiCAg4paI4paIICAg4paI4paI4paI4paI4paI4paI4paI4paI4paI4paI4paIICAgICAgICAgICAgICAgICAgICAgICDilojilojilojiloggICAgICAgIOKWiOKWiOKWiCAgIOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiCAgICAgICDilojilojilojilojilojilojilojilojilojilojilog=", "base64").toString());
 
-  "webPort": 3000,
+const logTheFrickinTime = `[server.js] | ${new Date().toLocaleString()} |`;
+const mainAggCommon = "v3-wx-observations-current;v3-wx-forecast-daily-7day;v3-wx-globalAirQuality";
+const mainv1AggCommon = "v3alertsHeadlines;v2fcstintraday3;v2fcstwwir"
+const minorAggCommon = "v3-wx-observations-current;v3-wx-forecast-daily-3day";
 
-  "locationIndex": {
-    "locations": [
-      "Saskatoon",
-      "Regina",
-      "Edmonton",
-      "Calgary",
-      "Vancouver"
-    ],
-    "ldlLocations": [
-      "Saskatoon, SK",
-      "Outlook, SK",
-      "Rosetown, SK",
-      "Melfort, SK",
-      "North Battleford, SK",
-      "Lloydminster, AB",
-      "Regina, SK"
-    ],
-  },
-}
+const headers = {
+      'Accept': 'application/json',
+      'Accept-Encoding': 'gzip',
+      'User-Agent': `WeatherHDS${versionID}/NodeJS`,
+      'Connection': 'keep-alive'
+    }
 
-let allWeather = {};
-let ldlWeather = {};
+async function loadLocaleData(location) {
 
-async function getWeather(lat, lon, countryCode) { // credit to Dalk
-  // theres definitely a better approach to this
-  // its like 1 am and im way too lazy to think of that better approach
-  const currentUrl = await fetch(`https://api.weather.com/v3/wx/observations/current?geocode=${lat},${lon}&units=${serverConfig.units}&language=en-US&format=json&apiKey=${serverConfig.twcApiKey}`);
-  const weeklyUrl = await fetch(`https://api.weather.com/v3/wx/forecast/daily/7day?geocode=${lat},${lon}&format=json&units=${serverConfig.units}&language=en-US&apiKey=${serverConfig.twcApiKey}`);
-  const alertsUrl = await fetch(`https://api.weather.com/v3/alerts/headlines?geocode=${lat},${lon}&format=json&language=en-US&apiKey=${serverConfig.twcApiKey}`);
-  const aqiUrl = await fetch(`https://api.weather.com/v3/wx/globalAirQuality?geocode=${lat},${lon}&language=en-US&scale=EPA&format=json&apiKey=${serverConfig.twcApiKey}`);
-  const pollenUrl = await fetch(`https://api.weather.com/v2/indices/pollen/daypart/3day?geocode=${lat},${lon}&language=en-US&format=json&apiKey=${serverConfig.twcApiKey}`);
-/*   const runningUrl = await fetch(`https://api.weather.com/v2/indices/runWeather/daypart/3day?geocode=${lat},${lon}&language=en-US&format=json&apiKey=${serverConfig.twcApiKey}`);
-  const frostUrl = await fetch(`https://api.weather.com/v2/indices/frost/daypart/3day?geocode=${lat},${lon}&language=en-US&format=json&apiKey=${serverConfig.twcApiKey}`);
-  const skiUrl = await fetch(`https://api.weather.com/v2/indices/ski/daypart/3day?geocode=${lat},${lon}&language=en-US&format=json&apiKey=${serverConfig.twcApiKey}`);
-  const mosquitoUrl = await fetch(`https://api.weather.com/v2/indices/mosquito/daily/3day?geocode=${lat},${lon}&language=en-US&format=json&apiKey=${serverConfig.twcApiKey}`);
-  const golfUrl = await fetch(`https://api.weather.com/v2/indices/golf/daypart/3day?geocode=${lat},${lon}&language=en-US&format=json&apiKey=${serverConfig.twcApiKey}`);
-  const heatingUrl = await fetch(`https://api.weather.com/v2/indices/heatCool/daypart/3day?geocode=${lat},${lon}&language=en-US&format=json&apiKey=${serverConfig.twcApiKey}`); */
-  const current = await currentUrl.json();
-  const weekly = await weeklyUrl.json();
+  const cacheKey = `locale-${location}`
 
-  let alerts = []
-  let alertDetails = []
+  if (cache.get(cacheKey)) {
+    console.log(logTheFrickinTime, `Cache hit for client query "${location}"`)
+    return cache.get(cacheKey)
+  } else {
 
   try {
-    if (alertsUrl.status === 204) {
-      console.info(`${logTheFrickinTime} No alerts in effect for ${lat}, ${lon}`);
-      alerts = [];
-    } else {
-      alerts = await alertsUrl.json();
-      console.info(`${logTheFrickinTime} Fetched alerts for ${lat}, ${lon}:`);
 
-      if (alerts.alerts && alerts.alerts.length > 0) {
-        const alertId = alerts.alerts[0].detailKey;
-        const alertDetailsUrl = await fetch(`https://api.weather.com/v3/alerts/detail?alertId=${alertId}&format=json&language=en-US&apiKey=${serverConfig.twcApiKey}`);
-        
-        if (alertDetailsUrl.ok) {
-          alertDetails = await alertDetailsUrl.json();
-        } else {
-          console.error(`${logTheFrickinTime} Failed to fetch alert details: ${alertDetailsUrl.status} ${alertDetailsUrl.statusText}`);
-        }
-      }
-    }
+    const response = await fetch(`https://api.weather.com/v3/location/search?query=${location}&language=en-US&format=json&apiKey=${serverConfig.twcApiKey}`, {
+      method: 'GET',
+      headers: headers
+    });
+    console.log(logTheFrickinTime, `Searching up client query "${location}"`)
+    const data = await response.json();
+
+    console.log(logTheFrickinTime, `Fetched locale ${data.location.city[0]}, ${data.location.adminDistrict[0]}, ${data.location.countryCode[0]}`)
+
+    const result = {
+      localeName: data.location.city[0],
+      adminDistrict: data.location.adminDistrict[0],
+      country: data.location.country[0],
+      countryCode: data.location.countryCode[0],
+      lat: data.location.latitude[0],
+      lon: data.location.longitude[0],
+      postalKey: data.location.postalKey[0],
+    };
+
+    cache.set(cacheKey, result);
+    return result;
+
   } catch (error) {
-    console.error('${logTheFrickinTime} Error fetching weather alerts:', error);
-  }
-  const aqi = await aqiUrl.json();
-  const pollen = await pollenUrl.json();
-  /* const running = await runningUrl.json();
-  const frost = await frostUrl.json();
-  const ski = await skiUrl.json();
-  const mosquito = await mosquitoUrl.json();
-  const golf = await golfUrl.json();
-  const heating = await heatingUrl.json(); */
-
-  console.log(`${logTheFrickinTime} Successfully saved current weather conditions`)
-
-  const weatherData = {
-    current: current,
-    weekly: weekly,
-    alerts: alerts,
-    alertDetails: alertDetails,
-    special: { aqi: aqi, pollen: pollen },
-/*     indices: { 
-      spring: { running: running, mosquito: mosquito, golf: golf },
-      winter: { heating: heating, frost: frost, ski: ski }
-    } */
-  };
-
-  return weatherData;
-}
-
-async function getWeatherCoordinates(location) {
-  const coordinatesUrl = await fetch(`https://api.weather.com/v3/location/search?query=${location}&language=en-US&format=json&apiKey=${serverConfig.twcApiKey}`);
-  const coordinates = await coordinatesUrl.json();
-  const locationData = coordinates.location;
-  
-  if (!locationData) {
-    throw new Error(`Location data not found for ${location}`);
+    console.error(logTheFrickinTime, error)
   }
 
-  console.log(`[server.js] | ${new Date().toLocaleString()} | Successfully retrieved weather coordinates for ${location}`);
-  
-  return {
-    lat: locationData.latitude[0], 
-    lon: locationData.longitude[0], 
-    country: locationData.countryCode[0], 
-    adminDistrictCode: locationData.adminDistrictCode[0],
-    postalKey: locationData.postalKey[0],
-    ianaTimeZone: locationData.ianaTimeZone[0]
-  };
-}
-
-let currentCity = 0
-
-async function loadAllCities() {
-  // hope this workies
-  for (const location of serverConfig.locationIndex.locations) {
-    try {
-      const coordinates = await getWeatherCoordinates(location)
-
-      allWeather[location] = {};
-      allWeather[location][currentCity] = {};
-      allWeather[location][currentCity].coordinates = coordinates;
-
-      const weather = await getWeather(
-        allWeather[location][currentCity].coordinates.lat,
-        allWeather[location][currentCity].coordinates.lon,
-        allWeather[location][currentCity].country
-      );
-
-      allWeather[location][currentCity].current = weather.current
-      allWeather[location][currentCity].weekly = weather.weekly
-      allWeather[location][currentCity].alerts = weather.alerts
-      allWeather[location][currentCity].alertDetails = weather.alertDetails
-      allWeather[location][currentCity].radar = weather.radar
-      allWeather[location][currentCity].special = weather.special
-      allWeather[location][currentCity].indices = weather.indices
-
-      console.log(`Processed ${location} (${currentCity})`)
-
-      currentCity++
-
-    } catch (error) {
-      console.error(`Error processing ${location}: ${error.message}`);
-    }
-     
   }
 }
 
-async function getLDLWeather(lat, lon, countryCode) { // credit to Dalk for the twc api stuff
-  const ldlCurrentUrl = await fetch(`https://api.weather.com/v3/wx/observations/current?geocode=${lat},${lon}&units=${serverConfig.units}&language=en-US&format=json&apiKey=${serverConfig.twcApiKey}`);
-  const ldlWeeklyUrl = await fetch(`https://api.weather.com/v3/wx/forecast/daily/7day?geocode=${lat},${lon}&format=json&units=${serverConfig.units}&language=en-US&apiKey=${serverConfig.twcApiKey}`);
-  const ldlAlertsUrl = await fetch(`https://api.weather.com/v3/alerts/headlines?countryCode=${countryCode}&format=json&language=en-US&apiKey=${serverConfig.twcApiKey}`);
-  const ldlAqiUrl = await fetch(`https://api.weather.com/v3/wx/globalAirQuality?geocode=${lat},${lon}&language=en-US&scale=EPA&format=json&apiKey=${serverConfig.twcApiKey}`);
-  const ldlAlmanacUrl = await fetch(`https://api.weather.com/v3/wx/almanac/monthly/1month?geocode=${lat},${lon}&format=json&units=${serverConfig.units}&month=1&apiKey=${serverConfig.twcApiKey}`)
-  const ldlCurrent = await ldlCurrentUrl.json();
-  const ldlWeekly = await ldlWeeklyUrl.json();
-  const ldlAlerts = await ldlAlertsUrl.json();
-  const ldlAqi = await ldlAqiUrl.json();
-  const ldlAlmanac = await ldlAlmanacUrl.json();
-
-  console.log(`[server.js] | ${new Date().toLocaleString()} | Saved data for display on LDL`)
-
-  return {
-      ldlCurrent: ldlCurrent,
-      ldlWeekly: ldlWeekly,
-      ldlAlerts: ldlAlerts,
-      ldlAqi: ldlAqi,
-      ldlAlmanac: ldlAlmanac,
-      }
-}
-
-async function getLDLWeatherCoordinates(location) {
-const coordinatesUrl = await fetch(`https://api.weather.com/v3/location/search?query=${location}&language=en-US&format=json&apiKey=${serverConfig.twcApiKey}`);
-const coordinates = await coordinatesUrl.json();
-const locationData = coordinates.location;
-
-if (!locationData) {
-  throw new Error(`Location data not found for ${location}`);
-}
-
-console.log(`[server.js] | ${new Date().toLocaleString()} | Successfully retrieved weather coordinates for ${location}`);
 
 
-return {
-  lat: locationData.latitude[0], 
-  lon: locationData.longitude[0], 
-  country: locationData.countryCode[0], 
-  adminDistrictCode: locationData.adminDistrictCode[0]
-};
-}
+async function loadWxData(postalKey, geocode, locType) {
+  let data = null;
 
-let currentLDLCity = 0
+  const cacheKey = `wxData-${postalKey}:${geocode}`
 
-async function loadAllLDLCities() {
-// hope this workies
-for (const location of serverConfig.locationIndex.ldlLocations) {
+  if (cache.get(cacheKey)) {
+    console.log(logTheFrickinTime, 'Returned cachekey:', cacheKey)
+    return cache.get(cacheKey)
+  } else {
+
   try {
-    const coordinates = await getLDLWeatherCoordinates(location)
+    if (locType === "primary" || locType === "ldl") {
+      const [aggRes, aggResTwo, pollenRes] = await Promise.all([
+        fetch(
+          `https://api.weather.com/v3/aggcommon/${mainAggCommon}?postalKey=${postalKey}&language=en-US&scale=EPA&units=${serverConfig.units}&format=json&apiKey=${serverConfig.twcApiKey}`,
+          {
+            method: 'GET',
+            headers: headers
+          }
+        ),
+        fetch(
+          `https://api.weather.com/v2/aggcommon/${mainv1AggCommon}?geocode=${geocode}&language=en-US&units=${serverConfig.units}&format=json&apiKey=${serverConfig.twcApiKey}`,
+          {
+            method: 'GET',
+            headers: headers
+          }
+        ),
+        fetch(
+          `https://api.weather.com/v2/indices/pollen/daypart/15day?geocode=${geocode}&language=en-US&format=json&apiKey=${serverConfig.twcApiKey}`,
+          {
+            method: 'GET',
+            headers: headers
+          }
+        )
+      ]);
 
-    ldlWeather[location] = {};
-    ldlWeather[location][currentLDLCity] = {};
-    ldlWeather[location][currentLDLCity].coordinates = coordinates;
+      console.log(logTheFrickinTime, 'FETCHED AND CACHED -', cacheKey)
 
-    const weather = await getLDLWeather(
-      ldlWeather[location][currentLDLCity].coordinates.lat,
-      ldlWeather[location][currentLDLCity].coordinates.lon,
-      ldlWeather[location][currentLDLCity].country
-    );
+      
+      const [aggData, aggDataTwo, pollenData] = await Promise.all([
+        aggRes.json(),
+        aggResTwo.json(),
+        pollenRes.json(),
+      ]);
 
-    ldlWeather[location][currentLDLCity].current = weather.ldlCurrent
-    ldlWeather[location][currentLDLCity].alerts = weather.ldlAlerts
-    ldlWeather[location][currentLDLCity].forecast = weather.ldlWeekly
-    ldlWeather[location][currentLDLCity].aqi = weather.ldlAqi
-    ldlWeather[location][currentLDLCity].almanac = weather.ldlAlmanac
+     if (aggDataTwo.v3alertsHeadlines) {
+      const detailKey = aggDataTwo.v3alertsHeadlines.alerts[0].detailKey
+      console.log(logTheFrickinTime, 'Alert detected! Fetching detail key', detailKey)
 
-    console.log(`Processed ${location} (${currentLDLCity})`)
 
-    currentLDLCity++
+      const detailFetch = await fetch(`https://api.weather.com/v3/alerts/detail?alertId=${detailKey}&format=json&language=en-US&apiKey=${serverConfig.twcApiKey}`)
+      const detailResponse = await detailFetch.json()
+
+      data = await { ...aggData, ...aggDataTwo, pollenData, ...detailResponse };
+     } else {
+      data = { ...aggData, ...aggDataTwo, pollenData };
+     }
+
+      
+    }
+
+    if (locType === "secondary" || locType === "regional") {
+
+      let secondaryLocationFetch = null;
+
+      secondaryLocationFetch = await fetch([
+        `https://api.weather.com/v3/aggcommon/${minorAggCommon}?postalKey=${postalKey}&language=en-US&units=${serverConfig.units}&format=json&apiKey=${serverConfig.twcApiKey}`,
+      ]);
+
+      data = secondaryLocationFetch.json()
+    }
+
+    cache.set(cacheKey, data);
+    return data;
 
   } catch (error) {
-    console.error(`Error processing ${location}: ${error.message}`);
+    console.error("Error fetching weather data:", error);
+    throw error;
   }
-   
+    
+  }
 }
-}
+
+
+
+
 
 async function runDataInterval() {
-  await loadAllCities()
-  await loadAllLDLCities()
-  console.log("Ran data and text generation intervals.")
-  console.log("============================================")
-  console.log(`### WEATHER HTML DISPLAY SYSTEM ###`);
-  console.log(`Created by SSPWXR and ScentedOrange`);
-  console.log(`Server is running on http://localhost:${serverConfig.webPort}`);
+  console.log(`==========================================================================================================`);
+  console.log(`WeatherHDS daemon v${versionID}`);
+  console.log(`Created by raiii. (c) SSPWXR/raii 2025`);
+  console.log(`User contributors: ScentedOrangeDev, LeWolfYt,`);
 
   if (serverConfig.twcApiKey.length === 0) {
     console.error(`NO API KEY PRESENT! PLEASE ENTER A WEATHER.COM API KEY...`)
@@ -252,32 +162,68 @@ async function runDataInterval() {
 }
 
 runDataInterval()
-setInterval(runDataInterval, 480000)
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.listen(serverConfig.webPort, () => {});
+app.listen(serverConfig.webPort, () => {
+  console.log(`http server listening on http://localhost:${serverConfig.webPort}`);
 
-app.get('/locations', (req, res) => {
-  res.json({
-    locationIndex: serverConfig.locationIndex,
-    })
-})
+  setInterval(() => {
+    console.log(`http server listening on http://localhost:${serverConfig.webPort}`);
+  }, 3600000);
+});
 
 app.get('/data', (req, res) => {
-  res.json({
-    mainPresentation: allWeather,
-    ldlPresentation: ldlWeather,
-    units: serverConfig.units
-    })
+  res.send("ARE YOU HAVE STUPID??? YOU ARE SUPOSED TO AD PARAMTER LIKE /data/MEMPHOS?loctype=primary!!!!!")
+
 })
+
+app.get('/data/:location', async (req, res) => {
+  try {
+    const location = req.params.location;
+          let geocode;
+          const locType = req.query.locType;
+          console.log(logTheFrickinTime, `GET request from the client:`, req.path, `and fetching for location type as ${locType}`)
+
+          const localeData = await loadLocaleData(location)
+
+          geocode = `${localeData.lat},${localeData.lon}`
+
+          if (locType === null) {
+            res.status(400).json({
+              error: true,
+              comment: "Please add a locType query",
+            })
+          } else {
+            // okie cool now lets get weather data
+            const wxData = await loadWxData(localeData.postalKey, geocode, locType)
+          
+            res.json({
+              metadata: {
+                localeData,
+                units: serverConfig.units,
+                hdsLocType: locType,
+              },
+              weather: wxData,
+            })
+
+          }
+  } catch (error) {
+    res.send(error)
+    console.error(logTheFrickinTime, error)
+  }
+})
+
+      
+
+
 
 app.get('/bing-background', async (req, res) => {
   try {
       const response = await fetch('https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=en-US');
       const data = await response.json();
       res.json(data);
-      console.log("${logTheFrickinTime} Client requested Bing background image.")
+      console.log(logTheFrickinTime, "Client requested Bing background image.")
   } catch (error) {
       res.status(500).json(`${logTheFrickinTime} Error fetching Bing background image: ${error}`);
   }

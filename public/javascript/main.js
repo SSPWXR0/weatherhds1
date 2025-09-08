@@ -1,4 +1,4 @@
-import { config } from "./config.js";
+import { config } from "../config.js";
 
 const viewport = document.getElementsByClassName("view")[0];
 const mainSlides = document.getElementsByClassName("main-slides")[0];
@@ -29,17 +29,17 @@ function ScaleViewportToTheWindowIGuessLmao() {
     let height
 
     const videoModes = {
-        vga: { width: 640, height: 480, viewportWidth: `640px`, bottom: null },
-        hdtv: { width: 854, height: 480, viewportWidth: `854px`, bottom: `-3%` },
-        ntsc: { width: 720, height: 480, viewportWidth: `720px`, bottom: null },
-        tablet: { width: 768, height: 480, viewportWidth: `768px`, bottom: null }
+        vga: { width: 1920, height: 1440, bottom: null },
+        hdtv: { width: 2560, height: 1440, bottom: `-3%` },
+        ntsc: { width: 2160, height: 1440, bottom: null },
+        tablet: { width: 2304, height: 1440, bottom: null }
     };
 
     const mode = videoModes[config.videoType] || videoModes.vga;
 
     width = mode.width;
     height = mode.height;
-    viewport.style.width = mode.viewportWidth;
+    viewport.style.width = `${mode.width}px`;
 
     if (mode.bottom !== null) {
         ldlContainer.style.bottom = mode.bottom;
@@ -177,14 +177,6 @@ function presentationType() {
 
 const mainTheme = document.querySelector(':root')
 
-function imageRendering() {
-    if (config.textureFiltering === true) { // smoothes images when scaled
-        mainTheme.style.imageRendering = `auto`
-    }
-    if (config.textureFiltering === false) { // pixelates images when scaled
-        mainTheme.style.imageRendering = `pixelated`
-    }
-}
 
 function scrollTicker() {
     if (config.tickerContent === "") {
@@ -209,7 +201,6 @@ function scrollTicker() {
 }
 
 export function everythingConfigLmao() {
-    imageRendering()
     ScaleViewportToTheWindowIGuessLmao()
     presentationType()
     scrollTicker()
