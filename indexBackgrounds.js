@@ -44,5 +44,5 @@ exploreDirectory(path.join(rootImg, 'bg_summer'), 'bg_summer');
 exploreDirectory(path.join(rootImg, 'bg_winter'), 'bg_winter');
 
 const indexPath = path.join(__dirname, 'public', 'imageIndex.json');
-fs.writeFileSync(indexPath, JSON.stringify(imageIndex, null, 2));
+fs.writeFileSync(indexPath, `export const imageIndex = ${JSON.stringify(imageIndex, null, 2)};`);
 console.log('Built background image index:', imageIndex)

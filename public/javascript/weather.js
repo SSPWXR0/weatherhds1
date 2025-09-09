@@ -406,9 +406,9 @@ export async function appendDatatoMain(locale, locType) {
         }
 
         if (document.getElementById('main-aq-category').innerText.length < 12) {
-            document.getElementById('main-aq-category').style.fontSize = '40pt'
-        } else {
             document.getElementById('main-aq-category').style.fontSize = '52pt'
+        } else {
+            document.getElementById('main-aq-category').style.fontSize = '40pt'
         }
     }
     

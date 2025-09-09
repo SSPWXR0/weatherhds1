@@ -258,7 +258,7 @@ function loopLocations() {
         
         upNextLocationText.style.display = `none`
         upNextLocationText.style.animation = `switchModules 0.5s ease-in-out`
-        upNextLocationText.innerHTML = `Next: ${nextLocation.name}`;
+        upNextLocationText.innerHTML = `<span style="font-weight:200;font-size:22pt;">Next:</span> ${nextLocation.name}`;
         upNextLocationText.style.display = `block`
 
         runPlaylist(location.name, () => {

@@ -102,11 +102,20 @@ export async function drawMap(lat, lon, product, zoom, htmlID) {
                         }, config.interval_between_loops);
                         return;
                     }
-
                     const timestamp = radarTimeSlices[i];
                     const localDate = new Date(timestamp.ts * 1000);
-                    const timeString = localDate.toLocaleTimeString();
-                    weatherRadarTime.innerHTML = `Time: ${timeString}`;
+
+                    let hours = localDate.getHours();
+                    let minutes = localDate.getMinutes();
+                    let ampm = hours >= 12 ? "PM" : "AM";
+
+                    hours = hours ? hours : 12
+
+                    minutes = minutes < 10 ? "0" + minutes : minutes;
+
+                    const timeFmt = `${hours}:${minutes} ${ampm}`
+
+                    weatherRadarTime.innerHTML = `${timeFmt}`;
 
                     radarTimeSlices.forEach((t, idx) => {
                         map.setLayoutProperty(`radarlayer_${t.ts}`, "visibility", idx === i ? "visible" : "none");
