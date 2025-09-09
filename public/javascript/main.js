@@ -1,4 +1,6 @@
 import { config } from "../config.js";
+import { imageIndex } from "../imageIndex.js";
+import { fetchOnlineBackground } from "./data.js";
 
 const viewport = document.getElementsByClassName("view")[0];
 const mainSlides = document.getElementsByClassName("main-slides")[0];
@@ -12,6 +14,62 @@ const date = document.getElementById("date");
 const time = document.getElementById("time");
 const dateLDL = document.getElementById("dateLDL");
 const timeLDL = document.getElementById("timeLDL");
+
+let broadcastState = 0;
+
+const logTheFrickinTime = `[main.js] | ${new Date().toLocaleString()} |`;
+
+let season;
+
+function getCurrentSeason() {
+    const month = new Date().getMonth() + 1;
+    const day = new Date().getDate();
+    if ((month === 12 && day >= 21) || (month <= 3 && day < 20) || (month < 3)) {
+        season = "bg_winter";
+    } else if ((month === 3 && day >= 20) || (month < 6) || (month === 6 && day < 21)) {
+        season = "bg_spring";
+    } else if ((month === 6 && day >= 21) || (month < 9) || (month === 9 && day < 23)) {
+        season = "bg_summer";
+    } else {
+        season = "bg_autumn";
+    }
+}
+
+setInterval(() => {
+    getCurrentSeason();
+}, 24 / 60 * 60 * 1000);
+getCurrentSeason();
+
+function initBackgrounds() {
+    if (config.overrideBackgroundImage && config.overrideBackgroundImage !== "") {
+        if (config.backgroundSource === "online") {
+            async function onlineBg() {
+                const url = await fetchOnlineBackground();
+                console.log(logTheFrickinTime, "Fetched new online background:", url);
+                wallpaper.style.backgroundImage = `url(${url})`;
+            }
+            setInterval(onlineBg, 8 * 36000000);
+            onlineBg();
+        } 
+        if (config.backgroundSource === "local") {
+            let url;
+            function shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+                url = `url(${array[0]})`;
+                
+                return url;
+            }
+            setInterval(() => {
+                wallpaper.style.backgroundImage = shuffleArray(imageIndex[season][broadcastState === 0 ? "wxgood" : "wxbad"]);
+            }, 600_000); 
+            wallpaper.style.backgroundImage = shuffleArray(imageIndex[season][broadcastState === 0 ? "wxgood" : "wxbad"]);
+        }
+    }
+}
+
 
 function ScaleViewportToTheWindowIGuessLmao() {
 
@@ -175,9 +233,6 @@ function presentationType() {
     }
 }
 
-const mainTheme = document.querySelector(':root')
-
-
 function scrollTicker() {
     if (config.tickerContent === "") {
         document.getElementsByClassName('ldl-marquee')[0].style.display = `none`
@@ -200,10 +255,13 @@ function scrollTicker() {
 
 }
 
-export function everythingConfigLmao() {
+
+
+window.onload = () => {
     ScaleViewportToTheWindowIGuessLmao()
     presentationType()
     scrollTicker()
+    initBackgrounds()
 }
 
 setTimeout(() => {

@@ -21,16 +21,8 @@ export const currentLocationText = document.getElementById('current-location');
 
 const units = serverConfig.units
 
-/*
-  const primaryLocations = locationConfig.locations.filter(loc => loc.type === "primary");
-  const secondaryLocations = locationConfig.locations.filter(loc => loc.type === "secondary");
-  const regionalLocations = locationConfig.locations.filter(loc => loc.type === "regional");
-  const ldlLocations = locationConfig.ldlLocations;
-*/
-
 export let locationIndex = 0;
-let isWeatherGood;
-let chart;
+let chart = null;
 const logTheFrickinTime = `[weather.js] | ${new Date().toLocaleString()} |`;
 let iconDir = "animated"
 let endingTemp, endingWind, endingDistance, endingMeasurement, endingCeiling, endingPressure, endingSnow, endingRain;
@@ -89,11 +81,12 @@ function appendTextContent(dataMap) {
 }
 
 export async function appendDatatoMain(locale, locType) {
-    let wxData = await requestWxData(locale, locType)
+    let wxData = {};
+    wxData = await requestWxData(locale, locType)
 
     let current = wxData.weather?.["v3-wx-observations-current"] ?? null;
     let intraday = wxData.weather?.v2fcstintraday3?.forecasts ?? [];
-    let forecast = wxData.weather?.["v3-wx-forecast-daily-7day"] ?? null;
+    let forecast = wxData.weather?.["v3-wx-forecast-daily-7day"] ?? wxData.weather?.["v3-wx-forecast-daily-3day"] ?? null;
     let airQuality = wxData.weather?.["v3-wx-globalAirQuality"]?.globalairquality ?? null;
     let pollen = wxData.weather?.pollenData?.pollenForecast12hour ?? null;
     let lat = wxData.metadata?.localeData?.lat ?? null;
@@ -336,8 +329,8 @@ export async function appendDatatoMain(locale, locType) {
         Chart.defaults.backgroundColor = '#FFF';
         Chart.defaults.borderColor = '#FFF';
         Chart.defaults.color = '#FFF';
-        Chart.defaults.font.size = 32;
-        Chart.defaults.font.family = "Poppins";
+        Chart.defaults.font.size = 38;
+        Chart.defaults.font.family = "Poppins, Arial, sans-serif";
         Chart.defaults.font.weight = 'bold';
             chart = new Chart(sevenDayHighAndLow, {
             type: 'line',
@@ -377,8 +370,6 @@ export async function appendDatatoMain(locale, locType) {
 
     function buildAirQuality() {
         const icon = document.getElementById('main-aq-icon')
-        const box = document.getElementsByClassName('main-aq-flexcontainer')[0]
-        const text = String(airQuality.messages.General.text)
 
         const dataMapAirQuality = {
             "main-aq-category": airQuality.airQualityCategory,
@@ -427,6 +418,7 @@ switch (locType) {
         break;
     case "secondary":
         buildCurrentConditions()
+        buildShortTermForecast()
         break;
 
     case "primary":

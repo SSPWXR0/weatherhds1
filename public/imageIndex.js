@@ -1,4 +1,4 @@
-{
+export const imageIndex = {
   "bg_autumn": {
     "wxbad": [
       "/images/bg_images/bg_autumn/wx_bad/bg_fall_wxbad_1.jpg",

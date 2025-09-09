@@ -24,7 +24,7 @@ export let config = {
     "systemTimeZone": "America/Regina", // tz_database. https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
     "tickerContent": "", // empty = hides scroll. add any text to it to show a crawl on the LDL.
     "overrideBackgroundImage": "https://media.discordapp.net/attachments/1348858070658453525/1409929202265751693/image.png?ex=68b71365&is=68b5c1e5&hm=4e4ece49820cef27a2584c52a0853880948b54bdbf224ef8c8dc5df0e5395b31&=&width=283&height=856", // skips the background rotation and uses the URL provided.
-    "backgroundSource": "online", // set to local to use the locally stored default backgrounds, set value to online to use the Bing background api thing.
+    "backgroundSource": "local", // set to local to use the locally stored default backgrounds, set value to online to use the Bing background api thing.
     "verboseLogging": false // enables or disables console.log
 }
 
