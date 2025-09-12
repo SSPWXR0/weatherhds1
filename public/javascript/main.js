@@ -41,7 +41,6 @@ setInterval(() => {
 getCurrentSeason();
 
 function initBackgrounds() {
-    if (config.overrideBackgroundImage && config.overrideBackgroundImage !== "") {
         if (config.backgroundSource === "online") {
             async function onlineBg() {
                 const url = await fetchOnlineBackground();
@@ -67,8 +66,11 @@ function initBackgrounds() {
             }, 600_000); 
             wallpaper.style.backgroundImage = shuffleArray(imageIndex[season][broadcastState === 0 ? "wxgood" : "wxbad"]);
         }
+        if (config.overrideBackgroundImage !== "" && config.backgroundSource === "url") {
+            wallpaper.style.backgroundImage = `url(${config.overrideBackgroundImage})`;
+        }
     }
-}
+
 
 
 function ScaleViewportToTheWindowIGuessLmao() {
@@ -87,10 +89,10 @@ function ScaleViewportToTheWindowIGuessLmao() {
     let height
 
     const videoModes = {
-        vga: { width: 1920, height: 1440, bottom: null },
-        hdtv: { width: 2560, height: 1440, bottom: `-3%` },
-        ntsc: { width: 2160, height: 1440, bottom: null },
-        tablet: { width: 2304, height: 1440, bottom: null }
+        vga: { width: 1920, height: 1440},
+        hdtv: { width: 2560, height: 1440},
+        ntsc: { width: 2160, height: 1440},
+        tablet: { width: 2304, height: 1440}
     };
 
     const mode = videoModes[config.videoType] || videoModes.vga;
@@ -98,12 +100,6 @@ function ScaleViewportToTheWindowIGuessLmao() {
     width = mode.width;
     height = mode.height;
     viewport.style.width = `${mode.width}px`;
-
-    if (mode.bottom !== null) {
-        ldlContainer.style.bottom = mode.bottom;
-    }
-
-    
 
     const scaleRatioWidth = containerWidth / width;
     const scaleRatioHeight = containerHeight / height;

@@ -2,8 +2,6 @@ export let imageIndex;
 export let locationsList;
 export let units;
 
-
-
 let onlineBg;
 let bgUrl;
 const logTheFrickinTime = `[data.js] | ${new Date().toLocaleString()} |`;

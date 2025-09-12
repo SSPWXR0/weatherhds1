@@ -241,8 +241,6 @@ async function runPlaylist(locale, call) {
 function loopLocations() {
 
     function runNextLocation() {
-
-
         const location = locationConfig.locations[localeIndex];
 
         currentLocationText.style.display = `none`

@@ -12,6 +12,15 @@ let loops;
 const maxLoops = 12;
 let i = 0;
 let map = null;
+export let mapTTL = 0;
+
+export function clearMap() {
+    if (map) {
+        map.remove();
+        map = null;
+        mapTTL = 0;
+    }
+}
 
 export async function drawMap(lat, lon, product, zoom, htmlID) {
 
@@ -23,6 +32,7 @@ export async function drawMap(lat, lon, product, zoom, htmlID) {
 
         let total_frames = 48;
         let interval_delay = 50;
+        let maxTimeToLive = 12;
 
         let total_time_s = (total_frames * interval_delay) / 1000;
         let radar_frame_rate = total_frames / total_time_s;
@@ -42,9 +52,17 @@ export async function drawMap(lat, lon, product, zoom, htmlID) {
         map.on('load', fetchTiles);
 
         } else {
-            map.setCenter(cityLngLat);
-            map.setZoom(zoom);
-            fetchTiles();
+            if (mapTTL >= maxTimeToLive) {
+                console.log("TS MAP OLD AS HELL! SENDING THIS SHYT TO THE FIRING SQUAD")
+                clearMap();
+                drawMap(lat, lon, product, zoom, htmlID);
+                return;
+            } else {
+                map.setCenter(cityLngLat);
+                map.setZoom(zoom);
+                fetchTiles();
+                mapTTL++;
+            }
         }
 
         async function fetchTiles() {
