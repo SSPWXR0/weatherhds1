@@ -9,7 +9,6 @@ const topBar = document.getElementsByClassName("topbar")[0];
 const ldl = document.getElementsByClassName("ldl-presentation")[0];
 const ldlContainer = document.getElementsByClassName("ldl-weather")[0];
 const ldlBranding = document.getElementsByClassName("ldl-netlogo")[0];
-const ldlLineThing = document.getElementById('ldl-divider');
 const date = document.getElementById("date");
 const time = document.getElementById("time");
 const dateLDL = document.getElementById("dateLDL");
@@ -161,6 +160,7 @@ function presentationType() {
     const backgrounds = new URLSearchParams(window.location.search).get('backgrounds');
     const repeatMain = new URLSearchParams(window.location.search).get('repeatMain');
     const ldlClock = new URLSearchParams(window.location.search).get('ldlClock');
+    const ldlBack = new URLSearchParams(window.location.search).get('ldlBack')
 
     if (mainPres !== null) {
         const parsed = mainPres.toLowerCase() === 'true';
@@ -186,6 +186,11 @@ function presentationType() {
         config.presentationConfig.ldlClock = parsed;
     }
 
+    if (ldlBack !== null) {
+        const parsed = ldlBack.toLowerCase() === 'true';
+        config.presentationConfig.ldlBack = parsed;
+    }
+
     if (config.presentationConfig.main != true) {
         wallpaper.style.display = `none`
         mainSlides.style.display = `none`
@@ -204,28 +209,11 @@ function presentationType() {
         if (config.presentationConfig.ldlClock) {
             ldlBranding.style.display = `block`
         }
-        ldlContainer.style.display = `none`;
+        ldl.style.display = `none`;
     }
-
-    if (config.presentationConfig.ldlClock === false) {
-        timeLDL.style.display = `none`
-        dateLDL.style.display = `none`
-    }
-    if (config.transparentLDL === 1) { // make ldl transparent
-        ldlContainer.style.backgroundColor = `rgba(0,0,0,0)`
-    }
-    if (config.transparentLDL === 2) { // make ldl transparent, and remove the white line at the top
-        ldlContainer.style.backgroundColor = `rgba(0,0,0,0)`
-        ldlLineThing.remove()
-    }
-    if (config.transparentLDL === 3) { // like option one, but with text shadow
-        ldlContainer.style.backgroundColor = `rgba(0,0,0,0)`
-        ldlContainer.style.textShadow = `black 1.1px 1.5px 3px;`
-    }
-    if (config.transparentLDL === 4) { // like option two, but with text shadow
-        ldlContainer.style.backgroundColor = `rgba(0,0,0,0)`
-        ldlContainer.style.textShadow = `black 1.1px 1.5px 3px;`
-        ldlLineThing.remove()
+    if (config.presentationConfig.ldlBack === true) {
+        ldlBranding.style.display = `none`
+        ldlContainer.style.display = `block`
     }
 }
 

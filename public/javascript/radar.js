@@ -41,7 +41,7 @@ export async function drawMap(lat, lon, product, zoom, htmlID) {
         if (!map) {
             map = new mapboxgl.Map({
             container: htmlID,
-            style: 'mapbox://styles/mapbox/navigation-night-v1',
+            style: 'mapbox://styles/peytonwdym/clov0gd3u00mj01pe1wmhb2j5',
             center: cityLngLat,
             accessToken: config.token,
             telemetry: false,

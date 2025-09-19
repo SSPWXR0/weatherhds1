@@ -7,13 +7,13 @@ export let config = {
     "videoBackgrounds": true, // enables or disables the video backgrounds on the current conditions slide.
     "currentConditionsGradient": true, // current conditions gradient based on current time relative to sunrise or sunset.
     "staticIcons": false, // would you like icons that dont move?
-    "transparentLDL": 0, // adjusts the background opacity of the LDL.
     "ldlClock": true, // when in LDL only mode, choose if you want to show the clock and the network logo on the LDL.
     
     "presentationConfig": {
         "main": true,
         "ldl": true,
-        "ldlClock": true,
+        "ldlClock": false,
+        "ldlBack": true,
         "backgrounds": true,
         "repeatMain": true,
         "squareLogo": true,
