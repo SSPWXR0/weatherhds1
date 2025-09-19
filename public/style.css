@@ -211,31 +211,47 @@ hr {
 .topbar-presentation-info {
 	position: absolute;
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
 	justify-content: space-between;
-	width: 40%;
-	left: 43%;
+	width: 70%;
+	left: 14%;
 	text-align: left;
 	white-space: nowrap;
 	bottom: 3%;
-	line-height: 1.9;
+  align-items: center;
 }
 .topbar-presentationinfo-thingies {
   display: flex;
   flex-direction: row;
-  width: 100%;
+  width: 50%;
   height: 100%;
   overflow-y: hidden;
-  justify-content: flex-start;
   align-items: center;
 }
 .topbar-presentationinfo-thingies p {
   margin: auto auto;
   margin-left: 2%;
-  font-size: var(--fontSizeTwo);
+  overflow: hidden;
 }
-.material-symbols-outlined {
-  font-size: var(--fontSizeFive) !important;
+.topbar-slide-display-icon {
+  width: 64px;
+  height: 64px;
+}
+
+#topbar-presentationinfo-currentslide {
+  font-size: var(--fontSizeThree);
+}
+.topbar-upnext-locations-group {
+  display: flex;
+  width: 100%;
+}
+.currentlocation {
+  font-size: var(--fontSizeTwo);
+  width: 50%;
+}
+.nextlocation {
+  font-size: var(--fontSizeOne);
+  width: 30%;
 }
 /*  MAIN PRESENTATION  */
 .main-slides {

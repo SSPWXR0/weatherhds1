@@ -88,7 +88,7 @@ const preferredPlaylist = {
         {
             htmlID: "current",
             title: "Current Conditions",
-            duration: 10000,
+            duration: 14000,
             dynamicFunction: runMainCurrentSlide,
             animationIn: playlistSettings.defaultAnimationIn,
             animationOut: playlistSettings.defaultAnimationOut
@@ -152,9 +152,7 @@ document.getElementById('loadingscreen-versionID').innerHTML = `WeatherHDS ${ver
 const currentSlideText = document.getElementById('current-slide');
 const currentLocationText = document.getElementById('current-location');
 const upNextLocationText = document.getElementById('upnext-location')
-currentSlideText.style.display = 'none';
-currentLocationText.style.display = 'none';
-upNextLocationText.style.display = 'none';
+
 
 
 let localeIndex = 0
@@ -162,6 +160,11 @@ let localeIndex = 0
 let slideNearEnd, slideEnd;
 
 async function runPlaylist(locale, call) {
+    currentSlideText.style.display = 'none';
+    currentLocationText.style.display = 'none';
+    upNextLocationText.style.display = 'none';
+
+
     const loc = locationConfig.locations.find(l => l.name === locale);
     let selectedPlaylist = preferredPlaylist.mainPlaylist;
 
@@ -269,7 +272,7 @@ function loopLocations() {
     runNextLocation();
 }
 
-window.addEventListener('load', loopLocations)
+//window.addEventListener('load', loopLocations)
 
 
 
