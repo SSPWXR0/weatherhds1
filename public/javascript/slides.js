@@ -272,7 +272,7 @@ function loopLocations() {
     runNextLocation();
 }
 
-//window.addEventListener('load', loopLocations)
+window.addEventListener('load', loopLocations)
 
 
 
