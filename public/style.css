@@ -144,14 +144,15 @@ hr {
   height: 70%;
 }
 .topbar-stripe-group {
-  display: grid;
-  position: sticky;
-  top: 0%;
-  width: 88%;
-  height: 40%;
-  background-image: linear-gradient(to right, rgba(206, 212, 218, 0.2), rgba(230, 230, 230, 0.349));
-  border-radius: var(--cornerRadius);
-  align-self: flex-start;
+	display: grid;
+	position: sticky;
+	top: 0%;
+  left: 0%;
+	width: 100%;
+	height: 40%;
+	background-image: linear-gradient(to right, rgba(206, 212, 218, 0.2), rgba(230, 230, 230, 0.349));
+	border-radius: var(--cornerRadius);
+	align-self: flex-start;
 }
 .topbar-channel-logo {
   width: 28%;
@@ -173,6 +174,7 @@ hr {
   flex-grow: 0;
   flex-shrink: 0;
   border-radius: var(--cornerRadius);
+  margin-right: 2%;
 
   background-image: url(./images/ssp_square_blue.png);
   background-size: cover;
@@ -183,47 +185,48 @@ hr {
 	right: 0%;
 	width: 30%;
 	height: 100%;
-	background-image: url(/images/mwm.png);
-	background-size: cover;
-	background-position: 0%;
+	background-image: url(./images/sspwxr.png);
+	background-size: contain;
+	background-position: center;
 	border-radius: var(--cornerRadius);
 	background-repeat: no-repeat;
 	max-width: 512px;
 }
 .topbar-datetime {
-	width: 16%;
-	right: 0%;
-	bottom: -2%;
+	width: 20%;
+	right: 24%;
+	bottom: 61%;
 	display: flex;
 	flex-direction: column;
 	align-items: end;
 	justify-content: space-between;
 	font-weight: bold;
-	font-size: var(--fontSizeTwo);
 	color: var(--textColour1);
 	font-size: 27pt;
 	position: absolute;
-  font-variant-numeric: tabular-nums;
-  font-feature-settings: "tnum";
-  font-family: 'JetBrains Mono', monospace;
-  white-space: nowrap;
+	font-variant-numeric: tabular-nums;
+	font-feature-settings: "tnum";
+	font-family: 'JetBrains Mono', monospace;
+	white-space: nowrap;
+	line-height: 1;
+  text-shadow: 3px 3px 3px #000000;
 }
 .topbar-presentation-info {
 	position: absolute;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-	width: 70%;
+	width: 83.5%;
 	left: 14%;
 	text-align: left;
 	white-space: nowrap;
 	bottom: 3%;
-  align-items: center;
+	align-items: center;
 }
 .topbar-presentationinfo-thingies {
   display: flex;
   flex-direction: row;
-  width: 50%;
+  width: 45%;
   height: 100%;
   overflow-y: hidden;
   align-items: center;
@@ -239,10 +242,11 @@ hr {
 }
 
 #topbar-presentationinfo-currentslide {
-  font-size: var(--fontSizeThree);
+  font-size: var(--fontSizeFour);
 }
 .topbar-upnext-locations-group {
   display: flex;
+  align-items: center;
   width: 100%;
 }
 .currentlocation {
@@ -250,8 +254,9 @@ hr {
   width: 50%;
 }
 .nextlocation {
-  font-size: var(--fontSizeOne);
-  width: 30%;
+  font-size: var(--fontSizeTwo);
+  font-weight: 200;
+  width: 40%;
 }
 /*  MAIN PRESENTATION  */
 .main-slides {

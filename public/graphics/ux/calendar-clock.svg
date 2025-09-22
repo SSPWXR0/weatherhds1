@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="32"
+   height="32"
+   viewBox="0 0 24 24"
+   fill="none"
+   stroke="currentColor"
+   stroke-width="2"
+   stroke-linecap="round"
+   stroke-linejoin="round"
+   class="lucide lucide-calendar-clock-icon lucide-calendar-clock"
+   version="1.1"
+   id="svg5"
+   sodipodi:docname="calendar-clock.svg"
+   inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs5" />
+  <sodipodi:namedview
+     id="namedview5"
+     pagecolor="#121212"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="true"
+     inkscape:deskcolor="#000000"
+     showgrid="true"
+     inkscape:zoom="256"
+     inkscape:cx="15.685547"
+     inkscape:cy="16.03125"
+     inkscape:window-width="2560"
+     inkscape:window-height="1369"
+     inkscape:window-x="1272"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg5">
+    <inkscape:grid
+       id="grid8"
+       units="px"
+       originx="0"
+       originy="0"
+       spacingx="1"
+       spacingy="1"
+       empcolor="#0099e5"
+       empopacity="0.30196078"
+       color="#0099e5"
+       opacity="0.14901961"
+       empspacing="5"
+       enabled="true"
+       visible="true" />
+
+       <style>
+         #HOUR\ HAND {
+            transform-origin: 16px 16px;
+            animation: handRotate 2s ease infinite;
+         }
+         #MINUTE\ HAND {
+            transform-origin: 16px 16px;
+            animation: handRotate 1ms ease-in-out infinite;
+         }
+       
+       @keyframes handRotate {
+         0% { transform: rotate(0deg); }
+         100% { transform: rotate(360deg); }
+       }
+       </style>
+  </sodipodi:namedview>
+  <path
+     d="M16 2v4"
+     id="path2"
+     stroke="white" />
+  <path
+     d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5"
+     id="path3"
+     stroke="white" />
+  <path
+     d="M3 10h5"
+     id="path4"
+     stroke="white" />
+  <path
+     d="M8 2v4"
+     id="path5"
+     stroke="white" />
+  <circle
+     cx="16"
+     cy="16"
+     r="6"
+     id="circle5"
+     stroke="white" />
+  <rect
+     style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:0;paint-order:stroke fill markers"
+     id="MINUTE HAND"
+     width="0.84375"
+     height="4.953125"
+     x="15.585938"
+     y="11.40625"
+     ry="0.2525219" />
+  <rect
+     style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:0;paint-order:stroke fill markers"
+     id="HOUR HAND"
+     width="4.203125"
+     height="0.796875"
+     x="15.578126"
+     y="15.574219"
+     ry="0.31667876" />
+  <circle
+     style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:0;paint-order:stroke fill markers"
+     id="path6"
+     cx="16.003696"
+     cy="15.971004"
+     r="0.84570312" />
+</svg>

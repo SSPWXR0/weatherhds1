@@ -1,0 +1,46 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="32"
+  height="32"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="lucide lucide-thermometer-snowflake-icon lucide-thermometer-snowflake">
+
+  <style>
+    .snowflake {
+      stroke: #1e90ff;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes float {
+        0%{
+            transform: translateY(-3%) rotate(-2deg);
+        }
+        50% {
+            transform: translateY(3%) rotate(2deg);
+        }
+        100% {
+            transform: translateY(-3%) rotate(-2deg);
+        }   
+    }
+  </style>
+
+  <!-- Snowflake group -->
+  <g class="snowflake">
+    <path d="m10 20-1.25-2.5L6 18" />
+    <path d="M10 4 8.75 6.5 6 6" />
+    <path d="M10.585 15H10" />
+    <path d="M2 12h6.5L10 9" />
+    <path d="m4 10 1.5 2L4 14" />
+    <path d="m7 21 3-6-1.5-3" />
+    <path d="m7 3 3 6h2" />
+  </g>
+
+  <!-- Thermometer -->
+  <path stroke="white" d="M20 14.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0z" />
+
+</svg>

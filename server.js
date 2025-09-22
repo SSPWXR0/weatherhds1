@@ -157,7 +157,8 @@ async function runDataInterval() {
   console.log(`User contributors: ScentedOrangeDev, LeWolfYt,`);
 
   if (serverConfig.twcApiKey.length === 0) {
-    console.error(`NO API KEY PRESENT! PLEASE ENTER A WEATHER.COM API KEY...`)
+    console.error('\x1b[31m' + 'NO API KEY PRESENT! PLEASE ENTER A WEATHER.COM API KEY...' + '\x1b[0m');
+    process.exit(1);
   }
 }
 
@@ -235,6 +236,13 @@ app.get('/bing-background', async (req, res) => {
       const data = await response.json();
       res.json(data);
       console.log(logTheFrickinTime, "Client requested Bing background image.")
+
+
+      const random = Math.floor(Math.random() * 9000);
+      if (random === 1) {
+          console.error(logTheFrickinTime, "IF YOU ARE SEEING THIS ERROR, PLEASE SAY HI TO MARI FOR ME :3. ~raii")
+          process.exit(1);
+      }
   } catch (error) {
       res.status(500).json(`${logTheFrickinTime} Error fetching Bing background image: ${error}`);
   }

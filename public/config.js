@@ -121,4 +121,4 @@ export const weatherIcons = {
     "47": ["thunderstorms-night.svg", "thunderstorms-night.svg"]
 }
 
-export const versionID = '1-2025.09.08'
+export const versionID = '1-2025.09.18'
