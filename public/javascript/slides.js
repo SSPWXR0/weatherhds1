@@ -152,18 +152,15 @@ document.getElementById('loadingscreen-versionID').innerHTML = `WeatherHDS ${ver
 const currentSlideText = document.getElementById('current-slide');
 const currentLocationText = document.getElementById('current-location');
 const upNextLocationText = document.getElementById('upnext-location')
-
-
+const upNextLocationText1 = document.getElementById('upnext-location1')
+const upNextLocationText2 = document.getElementById('upnext-location2')
+const upNextLocationText3 = document.getElementById('upnext-location3')
 
 let localeIndex = 0
 
 let slideNearEnd, slideEnd;
 
 async function runPlaylist(locale, call) {
-    currentSlideText.style.display = 'none';
-    currentLocationText.style.display = 'none';
-    upNextLocationText.style.display = 'none';
-
 
     const loc = locationConfig.locations.find(l => l.name === locale);
     let selectedPlaylist = preferredPlaylist.mainPlaylist;
@@ -246,21 +243,43 @@ function loopLocations() {
     function runNextLocation() {
         const location = locationConfig.locations[localeIndex];
 
-        currentLocationText.style.display = `none`
-        currentLocationText.style.animation = `switchModules 0.5s ease-in-out`
-        if (location.name === "DUMMY LOCATION") {
-            currentLocationText.innerHTML = "Please Standby..."
-        } else {
-            currentLocationText.innerHTML = location.name;
-        }
-        currentLocationText.style.display = `block`
+        const currentLocation = location.name === "DUMMY LOCATION" ? "Please Standby..." : location.displayName;
 
-        let nextLocation = locationConfig.locations[(localeIndex + 1) % locationConfig.locations.length];
-        
-        upNextLocationText.style.display = `none`
-        upNextLocationText.style.animation = `switchModules 0.5s ease-in-out`
-        upNextLocationText.innerHTML = `<span style="font-weight:200;font-size:22pt;">Next:</span> ${nextLocation.name}`;
-        upNextLocationText.style.display = `block`
+        let valid = locationConfig.locations.filter(l => l.name !== "DUMMY LOCATION"),[nextLocation, nextLocationOne, nextLocationTwo, nextLocationThree] = [1,2,3,4].map(i => valid[(localeIndex + i) % valid.length]);
+
+
+        const textUpdates = [
+            { el: currentLocationText, text: currentLocation },
+            { el: upNextLocationText, text: `> ${nextLocation.displayName}` },
+            { el: upNextLocationText1, text: `> ${nextLocationOne.displayName}` },
+            { el: upNextLocationText2, text: `> ${nextLocationTwo.displayName}` },
+            { el: upNextLocationText3, text: `> ${nextLocationThree.displayName}` }
+        ];
+
+        textUpdates.forEach(({ el, text }, i) => {
+            gsap.to(el, {
+                duration: 0.25,
+                y: -10,
+                opacity: 0,
+                delay: i * 0.15,
+                onComplete: () => {
+                el.textContent = text;
+                gsap.fromTo(
+                    el,
+                    { y: 10, opacity: 0 },
+                    {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.35,
+                    ease: "power2.out",
+                    delay: i * 0.15
+                    }
+                );
+                }
+            });
+        });
+
+
 
         runPlaylist(location.name, () => {
             localeIndex = (localeIndex + 1) % locationConfig.locations.length;

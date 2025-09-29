@@ -117,7 +117,7 @@ hr {
 .topbar {
 	position: sticky;
 	z-index: 4;
-	width: 95%;
+	width: 100%;
 	height: 20%;
   margin: 0 auto;
 	
@@ -137,7 +137,7 @@ hr {
   justify-content: space-between;
 
   position: relative;
-  top: 20%;
+  top: 15%;
   margin-left: auto;
   margin-right: auto;
   width: 95%;
@@ -193,70 +193,81 @@ hr {
 	max-width: 512px;
 }
 .topbar-datetime {
-	width: 20%;
-	right: 24%;
-	bottom: 61%;
-	display: flex;
-	flex-direction: column;
-	align-items: end;
-	justify-content: space-between;
-	font-weight: bold;
-	color: var(--textColour1);
-	font-size: 27pt;
-	position: absolute;
-	font-variant-numeric: tabular-nums;
-	font-feature-settings: "tnum";
-	font-family: 'JetBrains Mono', monospace;
-	white-space: nowrap;
-	line-height: 1;
-  text-shadow: 3px 3px 3px #000000;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: space-between;
+    font-weight: bold;
+    color: var(--textColour1);
+    font-size: 27pt;
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
+    font-family: 'JetBrains Mono', monospace;
+    white-space: nowrap;
+    line-height: 1;
+    text-shadow: 3px 3px 3px #000000;
+    align-self: baseline;
 }
 .topbar-presentation-info {
-	position: absolute;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	width: 83.5%;
-	left: 14%;
-	text-align: left;
-	white-space: nowrap;
-	bottom: 3%;
-	align-items: center;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 85%;
+    height: 20%;
+    left: 13%;
+    text-align: left;
+    white-space: nowrap;
+    bottom: 30%;
+    align-items: center;
 }
 .topbar-presentationinfo-thingies {
   display: flex;
-  flex-direction: row;
-  width: 45%;
-  height: 100%;
-  overflow-y: hidden;
   align-items: center;
+  gap: 0.3em;
 }
+
 .topbar-presentationinfo-thingies p {
-  margin: auto auto;
-  margin-left: 2%;
+  margin: 0 0 0 2%;
+  white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis;
 }
+
 .topbar-slide-display-icon {
   width: 64px;
   height: 64px;
+  margin: 0 0;
 }
 
 #topbar-presentationinfo-currentslide {
-  font-size: var(--fontSizeFour);
+  font-size: var(--fontSizeThree);
+  width: 100%;
 }
 .topbar-upnext-locations-group {
+  position: relative;
   display: flex;
   align-items: center;
   width: 100%;
+  height: 100%;
+  justify-content: space-between;
+}
+.topbar-current-group {
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  width: 80%;
 }
 .currentlocation {
   font-size: var(--fontSizeTwo);
   width: 50%;
+  white-space: nowrap;
 }
 .nextlocation {
   font-size: var(--fontSizeTwo);
-  font-weight: 200;
-  width: 40%;
+  font-weight: 300;
 }
 /*  MAIN PRESENTATION  */
 .main-slides {

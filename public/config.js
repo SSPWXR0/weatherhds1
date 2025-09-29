@@ -27,29 +27,30 @@ export let config = {
     "tickerContent": "", // empty = hides scroll. add any text to it to show a crawl on the LDL.
     "overrideBackgroundImage": "", // skips the background rotation and uses the URL provided.
     "backgroundSource": "online", // set to local to use the locally stored default backgrounds, set value to online to use the Bing background api thing, and set to url to use a background URL.
-    "verboseLogging": false // enables or disables console.log
+    "verboseLogging": false, // enables or disables console.log
+    "refreshInterval": 120 // how often to refresh the browser tab, in minutes.
 }
 
 export const locationConfig = {
   locations: [
-    { name: "DUMMY LOCATION", type: "startPadding" },
-    { name: "Saskatoon, SK", type: "primary" },
-    { name: "Warman, SK", type: "secondary" },
-    { name: "Outlook, SK", type: "secondary"},
-    { name: "North Battleford, SK", type: "secondary" },
-    { name: "Humboldt, SK", type: "secondary" },
+    { name: "DUMMY LOCATION", type: "startPadding", displayName: "" },
+    { name: "Saskatoon, SK", type: "primary", displayName: "Saskatoon" },
+    { name: "Warman, SK", type: "secondary", displayName: "Warman" },
+    { name: "Outlook, SK", type: "secondary", displayName: "Outlook"},
+    { name: "North Battleford, SK", type: "secondary", displayName: "North Battleford" },
+    { name: "Humboldt, SK", type: "secondary", displayName: "Humboldt" },
 
-    { name: "Prince Albert, SK", type: "primary" },
-    { name: "Melfort, SK", type: "secondary" },
-    { name: "Rosthern, SK", type: "secondary" },
-    { name: "Waskesiu Lake, SK", type: "secondary" },
-    { name: "Wakaw, SK", type: "secondary" },
+    { name: "Prince Albert, SK", type: "primary", displayName: "Prince Albert" },
+    { name: "Melfort, SK", type: "secondary", displayName: "Melfort" },
+    { name: "Rosthern, SK", type: "secondary", displayName: "Rosthern" },
+    { name: "Waskesiu Lake, SK", type: "secondary", displayName: "Waskesiu" },
+    { name: "Wakaw, SK", type: "secondary", displayName: "Wakaw" },
 
-    { name: "Regina, SK", type: "regional" },
-    { name: "Winnipeg, MB", type: "regional" },
-    { name: "Edmonton, AB", type: "regional" },
-    { name: "Calgary, AB", type: "regional" },
-    { name: "Vancouver, BC", type: "regional" },
+    { name: "Regina, SK", type: "regional", displayName: "Regina, SK" },
+    { name: "Winnipeg, MB", type: "regional", displayName: "Winnipeg, MB" },
+    { name: "Edmonton, AB", type: "regional", displayName: "Edmonton, AB" },
+    { name: "Calgary, AB", type: "regional", displayName: "Calgary, AB" },
+    { name: "Vancouver, BC", type: "regional", displayName: "Vancouver, BC" },
   ],
 
   ldlLocations: [

@@ -248,6 +248,8 @@ window.onload = () => {
     initBackgrounds()
 }
 
+const refreshInterval = config.refreshInterval * 60000
+
 setTimeout(() => {
-    location.reload();
-  }, 172800000);
+    window.reload(true)
+}, refreshInterval);

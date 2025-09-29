@@ -14,6 +14,8 @@ let i = 0;
 let map = null;
 export let mapTTL = 0;
 
+let maxTimeToLive = 6;
+
 export function clearMap() {
     if (map) {
         map.remove();
@@ -31,10 +33,10 @@ export async function drawMap(lat, lon, product, zoom, htmlID) {
 
 
         let total_frames = 48;
-        let interval_delay = 50;
-        let maxTimeToLive = 12;
+        let interval_delay = 1;
 
-        let total_time_s = (total_frames * interval_delay) / 1000;
+
+        let total_time_s = (total_frames * interval_delay) / 500;
         let radar_frame_rate = total_frames / total_time_s;
         console.log(radar_frame_rate);
 
