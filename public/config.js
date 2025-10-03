@@ -122,4 +122,38 @@ export const weatherIcons = {
     "47": ["thunderstorms-night.svg", "thunderstorms-night.svg"]
 }
 
-export const versionID = '1-2025.09.18'
+export const holidayMapping = {
+    "01-01": { name: "New Year's Day", color0: "#ffffff", color1: "#000000", icon: "" },
+    "01-18": { name: "MLK Day", color0: "#d9a10c", color1: "#d9a10c", icon: "" },
+    "02-02": { name: "Groundhog Day", color0: "#611579", color1: "#611579", icon: "" },
+    "02-14": { name: "Valentine's Day", color0: "#dd1b89", color1: "#dd1b89", icon: "" },
+    "03-13": { name: "Spring Clock Change", color0: "#6bbc79", color1: "#6bbc79", icon: "" },
+    "03-17": { name: "St. Patrick's Day", color0: "#05860b", color1: "#05860b", icon: "" },
+    "03-20": { name: "First Day of Spring", color0: "#c881d1", color1: "#c881d1", icon: "" },
+    "03-27": { name: "Easter", color0: "#e875c3", color1: "#e875c3", icon: "" },
+    "04-01": { name: "April Fools' Day", color0: "#ffff66", color1: "#ffffff", icon: "" },
+    "04-22": { name: "Earth Day", color0: "#006400", color1: "#006400", icon: "" },
+    "04-29": { name: "Arbor Day", color0: "#406732", color1: "#406732", icon: "" },
+    "05-08": { name: "Mother's Day", color0: "#f88fa3", color1: "#f88fa3", icon: "" },
+    "05-30": { name: "Memorial Day", color0: "#174ed5", color1: "#174ed5", icon: "" },
+    "06-19": { name: "Father's Day", color0: "#5c820b", color1: "#5c820b", icon: "" },
+    "06-20": { name: "First Day of Summer", color0: "#e87106", color1: "#e87106", icon: "" },
+    "07-01": { name: "Canada Day", color0: "#ff0000", color1: "#ffffff", icon: "" },
+    "07-04": { name: "Independence Day (US)", color0: "#de2a16", color1: "#de2a16", icon: "" },
+    "09-05": { name: "Labor Day", color0: "#1c3258", color1: "#a52d30", icon: "" },
+    "09-22": { name: "First Day of Fall", color0: "#a74101", color1: "#a74101", icon: "" },
+    "10-09": { name: "Thanksgiving (Canada, 2023 example)", color0: "#cc6600", color1: "#ffcc66", icon: "" },
+    "10-13": { name: "Thanksgiving (Canada, 2025 example)", color0: "#b85423", color1: "#b85423", icon: "" },
+    "10-31": { name: "Halloween", color0: "#d79f00", color1: "#d79f00", icon: "" },
+    "11-06": { name: "Fall Clock Change", color0: "#b3ad00", color1: "#b3ad00", icon: "" },
+    "11-11": { name: "Remembrance Day (CA) / Veterans Day (US)", color0: "#8a3030", color1: "#8a3032", icon: "" },
+    "11-23": { name: "Thanksgiving (US, 2023 example)", color0: "#ff9933", color1: "#663300", icon: "" },
+    "12-06": { name: "First Day of Hanukkah", color0: "#dead39", color1: "#dead39", icon: "" },
+    "12-21": { name: "First Day of Winter", color0: "#0e105d", color1: "#0e105d", icon: "" },
+    "12-24": { name: "Christmas Eve", color0: "#be312a", color1: "#be312a", icon: "" },
+    "12-25": { name: "Christmas Day", color0: "#008000", color1: "#ff0000", icon: "" },
+    "12-31": { name: "New Year's Eve", color0: "#d4aa45", color1: "#d4aa45", icon: "" }
+}
+
+
+export const versionID = '1-2025.10.03'

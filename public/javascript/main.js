@@ -88,10 +88,12 @@ function ScaleViewportToTheWindowIGuessLmao() {
     let height
 
     const videoModes = {
-        vga: { width: 1920, height: 1440},
-        hdtv: { width: 2560, height: 1440},
-        ntsc: { width: 2160, height: 1440},
-        tablet: { width: 2304, height: 1440}
+        vga: { width: 1920, height: 1440, barMaxWidth: 1920},
+        hdtv: { width: 2560, height: 1440, barMaxWidth: 2304},
+        ntsc: { width: 2160, height: 1440, barMaxWidth: 2048},
+        tablet: { width: 2304, height: 1440, barMaxWidth: 2304},
+        i2sidebar: { width: 2048, height: 1440, barMaxWidth: 1947}, // specialized video mode for IntelliStar 2 xD systems with TWC Enhanced sidebar
+        i2buffer: { width: 2560, height: 1440, barMaxWidth: 1947}, // specialized video mode with buffered sidebar area for IntelliStar 2 xD systems with TWC Enhanced sidebar
     };
 
     const mode = videoModes[config.videoType] || videoModes.vga;
@@ -112,6 +114,19 @@ function ScaleViewportToTheWindowIGuessLmao() {
 
     viewport.style.left = `${centeredLeft}px`;
     viewport.style.top = `${centeredTop}px`;
+
+    ldlContainer.style.width = `${mode.barMaxWidth}px`;
+    topBar.style.width = `${mode.barMaxWidth}px`;
+
+    if (config.videoType === "i2buffer") {
+        document.getElementsByClassName("i2-sidebar-buffer")[0].style.display = `block`;
+
+        ldlContainer.style.margin = `0px 128px 0px 0px`;
+        ldlContainer.style.left = `1.7%`;
+        topBar.style.margin = `0px 128px 0px 0px`;
+        topBar.style.left = `1.7%`;
+        mainSlides.style.width = `80%`;
+    }
 
     viewport.style.transform = `scale(${scaleRatio})`;
 }

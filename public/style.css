@@ -117,8 +117,7 @@ hr {
 .topbar {
 	position: sticky;
 	z-index: 4;
-	width: 100%;
-	height: 20%;
+	height: 22%;
   margin: 0 auto;
 	
 	border-bottom-left-radius: var(--cornerRadius);
@@ -269,9 +268,26 @@ hr {
   font-size: var(--fontSizeTwo);
   font-weight: 300;
 }
+/* SIDEBAR */
+.i2-sidebar-buffer {
+  display: none;
+  position: absolute;
+  height: 100%;
+  right: 0%;
+  width: 20%;
+
+  border-bottom-left-radius: var(--cornerRadius);
+  border-top-left-radius: var(--cornerRadius);
+	backdrop-filter: blur(70px) saturate(350%) brightness(60%);
+  background-color: var(--fifthColour);
+
+  border-bottom: 4px solid var(--thirdColourTransparent);
+  border-left: 4px solid var(--thirdColourTransparent);
+  border-top: 4px solid var(--thirdColourTransparent);
+}
 /*  MAIN PRESENTATION  */
 .main-slides {
-  position: absolute;
+  position: sticky;
   height: 60%;
   width: 100%;
   top: 22%;
@@ -280,7 +296,7 @@ hr {
 	margin: auto auto;
   max-width: 1716px;
 	width: 90%;
-	height: 95%;
+	height: 90%;
   padding-top: 5px;
 }
 /* STATION ID */
@@ -917,11 +933,11 @@ hr {
 
 /* LDL */
 .ldl-weather {
-	position: absolute;
+	position: sticky;
   bottom: 0%;
 	z-index: 4;
-	width: 99.65%;
-	height: 18%;
+	width: 95%;
+	height: 20%;
   margin: 0 auto;
 	
 	border-top-left-radius: var(--cornerRadius);
