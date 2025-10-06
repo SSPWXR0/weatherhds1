@@ -41,11 +41,10 @@
 
             <div class="topbar">
                 <div class="topbar-channel-info">
-                    <div id="topbar-channel-square-logo-container" class="topbar-channel-square-logo"></div>
-                    
-                    <div class="topbar-stripe-group">
-                        <div id="topbar-channel-logo-container" class="topbar-channel-logo"></div>
-                        <div id="topbar-affiliate-logo-container" class="topbar-affiliate-logo"></div>
+
+                    <div class="topbar-logo-group">
+                        <div class="topbar-channel-square-logo" id="topbar-channel-square-logo"></div>
+                        <div class="topbar-channel-logo"></div>
                     </div>
 
                     <div class="topbar-datetime">
@@ -55,37 +54,32 @@
                     
                 </div>
 
-                <div class="topbar-presentation-info">
-                    <div class="topbar-current-group">
-                        <div class="topbar-presentationinfo-thingies" id="topbar-presentationinfo-currentslide">
-                            <img class="topbar-slide-display-icon" src="/graphics/animated/not-available.svg" id="current-slide-icon">
-                            <p id="current-slide">Current Slide</p>
+                <div class="topbar-upnext-group">
+                    <div class="topbar-presentation-info">
+                        <div class="topbar-current-slide-group">
+                            <img width="96" src="/graphics/ux/thermometer-sun.svg" class="topbar-current-slide-icon" id="topbar-slide-icon">
+                            <div class="topbar-current-slide" id="currentslide">Current COnddition</div>
                         </div>
-
-                        <div class="topbar-presentationinfo-thingies currentlocation" id="topbar-presentationinfo-currentlocation">
-                                <img class="topbar-slide-display-icon" src="/graphics/ux/map-pinned.svg" alt="Next locations">
-                                <p id="current-location">Current Location</p>
-                        </div>
-
-                    </div>
-                    
-
-                    <div class="topbar-upnext-locations-group">
-                        <div class="nextlocation" id="topbar-presentationinfo-nextlocation1">
-                            <p id="upnext-location">> Next Location</p>
-                        </div>
-                        <div class="nextlocation" id="topbar-presentationinfo-nextlocation2">
-                            <p id="upnext-location1">> Next Location</p>
-                        </div>
-                        <div class="nextlocation" id="topbar-presentationinfo-nextlocation3">
-                            <p id="upnext-location2">> Next Location</p>
-                        </div>
-                        <div class="nextlocation" id="topbar-presentationinfo-nextlocation4">
-                            <p id="upnext-location3">> Next Location</p>
+                        <div class="topbar-progressbar-group">
+                            <div class="topbar-current-product-progressbar">
+                                <div class="topbar-current-product-progress-element" id="currentprogressbar"></div>
+                            </div>
                         </div>
                     </div>
-
+                    <div class="topbar-location-info">
+                        <div class="topbar-current-location">
+                            <img width="48" height="48" src="./graphics/ux/map-pinned.svg" class="topbar-current-loc-icon" id="topbar-loc-icon">
+                            <div id="current-location">Saskatoon</div>
+                        </div>
+                        <div class="topbar-next-locations">
+                            <div class="topbar-next-location" id="upnext-location">> Regina</div>
+                            <div class="topbar-next-location" id="upnext-location1">> Moose Jaw</div>
+                            <div class="topbar-next-location" id="upnext-location2">> Prince Albert</div>
+                        </div>
+                    </div>
                 </div>
+
+              
             </div>
 
             <div class="main-radar" id="radar-div-so-that-mapbox-will-be-happy"></div>
@@ -108,7 +102,7 @@
                         </div>
                         <div class="main-info-hds1info">
                             <img class="hdsLogo" src="/images/hdslogo_2024.png" alt="WeatherHDS 1 logo">
-                            <h6 id="station-id-hdsver" class="versionID"></h3>
+                            <h6 id="station-id-hdsver" class="versionID"></h6>
                         </div>
                     </div>
                 </div>

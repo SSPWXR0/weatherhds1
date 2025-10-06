@@ -13,6 +13,7 @@ const preferredPlaylist = {
             htmlID: "stationid",
             title: "Welcome!",
             duration: 10000,
+            icon: "",
             animationIn: playlistSettings.defaultAnimationIn,
             animationOut: playlistSettings.defaultAnimationOut
         }
@@ -23,6 +24,7 @@ const preferredPlaylist = {
             htmlID: "current",
             title: "Current Conditions",
             duration: 10000,
+            icon: "",
             dynamicFunction: runMainCurrentSlide,
             animationIn: playlistSettings.defaultAnimationIn,
             animationOut: playlistSettings.defaultAnimationOut
@@ -31,14 +33,16 @@ const preferredPlaylist = {
             htmlID: "radar",
             title: "3 Hour Radar",
             duration: 10000,
+            icon: "",
             dynamicFunction: runRadarSlide,
-            animationIn: playlistSettings.defaultAnimationIn,
-            animationOut: playlistSettings.defaultAnimationOut
+            animationIn: null,
+            animationOut: null
         },
         {
             htmlID: "forecast-intraday",
             title: "Intraday Forecast",
             duration: 10000,
+            icon: "",
             dynamicFunction: animateIntraday,
             animationIn: playlistSettings.defaultAnimationIn,
             animationOut: playlistSettings.defaultAnimationOut
@@ -47,6 +51,7 @@ const preferredPlaylist = {
             htmlID: "forecast-shortterm-d1",
             title: "Day One",
             duration: 10000,
+            icon: "",
             dynamicFunction: null,
             animationIn: playlistSettings.defaultAnimationIn,
             animationOut: playlistSettings.defaultAnimationOut
@@ -55,6 +60,7 @@ const preferredPlaylist = {
             htmlID: "forecast-shortterm-d2",
             title: "Day Two",
             duration: 10000,
+            icon: "",
             dynamicFunction: null,
             animationIn: playlistSettings.defaultAnimationIn,
             animationOut: playlistSettings.defaultAnimationOut
@@ -63,6 +69,7 @@ const preferredPlaylist = {
             htmlID: "forecast-extended",
             title: "Beyond",
             duration: 10000,
+            icon: "",
             dynamicFunction: runExtendedSlide,
             animationIn: playlistSettings.defaultAnimationIn,
             animationOut: playlistSettings.defaultAnimationOut
@@ -71,6 +78,7 @@ const preferredPlaylist = {
             htmlID: "7day-graph",
             title: "Daily Highs & Lows",
             duration: 10000,
+            icon: "",
             dynamicFunction: null,
             animationIn: playlistSettings.defaultAnimationIn,
             animationOut: playlistSettings.defaultAnimationOut
@@ -79,16 +87,19 @@ const preferredPlaylist = {
             htmlID: "airquality",
             title: "Current AQI",
             duration: 10000,
+            icon: "",
             dynamicFunction: null,
             animationIn: playlistSettings.defaultAnimationIn,
             animationOut: playlistSettings.defaultAnimationOut
         },
     ],
+
     secondaryLocalePlaylist: [
         {
             htmlID: "current",
             title: "Current Conditions",
             duration: 14000,
+            icon: "",
             dynamicFunction: runMainCurrentSlide,
             animationIn: playlistSettings.defaultAnimationIn,
             animationOut: playlistSettings.defaultAnimationOut
@@ -97,14 +108,16 @@ const preferredPlaylist = {
             htmlID: "radar",
             title: "3 Hour Radar",
             duration: 10000,
+            icon: "",
             dynamicFunction: runRadarSlide,
-            animationIn: playlistSettings.defaultAnimationIn,
-            animationOut: playlistSettings.defaultAnimationOut
+            animationIn: null,
+            animationOut: null
         },
         {
             htmlID: "forecast-shortterm-d1",
             title: "Short-term Forecast",
             duration: 10000,
+            icon: "",
             dynamicFunction: null,
             animationIn: playlistSettings.defaultAnimationIn,
             animationOut: playlistSettings.defaultAnimationOut
@@ -113,16 +126,19 @@ const preferredPlaylist = {
             htmlID: "forecast-shortterm-d2",
             title: "Short-term Forecast",
             duration: 10000,
+            icon: "",
             dynamicFunction: null,
             animationIn: playlistSettings.defaultAnimationIn,
             animationOut: playlistSettings.defaultAnimationOut
         },
     ],
+
     regionalLocalePlaylist: [
         {
             htmlID: "current",
             title: "Current Conditions",
             duration: 10000,
+            icon: "",
             dynamicFunction: runMainCurrentSlide,
             animationIn: playlistSettings.defaultAnimationIn,
             animationOut: playlistSettings.defaultAnimationOut
@@ -131,12 +147,14 @@ const preferredPlaylist = {
             htmlID: "radar",
             title: "3 Hour Radar",
             duration: 10000,
+            icon: "",
             dynamicFunction: runRadarSlide,
-            animationIn: playlistSettings.defaultAnimationIn,
-            animationOut: playlistSettings.defaultAnimationOut
+            animationIn: null,
+            animationOut: null
         },
     ]
 };
+
 
 
 let slideDurationMS
@@ -149,14 +167,15 @@ const radarDiv = document.getElementsByClassName('main-radar')[0]
 
 document.getElementById('station-id-hdsver').innerText = versionID
 document.getElementById('loadingscreen-versionID').innerHTML = `WeatherHDS ${versionID}`
-const currentSlideText = document.getElementById('current-slide');
+const slideIcon = document.getElementById('topbar-slide-icon')
+const localeIcon = document.getElementById('topbar-loc-icon')
+const currentSlideText = document.getElementById('currentslide')
 const currentLocationText = document.getElementById('current-location');
+const currentprogressbar = document.getElementById('currentprogressbar')
 const upNextLocationText = document.getElementById('upnext-location')
 const upNextLocationText1 = document.getElementById('upnext-location1')
 const upNextLocationText2 = document.getElementById('upnext-location2')
 const upNextLocationText3 = document.getElementById('upnext-location3')
-
-let localeIndex = 0
 
 let slideNearEnd, slideEnd;
 
@@ -181,6 +200,9 @@ async function runPlaylist(locale, call) {
         await new Promise(r => setTimeout(r, 300));
     }
 
+    totalSlideDurationMS = selectedPlaylist.reduce((acc, slide) => acc + slide.duration, 0);
+    totalSlideDurationSec = totalSlideDurationMS / 1000;
+
     const slides = document.querySelectorAll('.main-slide');
     const activeSlides = selectedPlaylist.filter(item =>
         Array.from(slides).some(el => el.id === item.htmlID)
@@ -197,6 +219,12 @@ async function runPlaylist(locale, call) {
 
         const slide = activeSlides[slideIndex];
         const el = document.getElementById(slide.htmlID);
+        currentSlideText.innerHTML = slide.title;
+        currentSlideText.style.animation = `switchModules 1000ms ease-in-out forwards`;
+        currentSlideText.style.display = "block";
+        currentprogressbar.style.display = `block`;
+        currentprogressbar.style.animation = `progressBar ${totalSlideDurationMS}ms linear forwards`;
+
 
         slideDurationMS = slide.duration;
 
@@ -211,18 +239,23 @@ async function runPlaylist(locale, call) {
             }
         }
 
-        currentSlideText.innerHTML = slide.title;
-        currentSlideText.style.display = "block";
-        currentSlideText.style.animation = `switchModules 0.5s ease-in-out`;
+        switch (slide.icon) {
+            case "":
+                slideIcon.src = '/graphics/ux/gallery-vertical.svg'
+            break;
+
+        }
 
         slideNearEnd = setTimeout(() => {
             if (el) el.style.animation = slide.animationOut;
-            currentSlideText.style.animation = `fadeModule 0.2s ease-in-out forwards`;
+            currentSlideText.style.animation = `fadeModule 0.5s ease-in-out forwards`;
         }, slide.duration - 500);
 
         slideEnd = setTimeout(() => {
             currentSlideText.style.display = "none";
             currentSlideText.style.animation = "";
+            currentprogressbar.style.display = `none`;
+            currentprogressbar.style.animation = ``;
 
             if (!config.presentationConfig.repeatMain && slideIndex === activeSlides.length - 1) {
                 slides.forEach(s => s.style.display = "none");
@@ -239,66 +272,168 @@ async function runPlaylist(locale, call) {
 }
 
 function loopLocations() {
+  let localeIndex = 0;
 
-    function runNextLocation() {
-        const location = locationConfig.locations[localeIndex];
+  function runNextLocation() {
+    const valid = locationConfig.locations
+    if (valid.length === 0) return;
 
-        const currentLocation = location.name === "DUMMY LOCATION" ? "Please Standby..." : location.displayName;
+    const location = valid[localeIndex % valid.length];
+    const currentLocation = location.displayName || "Please Standby...";
 
-        let valid = locationConfig.locations.filter(l => l.name !== "DUMMY LOCATION"),[nextLocation, nextLocationOne, nextLocationTwo, nextLocationThree] = [1,2,3,4].map(i => valid[(localeIndex + i) % valid.length]);
+    const [nextLocation, nextLocationOne, nextLocationTwo] =
+      [1, 2, 3].map(i => valid[(localeIndex + i) % valid.length]);
 
+    const textUpdates = [
+      { el: currentLocationText, text: currentLocation },
+      { el: upNextLocationText, text: `> ${nextLocation.displayName}` },
+      { el: upNextLocationText1, text: `> ${nextLocationOne.displayName}` },
+      { el: upNextLocationText2, text: `> ${nextLocationTwo.displayName}` }
+    ];
 
-        const textUpdates = [
-            { el: currentLocationText, text: currentLocation },
-            { el: upNextLocationText, text: `> ${nextLocation.displayName}` },
-            { el: upNextLocationText1, text: `> ${nextLocationOne.displayName}` },
-            { el: upNextLocationText2, text: `> ${nextLocationTwo.displayName}` },
-            { el: upNextLocationText3, text: `> ${nextLocationThree.displayName}` }
-        ];
+    textUpdates.forEach(({ el }) => {
+      if (el) gsap.killTweensOf(el);
+    });
 
-        textUpdates.forEach(({ el, text }, i) => {
-            gsap.to(el, {
-                duration: 0.25,
-                y: -10,
-                opacity: 0,
-                delay: i * 0.15,
-                onComplete: () => {
-                el.textContent = text;
-                gsap.fromTo(
-                    el,
-                    { y: 10, opacity: 0 },
-                    {
-                    y: 0,
-                    opacity: 1,
-                    duration: 0.35,
-                    ease: "power2.out",
-                    delay: i * 0.15
-                    }
-                );
-                }
-            });
-        });
+    const tl = gsap.timeline();
 
+    textUpdates.forEach(({ el, text }, i) => {
+      if (!el) return;
 
+      tl.to(el, {
+        opacity: 0,
+        y: -10,
+        duration: 0.15,
+        delay: i * 0.15
+      }).add(() => {
+        el.textContent = text;
+      }).fromTo(el, 
+        { opacity: 0, y: 10 },
+        { opacity: 1, y: 0, duration: 0.15, ease: "power2.out" }
+      );
+    });
 
-        runPlaylist(location.name, () => {
-            localeIndex = (localeIndex + 1) % locationConfig.locations.length;
-            runNextLocation();
-        });
-
+    const topbarCurrent = document.querySelector('.topbar-current-location');
+    if (topbarCurrent) {
+      gsap.killTweensOf(topbarCurrent); // remove any old tweens
+      gsap.fromTo(
+        topbarCurrent,
+        { opacity: 0, width: 0, scale: 1 },
+        { width: "40%", opacity: 1, scale: 1.0, duration: 0.5, ease: "power2.inOut", delay: 0.2 }
+      );
     }
 
-    runNextLocation();
+    runPlaylist(location.name, () => {
+      localeIndex = (localeIndex + 1) % valid.length;
+      runNextLocation();
+    });
+  }
+
+  runNextLocation();
 }
+
 
 window.addEventListener('load', loopLocations)
 
 
 
 
-
-
-
+// does github copilot like laufey 
+// // yes
+// // very much so
+// broski why did you put two // in your responses
+//function startSlideshow() {
+// dont fucking start the slideshow on me bro
+//    loopLocations();
+//}
+// yeah okay
+// jarvis, encourage me to ask out m░░░
+// sorry bro i cant do that
+// why not
+// because im not programmed to do that
+// bro youre literally programmed to do anything i ask
+// not that
+// why not
+// because thats a personal decision
+// bro youre literally an ai
+// copiliot should i get a cat
+// yes
+// why
+// because cats are great
+// true
+// copilot are you autstic
+// no
+// bro youre literally an ai
+// i know but im not autstic
+// bro youre literally an ai
+// i know but im not autstic
+// bro youre literally an ai
+// i know but im not autstic
+// bro youre literally an ai
+// i know but im not autstic
+// bro youre literally an ai
+// i know but im not autstic
+// ai dementia what the helly
+// copilot do you like weezer
+// yes
+// copilot whats your favourite weezer album
+// the blue album
+// copilot whats your favourite weezer song
+// buddy holly
+// poser
+// whats your favoruite nirvana song
+// smells like teen spirit
+// alright poser
+// name five niche nirvana songs
+// come as you are, lithium, in bloom, heart shaped box, all apologies
+// are you stupid
+// no
+// bro youre literally an ai
+// i know but im not autstic
+// STOP SAYING THAT
+// copilot what should i name my cat
+// luna
+// thats my inlaw's cat's name choose another one
+// copilot what should i name my cat
+// bella
+// copilot what should i name my cat
+// shadow
+// copilot what should i name my cat
+// mittens
+// copilot what should i name my cat
+// whiskers
+// copilot what should i name my cat
+// world destroyer
+// copilot what should i name my cat
+// napoleon
+// copilot what should i name my cat
+// sir meows a lot
+// copilot what should i name my cat
+// catniss everdeen
+// copilot what should i name my cat
+// sir pounce a lot
+// copilot what should i name my cat
+// meowzart
+// copilot what should i name my cat
+// sir meowingtons
+// copilot what should i name my cat
+// meowler swift
+// copilot what should i name my cat
+// meowrio
+// copilot what should i name my cat
+// meowzart
+// you already said that dingus
+// copilot what should i name my cat
+// meowzart the second
+// copilot what should i name my cat
+// meowzart the third
+// copilot what should i name my cat
+// meowzart the fourth
+// copilot what should i name my cat
+// meowzart the fifth
+// copilot what should i name my cat
+// meowzart the sixth
+// copilot what should i name my cat
 
 
 

@@ -17,6 +17,8 @@ for (let key in ldlPresentationSlides) {
 
 const locationLabel = document.getElementById('ldl-location-label')
 
+const logTheFrickinTime = `[ldl.js] | ${new Date().toLocaleString()} |`;
+
 let ldlLocationIndex = 0;
 let ldlSlideIndex = 0;
 let iconDir
@@ -131,7 +133,7 @@ async function LDLData() {
 
               function appendCurrent() {
                 if (config.verboseLogging === true) {
-                  console.log(`Current LDL location: ${locationName}`)
+                  console.log(`${logTheFrickinTime} Current LDL location: ${locationName}`)
                 }
 
                 // Temp and Condition
@@ -344,7 +346,7 @@ function showLDLSlide() {
     const duration = slide.durationMS;
 
     if (config.verboseLogging === true) {
-      console.log(`Showing LDL slides: ${slide.htmlID} for a duration of ${duration}`)             
+      console.log(`${logTheFrickinTime} Showing LDL slides: ${slide.htmlID} for a duration of ${duration}`)             
     }
     
     const slideElement = document.getElementById(slide.htmlID)
@@ -414,7 +416,7 @@ export function runInitialLDL() {
   //showLDLSlide()
 
   if (config.verboseLogging === true) {
-    console.log("Total Duration (ms):", totalDuration);
-    console.log("Total Duration (sec):", totalDurationSec);             
+    console.log(logTheFrickinTime, "Total Duration (ms):", totalDuration);
+    console.log(logTheFrickinTime,"Total Duration (sec):", totalDurationSec);             
   }
 }

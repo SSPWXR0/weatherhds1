@@ -92,13 +92,15 @@ export async function appendDatatoMain(locale, locType) {
     let lat = wxData.metadata?.localeData?.lat ?? null;
     let lon = wxData.metadata?.localeData?.lon ?? null;
 
-    if (wxData.weather.alertDetail && locationConfig.locations.some(loc => loc.name.includes(locale))) {
-        let detailText = wxData.weather.alertDetail.texts[0].description
-        let detailTextFmt = detailText.replace(/\n/g, '\u00A0')
-        let alertCategory = wxData.weather.v3alertsHeadlines.alerts[0].significance
-        let headlineText = wxData.weather.v3alertsHeadlines.alerts[0].headlineText
-        showBulletinCrawl(detailTextFmt, alertCategory, headlineText)
-    }
+    try {
+        if (wxData?.weather?.alertDetail && locationConfig.locations.some(loc => loc.name.includes(locale))) {
+            let detailText = wxData.weather.alertDetail.texts[0].description
+            let detailTextFmt = detailText.replace(/\n/g, '\u00A0')
+            let alertCategory = wxData.weather.v3alertsHeadlines.alerts[0].significance
+            let headlineText = wxData.weather.v3alertsHeadlines.alerts[0].headlineText
+            showBulletinCrawl(detailTextFmt, alertCategory, headlineText)
+        }
+    } catch (error) {}
 
     drawMap(lat, lon, "twcRadarHcMosaic", 8, 'radar-div-so-that-mapbox-will-be-happy') 
 

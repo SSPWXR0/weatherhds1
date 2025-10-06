@@ -248,5 +248,10 @@ app.get('/bing-background', async (req, res) => {
   }
 });
 
+app.get('/heartbeat', (req, res) => {
+  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+  console.log(logTheFrickinTime, "Heartbeat check received from client.");
+});
+
 process.on('SIGINT', () => {console.log("Exiting WeatherHDS daemon"); process.exit();});
 process.on('SIGUSR2', () => {console.log("Exiting WeatherHDS daemon"); process.exit();});
