@@ -1,5 +1,6 @@
 import { config, locationConfig, versionID } from "../config.js";
 import { appendDatatoMain, animateIntraday } from "./weather.js";
+import { serverHealth, areWeDead } from "./data.js";
 
 const playlistSettings = {
     defaultAnimationIn: `mainPresentationSlideIn 500ms ease-in-out`,
@@ -152,6 +153,18 @@ const preferredPlaylist = {
             animationIn: null,
             animationOut: null
         },
+    ],
+
+    standbyPlaylist: [
+        {
+            htmlID: "radar",
+            title: "3 Hour Radar",
+            duration: 18000,
+            icon: "",
+            dynamicFunction: runRadarSlide,
+            animationIn: null,
+            animationOut: null
+        },
     ]
 };
 
@@ -180,6 +193,7 @@ const upNextLocationText3 = document.getElementById('upnext-location3')
 let slideNearEnd, slideEnd;
 
 async function runPlaylist(locale, call) {
+    await areWeDead();
 
     const loc = locationConfig.locations.find(l => l.name === locale);
     let selectedPlaylist = preferredPlaylist.mainPlaylist;
@@ -187,13 +201,36 @@ async function runPlaylist(locale, call) {
     clearTimeout(slideNearEnd);
     clearTimeout(slideEnd);
 
-    switch (loc.type) {
-        case "startPadding": selectedPlaylist = preferredPlaylist.startPadding; break;
-        case "secondary": selectedPlaylist = preferredPlaylist.secondaryLocalePlaylist; break;
-        case "regional": selectedPlaylist = preferredPlaylist.regionalLocalePlaylist; break;
-        case "primary":
-        default: selectedPlaylist = preferredPlaylist.mainPlaylist; break;
+    if (serverHealth === 0) {
+        switch (loc.type) {
+            case "startPadding":
+                selectedPlaylist = preferredPlaylist.startPadding;
+                break;
+
+            case "secondary":
+                selectedPlaylist = preferredPlaylist.secondaryLocalePlaylist;
+                break;
+
+            case "regional":
+                selectedPlaylist = preferredPlaylist.regionalLocalePlaylist;
+                    break;
+
+            case "primary":
+                selectedPlaylist = preferredPlaylist.mainPlaylist;
+                break;
+            case "standby":
+                selectedPlaylist = preferredPlaylist.standbyPlaylist;
+                break;
+            default:
+                selectedPlaylist = preferredPlaylist.mainPlaylist;
+                break;
+        }
     }
+    if (serverHealth === 1) {
+        selectedPlaylist = preferredPlaylist.standbyPlaylist;
+    }
+
+
 
     if (locale !== "DUMMY LOCATION" && selectedPlaylist !== preferredPlaylist.startPadding) {
         await appendDatatoMain(locale, loc?.type);
@@ -291,25 +328,27 @@ function loopLocations() {
       { el: upNextLocationText2, text: `> ${nextLocationTwo.displayName}` }
     ];
 
+    for (const { el, text } of textUpdates) {
+        if (el) el.textContent = text;
+    }
+
     textUpdates.forEach(({ el }) => {
       if (el) gsap.killTweensOf(el);
     });
 
     const tl = gsap.timeline();
 
-    textUpdates.forEach(({ el, text }, i) => {
+    textUpdates.forEach(({ el },) => {
       if (!el) return;
 
       tl.to(el, {
         opacity: 0,
-        y: -10,
+        "transform": "translateY(10px)",
         duration: 0.15,
-        delay: i * 0.15
-      }).add(() => {
-        el.textContent = text;
+        delay: 0.05
       }).fromTo(el, 
-        { opacity: 0, y: 10 },
-        { opacity: 1, y: 0, duration: 0.15, ease: "power2.out" }
+        { opacity: 0, "transform": "translateY(10px)", },
+        { opacity: 1, duration: 0.15, "transform": "translateY(0px)", ease: "power2.out" }
       );
     });
 

@@ -26,6 +26,11 @@ export function clearMap() {
 
 export async function drawMap(lat, lon, product, zoom, htmlID) {
 
+    if (!lat || !lon) {
+        console.warn(logTheFrickinTime, "Latitude or Longitude is null or undefined. Cannot draw map.");
+        return;
+    }
+
     try {
         
         let cityLngLat = [lon, lat];

@@ -300,15 +300,16 @@ hr {
 }
 .topbar-next-locations {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
-  flex: 1 1 auto;
+  flex: 2 2 auto;
   min-width: 0;
   height: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-
+  will-change: transform;
+  transform-origin: center;
   font-weight: 400;
   font-size: var(--fontSizeTwo);
 }
@@ -349,7 +350,7 @@ hr {
   display: flex;
   justify-content: center;
 	height: 61%;
-	width: 80%;
+	width: 100%;
 	top: 20%;
   overflow: hidden;
 }

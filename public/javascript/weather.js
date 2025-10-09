@@ -1,4 +1,4 @@
-import { requestWxData, imageIndex } from './data.js'
+import { requestWxData, serverHealth } from './data.js'
 import { weatherIcons, locationConfig, serverConfig } from "../config.js";
 import { drawMap } from './radar.js';
 import { showBulletinCrawl } from './ldl.js';
@@ -84,28 +84,62 @@ export async function appendDatatoMain(locale, locType) {
     let wxData = {};
     wxData = await requestWxData(locale, locType)
 
-    let current = wxData.weather?.["v3-wx-observations-current"] ?? null;
-    let intraday = wxData.weather?.v2fcstintraday3?.forecasts ?? [];
-    let forecast = wxData.weather?.["v3-wx-forecast-daily-7day"] ?? wxData.weather?.["v3-wx-forecast-daily-3day"] ?? null;
-    let airQuality = wxData.weather?.["v3-wx-globalAirQuality"]?.globalairquality ?? null;
-    let pollen = wxData.weather?.pollenData?.pollenForecast12hour ?? null;
-    let lat = wxData.metadata?.localeData?.lat ?? null;
-    let lon = wxData.metadata?.localeData?.lon ?? null;
+    let lat = wxData?.metadata?.localeData?.lat ?? null;
+    let lon = wxData?.metadata?.localeData?.lon ?? null;
 
-    try {
-        if (wxData?.weather?.alertDetail && locationConfig.locations.some(loc => loc.name.includes(locale))) {
-            let detailText = wxData.weather.alertDetail.texts[0].description
-            let detailTextFmt = detailText.replace(/\n/g, '\u00A0')
-            let alertCategory = wxData.weather.v3alertsHeadlines.alerts[0].significance
-            let headlineText = wxData.weather.v3alertsHeadlines.alerts[0].headlineText
-            showBulletinCrawl(detailTextFmt, alertCategory, headlineText)
-        }
-    } catch (error) {}
+    let current;
+    let intraday;
+    let forecast;
+    let airQuality;
+    let pollen;
 
-    drawMap(lat, lon, "twcRadarHcMosaic", 8, 'radar-div-so-that-mapbox-will-be-happy') 
+    if (wxData.weather != null) {
+            current = wxData?.weather?.["v3-wx-observations-current"] ?? null;
+            intraday = wxData?.weather?.v2fcstintraday3?.forecasts ?? [];
+            forecast = wxData?.weather?.["v3-wx-forecast-daily-7day"] ?? wxData.weather?.["v3-wx-forecast-daily-3day"] ?? null;
+            airQuality = wxData?.weather?.["v3-wx-globalAirQuality"]?.globalairquality ?? null;
+            pollen = wxData?.weather?.pollenData?.pollenForecast12hour ?? null;
+
+            if (serverHealth === 0) {
+
+            switch (locType) {
+
+                case "regional":
+                    buildCurrentConditions()
+                    break;
+                case "secondary":
+                    buildCurrentConditions()
+                    buildShortTermForecast()
+                    break;
+
+                case "primary":
+                default:
+                    buildCurrentConditions()
+                    buildIntraDayForecast()
+                    buildShortTermForecast()
+                    buildExtendedForecast()
+                    buildHighLowGraph()
+                    buildAirQuality()
+                    break;
+            }
+
+            try {
+                if (wxData?.weather?.alertDetail && locationConfig.locations.some(loc => loc.name.includes(locale))) {
+                    let detailText = wxData.weather.alertDetail.texts[0].description
+                    let detailTextFmt = detailText.replace(/\n/g, '\u00A0')
+                    let alertCategory = wxData.weather.v3alertsHeadlines.alerts[0].significance
+                    let headlineText = wxData.weather.v3alertsHeadlines.alerts[0].headlineText
+                    showBulletinCrawl(detailTextFmt, alertCategory, headlineText)
+                }} catch (error) {}
+
+            } else {
+                console.warn(logTheFrickinTime, "Server is unreachable, cannot fetch weather data.")
+
+            }
+    }
 
 
-
+    drawMap(lat, lon, "twcRadarHcMosaic", 8, 'radar-div-so-that-mapbox-will-be-happy')
 
     function setDayIcon(day, product, daypartIndex) { // this sucks i hate myself
 
@@ -413,27 +447,6 @@ export async function appendDatatoMain(locale, locType) {
             document.getElementById('main-aq-category').style.fontSize = '44pt'
         }
     }
-    
-switch (locType) {
-    case "regional":
-        buildCurrentConditions()
-        break;
-    case "secondary":
-        buildCurrentConditions()
-        buildShortTermForecast()
-        break;
-
-    case "primary":
-    default:
-        buildCurrentConditions()
-        buildIntraDayForecast()
-        buildShortTermForecast()
-        buildExtendedForecast()
-        buildHighLowGraph()
-        buildAirQuality()
-        break;
-}
-
 } 
 
 export function animateIntraday() {

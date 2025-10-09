@@ -120,7 +120,7 @@ function ScaleViewportToTheWindowIGuessLmao() {
 
     if (config.videoType === "i2buffer") {
         document.getElementsByClassName("i2-sidebar-buffer")[0].style.display = `block`;
-
+        mainSlides.style.width = `80%`;
 
     }
 
