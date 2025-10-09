@@ -56,6 +56,9 @@ async function loadLocaleData(location) {
 
   } catch (error) {
     console.error(logTheFrickinTime, error)
+    if (cache.get(cacheKey)) {
+      return cache.get(cacheKey);
+    }
   }
 
   }
@@ -140,7 +143,10 @@ async function loadWxData(postalKey, geocode, locType) {
 
   } catch (error) {
     console.error("Error fetching weather data:", error);
-    throw error;
+    if (cache.get(cacheKey)) {
+      return cache.get(cacheKey);
+      console.log(logTheFrickinTime, 'Returned cachekey after error:', cacheKey)
+    }
   }
     
   }

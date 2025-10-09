@@ -312,20 +312,20 @@ function loopLocations() {
   let localeIndex = 0;
 
   function runNextLocation() {
-    const valid = locationConfig.locations
-    if (valid.length === 0) return;
+    const localeList = locationConfig.locations
+    if (localeList.length === 0) return;
 
-    const location = valid[localeIndex % valid.length];
+    const location = localeList[localeIndex % localeList.length];
     const currentLocation = location.displayName || "Please Standby...";
 
     const [nextLocation, nextLocationOne, nextLocationTwo] =
-      [1, 2, 3].map(i => valid[(localeIndex + i) % valid.length]);
+      [1, 2, 3].map(i => localeList[(localeIndex + i) % localeList.length]);
 
     const textUpdates = [
-      { el: currentLocationText, text: currentLocation },
-      { el: upNextLocationText, text: `> ${nextLocation.displayName}` },
-      { el: upNextLocationText1, text: `> ${nextLocationOne.displayName}` },
-      { el: upNextLocationText2, text: `> ${nextLocationTwo.displayName}` }
+        { el: currentLocationText, text: currentLocation },
+        { el: upNextLocationText, text: nextLocation ? `> ${nextLocation.displayName}` : '' },
+        { el: upNextLocationText1, text: nextLocationOne ? `> ${nextLocationOne.displayName}` : '' },
+        { el: upNextLocationText2, text: nextLocationTwo ? `> ${nextLocationTwo.displayName}` : '' },
     ];
 
     for (const { el, text } of textUpdates) {
@@ -333,48 +333,43 @@ function loopLocations() {
     }
 
     textUpdates.forEach(({ el }) => {
-      if (el) gsap.killTweensOf(el);
+        if (el) gsap.killTweensOf(el);
     });
 
     const tl = gsap.timeline();
 
     textUpdates.forEach(({ el },) => {
-      if (!el) return;
+        if (!el) return;
 
-      tl.to(el, {
-        opacity: 0,
-        "transform": "translateY(10px)",
-        duration: 0.15,
-        delay: 0.05
-      }).fromTo(el, 
-        { opacity: 0, "transform": "translateY(10px)", },
-        { opacity: 1, duration: 0.15, "transform": "translateY(0px)", ease: "power2.out" }
-      );
+        tl.to(el, {
+            opacity: 0,
+            "transform": "translateY(10px)",
+            duration: 0.15,
+            delay: 0.05
+        }).fromTo(el, 
+            { opacity: 0, "transform": "translateY(10px)", },
+            { opacity: 1, duration: 0.15, "transform": "translateY(0px)", ease: "power2.out" }
+        );
     });
 
     const topbarCurrent = document.querySelector('.topbar-current-location');
-    if (topbarCurrent) {
-      gsap.killTweensOf(topbarCurrent); // remove any old tweens
-      gsap.fromTo(
-        topbarCurrent,
-        { opacity: 0, width: 0, scale: 1 },
-        { width: "40%", opacity: 1, scale: 1.0, duration: 0.5, ease: "power2.inOut", delay: 0.2 }
-      );
+        if (topbarCurrent) {
+        gsap.killTweensOf(topbarCurrent); // remove any old tweens
+        gsap.fromTo(
+            topbarCurrent,
+            { opacity: 0, width: 0, scale: 1 },
+            { width: "40%", opacity: 1, scale: 1.0, duration: 0.5, ease: "power2.inOut", delay: 0.2 }
+        );
     }
 
     runPlaylist(location.name, () => {
-      localeIndex = (localeIndex + 1) % valid.length;
-      runNextLocation();
+        localeIndex = (localeIndex + 1) % localeList.length;
+        runNextLocation();
     });
   }
 
   runNextLocation();
 }
-
-
-window.addEventListener('load', loopLocations)
-
-
 
 
 // does github copilot like laufey 
@@ -559,9 +554,11 @@ function loadingScreen() {
     switch (config.loadingScreen) {
         case true:
 
-                let time = 0
+                let time = 1
 
                 const spinningLogo = document.getElementById('loadingscreen-spinny')
+
+                document.getElementById('loading-screen').style.display = `block`
 
                 const startxx = Math.random() * 1000;
                 const startxy = Math.random() * 1000;
@@ -572,8 +569,8 @@ function loadingScreen() {
             
                 setTimeout(() => {
                     document.getElementById('loadingscreen-affiliatename').innerHTML = `Affiliate Name: ${config.affiliateName}`
-                    document.getElementById('loadingscreen-locationname').innerHTML = `System Location: ${locationsList.locationIndex.locations[0]}`
-                }, 2000);
+                    document.getElementById('loadingscreen-locationname').innerHTML = `System Location: ${locationConfig.locations.find(l => l.type === "primary")?.displayName || "Not Set"}`
+                }, 0);
                     
                 const rotateAnimation = () => {
                     const rotatex = perlin.get(startxx + time, startxy + time) * 2;
@@ -590,19 +587,20 @@ function loadingScreen() {
                     
                 setTimeout(() => {
                     document.getElementById('loading-screen').remove();
-                }, Number(presentationSlides[0].durationMS));
+                    loopLocations();
+                }, 12000);
             
             break;
     
         default:
             document.getElementById('loading-screen').style.display = `none` // for when im debugging and i dont want the loading screen
+            loopLocations();
             break;
     }
 }
 
 window.onload = loadingScreen()
 
-//startSlideshow()
 
 
 

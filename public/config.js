@@ -20,7 +20,7 @@ export let config = {
         "bannerLogo": true,
     },
 
-    "loadingScreen": false,
+    "loadingScreen": true,
     "topbarStyle": "domestic", // domestic or weatherscan.
     "videoType": "hdtv", // sets the aspect ratio
     "systemTimeZone": "America/Regina", // tz_database. https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
@@ -68,7 +68,7 @@ export const serverConfig = {
   "twcApiKey": "e1f10a1e78da46f5b10a1e78da96f525",
   "units": "m",
   "webPort": 3000,
-  "cacheValidTime": 480 //in seconds
+  "cacheValidTime": 720, //in seconds
 }
 
 export const weatherIcons = {
