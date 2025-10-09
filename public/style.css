@@ -50,7 +50,7 @@ body {
   display: none;
 }
 #radar {
-  display: none;
+  display: block;
 }
 #forecast-intraday {
   display: none;
@@ -793,18 +793,24 @@ hr {
   z-index: 50;
 }
 .main-radar-time-container {
-	background-image: linear-gradient(#7f8fbd4d, #a6beff2a);
+	display: flex;
+	position: absolute;
+	justify-content: space-around;
+	align-items: center;
+	background-image: var(--mainGradient);
 	backdrop-filter: blur(10px) saturate(150%);
 	border-radius: var(--cornerRadius);
-	width: 20%;
-	height: 10%;
-	position: absolute;
-	z-index: 55;
-	bottom: 17%;
-	left: 40%;
-  font-family: 'JetBrains Mono', monospace;
+	width: 30%;
+	height: 15%;
+	z-index: 100;
+	top: 5%;
+	left: 3%;
+	font-family: 'JetBrains Mono', monospace;
 	text-align: center;
-  outline: 2px solid #c3e0ff59;
+	outline: 2px solid #c3e0ff59;
+}
+#main-radar-time {
+  font-size: var(--fontSizeThree);
 }
 .main-radar {
   position: absolute !important;

@@ -588,7 +588,7 @@ function loadingScreen() {
                 setTimeout(() => {
                     document.getElementById('loading-screen').remove();
                     loopLocations();
-                }, 12000);
+                }, 3000);
             
             break;
     
