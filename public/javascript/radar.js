@@ -2,7 +2,7 @@ let config = {
     twcApiKey: "e1f10a1e78da46f5b10a1e78da96f525",
     token: "pk.eyJ1IjoicGV5dG9ud2R5bSIsImEiOiJjbGx0NHpmMHYwenJtM2tsaXRmaHF3ZHBsIn0.TlyGx6b0mqYSbzZUFjIQmg",
     interval_between_loops: "1000",
-    interval_delay: "100"
+    interval_delay: "150"
 }
 
 const logTheFrickinTime = `[radar.js] | ${new Date().toLocaleString()} |`;
@@ -94,7 +94,7 @@ export async function drawMap(lat, lon, product, zoom, htmlID) {
                                 tiles: [
                                     `https://api.weather.com/v3/TileServer/tile/${product}?ts=${timestamp.ts}&xyz={x}:{y}:{z}&apiKey=${config.twcApiKey}`
                                 ],
-                                tileSize: 256
+                                tileSize: 512
                             },
                             layout: {
                                 visibility: index === 0 ? 'visible' : 'none'

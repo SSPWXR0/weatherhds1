@@ -33,7 +33,7 @@ const preferredPlaylist = {
         {
             htmlID: "radar",
             title: "3 Hour Radar",
-            duration: 10000,
+            duration: 12000,
             icon: "",
             dynamicFunction: runRadarSlide,
             animationIn: null,
@@ -106,15 +106,6 @@ const preferredPlaylist = {
             animationOut: playlistSettings.defaultAnimationOut
         },
         {
-            htmlID: "radar",
-            title: "3 Hour Radar",
-            duration: 10000,
-            icon: "",
-            dynamicFunction: runRadarSlide,
-            animationIn: null,
-            animationOut: null
-        },
-        {
             htmlID: "forecast-shortterm-d1",
             title: "Short-term Forecast",
             duration: 10000,
@@ -132,13 +123,22 @@ const preferredPlaylist = {
             animationIn: playlistSettings.defaultAnimationIn,
             animationOut: playlistSettings.defaultAnimationOut
         },
+        {
+            htmlID: "radar",
+            title: "3 Hour Radar",
+            duration: 12000,
+            icon: "",
+            dynamicFunction: runRadarSlide,
+            animationIn: null,
+            animationOut: null
+        }
     ],
 
     regionalLocalePlaylist: [
         {
             htmlID: "current",
             title: "Current Conditions",
-            duration: 10000,
+            duration: 15000,
             icon: "",
             dynamicFunction: runMainCurrentSlide,
             animationIn: playlistSettings.defaultAnimationIn,
@@ -147,7 +147,7 @@ const preferredPlaylist = {
         {
             htmlID: "radar",
             title: "3 Hour Radar",
-            duration: 10000,
+            duration: 15000,
             icon: "",
             dynamicFunction: runRadarSlide,
             animationIn: null,
@@ -159,7 +159,7 @@ const preferredPlaylist = {
         {
             htmlID: "radar",
             title: "3 Hour Radar",
-            duration: 18000,
+            duration: 20000,
             icon: "",
             dynamicFunction: runRadarSlide,
             animationIn: null,
