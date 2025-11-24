@@ -68,7 +68,7 @@ function formatTime(timeString) {
     return timeFmt;
 }
 
-function appendTextContent(dataMap) {
+export function appendTextContent(dataMap) {
         Object.entries(dataMap).forEach(([id, value]) => {
         const el = document.getElementById(id);
         if (!el) return;
@@ -213,7 +213,8 @@ export async function appendDatatoMain(locale, locType) {
             "main-current-visibvalue": `${current.visibility} ${endingDistance}`,
             "main-current-dewpointvalue": `${current.temperatureDewPoint}${endingTemp}`,
             "main-current-uvvalue": uvIndexVar,
-            "main-current-tempchangevalue": `${current.temperatureChange24Hour}${endingTemp}`,
+            "main-current-tempchangevalue": current.temperatureChange24Hour + endingTemp,
+            "main-current-feelslikevalue": current.temperatureFeelsLike + endingTemp
         }
 
 
