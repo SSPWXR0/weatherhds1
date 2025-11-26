@@ -800,8 +800,8 @@ hr {
 	background-image: var(--mainGradient);
 	backdrop-filter: blur(10px) saturate(150%);
 	border-radius: var(--cornerRadius);
-	width: 30%;
-	height: 15%;
+	width: 768px;
+	height: 240px;
 	z-index: 100;
 	top: 5%;
 	left: 3%;
