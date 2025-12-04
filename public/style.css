@@ -2,6 +2,7 @@
 
 :root {
   font-family: 'Poppins';
+  image-rendering: auto;
   color: var(--textColour2);
   --primaryColour: #101218e1;
   --secondaryColour: #101218e1;
@@ -718,6 +719,10 @@ hr {
   width: 30%;
   height: 100%;
   border-radius: var(--cornerRadius);
+  text-shadow: 1px 1px 5px rgb(0, 0, 0);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .forecast-shortterm-text {
   display: flex;
@@ -739,10 +744,9 @@ hr {
 }
 .forecast-shortterm-icon {
   display: block;
-  width: 50%;
+  width: 100%;
   height: 25%;
-  margin-left: auto;
-  margin-right: auto;
+  backdrop-filter: blur(2px) brightness(70%);
 }
 .forecast-shortterm-condition {
   padding-top: 20%;

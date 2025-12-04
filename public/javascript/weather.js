@@ -1,20 +1,7 @@
 import { requestWxData, serverHealth } from './data.js'
-import { weatherIcons, locationConfig, serverConfig } from "../config.js";
+import { weatherIcons, locationConfig, serverConfig, config } from "../config.js";
 import { drawMap } from './radar.js';
 import { showBulletinCrawl } from './ldl.js';
-
-const animationFormat = 'avif';
-
-const weatherGifs = {
-    "snow": ["13", "14", "16"], // Snow events
-    "snowstorm": ["43", "15", "42"], // Significant snow events
-    "cloudy": ["26", "27", "28"], // Cloudy events
-    "storm": ["3", "4", "37", "38", "47"], // Thunderstorms
-    "rain": ["9", "11", "12", "40"], // Rain events
-    "sun": ["32", "34"], // Sunny/Fair Day
-    "partlycloudy": ["29", "30", "33"], // Partly Cloudy
-    "fog": ["20", "21", "22"], // Fog, Haze, Smoke
-};
 
 export const upNextLocationText = document.getElementById('upnext-location');
 export const currentLocationText = document.getElementById('current-location');
@@ -146,6 +133,7 @@ export async function appendDatatoMain(locale, locType) {
         let dayOrNight;
         let iconCode;
         let iconPath;
+        let avifPath;
 
         switch (product) {
 
@@ -167,6 +155,10 @@ export async function appendDatatoMain(locale, locType) {
                     iconPath = weatherIcons[iconCode] ? weatherIcons[iconCode][dayOrNight === "D" ? 0 : 1] : 'not-available.svg';
                     day.src = `/graphics/${iconDir}/${iconPath}`;
                 break;
+            case "fcVideoBack":
+                    iconCode = forecast.daypart[0].iconCode[daypartIndex];
+                    avifPath = weatherIcons[iconCode] && weatherIcons[iconCode][2]? `/images/avif/${weatherIcons[iconCode][2]}`: null;
+                    day.style.backgroundImage = `url(${avifPath})`
         }
     }
 
@@ -174,13 +166,22 @@ export async function appendDatatoMain(locale, locType) {
 
         let uvIndexVar;
         let windIcon = document.getElementById('main-current-windicon')
+        let vidBack = document.getElementById('current-background')
         let feelsLikeIcon = document.getElementById('main-current-feelslikeicon')
         let gustValue = document.getElementById('main-current-windvalue-gust')
         let currentIcon = document.getElementById('main-current-icon')
         let ceilingFormatted
 
-        const iconPath = weatherIcons[current.iconCode] ? weatherIcons[current.iconCode][current.dayorNight === "D" ? 0 : 1] : 'not-available.svg'
+        const wxImgRoot = weatherIcons[current.iconCode] || null
+        const iconPath = wxImgRoot ? weatherIcons[current.iconCode][current.dayorNight === "D" ? 0 : 1] : 'not-available.svg'
+        const avifPath = wxImgRoot && wxImgRoot[2]? `/images/avif/${wxImgRoot[2]}`: null;
         currentIcon.src = `/graphics/${iconDir}/${iconPath}`
+
+        console.log(avifPath)
+
+        if (config.videoBackgrounds === true) {
+            vidBack.style.backgroundImage = `url(${avifPath})`
+        }
 
         if (current.windGust === null) {
             gustValue.innerHTML = ``
@@ -291,14 +292,17 @@ export async function appendDatatoMain(locale, locType) {
 
         appendTextContent(dataMapShortTerm)
 
+        const vidBack = document.getElementById('forecast-shorttermd1-summary')
+        const vidBack2 = document.getElementById('forecast-shorttermd2-summary')
+
         let dayOneIcon = document.getElementById('main-forecast-shorttermd1-icon')
         let dayTwoIcon = document.getElementById('main-forecast-shorttermd2-icon')
 
         setDayIcon(dayOneIcon, 'forecast', 0);
         setDayIcon(dayTwoIcon, 'forecast', 2);
 
-
-        
+        setDayIcon(vidBack, 'fcVideoBack', 0)
+        setDayIcon(vidBack2, 'fcVideoBack', 2)
     }
 
     function buildExtendedForecast() {
