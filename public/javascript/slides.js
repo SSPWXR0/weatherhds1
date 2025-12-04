@@ -328,38 +328,23 @@ function loopLocations() {
         { el: upNextLocationText2, text: nextLocationTwo ? `> ${nextLocationTwo.displayName}` : '' },
     ];
 
-    for (const { el, text } of textUpdates) {
-        if (el) el.textContent = text;
-    }
 
-    textUpdates.forEach(({ el }) => {
-        if (el) gsap.killTweensOf(el);
-    });
-
-    const tl = gsap.timeline();
-
-    textUpdates.forEach(({ el },) => {
-        if (!el) return;
-
-        tl.to(el, {
-            opacity: 0,
-            "transform": "translateY(10px)",
-            duration: 0.15,
-            delay: 0.05
-        }).fromTo(el, 
-            { opacity: 0, "transform": "translateY(10px)", },
-            { opacity: 1, duration: 0.15, "transform": "translateY(0px)", ease: "power2.out" }
-        );
-    });
 
     const topbarCurrent = document.querySelector('.topbar-current-location');
-        if (topbarCurrent) {
-        gsap.killTweensOf(topbarCurrent); // remove any old tweens
-        gsap.fromTo(
-            topbarCurrent,
-            { opacity: 0, width: 0, scale: 1 },
-            { width: "40%", opacity: 1, scale: 1.0, duration: 0.5, ease: "power2.inOut", delay: 0.2 }
-        );
+
+    if (topbarCurrent) {
+        topbarCurrent.style.animation = 'none';
+        void topbarCurrent.offsetWidth;
+        topbarCurrent.style.animation = 'bonr 1s ease-in-out forwards';
+
+        textUpdates.forEach(({ el, text }, index) => {
+        const delay = 0.1 * index;
+
+        el.textContent = text
+        el.style.display = 'none'
+        el.style.animation = `switchModules 1s ease-in-out ${delay}s forwards`
+        el.style.display = 'block'
+    });
     }
 
     runPlaylist(location.name, () => {
@@ -381,7 +366,7 @@ function loopLocations() {
 //    loopLocations();
 //}
 // yeah okay
-// jarvis, encourage me to ask out m░░░
+// jarvis, encourage me to ask out my crush
 // sorry bro i cant do that
 // why not
 // because im not programmed to do that

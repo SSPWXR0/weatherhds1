@@ -124,6 +124,14 @@ function ScaleViewportToTheWindowIGuessLmao() {
 
     }
 
+    if (
+        config.videoType !== "hdtv" &&
+        config.videoType !== "tablet" &&
+        config.videoType !== "i2Sidebar"
+    ) {
+        document.getElementById('upnext-location2').style.display = 'none' // we only have two up next locations displayed so that it wont be squeezed in SDTV modes.
+    }
+
     viewport.style.transform = `scale(${scaleRatio})`;
 }
 
