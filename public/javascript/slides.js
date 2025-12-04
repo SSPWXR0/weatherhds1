@@ -1,20 +1,29 @@
-import { config, locationConfig, versionID } from "../config.js";
+import { config, locationConfig, versionID, serverConfig } from "../config.js";
 import { appendDatatoMain, animateIntraday } from "./weather.js";
 import { serverHealth, areWeDead } from "./data.js";
 
 const playlistSettings = {
     defaultAnimationIn: `mainPresentationSlideIn 500ms ease-in-out`,
     defaultAnimationOut: `mainPresentationSlideOut 500ms ease-in-out forwards`,
-}
+};
+
+const iconMappings = [
+    // { id: "current", icon: "/graphics/ux/thermometer-snowflake.svg" }, we have a function for current conditions. no need.
+    { id: "forecast-intraday", icon: "/graphics/ux/calendar-clock.svg" },
+    { id: "forecast-shortterm-d1", icon: "/graphics/ux/calendar-1.svg" },
+    { id: "forecast-shortterm-d2", icon: "/graphics/ux/calendar-1.svg" },
+    { id: "forecast-extended", icon: "/graphics/ux/calendar-1.svg" },
+    { id: "7day-graph", icon: "/graphics/ux/calendar-1.svg" },
+    { id: "airquality", icon: "/graphics/ux/leaf.svg" },
+];
+
 
 const preferredPlaylist = {
-
     startPadding: [
         {
             htmlID: "stationid",
             title: "Welcome!",
             duration: 10000,
-            icon: "",
             animationIn: playlistSettings.defaultAnimationIn,
             animationOut: playlistSettings.defaultAnimationOut
         }
@@ -25,7 +34,6 @@ const preferredPlaylist = {
             htmlID: "current",
             title: "Current Conditions",
             duration: 10000,
-            icon: "",
             dynamicFunction: runMainCurrentSlide,
             animationIn: playlistSettings.defaultAnimationIn,
             animationOut: playlistSettings.defaultAnimationOut
@@ -34,7 +42,6 @@ const preferredPlaylist = {
             htmlID: "radar",
             title: "3 Hour Radar",
             duration: 12000,
-            icon: "",
             dynamicFunction: runRadarSlide,
             animationIn: null,
             animationOut: null
@@ -43,7 +50,6 @@ const preferredPlaylist = {
             htmlID: "forecast-intraday",
             title: "Intraday Forecast",
             duration: 10000,
-            icon: "",
             dynamicFunction: animateIntraday,
             animationIn: playlistSettings.defaultAnimationIn,
             animationOut: playlistSettings.defaultAnimationOut
@@ -52,7 +58,6 @@ const preferredPlaylist = {
             htmlID: "forecast-shortterm-d1",
             title: "Day One",
             duration: 10000,
-            icon: "",
             dynamicFunction: null,
             animationIn: playlistSettings.defaultAnimationIn,
             animationOut: playlistSettings.defaultAnimationOut
@@ -61,7 +66,6 @@ const preferredPlaylist = {
             htmlID: "forecast-shortterm-d2",
             title: "Day Two",
             duration: 10000,
-            icon: "",
             dynamicFunction: null,
             animationIn: playlistSettings.defaultAnimationIn,
             animationOut: playlistSettings.defaultAnimationOut
@@ -70,7 +74,6 @@ const preferredPlaylist = {
             htmlID: "forecast-extended",
             title: "Beyond",
             duration: 10000,
-            icon: "",
             dynamicFunction: runExtendedSlide,
             animationIn: playlistSettings.defaultAnimationIn,
             animationOut: playlistSettings.defaultAnimationOut
@@ -79,7 +82,6 @@ const preferredPlaylist = {
             htmlID: "7day-graph",
             title: "Daily Highs & Lows",
             duration: 10000,
-            icon: "",
             dynamicFunction: null,
             animationIn: playlistSettings.defaultAnimationIn,
             animationOut: playlistSettings.defaultAnimationOut
@@ -88,7 +90,6 @@ const preferredPlaylist = {
             htmlID: "airquality",
             title: "Current AQI",
             duration: 10000,
-            icon: "",
             dynamicFunction: null,
             animationIn: playlistSettings.defaultAnimationIn,
             animationOut: playlistSettings.defaultAnimationOut
@@ -100,7 +101,6 @@ const preferredPlaylist = {
             htmlID: "current",
             title: "Current Conditions",
             duration: 14000,
-            icon: "",
             dynamicFunction: runMainCurrentSlide,
             animationIn: playlistSettings.defaultAnimationIn,
             animationOut: playlistSettings.defaultAnimationOut
@@ -109,7 +109,6 @@ const preferredPlaylist = {
             htmlID: "forecast-shortterm-d1",
             title: "Short-term Forecast",
             duration: 10000,
-            icon: "",
             dynamicFunction: null,
             animationIn: playlistSettings.defaultAnimationIn,
             animationOut: playlistSettings.defaultAnimationOut
@@ -118,7 +117,6 @@ const preferredPlaylist = {
             htmlID: "forecast-shortterm-d2",
             title: "Short-term Forecast",
             duration: 10000,
-            icon: "",
             dynamicFunction: null,
             animationIn: playlistSettings.defaultAnimationIn,
             animationOut: playlistSettings.defaultAnimationOut
@@ -127,7 +125,6 @@ const preferredPlaylist = {
             htmlID: "radar",
             title: "3 Hour Radar",
             duration: 12000,
-            icon: "",
             dynamicFunction: runRadarSlide,
             animationIn: null,
             animationOut: null
@@ -139,7 +136,6 @@ const preferredPlaylist = {
             htmlID: "current",
             title: "Current Conditions",
             duration: 15000,
-            icon: "",
             dynamicFunction: runMainCurrentSlide,
             animationIn: playlistSettings.defaultAnimationIn,
             animationOut: playlistSettings.defaultAnimationOut
@@ -148,7 +144,6 @@ const preferredPlaylist = {
             htmlID: "radar",
             title: "3 Hour Radar",
             duration: 15000,
-            icon: "",
             dynamicFunction: runRadarSlide,
             animationIn: null,
             animationOut: null
@@ -160,7 +155,6 @@ const preferredPlaylist = {
             htmlID: "radar",
             title: "3 Hour Radar",
             duration: 20000,
-            icon: "",
             dynamicFunction: runRadarSlide,
             animationIn: null,
             animationOut: null
@@ -175,7 +169,7 @@ let slideDurationMS
 let totalSlideDurationMS
 let totalSlideDurationSec
 
-const logTheFrickinTime = `[weather.js] | ${new Date().toLocaleString()} |`;
+const logTheFrickinTime = `[slides.js] | ${new Date().toLocaleString()} |`;
 const radarDiv = document.getElementsByClassName('main-radar')[0]
 
 document.getElementById('station-id-hdsver').innerText = versionID
@@ -237,7 +231,7 @@ async function runPlaylist(locale, call) {
         await new Promise(r => setTimeout(r, 300));
     }
 
-    totalSlideDurationMS = selectedPlaylist.reduce((acc, slide) => acc + slide.duration, 0);
+    totalSlideDurationMS = selectedPlaylist.reduce((acc, slide) => acc + slideDurationMS, 0);
     totalSlideDurationSec = totalSlideDurationMS / 1000;
 
     const slides = document.querySelectorAll('.main-slide');
@@ -254,12 +248,43 @@ async function runPlaylist(locale, call) {
             return;
         }
 
+        function areWeFreezingToDeath() {
+            let temp = parseFloat(document.getElementById('main-current-temp').innerText);
+            let unit = serverConfig.units
+
+            if (unit === "m" && temp < 1) {
+                console.log(logTheFrickinTime + "YES, we are freezing to death lol")
+                return true;
+            } else if (unit === "e" && temp < 32) {
+                console.log(logTheFrickinTime + "YES, we are freezing to death lol. what the frickle is a kilometre?")
+                return true;
+            } else {
+                console.log(logTheFrickinTime + "No, it is quite nice outside. Unless it is actually scorching hot out.")
+                return false;
+            }
+        }
+
         const slide = activeSlides[slideIndex];
         const el = document.getElementById(slide.htmlID);
+        const mappedIcon = iconMappings.find(m => m.id === slide.htmlID);
+        if (mappedIcon && mappedIcon.icon) {
+            slideIcon.src = mappedIcon.icon;
+        } else if (slide.htmlID === "current") {
+            const t = areWeFreezingToDeath();  // t is true/false
+
+            slideIcon.src = t
+                ? '/graphics/ux/thermometer-snowflake.svg'
+                : '/graphics/ux/thermometer-sun.svg';
+        }
+        else {
+            slideIcon.src = '/graphics/ux/gallery-vertical.svg';
+        }
         currentSlideText.innerHTML = slide.title;
-        currentSlideText.style.animation = `switchModules 1000ms ease-in-out forwards`;
+        currentSlideText.style.animation = `switchModules 300ms ease-in-out forwards`;
         currentSlideText.style.display = "block";
+        slideIcon.style.animation = `switchModules 160ms ease-in-out forwards`;
         currentprogressbar.style.display = `block`;
+        slideIcon.style.display = `block`;
         currentprogressbar.style.animation = `progressBar ${totalSlideDurationMS}ms linear forwards`;
 
 
@@ -276,23 +301,19 @@ async function runPlaylist(locale, call) {
             }
         }
 
-        switch (slide.icon) {
-            case "":
-                slideIcon.src = '/graphics/ux/gallery-vertical.svg'
-            break;
-
-        }
-
         slideNearEnd = setTimeout(() => {
             if (el) el.style.animation = slide.animationOut;
             currentSlideText.style.animation = `fadeModule 0.5s ease-in-out forwards`;
-        }, slide.duration - 500);
+            slideIcon.style.animation = `slideDown 160ms ease-in-out forwards`;
+        }, slideDurationMS - 500);
 
         slideEnd = setTimeout(() => {
             currentSlideText.style.display = "none";
             currentSlideText.style.animation = "";
             currentprogressbar.style.display = `none`;
-            currentprogressbar.style.animation = ``;
+            currentprogressbar.style.animation = "";
+            slideIcon.style.animation = "";
+            slideIcon.style.display = "none";
 
             if (!config.presentationConfig.repeatMain && slideIndex === activeSlides.length - 1) {
                 slides.forEach(s => s.style.display = "none");
@@ -302,7 +323,7 @@ async function runPlaylist(locale, call) {
 
             slideIndex++;
             showNextSlide();
-        }, slide.duration);
+        }, slideDurationMS);
     }
 
     showNextSlide();
@@ -328,21 +349,19 @@ function loopLocations() {
         { el: upNextLocationText2, text: nextLocationTwo ? `> ${nextLocationTwo.displayName}` : '' },
     ];
 
-
-
     const topbarCurrent = document.querySelector('.topbar-current-location');
 
     if (topbarCurrent) {
         topbarCurrent.style.animation = 'none';
         void topbarCurrent.offsetWidth;
-        topbarCurrent.style.animation = 'bonr 1s ease-in-out forwards';
+        topbarCurrent.style.animation = 'bonr 0.5s ease-in-out forwards';
 
         textUpdates.forEach(({ el, text }, index) => {
         const delay = 0.1 * index;
 
         el.textContent = text
         el.style.display = 'none'
-        el.style.animation = `switchModules 1s ease-in-out ${delay}s forwards`
+        el.style.animation = `switchModules 0.2s ease-in-out ${delay}s forwards`
         el.style.display = 'block'
     });
     }
