@@ -283,10 +283,9 @@ async function runPlaylist(locale, call) {
         currentSlideText.style.animation = `switchModules 300ms ease-in-out forwards`;
         currentSlideText.style.display = "block";
         slideIcon.style.animation = `switchModules 160ms ease-in-out forwards`;
-        currentprogressbar.style.display = `block`;
         slideIcon.style.display = `block`;
+        currentprogressbar.style.display = `block`;
         currentprogressbar.style.animation = `progressBar ${totalSlideDurationMS}ms linear forwards`;
-
 
         slideDurationMS = slide.duration;
 
@@ -359,11 +358,19 @@ function loopLocations() {
         textUpdates.forEach(({ el, text }, index) => {
         const delay = 0.1 * index;
 
-        el.textContent = text
-        el.style.display = 'none'
-        el.style.animation = `switchModules 0.2s ease-in-out ${delay}s forwards`
-        el.style.display = 'block'
+        if (text.length > 2) {
+            el.textContent = text;
+        } else {
+            el.textContent = "";
+        }
+        el.style.display = 'none';
+        el.style.animation = `switchModules 0.2s ease-in-out ${delay}s forwards`;
+        el.style.display = 'block';
     });
+    }
+
+    if (config.videoType === "vga" || config.videoType === "ntsc" || config.videoType === "i2Sidebar") {
+        upNextLocationText2.style.display = 'none'
     }
 
     runPlaylist(location.name, () => {

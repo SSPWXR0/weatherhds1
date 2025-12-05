@@ -301,7 +301,7 @@ hr {
 }
 .topbar-current-product-progress-element {
   height: 100%;
-  width: 50%;
+  width: 0%;
   border-radius: var(--cornerRadius);
   background: #ffffffe0;
 }
