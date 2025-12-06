@@ -13,6 +13,7 @@ let chart = null;
 const logTheFrickinTime = `[weather.js] | ${new Date().toLocaleString()} |`;
 let iconDir = "animated"
 let endingTemp, endingWind, endingDistance, endingMeasurement, endingCeiling, endingPressure, endingSnow, endingRain;
+export let daypartNames = []
 
 if (units == "e") {
     endingTemp = "°F"
@@ -86,6 +87,11 @@ export async function appendDatatoMain(locale, locType) {
             forecast = wxData?.weather?.["v3-wx-forecast-daily-7day"] ?? wxData.weather?.["v3-wx-forecast-daily-3day"] ?? null;
             airQuality = wxData?.weather?.["v3-wx-globalAirQuality"]?.globalairquality ?? null;
             pollen = wxData?.weather?.pollenData?.pollenForecast12hour ?? null;
+
+            daypartNames = [
+                forecast.daypart[0].daypartName[0] ?? forecast.daypart[0].daypartName[1],
+                forecast.daypart[0].daypartName[2] ?? forecast.daypart[0].daypartName[3],
+            ]
 
             if (serverHealth === 0) {
 
@@ -293,22 +299,24 @@ export async function appendDatatoMain(locale, locType) {
 
         appendTextContent(dataMapShortTerm)
 
+        console.log(daypartNames)
+
         const vidBack = document.getElementById('forecast-shorttermd1-summary')
         const vidBack2 = document.getElementById('forecast-shorttermd2-summary')
 
         let dayOneIcon = document.getElementById('main-forecast-shorttermd1-icon')
         let dayTwoIcon = document.getElementById('main-forecast-shorttermd2-icon')
 
-        if (setDayIcon(dayOneIcon, 'forecast', 0) !== null) {
-            setDayIcon(dayOneIcon, 'forecast', 0);
-            setDayIcon(dayTwoIcon, 'forecast', 0);
-            setDayIcon(vidBack, 'fcVideoBack', 1);
-            setDayIcon(vidBack2, 'fcVideoBack', 1);
-        } else {
+        if (forecast.daypart[0].daypartName[0] === null) {
             setDayIcon(dayOneIcon, 'forecast', 1);
-            setDayIcon(dayTwoIcon, 'forecast', 1);
-            setDayIcon(vidBack, 'fcVideoBack', 2);
+            setDayIcon(dayTwoIcon, 'forecast', 2);
+            setDayIcon(vidBack, 'fcVideoBack', 1);
             setDayIcon(vidBack2, 'fcVideoBack', 2);
+        } else {
+            setDayIcon(dayOneIcon, 'forecast', 0);
+            setDayIcon(dayTwoIcon, 'forecast', 1);
+            setDayIcon(vidBack, 'fcVideoBack', 0);
+            setDayIcon(vidBack2, 'fcVideoBack', 1);
         }
     }
 

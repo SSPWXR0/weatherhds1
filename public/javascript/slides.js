@@ -1,5 +1,5 @@
 import { config, locationConfig, versionID, serverConfig } from "../config.js";
-import { appendDatatoMain, animateIntraday } from "./weather.js";
+import { appendDatatoMain, animateIntraday, daypartNames } from "./weather.js";
 import { serverHealth, areWeDead } from "./data.js";
 
 const playlistSettings = {
@@ -15,6 +15,7 @@ const iconMappings = [
     { id: "forecast-extended", icon: "/graphics/ux/calendar-1.svg" },
     { id: "7day-graph", icon: "/graphics/ux/calendar-1.svg" },
     { id: "airquality", icon: "/graphics/ux/leaf.svg" },
+    { id: "radar", icon: "/graphics/ux/blank.png" },
 ];
 
 
@@ -40,7 +41,7 @@ const preferredPlaylist = {
         },
         {
             htmlID: "radar",
-            title: "3 Hour Radar",
+            title: "",
             duration: 12000,
             dynamicFunction: runRadarSlide,
             animationIn: null,
@@ -56,7 +57,7 @@ const preferredPlaylist = {
         },
         {
             htmlID: "forecast-shortterm-d1",
-            title: "Day One",
+            title: "",
             duration: 10000,
             dynamicFunction: null,
             animationIn: playlistSettings.defaultAnimationIn,
@@ -64,7 +65,7 @@ const preferredPlaylist = {
         },
         {
             htmlID: "forecast-shortterm-d2",
-            title: "Day Two",
+            title: "",
             duration: 10000,
             dynamicFunction: null,
             animationIn: playlistSettings.defaultAnimationIn,
@@ -107,7 +108,7 @@ const preferredPlaylist = {
         },
         {
             htmlID: "forecast-shortterm-d1",
-            title: "Short-term Forecast",
+            title: daypartNames[0],
             duration: 10000,
             dynamicFunction: null,
             animationIn: playlistSettings.defaultAnimationIn,
@@ -115,7 +116,7 @@ const preferredPlaylist = {
         },
         {
             htmlID: "forecast-shortterm-d2",
-            title: "Short-term Forecast",
+            title: daypartNames[1],
             duration: 10000,
             dynamicFunction: null,
             animationIn: playlistSettings.defaultAnimationIn,
@@ -123,7 +124,7 @@ const preferredPlaylist = {
         },
         {
             htmlID: "radar",
-            title: "3 Hour Radar",
+            title: "",
             duration: 12000,
             dynamicFunction: runRadarSlide,
             animationIn: null,
@@ -142,7 +143,7 @@ const preferredPlaylist = {
         },
         {
             htmlID: "radar",
-            title: "3 Hour Radar",
+            title: "",
             duration: 15000,
             dynamicFunction: runRadarSlide,
             animationIn: null,
@@ -153,7 +154,7 @@ const preferredPlaylist = {
     standbyPlaylist: [
         {
             htmlID: "radar",
-            title: "3 Hour Radar",
+            title: "",
             duration: 20000,
             dynamicFunction: runRadarSlide,
             animationIn: null,
@@ -187,8 +188,6 @@ const upNextLocationText3 = document.getElementById('upnext-location3')
 let slideNearEnd, slideEnd;
 
 async function runPlaylist(locale, call) {
-    await areWeDead();
-
     const loc = locationConfig.locations.find(l => l.name === locale);
     let selectedPlaylist = preferredPlaylist.mainPlaylist;
 
@@ -279,7 +278,21 @@ async function runPlaylist(locale, call) {
         else {
             slideIcon.src = '/graphics/ux/gallery-vertical.svg';
         }
-        currentSlideText.innerHTML = slide.title;
+
+        switch (slide.htmlID) {
+            case "forecast-shortterm-d1":
+                currentSlideText.innerHTML = daypartNames[0];
+                break;
+                
+            case "forecast-shortterm-d2":
+                currentSlideText.innerHTML = daypartNames[1];
+                break;
+        
+            default:
+                currentSlideText.innerHTML = slide.title;
+                break;
+        }
+        
         currentSlideText.style.animation = `switchModules 300ms ease-in-out forwards`;
         currentSlideText.style.display = "block";
         slideIcon.style.animation = `switchModules 160ms ease-in-out forwards`;
@@ -336,6 +349,7 @@ function loopLocations() {
     if (localeList.length === 0) return;
 
     const location = localeList[localeIndex % localeList.length];
+
     const currentLocation = location.displayName || "Please Standby...";
 
     const [nextLocation, nextLocationOne, nextLocationTwo] =
@@ -363,6 +377,7 @@ function loopLocations() {
         } else {
             el.textContent = "";
         }
+        
         el.style.display = 'none';
         el.style.animation = `switchModules 0.2s ease-in-out ${delay}s forwards`;
         el.style.display = 'block';
