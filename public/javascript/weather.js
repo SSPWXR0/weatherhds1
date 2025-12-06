@@ -147,18 +147,19 @@ export async function appendDatatoMain(locale, locType) {
                     iconCode = intraday[daypartIndex].icon_code;
                     iconPath = weatherIcons[iconCode] ? weatherIcons[iconCode][dayOrNight === "D" ? 0 : 1] : 'not-available.svg';
                     day.src = `/graphics/${iconDir}/${iconPath}`;
-                break;
+                    return iconCode;
             case "forecast":
                 default:
                     iconCode = forecast.daypart[0].iconCode[daypartIndex];
                     dayOrNight = forecast.daypart[0].dayOrNight[daypartIndex];
                     iconPath = weatherIcons[iconCode] ? weatherIcons[iconCode][dayOrNight === "D" ? 0 : 1] : 'not-available.svg';
                     day.src = `/graphics/${iconDir}/${iconPath}`;
-                break;
+                    return iconCode;
             case "fcVideoBack":
                     iconCode = forecast.daypart[0].iconCode[daypartIndex];
                     avifPath = weatherIcons[iconCode] && weatherIcons[iconCode][2]? `/images/avif/${weatherIcons[iconCode][2]}`: null;
                     day.style.backgroundImage = `url(${avifPath})`
+                    return iconCode;
         }
     }
 
@@ -298,11 +299,17 @@ export async function appendDatatoMain(locale, locType) {
         let dayOneIcon = document.getElementById('main-forecast-shorttermd1-icon')
         let dayTwoIcon = document.getElementById('main-forecast-shorttermd2-icon')
 
-        setDayIcon(dayOneIcon, 'forecast', 0);
-        setDayIcon(dayTwoIcon, 'forecast', 2);
-
-        setDayIcon(vidBack, 'fcVideoBack', 0)
-        setDayIcon(vidBack2, 'fcVideoBack', 2)
+        if (setDayIcon(dayOneIcon, 'forecast', 0) !== null) {
+            setDayIcon(dayOneIcon, 'forecast', 0);
+            setDayIcon(dayTwoIcon, 'forecast', 0);
+            setDayIcon(vidBack, 'fcVideoBack', 1);
+            setDayIcon(vidBack2, 'fcVideoBack', 1);
+        } else {
+            setDayIcon(dayOneIcon, 'forecast', 1);
+            setDayIcon(dayTwoIcon, 'forecast', 1);
+            setDayIcon(vidBack, 'fcVideoBack', 2);
+            setDayIcon(vidBack2, 'fcVideoBack', 2);
+        }
     }
 
     function buildExtendedForecast() {
