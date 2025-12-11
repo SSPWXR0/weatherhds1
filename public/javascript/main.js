@@ -18,19 +18,17 @@ let broadcastState = 0; // zero is good weather, one is bad weather.
 
 const logTheFrickinTime = `[main.js] | ${new Date().toLocaleString()} |`;
 
-let season;
-
 function getCurrentSeason() {
     const month = new Date().getMonth() + 1;
     const day = new Date().getDate();
     if ((month === 12 && day >= 21) || (month <= 3 && day < 20) || (month < 3)) {
-        season = "bg_winter";
+        return "bg_winter";
     } else if ((month === 3 && day >= 20) || (month < 6) || (month === 6 && day < 21)) {
-        season = "bg_spring";
+        return "bg_spring";
     } else if ((month === 6 && day >= 21) || (month < 9) || (month === 9 && day < 23)) {
-        season = "bg_summer";
+        return "bg_summer";
     } else {
-        season = "bg_autumn";
+        return "bg_autumn";
     }
 }
 
@@ -50,6 +48,8 @@ function initBackgrounds() {
             onlineBg();
         } 
         if (config.backgroundSource === "local") {
+            const season = getCurrentSeason();
+
             let url;
             function shuffleArray(array) {
                 for (let i = array.length - 1; i > 0; i--) {
@@ -231,9 +231,13 @@ function presentationType() {
         }
         ldl.style.display = `none`;
     }
-    if (config.presentationConfig.ldlBack === true) {
+    if (config.presentationConfig.ldlBack === false) {
         ldlBranding.style.display = `none`
-        ldlContainer.style.display = `block`
+        ldlContainer.style.borderTopLeft = ``
+        ldlContainer.style.borderTopRight = ``
+        ldlContainer.style.borderTop = ``
+        ldlContainer.style.backgroundColor = `transparent`
+        ldlContainer.style.backdropFilter = `none`
     }
 }
 
