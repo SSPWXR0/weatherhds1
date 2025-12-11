@@ -233,8 +233,8 @@ function presentationType() {
     }
     if (config.presentationConfig.ldlBack === false) {
         ldlBranding.style.display = `none`
-        ldlContainer.style.borderTopLeft = ``
-        ldlContainer.style.borderTopRight = ``
+        ldlContainer.style.borderLeft = ``
+        ldlContainer.style.borderRight = ``
         ldlContainer.style.borderTop = ``
         ldlContainer.style.backgroundColor = `transparent`
         ldlContainer.style.backdropFilter = `none`
