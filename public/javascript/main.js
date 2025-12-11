@@ -233,9 +233,9 @@ function presentationType() {
     }
     if (config.presentationConfig.ldlBack === false) {
         ldlBranding.style.display = `none`
-        ldlContainer.style.borderLeft = ``
-        ldlContainer.style.borderRight = ``
-        ldlContainer.style.borderTop = ``
+        ldlContainer.style.borderLeft = `none`
+        ldlContainer.style.borderRight = `none`
+        ldlContainer.style.borderTop = `none`
         ldlContainer.style.backgroundColor = `transparent`
         ldlContainer.style.backdropFilter = `none`
     }
