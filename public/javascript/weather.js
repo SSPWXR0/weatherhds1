@@ -1,7 +1,7 @@
 import { requestWxData, serverHealth } from './data.js'
 import { weatherIcons, locationConfig, serverConfig, config } from "../config.js";
 import { drawMap } from './radar.js';
-import { showBulletinCrawl } from './ldl.js';
+import { requestBulletinCrawl } from './ldl.js';
 
 export const upNextLocationText = document.getElementById('upnext-location');
 export const currentLocationText = document.getElementById('current-location');
@@ -122,7 +122,9 @@ export async function appendDatatoMain(locale, locType) {
                     let detailTextFmt = detailText.replace(/\n/g, '\u00A0')
                     let alertCategory = wxData.weather.v3alertsHeadlines.alerts[0].significance
                     let headlineText = wxData.weather.v3alertsHeadlines.alerts[0].headlineText
-                    showBulletinCrawl(detailTextFmt, alertCategory, headlineText)
+                    let country = wxData.weather.v3alertsHeadlines.alerts[0].officeCountryCode
+                    let colorCode = wxData.weather.v3alertsHeadlines.alerts[0].sourceColorName || null
+                    requestBulletinCrawl(detailTextFmt, alertCategory, headlineText, country, colorCode)
                 }} catch (error) {}
 
             } else {

@@ -29,7 +29,9 @@ const bulletinCrawlContainer = document.getElementsByClassName('ldl-bulletin-cra
 
 bulletinCrawlContainer.style.display = `none`
 
-export function showBulletinCrawl(text, alertCategory, headlineText) {
+
+
+export function requestBulletinCrawl(text, alertCategory, headlineText, country, colorCode) {
 
   /*
     W = warning
@@ -42,20 +44,41 @@ export function showBulletinCrawl(text, alertCategory, headlineText) {
   document.getElementById('ldl-bulletin-text').innerText = text
   document.getElementById('ldl-bulletin-metadata-text').innerText = headlineText
 
-  switch (alertCategory) {
-    case "W":
-      bulletinCrawlContainer.style.background = `radial-gradient(circle,rgba(188, 57, 33, 1) 4%, rgba(56, 8, 0, 1) 100%)`
-      break;
-    case "A":
-      bulletinCrawlContainer.style.background = `radial-gradient(circle,rgba(247, 231, 136, 1) 4%, rgba(56, 35, 0, 1) 100%)`
-      break;
-    case "S":
-      bulletinCrawlContainer.style.background = `radial-gradient(circle,rgba(87, 170, 87, 1) 4%, rgba(0, 56, 53, 1) 100%)`
-      break;
-    case "Y":
-      bulletinCrawlContainer.style.background = `radial-gradient(circle,rgba(87, 170, 87, 1) 4%, rgba(0, 56, 53, 1) 100%)`
-      break;
+  if (country === "US") {
+    switch (alertCategory) {
+      case "W":
+        bulletinCrawlContainer.style.background = `radial-gradient(circle,rgba(188, 57, 33, 1) 4%, rgba(56, 8, 0, 1) 100%)`
+        break;
+      case "A":
+        bulletinCrawlContainer.style.background = `radial-gradient(circle,rgba(247, 231, 136, 1) 4%, rgba(56, 35, 0, 1) 100%)`
+        break;
+      case "S":
+        bulletinCrawlContainer.style.background = `radial-gradient(circle,rgba(87, 170, 87, 1) 4%, rgba(0, 56, 53, 1) 100%)`
+        break;
+      case "Y":
+        bulletinCrawlContainer.style.background = `radial-gradient(circle,rgba(87, 170, 87, 1) 4%, rgba(0, 56, 53, 1) 100%)`
+        break;
+    }
+  } else if (country === "CA") {
+    switch (colorCode) {
+      case "Orange":
+        bulletinCrawlContainer.style.background = `radial-gradient(circle,rgba(221, 115, 34, 1) 4%, rgba(56, 8, 0, 1) 100%)`
+        break;
+      case "Yellow":
+        bulletinCrawlContainer.style.background = `radial-gradient(circle,rgba(247, 231, 136, 1) 4%, rgba(56, 35, 0, 1) 100%)`
+        break;
+      case "Red":
+        bulletinCrawlContainer.style.background = `radial-gradient(circle,rgba(189, 59, 29, 1) 4%, rgba(0, 56, 53, 1) 100%)`
+        break;
+      default:
+        bulletinCrawlContainer.style.background = `radial-gradient(circle,rgba(87, 170, 87, 1) 4%, rgba(0, 56, 53, 1) 100%)`
+        break;
+    }
+  } else {
+    bulletinCrawlContainer.style.background = `radial-gradient(circle,rgba(189, 59, 29, 1) 4%, rgba(0, 56, 53, 1) 100%)`
   }
+
+
 
   bulletinCrawlContainer.animate(
     [
