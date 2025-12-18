@@ -1,162 +1,239 @@
-let config = {
+const config = {
     twcApiKey: "e1f10a1e78da46f5b10a1e78da96f525",
     token: "pk.eyJ1IjoicGV5dG9ud2R5bSIsImEiOiJjbGx0NHpmMHYwenJtM2tsaXRmaHF3ZHBsIn0.TlyGx6b0mqYSbzZUFjIQmg",
-    interval_between_loops: "1000",
-    interval_delay: "150"
-}
+    intervalBetweenLoops: 1000,
+    intervalDelay: 150,
+    totalFrames: 48,
+    maxLoops: 12,
+    maxTimeToLive: 6
+};
 
-const logTheFrickinTime = `[radar.js] | ${new Date().toLocaleString()} |`;
+const log = () => `[radar.js] | ${new Date().toLocaleString()} |`;
 
-let radarTimeSlices;
-let loops;
-const maxLoops = 12;
-let i = 0;
+let radarTimeSlices = [];
+let currentFrame = 0;
+let loopCount = 0;
 let map = null;
+let animationTimer = null;
+let loopTimer = null;
+let isPreloaded = false;
+let preloadPromise = null;
 export let mapTTL = 0;
 
-let maxTimeToLive = 6;
+const weatherRadarTimeEl = (() => {
+    let el = null;
+    return () => el || (el = document.getElementById("main-radar-time"));
+})();
+
+const formatTime = (ts) => {
+    const d = new Date(ts * 1000);
+    let h = d.getHours();
+    const m = d.getMinutes();
+    const ampm = h >= 12 ? "PM" : "AM";
+    h = h % 12 || 12;
+    return `${h}:${m < 10 ? '0' + m : m} ${ampm}`;
+};
 
 export function clearMap() {
-    if (map) {
-        map.remove();
-        map = null;
-        mapTTL = 0;
+    if (!map) return;
+    
+    stopAnimation();
+    map.remove();
+    map = null;
+    mapTTL = 0;
+    radarTimeSlices = [];
+    isPreloaded = false;
+    preloadPromise = null;
+}
+
+function stopAnimation() {
+    if (animationTimer) {
+        clearInterval(animationTimer);
+        animationTimer = null;
+    }
+    if (loopTimer) {
+        clearTimeout(loopTimer);
+        loopTimer = null;
+    }
+}
+
+async function preloadRadarTiles(product) {
+    if (preloadPromise) return preloadPromise;
+    
+    preloadPromise = (async () => {
+        try {
+            const res = await fetch(
+                `https://api.weather.com/v3/TileServer/series/productSet/PPAcore?apiKey=${config.twcApiKey}`
+            );
+            
+            if (!res.ok) throw new Error('Fetch failed');
+            
+            const data = await res.json();
+            radarTimeSlices = data.seriesInfo.radar.series
+                .reverse()
+                .slice(0, config.totalFrames);
+
+            const preloadImages = radarTimeSlices.map(timestamp => {
+                return new Promise((resolve) => {
+                    const img = new Image();
+                    img.onload = resolve;
+                    img.onerror = resolve;
+                    img.src = `https://api.weather.com/v3/TileServer/tile/${product}?ts=${timestamp.ts}&xyz={x}:{y}:{z}&apiKey=${config.twcApiKey}`
+                        .replace('{x}', '0')
+                        .replace('{y}', '0')
+                        .replace('{z}', '3');
+                });
+            });
+
+            await Promise.all(preloadImages);
+            isPreloaded = true;
+            return radarTimeSlices;
+        } catch (error) {
+            console.error(log(), "Preload error:", error.message);
+            preloadPromise = null;
+            throw error;
+        }
+    })();
+    
+    return preloadPromise;
+}
+
+export async function preloadRadar(lat, lon, product) {
+    if (isPreloaded) return;
+    
+    try {
+        await preloadRadarTiles(product);
+        console.log(log(), "Radar preloaded successfully");
+    } catch (error) {
+        console.error(log(), "Preload failed:", error.message);
     }
 }
 
 export async function drawMap(lat, lon, product, zoom, htmlID) {
-
     if (!lat || !lon) {
-        console.warn(logTheFrickinTime, "Latitude or Longitude is null or undefined. Cannot draw map.");
+        console.warn(log(), "Invalid coordinates");
         return;
     }
 
-    try {
-        
-        let cityLngLat = [lon, lat];
-        console.log(cityLngLat)
+    const cityLngLat = [lon, lat];
 
-
-        let total_frames = 48;
-        let interval_delay = 1;
-
-
-        let total_time_s = (total_frames * interval_delay) / 500;
-        let radar_frame_rate = total_frames / total_time_s;
-        console.log(radar_frame_rate);
-
-        if (!map) {
-            map = new mapboxgl.Map({
-            container: htmlID,
-            style: 'mapbox://styles/peytonwdym/clov0gd3u00mj01pe1wmhb2j5',
-            center: cityLngLat,
-            accessToken: config.token,
-            telemetry: false,
-            interactive: false,
-            dragging: false,
-            zoom: zoom,
-        });
-        map.on('load', fetchTiles);
-
-        } else {
-            if (mapTTL >= maxTimeToLive) {
-                console.log("TS MAP OLD AS HELL! SENDING THIS SHYT TO THE FIRING SQUAD")
-                clearMap();
-                drawMap(lat, lon, product, zoom, htmlID);
-                return;
-            } else {
-                map.setCenter(cityLngLat);
-                map.setZoom(zoom);
-                fetchTiles();
-                mapTTL++;
-            }
+    if (map) {
+        if (mapTTL >= config.maxTimeToLive) {
+            clearMap();
+            return drawMap(lat, lon, product, zoom, htmlID);
         }
+        
+        map.setCenter(cityLngLat);
+        map.setZoom(zoom);
+        mapTTL++;
+        return fetchAndAnimate();
+    }
 
-        async function fetchTiles() {
-                map.resize()
+    map = new mapboxgl.Map({
+        container: htmlID,
+        style: 'mapbox://styles/peytonwdym/clov0gd3u00mj01pe1wmhb2j5',
+        center: cityLngLat,
+        accessToken: config.token,
+        telemetry: false,
+        interactive: false,
+        zoom: zoom,
+        attributionControl: false,
+        preserveDrawingBuffer: false
+    });
 
-                i = 0;
-                loops = 0;
+    map.once('load', () => {
+        map.getStyle().layers.forEach(layer => {
+            if (layer.type === 'symbol' && layer.layout?.['text-size']) {
+                map.setLayoutProperty(layer.id, 'text-size', 40);
+            }
+        });
+        
+        try {
+            map.setLayoutProperty('road-number-shield-navigation', 'text-size', 18);
+        } catch (e) {}
+        
+        fetchAndAnimate();
+    });
 
-                const res = await fetch(
-                    `https://api.weather.com/v3/TileServer/series/productSet/PPAcore?apiKey=${config.twcApiKey}`
-                ).then(r => r.json());
+    async function fetchAndAnimate() {
+        try {
+            map.resize();
+            stopAnimation();
+            currentFrame = 0;
+            loopCount = 0;
 
-                radarTimeSlices = res.seriesInfo.radar.series.reverse();
+            if (!isPreloaded) {
+                await preloadRadarTiles(product);
+            }
 
-                radarTimeSlices.forEach((timestamp, index) => {
-                    if (index < total_frames) {
-                        map.addLayer({
-                            id: `radarlayer_${timestamp.ts}`,
-                            type: "raster",
-                            source: {
-                                type: "raster",
-                                tiles: [
-                                    `https://api.weather.com/v3/TileServer/tile/${product}?ts=${timestamp.ts}&xyz={x}:{y}:{z}&apiKey=${config.twcApiKey}`
-                                ],
-                                tileSize: 512
-                            },
-                            layout: {
-                                visibility: index === 0 ? 'visible' : 'none'
-                            }
-                        });
+            const style = map.getStyle();
+            if (style?.layers) {
+                style.layers.forEach(layer => {
+                    if (layer.id.startsWith('radarlayer_')) {
+                        map.removeLayer(layer.id);
+                        map.removeSource(layer.id);
                     }
                 });
+            }
+
+            radarTimeSlices.forEach((timestamp, idx) => {
+                map.addLayer({
+                    id: `radarlayer_${timestamp.ts}`,
+                    type: "raster",
+                    source: {
+                        type: "raster",
+                        tiles: [
+                            `https://api.weather.com/v3/TileServer/tile/${product}?ts=${timestamp.ts}&xyz={x}:{y}:{z}&apiKey=${config.twcApiKey}`
+                        ],
+                        tileSize: 512
+                    },
+                    layout: { visibility: idx === 0 ? 'visible' : 'none' },
+                    paint: { 'raster-fade-duration': 0 }
+                });
+            });
+
+            await new Promise(resolve => setTimeout(resolve, 500));
+
             animateRadar();
 
-            map.getStyle().layers.forEach(layer => {
-                if (layer.type === 'symbol' && layer.layout && layer.layout['text-size']) {
-                    map.setLayoutProperty(layer.id, 'text-size', 40);
-                    map.setLayoutProperty('road-number-shield-navigation', 'text-size', 18);
-                }
-            });
+        } catch (error) {
+            console.error(log(), "Radar error:", error.message);
         }
+    }
 
-        const weatherRadarTime = document.getElementById("main-radar-time");
+    function animateRadar() {
+        if (!radarTimeSlices.length || loopCount >= config.maxLoops) return;
 
-        function animateRadar() {
-            if (!radarTimeSlices || radarTimeSlices.length === 0) return;
-
-            if (loops < maxLoops) {
-                let interval = setInterval(() => {
-                    if (i >= radarTimeSlices.length) {
-                        clearInterval(interval);
-                        setTimeout(() => {
-                            i = 0;
-                            animateRadar();
-                        }, config.interval_between_loops);
-                        return;
-                    }
-                    const timestamp = radarTimeSlices[i];
-                    const localDate = new Date(timestamp.ts * 1000);
-
-                    let hours = localDate.getHours();
-                    let minutes = localDate.getMinutes();
-                    let ampm = hours >= 12 ? "PM" : "AM";
-
-                    hours = hours ? hours : 12
-
-                    minutes = minutes < 10 ? "0" + minutes : minutes;
-
-                    const timeFmt = `${hours}:${minutes} ${ampm}`
-
-                    weatherRadarTime.innerHTML = `${timeFmt}`;
-
-                    radarTimeSlices.forEach((t, idx) => {
-                        map.setLayoutProperty(`radarlayer_${t.ts}`, "visibility", idx === i ? "visible" : "none");
-                    });
-
-                    i++;
-                }, config.interval_delay);
-                loops++;
-            } else {
-                if (config.verboseLogging) {
-                    console.log(logTheFrickinTime, "Reached max loops for radar animation.");
-                }
+        const timeEl = weatherRadarTimeEl();
+        
+        animationTimer = setInterval(() => {
+            if (currentFrame >= radarTimeSlices.length) {
+                clearInterval(animationTimer);
+                loopTimer = setTimeout(() => {
+                    currentFrame = 0;
+                    loopCount++;
+                    animateRadar();
+                }, config.intervalBetweenLoops);
+                return;
             }
-        }
 
-    } catch (error) {
-        //DONT FUCKING FLOOD MY CONSOLE
+            const timestamp = radarTimeSlices[currentFrame];
+            
+            if (timeEl) {
+                timeEl.textContent = formatTime(timestamp.ts);
+            }
+
+            radarTimeSlices.forEach((t, idx) => {
+                map.setLayoutProperty(
+                    `radarlayer_${t.ts}`,
+                    "visibility",
+                    idx === currentFrame ? "visible" : "none"
+                );
+            });
+
+            currentFrame++;
+        }, config.intervalDelay);
+        
+        loopCount++;
     }
 }
