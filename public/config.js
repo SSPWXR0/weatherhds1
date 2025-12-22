@@ -26,7 +26,7 @@ export let config = {
     "systemTimeZone": "America/Regina", // tz_database. https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
     "tickerContent": "", // empty = hides scroll. add any text to it to show a crawl on the LDL.
     "overrideBackgroundImage": "", // skips the background rotation and uses the URL provided.
-    "backgroundSource": "online", // set to local to use the locally stored default backgrounds, set value to online to use the Bing background api thing, and set to url to use a background URL.
+    "backgroundSource": "local", // set to local to use the locally stored default backgrounds, set value to online to use the Bing background api thing, and set to url to use a background URL.
     "verboseLogging": true, // enables or disables console.log
     "refreshInterval": 120 // how often to refresh the browser tab, in minutes.
 }
@@ -158,4 +158,4 @@ export const holidayMapping = {
 
 
 
-export const versionID = '1-2025.12.20'
+export const versionID = '1-2025.12.22'

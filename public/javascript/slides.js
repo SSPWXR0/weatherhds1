@@ -171,19 +171,35 @@ let totalSlideDurationMS
 let totalSlideDurationSec
 
 const logTheFrickinTime = `[slides.js] | ${new Date().toLocaleString()} |`;
-const radarDiv = document.getElementsByClassName('main-radar')[0]
 
-document.getElementById('station-id-hdsver').innerText = versionID
-document.getElementById('loadingscreen-versionID').innerHTML = `WeatherHDS ${versionID}`
-const slideIcon = document.getElementById('topbar-slide-icon')
-const localeIcon = document.getElementById('topbar-loc-icon')
-const currentSlideText = document.getElementById('currentslide')
-const currentLocationText = document.getElementById('current-location');
-const currentprogressbar = document.getElementById('currentprogressbar')
-const upNextLocationText = document.getElementById('upnext-location')
-const upNextLocationText1 = document.getElementById('upnext-location1')
-const upNextLocationText2 = document.getElementById('upnext-location2')
-const upNextLocationText3 = document.getElementById('upnext-location3')
+// Cache all DOM elements once at module load
+const domCache = {
+    radarDiv: document.getElementsByClassName('main-radar')[0],
+    stationIdHdsver: document.getElementById('station-id-hdsver'),
+    loadingscreenVersionID: document.getElementById('loadingscreen-versionID'),
+    slideIcon: document.getElementById('topbar-slide-icon'),
+    localeIcon: document.getElementById('topbar-loc-icon'),
+    currentSlideText: document.getElementById('currentslide'),
+    currentLocationText: document.getElementById('current-location'),
+    currentprogressbar: document.getElementById('currentprogressbar'),
+    upNextLocationText: document.getElementById('upnext-location'),
+    upNextLocationText1: document.getElementById('upnext-location1'),
+    upNextLocationText2: document.getElementById('upnext-location2'),
+    upNextLocationText3: document.getElementById('upnext-location3'),
+    wallpaper: document.getElementsByClassName('wallpaper')[0],
+    topbar: document.getElementsByClassName('topbar')[0],
+    loadingScreen: document.getElementById('loading-screen'),
+    currentModule1: document.getElementsByClassName('main-current-module1')[0],
+    currentModule2: document.getElementsByClassName('main-current-module2')[0],
+    currentExtraProducts: Array.from(document.getElementsByClassName('main-current-extraproducts')),
+    forecastDays: Array.from(document.getElementsByClassName('main-forecast-day')),
+    mainCurrentTemp: document.getElementById('main-current-temp')
+};
+
+domCache.stationIdHdsver.innerText = versionID;
+domCache.loadingscreenVersionID.innerHTML = `WeatherHDS ${versionID}`;
+
+const { slideIcon, currentSlideText, currentLocationText, currentprogressbar, upNextLocationText, upNextLocationText1, upNextLocationText2, upNextLocationText3, radarDiv } = domCache;
 
 let slideNearEnd, slideEnd;
 
@@ -248,8 +264,8 @@ async function runPlaylist(locale, call) {
         }
 
         function areWeFreezingToDeath() {
-            let temp = parseFloat(document.getElementById('main-current-temp').innerText);
-            let unit = serverConfig.units
+            const temp = parseFloat(domCache.mainCurrentTemp?.textContent || 0);
+            const unit = serverConfig.units
 
             if (unit === "m" && temp < 1) {
                 console.log(logTheFrickinTime + "YES, we are freezing to death lol")
@@ -365,23 +381,18 @@ function loopLocations() {
     const topbarCurrent = document.querySelector('.topbar-current-location');
 
     if (topbarCurrent) {
-        topbarCurrent.style.animation = 'none';
-        void topbarCurrent.offsetWidth;
-        topbarCurrent.style.animation = 'bonr 0.5s ease-in-out forwards';
+        requestAnimationFrame(() => {
+            topbarCurrent.style.animation = 'none';
+            void topbarCurrent.offsetWidth;
+            topbarCurrent.style.animation = 'bonr 0.5s ease-in-out forwards';
 
-        textUpdates.forEach(({ el, text }, index) => {
-        const delay = 0.1 * index;
-
-        if (text.length > 2) {
-            el.textContent = text;
-        } else {
-            el.textContent = "";
-        }
-        
-        el.style.display = 'none';
-        el.style.animation = `switchModules 0.2s ease-in-out ${delay}s forwards`;
-        el.style.display = 'block';
-    });
+            textUpdates.forEach(({ el, text }, index) => {
+                const delay = 0.1 * index;
+                el.textContent = text.length > 2 ? text : '';
+                el.style.display = text.length > 2 ? 'block' : 'none';
+                el.style.animation = `switchModules 0.2s ease-in-out ${delay}s forwards`;
+            });
+        });
     }
 
     if (config.videoType === "vga" || config.videoType === "ntsc" || config.videoType === "i2Sidebar") {
@@ -564,27 +575,22 @@ function loopLocations() {
 
 
 function cancelSlideshow() {
-    const wallpaper = document.getElementsByClassName('wallpaper')[0]
-    const topbar = document.getElementsByClassName('topbar')[0]
-    wallpaper.style.animation = `mainPresentationSlideOut 600ms ease-in-out 1 forwards`
-    topbar.style.animation = `fadeModule 600ms ease-in-out 1 forwards`
+    domCache.wallpaper.style.animation = 'mainPresentationSlideOut 600ms ease-in-out 1 forwards';
+    domCache.topbar.style.animation = 'fadeModule 600ms ease-in-out 1 forwards';
     setTimeout(() => {
-        wallpaper.style.display = `none`
-        wallpaper.style.animation = ``
-        topbar.style.display = `none`
-        topbar.style.animation = ``
+        domCache.wallpaper.style.display = 'none';
+        domCache.wallpaper.style.animation = '';
+        domCache.topbar.style.display = 'none';
+        domCache.topbar.style.animation = '';
     }, 650);
 }
 
 function loadingScreen() {
     switch (config.loadingScreen) {
         case true:
-
-                let time = 1
-
-                const spinningLogo = document.getElementById('loadingscreen-spinny')
-
-                document.getElementById('loading-screen').style.display = `block`
+                let time = 1;
+                const spinningLogo = document.getElementById('loadingscreen-spinny');
+                domCache.loadingScreen.style.display = 'block';
 
                 const startxx = Math.random() * 1000;
                 const startxy = Math.random() * 1000;
@@ -593,33 +599,33 @@ function loadingScreen() {
                 const startzx = Math.random() * 1000;
                 const startzy = Math.random() * 1000;
             
-                setTimeout(() => {
-                    document.getElementById('loadingscreen-affiliatename').innerHTML = `Affiliate Name: ${config.affiliateName}`
-                    document.getElementById('loadingscreen-locationname').innerHTML = `System Location: ${locationConfig.locations.find(l => l.type === "primary")?.displayName || "Not Set"}`
-                }, 0);
+                requestAnimationFrame(() => {
+                    document.getElementById('loadingscreen-affiliatename').innerHTML = `Affiliate Name: ${config.affiliateName}`;
+                    document.getElementById('loadingscreen-locationname').innerHTML = `System Location: ${locationConfig.locations.find(l => l.type === "primary")?.displayName || "Not Set"}`;
+                });
                     
                 const rotateAnimation = () => {
                     const rotatex = perlin.get(startxx + time, startxy + time) * 2;
                     const rotatey = perlin.get(startyx + time, startyy + time) * 2;
                     const rotatez = perlin.get(startzx + time, startzy + time) * 2;
-                    spinningLogo.style.transition = "transform 1s linear";
                     spinningLogo.style.transform = `rotateX(${rotatex}turn) rotateY(${rotatey}turn) rotateZ(${rotatez}turn)`;
-                }
+                };
 
-                setInterval(() => {
+                const rotationInterval = setInterval(() => {
                     time += 0.005;
-                    rotateAnimation()
+                    rotateAnimation();
                 }, 100);
                     
                 setTimeout(() => {
-                    document.getElementById('loading-screen').remove();
+                    clearInterval(rotationInterval);
+                    domCache.loadingScreen.remove();
                     loopLocations();
                 }, 3000);
             
             break;
     
         default:
-            document.getElementById('loading-screen').style.display = `none` // for when im debugging and i dont want the loading screen
+            domCache.loadingScreen.style.display = 'none'; // for when im debugging and i dont want the loading screen
             loopLocations();
             break;
     }
@@ -635,63 +641,64 @@ window.onload = loadingScreen()
 
 
 function runMainCurrentSlide() {
-    const module1 = document.getElementsByClassName('main-current-module1')[0]
-    const module2 = document.getElementsByClassName('main-current-module2')[0]
+    const { currentModule1, currentModule2, currentExtraProducts } = domCache;
 
-    module1.style.display = 'block';
-    module2.style.display = 'none';
-    document.getElementsByClassName('main-current-extraproducts')[0].style.display = `none`
-    document.getElementsByClassName('main-current-extraproducts')[1].style.display = `none`
-    document.getElementsByClassName('main-current-extraproducts')[2].style.display = `none`
-    document.getElementsByClassName('main-current-extraproducts')[3].style.display = `none`
+    currentModule1.style.display = 'block';
+    currentModule2.style.display = 'none';
+    currentExtraProducts.forEach(el => el.style.display = 'none');
 
     setTimeout(() => {
-        document.getElementsByClassName('main-current-extraproducts')[0].style.animation = `mainPresentationSlideIn 500ms ease-in-out`
-        document.getElementsByClassName('main-current-extraproducts')[1].style.animation = `mainPresentationSlideIn 600ms ease-in-out`
-        document.getElementsByClassName('main-current-extraproducts')[2].style.animation = `mainPresentationSlideIn 700ms ease-in-out`
-        document.getElementsByClassName('main-current-extraproducts')[3].style.animation = `mainPresentationSlideIn 800ms ease-in-out`
-
-        document.getElementsByClassName('main-current-extraproducts')[0].style.display = `flex`
-        document.getElementsByClassName('main-current-extraproducts')[1].style.display = `flex`
-        document.getElementsByClassName('main-current-extraproducts')[2].style.display = `flex`
-        document.getElementsByClassName('main-current-extraproducts')[3].style.display = `flex`
+        requestAnimationFrame(() => {
+            currentExtraProducts.forEach((el, i) => {
+                el.style.animation = `mainPresentationSlideIn ${500 + i * 100}ms ease-in-out`;
+                el.style.display = 'flex';
+            });
+        });
     }, 500);
 
 
 
     setTimeout(() => {
-        module1.style.animation = 'fadeModule 0.4s ease-out 1';
-        radarDiv.style.display = `block` // radar shit ignore
+        requestAnimationFrame(() => {
+            currentModule1.style.animation = 'fadeModule 0.4s ease-out 1';
+            domCache.radarDiv.style.display = 'block'; // radar shit ignore
+        });
 
         setTimeout(() => {
-            module1.style.display = 'none';
-            module1.style.animation = '';
-            module2.style.display = 'block';
-            module2.style.animation = 'switchModules 0.5s ease-out';
+            requestAnimationFrame(() => {
+                currentModule1.style.display = 'none';
+                currentModule1.style.animation = '';
+                currentModule2.style.display = 'block';
+                currentModule2.style.animation = 'switchModules 0.5s ease-out';
+            });
         }, 300);
     }, slideDurationMS / 2 - 500);
 }
 
 function runExtendedSlide() {
-    document.getElementsByClassName('main-forecast-day')[0].style.animation = `switchModules 0.6s ease-in-out`
-    document.getElementsByClassName('main-forecast-day')[1].style.animation = `switchModules 0.7s ease-in-out`
-    document.getElementsByClassName('main-forecast-day')[2].style.animation = `switchModules 0.8s ease-in-out`
-    document.getElementsByClassName('main-forecast-day')[3].style.animation = `switchModules 0.9s ease-in-out`
-    document.getElementsByClassName('main-forecast-day')[4].style.animation = `switchModules 1s ease-in-out`
+    requestAnimationFrame(() => {
+        domCache.forecastDays.forEach((day, i) => {
+            if (day) day.style.animation = `switchModules ${0.6 + i * 0.1}s ease-in-out`;
+        });
+    });
 
     setTimeout(() => {
-        document.getElementsByClassName('main-forecast-day')[0].style.animation = ``
-        document.getElementsByClassName('main-forecast-day')[1].style.animation = ``
-        document.getElementsByClassName('main-forecast-day')[2].style.animation = ``
-        document.getElementsByClassName('main-forecast-day')[3].style.animation = ``
-        document.getElementsByClassName('main-forecast-day')[4].style.animation = ``
+        requestAnimationFrame(() => {
+            domCache.forecastDays.forEach(day => {
+                if (day) day.style.animation = '';
+            });
+        });
     }, slideDurationMS);
 }
 
 function runRadarSlide() {
-    radarDiv.style.animation = `fadeInTypeBeat 300ms ease forwards`
+    requestAnimationFrame(() => {
+        domCache.radarDiv.style.display = 'block';
+        domCache.radarDiv.style.animation = 'fadeInTypeBeat 300ms ease forwards';
+    });
     setTimeout(() => {
-        radarDiv.style.animation = `fadeModule 300ms ease`
+        requestAnimationFrame(() => {
+            domCache.radarDiv.style.animation = 'fadeModule 300ms ease';
+        });
     }, slideDurationMS + 100);
-    radarDiv.style.display = `block`
 }

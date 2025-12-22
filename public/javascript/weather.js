@@ -10,6 +10,16 @@ const units = serverConfig.units
 
 export let locationIndex = 0;
 let chart = null;
+let intradayAnimations = []; // Track animations for cleanup
+
+// Cache frequently accessed DOM elements
+const domCache = new Map();
+function getCachedElement(id) {
+    if (!domCache.has(id)) {
+        domCache.set(id, document.getElementById(id));
+    }
+    return domCache.get(id);
+}
 const logTheFrickinTime = `[weather.js] | ${new Date().toLocaleString()} |`;
 let iconDir = "animated"
 let endingTemp, endingWind, endingDistance, endingMeasurement, endingCeiling, endingPressure, endingSnow, endingRain;
@@ -57,13 +67,19 @@ function formatTime(timeString) {
 }
 
 export function appendTextContent(dataMap) {
-        Object.entries(dataMap).forEach(([id, value]) => {
-        const el = document.getElementById(id);
-        if (!el) return;
-        if (id.includes("icon")) {
-            el.src = `/graphics/${iconDir}/${value}`;
-        } else {
-            el.innerHTML = value;
+    // Use requestAnimationFrame to batch DOM updates
+    requestAnimationFrame(() => {
+        const entries = Object.entries(dataMap);
+        const iconPrefix = `/graphics/${iconDir}/`;
+        for (let i = 0; i < entries.length; i++) {
+            const [id, value] = entries[i];
+            const el = getCachedElement(id);
+            if (!el) continue;
+            if (id.includes('icon')) {
+                el.src = iconPrefix + value;
+            } else {
+                el.textContent = value; // textContent is faster than innerHTML when no HTML needed
+            }
         }
     });
 }
@@ -172,13 +188,12 @@ export async function appendDatatoMain(locale, locType) {
     }
 
     function buildCurrentConditions() {
-
         let uvIndexVar;
-        let windIcon = document.getElementById('main-current-windicon')
-        let vidBack = document.getElementById('current-background')
-        let feelsLikeIcon = document.getElementById('main-current-feelslikeicon')
-        let gustValue = document.getElementById('main-current-windvalue-gust')
-        let currentIcon = document.getElementById('main-current-icon')
+        const windIcon = getCachedElement('main-current-windicon');
+        const vidBack = getCachedElement('current-background');
+        const feelsLikeIcon = getCachedElement('main-current-feelslikeicon');
+        const gustValue = getCachedElement('main-current-windvalue-gust');
+        const currentIcon = getCachedElement('main-current-icon');
         let ceilingFormatted
 
         const wxImgRoot = weatherIcons[current.iconCode] || null
@@ -274,10 +289,10 @@ export async function appendDatatoMain(locale, locType) {
             
         };
 
-        let daypartOneIcon = document.getElementById('main-intraday-icon0')
-        let daypartTwoIcon = document.getElementById('main-intraday-icon1')
-        let daypartThreeIcon = document.getElementById('main-intraday-icon2')
-        let daypartFourIcon = document.getElementById('main-intraday-icon3')
+        const daypartOneIcon = getCachedElement('main-intraday-icon0');
+        const daypartTwoIcon = getCachedElement('main-intraday-icon1');
+        const daypartThreeIcon = getCachedElement('main-intraday-icon2');
+        const daypartFourIcon = getCachedElement('main-intraday-icon3');
 
         appendTextContent(dataMapIntraday)
 
@@ -303,11 +318,11 @@ export async function appendDatatoMain(locale, locType) {
 
         console.log(daypartNames)
 
-        const vidBack = document.getElementById('forecast-shorttermd1-summary')
-        const vidBack2 = document.getElementById('forecast-shorttermd2-summary')
+        const vidBack = getCachedElement('forecast-shorttermd1-summary');
+        const vidBack2 = getCachedElement('forecast-shorttermd2-summary');
 
-        let dayOneIcon = document.getElementById('main-forecast-shorttermd1-icon')
-        let dayTwoIcon = document.getElementById('main-forecast-shorttermd2-icon')
+        const dayOneIcon = getCachedElement('main-forecast-shorttermd1-icon');
+        const dayTwoIcon = getCachedElement('main-forecast-shorttermd2-icon');
 
         if (forecast.daypart[0].daypartName[0] === null) {
             setDayIcon(dayOneIcon, 'forecast', 1);
@@ -361,11 +376,11 @@ export async function appendDatatoMain(locale, locType) {
         "forecast-day7-pop": `${forecast.daypart[0].precipChance[12]}%`
         };
 
-        const dayThreeIcon = document.getElementById('forecast-day3-icon');
-        const dayFourIcon = document.getElementById('forecast-day4-icon');
-        const dayFiveIcon = document.getElementById('forecast-day5-icon');
-        const daySixIcon = document.getElementById('forecast-day6-icon');
-        const daySevenIcon = document.getElementById('forecast-day7-icon');
+        const dayThreeIcon = getCachedElement('forecast-day3-icon');
+        const dayFourIcon = getCachedElement('forecast-day4-icon');
+        const dayFiveIcon = getCachedElement('forecast-day5-icon');
+        const daySixIcon = getCachedElement('forecast-day6-icon');
+        const daySevenIcon = getCachedElement('forecast-day7-icon');
 
 
         setDayIcon(dayThreeIcon, 'forecast', 4);
@@ -392,10 +407,9 @@ export async function appendDatatoMain(locale, locType) {
         Chart.defaults.font.weight = 'bold';
             chart = new Chart(sevenDayHighAndLow, {
             type: 'line',
-                        
             responsive: true,
             maintainAspectRatio: false,
-            devicePixelRatio: 12,
+            devicePixelRatio: window.devicePixelRatio || 1, // Use native ratio instead of 12x
                             
             data: {
                 labels: forecast.dayOfWeek,
@@ -427,7 +441,7 @@ export async function appendDatatoMain(locale, locType) {
     }
 
     function buildAirQuality() {
-        const icon = document.getElementById('main-aq-icon')
+        const icon = getCachedElement('main-aq-icon');
 
         const dataMapAirQuality = {
             "main-aq-category": airQuality.airQualityCategory,
@@ -438,7 +452,8 @@ export async function appendDatatoMain(locale, locType) {
 
         appendTextContent(dataMapAirQuality)
 
-        document.getElementById('main-aq-category').style.color = `#${airQuality.airQualityCategoryIndexColor}`
+        const aqCategoryEl = getCachedElement('main-aq-category');
+        aqCategoryEl.style.color = `#${airQuality.airQualityCategoryIndexColor}`;
 
         switch (airQuality.airQualityCategoryIndex) {
             case 2:
@@ -463,64 +478,57 @@ export async function appendDatatoMain(locale, locType) {
                 break;
         }
 
-        if (document.getElementById('main-aq-category').innerText.length < 12) {
-            document.getElementById('main-aq-category').style.fontSize = '52pt'
-        } else {
-            document.getElementById('main-aq-category').style.fontSize = '44pt'
-        }
+        aqCategoryEl.style.fontSize = aqCategoryEl.textContent.length < 12 ? '52pt' : '44pt';
     }
 } 
 
+const sliderScaleE = { min: -58, max: 122, range: 180 };
+const sliderScaleM = { min: -50, max: 50, range: 100 };
+
 export function animateIntraday() {
-    const intradayTempSliders = [
-            {
-                daypart: 0,
-                htmlID: document.getElementById('main-intraday-temp-slider-day0'),
-                tempID: document.getElementById('main-intraday-temp0')
-            },
-            {
-                daypart: 1,
-                htmlID: document.getElementById('main-intraday-temp-slider-day1'),
-                tempID: document.getElementById('main-intraday-temp1')
-            },
-            {
-                daypart: 2,
-                htmlID: document.getElementById('main-intraday-temp-slider-day2'),
-                tempID: document.getElementById('main-intraday-temp2')
-            },
-            {
-                daypart: 3,
-                htmlID: document.getElementById('main-intraday-temp-slider-day3'),
-                tempID: document.getElementById('main-intraday-temp3')
-            }
-        ]
+    for (const anim of intradayAnimations) {
+        if (anim && anim.cancel) anim.cancel();
+    }
+    intradayAnimations.length = 0;
 
-        const sliderScale = {
-            e: {
-                min: -58,
-                max: 122
-            },
-            m: {
-                min: -50,
-                max: 50,
-            }
-        }
+    const scale = serverConfig.units === 'm' ? sliderScaleM : sliderScaleE;
+    const sliderElements = new Array(4);
+    const sliderTemps = new Array(4).fill(null);
+    let minTemp = Infinity;
+    let maxTemp = -Infinity;
 
-        for (const slider of intradayTempSliders) {
-                const htmlEl = slider.htmlID;
-                const temp = slider.tempID.innerText
-                const tempInt = parseInt(temp)
-                const scale = sliderScale[serverConfig.units] || sliderScale['e']
-                const percentage = ((tempInt - scale.min) / (scale.max - scale.min)) * 100
-                const clampedPercentage = Math.min(Math.max(percentage, 0), 100)
-                
-                htmlEl.animate([
-                    {height: `0%`},
-                    {height: `${clampedPercentage}%`}
-                ], {
-                    duration: 1000,
-                    fill: 'forwards',
-                    easing: 'ease-in-out'
-                })
-        }
+    for (let i = 0; i < 4; i++) {
+        const htmlEl = getCachedElement(`main-intraday-temp-slider-day${i}`);
+        const tempEl = getCachedElement(`main-intraday-temp${i}`);
+        sliderElements[i] = htmlEl;
+        if (!htmlEl || !tempEl) continue;
+        const tempValue = parseInt(tempEl.textContent, 10);
+        if (Number.isNaN(tempValue)) continue;
+        sliderTemps[i] = tempValue;
+        minTemp = Math.min(minTemp, tempValue);
+        maxTemp = Math.max(maxTemp, tempValue);
+    }
+
+    const hasValidRange = minTemp !== Infinity && maxTemp !== -Infinity;
+    const effectiveMin = hasValidRange ? minTemp : scale.min;
+    const effectiveRange = hasValidRange ? Math.max(1, maxTemp - minTemp) : scale.range;
+
+    for (let i = 0; i < 4; i++) {
+        const htmlEl = sliderElements[i];
+        const tempValue = sliderTemps[i];
+        if (!htmlEl || typeof tempValue !== 'number') continue;
+
+        const percentage = ((tempValue - effectiveMin) / effectiveRange) * 85;
+        const clampedPercentage = Math.min(Math.max(percentage, 10), 95);
+
+        const anim = htmlEl.animate([
+            {height: '0%'},
+            {height: `${clampedPercentage}%`}
+        ], {
+            duration: 800,
+            fill: 'forwards',
+            easing: 'ease-out'
+        });
+        intradayAnimations.push(anim);
+    }
 }
