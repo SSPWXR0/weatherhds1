@@ -1,4 +1,4 @@
-export const imageIndex = {
+{
   "bg_autumn": {
     "wxbad": [
       "/images/bg_images/bg_autumn/wx_bad/bg_fall_wxbad_1.avif",
@@ -22,6 +22,7 @@ export const imageIndex = {
       "/images/bg_images/bg_autumn/wx_good/bg_fall_wxgood_21.avif",
       "/images/bg_images/bg_autumn/wx_good/bg_fall_wxgood_22.avif",
       "/images/bg_images/bg_autumn/wx_good/bg_fall_wxgood_23.avif",
+      "/images/bg_images/bg_autumn/wx_good/bg_fall_wxgood_24.avif",
       "/images/bg_images/bg_autumn/wx_good/bg_fall_wxgood_3.avif",
       "/images/bg_images/bg_autumn/wx_good/bg_fall_wxgood_4.avif",
       "/images/bg_images/bg_autumn/wx_good/bg_fall_wxgood_5.avif",
@@ -116,4 +117,4 @@ export const imageIndex = {
       "/images/bg_images/bg_winter/wxgood/bg_winter_wxgood_9.avif"
     ]
   }
-};
+}

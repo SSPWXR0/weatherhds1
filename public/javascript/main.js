@@ -1,6 +1,7 @@
 import { config } from "../config.js";
-import { imageIndex } from "../imageIndex.js";
 import { fetchOnlineBackground } from "./data.js";
+
+const imageIndex = await fetch('./imageIndex.json').then(response => response.json());
 
 const viewport = document.getElementsByClassName("view")[0];
 const mainSlides = document.getElementsByClassName("main-slides")[0];
