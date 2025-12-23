@@ -10,9 +10,8 @@ const units = serverConfig.units
 
 export let locationIndex = 0;
 let chart = null;
-let intradayAnimations = []; // Track animations for cleanup
+let intradayAnimations = [];
 
-// Cache frequently accessed DOM elements
 const domCache = new Map();
 function getCachedElement(id) {
     if (!domCache.has(id)) {
@@ -45,10 +44,6 @@ if (units == "e") {
     endingRain = "mm"
 }
 
-/*function determineSevereMode() {
-
-}*/
-
 function formatTime(timeString) {
     const date = new Date(timeString)
     let hours = date.getHours();
@@ -67,7 +62,6 @@ function formatTime(timeString) {
 }
 
 export function appendTextContent(dataMap) {
-    // Use requestAnimationFrame to batch DOM updates
     requestAnimationFrame(() => {
         const entries = Object.entries(dataMap);
         const iconPrefix = `/graphics/${iconDir}/`;
@@ -78,7 +72,7 @@ export function appendTextContent(dataMap) {
             if (id.includes('icon')) {
                 el.src = iconPrefix + value;
             } else {
-                el.textContent = value; // textContent is faster than innerHTML when no HTML needed
+                el.textContent = value;
             }
         }
     });
@@ -398,7 +392,7 @@ export async function appendDatatoMain(locale, locType) {
         if (chart) {
             chart.destroy();
         }
-        //These define the default option overides 
+
         Chart.defaults.backgroundColor = '#FFF';
         Chart.defaults.borderColor = '#FFF';
         Chart.defaults.color = '#FFF';
@@ -409,7 +403,7 @@ export async function appendDatatoMain(locale, locType) {
             type: 'line',
             responsive: true,
             maintainAspectRatio: false,
-            devicePixelRatio: window.devicePixelRatio || 1, // Use native ratio instead of 12x
+            devicePixelRatio: window.devicePixelRatio || 1,
                             
             data: {
                 labels: forecast.dayOfWeek,

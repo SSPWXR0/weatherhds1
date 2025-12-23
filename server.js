@@ -213,7 +213,6 @@ app.get('/data/:location', async (req, res) => {
               comment: "Please add a locType query",
             })
           } else {
-            // okie cool now lets get weather data
             const wxData = await loadWxData(localeData.postalKey, geocode, locType)
           
             res.json({
