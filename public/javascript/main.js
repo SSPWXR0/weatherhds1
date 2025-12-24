@@ -1,6 +1,5 @@
 import { config } from "../config.js";
 import { fetchOnlineBackground } from "./data.js";
-import { imageIndex } from "../imageIndex.js";
 
 const viewport = document.getElementsByClassName("view")[0];
 const mainSlides = document.getElementsByClassName("main-slides")[0];
@@ -18,24 +17,7 @@ let broadcastState = 0; // zero is good weather, one is bad weather.
 
 const logTheFrickinTime = `[main.js] | ${new Date().toLocaleString()} |`;
 
-function getCurrentSeason() {
-    const month = new Date().getMonth() + 1;
-    const day = new Date().getDate();
-    if ((month === 12 && day >= 21) || (month <= 3 && day < 20) || (month < 3)) {
-        return "bg_winter";
-    } else if ((month === 3 && day >= 20) || (month < 6) || (month === 6 && day < 21)) {
-        return "bg_spring";
-    } else if ((month === 6 && day >= 21) || (month < 9) || (month === 9 && day < 23)) {
-        return "bg_summer";
-    } else {
-        return "bg_autumn";
-    }
-}
 
-setInterval(() => {
-    getCurrentSeason();
-}, 24 / 60 * 60 * 1000);
-getCurrentSeason();
 
 function initBackgrounds() {
         if (config.backgroundSource === "online") {
@@ -48,27 +30,45 @@ function initBackgrounds() {
             onlineBg();
         } 
         if (config.backgroundSource === "local") {
-            const season = getCurrentSeason();
-
-            let url;
-            function shuffleArray(array) {
-                for (let i = array.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [array[i], array[j]] = [array[j], array[i]];
-                }
-                url = `url(${array[0]})`;
-                
-                return url;
+            async function initLocalBackground() {
+                const weatherType = broadcastState === 0 ? "wxgood" : "wxbad";
+                const post = await fetch('/backgrounds/init', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'text/plain'
+                    },
+                    body: `[${weatherType}]`
+                });
+                const result = await post.text();
+                console.log(logTheFrickinTime, result);
             }
+
+            async function fetchLocalBackground() {
+                const response = await fetch('/backgrounds/image');
+                if (response.ok) {
+                    const imageUrl = await response.text();
+                    wallpaper.style.backgroundImage = `url(${imageUrl})`;
+                    console.log(logTheFrickinTime, "Applied background image:", imageUrl);
+                } else {
+                    console.warn(logTheFrickinTime, "Failed to fetch background image");
+                }
+            }
+            
+            initLocalBackground();
+
+            setTimeout(() => {
+                fetchLocalBackground();
+            }, 1000);
+            
             setInterval(() => {
-                wallpaper.style.backgroundImage = shuffleArray(imageIndex[season][broadcastState === 0 ? "wxgood" : "wxbad"]);
-            }, 600_000); 
-            wallpaper.style.backgroundImage = shuffleArray(imageIndex[season][broadcastState === 0 ? "wxgood" : "wxbad"]);
+                initLocalBackground();
+                setTimeout(() => {
+                    fetchLocalBackground();
+                }, 500);
+            }, 8 * 36000000);
         }
-        if (config.overrideBackgroundImage !== "" && config.backgroundSource === "url") {
-            wallpaper.style.backgroundImage = `url(${config.overrideBackgroundImage})`;
-        }
-    }
+}
+
 
 
 

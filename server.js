@@ -2,7 +2,8 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const { serverConfig, versionID } = require("./public/config.js");
-const nodecache = require('node-cache')
+const nodecache = require('node-cache');
+const e = require('express');
 
 const cache = new nodecache({stdTTL: serverConfig.cacheValidTime})
 
@@ -64,7 +65,19 @@ async function loadLocaleData(location) {
   }
 }
 
-
+function getCurrentSeason() {
+    const month = new Date().getMonth() + 1;
+    const day = new Date().getDate();
+    if ((month === 12 && day >= 21) || (month <= 3 && day < 20) || (month < 3)) {
+        return "bg_winter";
+    } else if ((month === 3 && day >= 20) || (month < 6) || (month === 6 && day < 21)) {
+        return "bg_spring";
+    } else if ((month === 6 && day >= 21) || (month < 9) || (month === 9 && day < 23)) {
+        return "bg_summer";
+    } else {
+        return "bg_autumn";
+    }
+}
 
 async function loadWxData(postalKey, geocode, locType) {
   let data = null;
@@ -190,6 +203,80 @@ function startServer(port) {
 }
 
 startServer(preferredPort);
+
+setInterval(() => {
+    getCurrentSeason();
+}, 24 / 60 * 60 * 1000);
+getCurrentSeason();
+
+let selectedImage;
+let backgroundsInitialized = false;
+
+function randomLocalBackground(wxCond) {
+    const season = getCurrentSeason();
+    const imageList = require('./imageIndex.json');
+ 
+    if (!imageList[season]) {
+        console.error(logTheFrickinTime, `Season "${season}" not found in imageIndex.json`);
+        return false;
+    }
+    
+    let selectedList = imageList[season][wxCond];
+    
+    if (!selectedList || selectedList.length === 0) {
+        console.error(logTheFrickinTime, `No images found for season "${season}" and weather condition "${wxCond}"`);
+        return false;
+    }
+    
+    const randomizedIndex = Math.floor(Math.random() * selectedList.length);
+    selectedImage = selectedList[randomizedIndex];
+    console.log(logTheFrickinTime, `Selected background for ${wxCond}:`, selectedImage);
+    return true;
+}
+
+function initLocalBackgrounds(wxCond) {
+    if (randomLocalBackground(wxCond)) {
+        console.log(logTheFrickinTime, "Selected initial local background:", selectedImage);
+        setInterval(() => {
+            randomLocalBackground(wxCond);
+            console.log(logTheFrickinTime, "Selected new local background:", selectedImage);
+        }, 24 / 60 * 60 * 1000);
+        backgroundsInitialized = wxCond;
+        console.log(logTheFrickinTime, "Local backgrounds initialized successfully for:", wxCond);
+    } else {
+        console.error(logTheFrickinTime, "Failed to initialize local backgrounds for:", wxCond);
+    }
+}
+
+app.use(express.text({ type: 'text/plain' }));
+
+
+app.post('/backgrounds/init', (req, res) => {
+  let wxCond = "wxgood";
+  if (typeof req.body === 'string' && req.body.startsWith('[') && req.body.endsWith(']')) {
+    wxCond = req.body.slice(1, -1);
+  }
+  if (backgroundsInitialized && wxCond === backgroundsInitialized) {
+    res.send(`Backgrounds are already initialized with weather condition: ${backgroundsInitialized}`);
+    console.log(logTheFrickinTime, "Backgrounds are already initialized with weather condition:", backgroundsInitialized);
+    return;
+  } else {
+    initLocalBackgrounds(wxCond);
+    res.send(`Initialized/re-initialized local backgrounds with weather condition: ${wxCond}`);
+    console.log(logTheFrickinTime, "Initialized/re-initialized local backgrounds with weather condition:", wxCond);
+  }
+});
+
+app.get('/backgrounds/image', (req, res) => {
+    if (selectedImage) {
+        res.send(selectedImage);
+        console.log(logTheFrickinTime, "Served local background image:", selectedImage);
+    } else {
+        res.status(204).send("Background image not initialized.");
+        console.warn(logTheFrickinTime, "Background image requested before initialization.");
+    }
+});
+
 
 app.get('/data', (req, res) => {
   res.send("ARE YOU HAVE STUPID??? YOU ARE SUPOSED TO AD PARAMTER LIKE /data/MEMPHOS?loctype=primary!!!!!")
