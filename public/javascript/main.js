@@ -1,5 +1,4 @@
-import { config } from "../config.js";
-import { fetchOnlineBackground } from "./data.js";
+import { config } from "./config.js";
 
 const viewport = document.getElementsByClassName("view")[0];
 const mainSlides = document.getElementsByClassName("main-slides")[0];
@@ -8,69 +7,11 @@ const topBar = document.getElementsByClassName("topbar")[0];
 const ldl = document.getElementsByClassName("ldl-presentation")[0];
 const ldlContainer = document.getElementsByClassName("ldl-weather")[0];
 const ldlBranding = document.getElementsByClassName("ldl-netlogo")[0];
+const ldlLineThing = document.getElementById('ldl-divider');
 const date = document.getElementById("date");
 const time = document.getElementById("time");
 const dateLDL = document.getElementById("dateLDL");
 const timeLDL = document.getElementById("timeLDL");
-
-let broadcastState = 0; // zero is good weather, one is bad weather.
-
-const logTheFrickinTime = `[main.js] | ${new Date().toLocaleString()} |`;
-
-
-
-function initBackgrounds() {
-        if (config.backgroundSource === "online") {
-            async function onlineBg() {
-                const url = await fetchOnlineBackground();
-                console.log(logTheFrickinTime, "Fetched new online background:", url);
-                wallpaper.style.backgroundImage = `url(${url})`;
-            }
-            setInterval(onlineBg, 8 * 36000000);
-            onlineBg();
-        } 
-        if (config.backgroundSource === "local") {
-            async function initLocalBackground() {
-                const weatherType = broadcastState === 0 ? "wxgood" : "wxbad";
-                const post = await fetch('/backgrounds/init', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'text/plain'
-                    },
-                    body: `[${weatherType}]`
-                });
-                const result = await post.text();
-                console.log(logTheFrickinTime, result);
-            }
-
-            async function fetchLocalBackground() {
-                const response = await fetch('/backgrounds/image');
-                if (response.ok) {
-                    const imageUrl = await response.text();
-                    wallpaper.style.backgroundImage = `url(${imageUrl})`;
-                    console.log(logTheFrickinTime, "Applied background image:", imageUrl);
-                } else {
-                    console.warn(logTheFrickinTime, "Failed to fetch background image");
-                }
-            }
-            
-            initLocalBackground();
-
-            setTimeout(() => {
-                fetchLocalBackground();
-            }, 1000);
-            
-            setInterval(() => {
-                initLocalBackground();
-                setTimeout(() => {
-                    fetchLocalBackground();
-                }, 500);
-            }, 8 * 36000000);
-        }
-}
-
-
-
 
 function ScaleViewportToTheWindowIGuessLmao() {
 
@@ -88,19 +29,23 @@ function ScaleViewportToTheWindowIGuessLmao() {
     let height
 
     const videoModes = {
-        vga: { width: 1920, height: 1440, barWidth: "95%"},
-        hdtv: { width: 2560, height: 1440, barWidth: "95%"},
-        ntsc: { width: 2160, height: 1440, barWidth: "95%"},
-        tablet: { width: 2304, height: 1440, barWidth: "95%"},
-        i2sidebar: { width: 2048, height: 1440, barWidth: "95%"}, // specialized video mode for IntelliStar 2 xD systems with TWC Enhanced sidebar
-        i2buffer: { width: 2560, height: 1440, barWidth: "100%"}, // specialized video mode with buffered sidebar area for IntelliStar 2 xD systems with TWC Enhanced sidebar
+        vga: { width: 640, height: 480, viewportWidth: `640px`, bottom: null },
+        hdtv: { width: 854, height: 480, viewportWidth: `854px`, bottom: `-3%` },
+        ntsc: { width: 720, height: 480, viewportWidth: `720px`, bottom: null },
+        tablet: { width: 768, height: 480, viewportWidth: `768px`, bottom: null }
     };
 
     const mode = videoModes[config.videoType] || videoModes.vga;
 
     width = mode.width;
     height = mode.height;
-    viewport.style.width = `${mode.width}px`;
+    viewport.style.width = mode.viewportWidth;
+
+    if (mode.bottom !== null) {
+        ldlContainer.style.bottom = mode.bottom;
+    }
+
+    
 
     const scaleRatioWidth = containerWidth / width;
     const scaleRatioHeight = containerHeight / height;
@@ -114,23 +59,6 @@ function ScaleViewportToTheWindowIGuessLmao() {
 
     viewport.style.left = `${centeredLeft}px`;
     viewport.style.top = `${centeredTop}px`;
-
-    ldlContainer.style.width = `${mode.barWidth}`;
-    topBar.style.width = `${mode.barWidth}`;
-
-    if (config.videoType === "i2buffer") {
-        document.getElementsByClassName("i2-sidebar-buffer")[0].style.display = `block`;
-        mainSlides.style.width = `80%`;
-
-    }
-
-    if (
-        config.videoType !== "hdtv" &&
-        config.videoType !== "tablet" &&
-        config.videoType !== "i2Sidebar"
-    ) {
-        document.getElementById('upnext-location2').style.display = 'none' // we only have two up next locations displayed so that it wont be squeezed in SDTV modes.
-    }
 
     viewport.style.transform = `scale(${scaleRatio})`;
 }
@@ -169,7 +97,6 @@ function clock() { // partially copied from weatherHDS 2
     timeLDL.innerText = formattedDate;
 }
 
-clock();
 setInterval(clock, 1000)
 
 function presentationType() {
@@ -180,7 +107,6 @@ function presentationType() {
     const backgrounds = new URLSearchParams(window.location.search).get('backgrounds');
     const repeatMain = new URLSearchParams(window.location.search).get('repeatMain');
     const ldlClock = new URLSearchParams(window.location.search).get('ldlClock');
-    const ldlBack = new URLSearchParams(window.location.search).get('ldlBack')
 
     if (mainPres !== null) {
         const parsed = mainPres.toLowerCase() === 'true';
@@ -206,11 +132,6 @@ function presentationType() {
         config.presentationConfig.ldlClock = parsed;
     }
 
-    if (ldlBack !== null) {
-        const parsed = ldlBack.toLowerCase() === 'true';
-        config.presentationConfig.ldlBack = parsed;
-    }
-
     if (config.presentationConfig.main != true) {
         wallpaper.style.display = `none`
         mainSlides.style.display = `none`
@@ -229,15 +150,39 @@ function presentationType() {
         if (config.presentationConfig.ldlClock) {
             ldlBranding.style.display = `block`
         }
-        ldl.style.display = `none`;
+        ldlContainer.style.display = `none`;
     }
-    if (config.presentationConfig.ldlBack === false) {
-        ldlBranding.style.display = `none`
-        ldlContainer.style.borderLeft = `none`
-        ldlContainer.style.borderRight = `none`
-        ldlContainer.style.borderTop = `none`
-        ldlContainer.style.backgroundColor = `transparent`
-        ldlContainer.style.backdropFilter = `none`
+
+    if (config.presentationConfig.ldlClock === false) {
+        timeLDL.style.display = `none`
+        dateLDL.style.display = `none`
+    }
+    if (config.transparentLDL === 1) { // make ldl transparent
+        ldlContainer.style.backgroundColor = `rgba(0,0,0,0)`
+    }
+    if (config.transparentLDL === 2) { // make ldl transparent, and remove the white line at the top
+        ldlContainer.style.backgroundColor = `rgba(0,0,0,0)`
+        ldlLineThing.remove()
+    }
+    if (config.transparentLDL === 3) { // like option one, but with text shadow
+        ldlContainer.style.backgroundColor = `rgba(0,0,0,0)`
+        ldlContainer.style.textShadow = `black 1.1px 1.5px 3px;`
+    }
+    if (config.transparentLDL === 4) { // like option two, but with text shadow
+        ldlContainer.style.backgroundColor = `rgba(0,0,0,0)`
+        ldlContainer.style.textShadow = `black 1.1px 1.5px 3px;`
+        ldlLineThing.remove()
+    }
+}
+
+const mainTheme = document.querySelector(':root')
+
+function imageRendering() {
+    if (config.textureFiltering === true) { // smoothes images when scaled
+        mainTheme.style.imageRendering = `auto`
+    }
+    if (config.textureFiltering === false) { // pixelates images when scaled
+        mainTheme.style.imageRendering = `pixelated`
     }
 }
 
@@ -263,17 +208,13 @@ function scrollTicker() {
 
 }
 
-
-
-window.onload = () => {
+export function everythingConfigLmao() {
+    imageRendering()
     ScaleViewportToTheWindowIGuessLmao()
     presentationType()
     scrollTicker()
-    initBackgrounds()
 }
 
-const refreshInterval = config.refreshInterval * 60000
-
 setTimeout(() => {
-    window.reload(true)
-}, refreshInterval);
+    location.reload();
+  }, 28800000);
