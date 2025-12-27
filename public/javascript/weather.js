@@ -1,639 +1,528 @@
-import { data, imageIndex, locationsList, units } from './dataLoader.js'
-import { slideIndex, showSlide } from './slides.js';
-import { config, weatherIcons } from "./config.js";
-import { drawMap, resizeThing } from './radar.js';
-
-const animationFormat = 'avif';
-
-const weatherGifs = {
-    "snow": ["13", "14", "16"], // Snow events
-    "snowstorm": ["43", "15", "42"], // Significant snow events
-    "cloudy": ["26", "27", "28"], // Cloudy events
-    "storm": ["3", "4", "37", "38", "47"], // Thunderstorms
-    "rain": ["9", "11", "12", "40"], // Rain events
-    "sun": ["32", "34"], // Sunny/Fair Day
-    "partlycloudy": ["29", "30", "33"], // Partly Cloudy
-    "fog": ["20", "21", "22"], // Fog, Haze, Smoke
-};
+import { requestWxData, serverHealth } from './data.js'
+import { weatherIcons, locationConfig, serverConfig, config } from "../config.js";
+import { drawMap } from './radar.js';
+import { requestBulletinCrawl } from './ldl.js';
 
 export const upNextLocationText = document.getElementById('upnext-location');
 export const currentLocationText = document.getElementById('current-location');
 
-export let locationIndex = 0;
-let isWeatherGood;
-let chart;
+const units = serverConfig.units
 
-let latestData;
-export let mainLocData;
+export let locationIndex = 0;
+let chart = null;
+let intradayAnimations = [];
+
+const domCache = new Map();
+function getCachedElement(id) {
+    if (!domCache.has(id)) {
+        domCache.set(id, document.getElementById(id));
+    }
+    return domCache.get(id);
+}
+const logTheFrickinTime = `[weather.js] | ${new Date().toLocaleString()} |`;
 let iconDir = "animated"
 let endingTemp, endingWind, endingDistance, endingMeasurement, endingCeiling, endingPressure, endingSnow, endingRain;
+export let daypartNames = []
 
-async function mainData() {
+if (units == "e") {
+    endingTemp = "°F"
+    endingWind = "mph"
+    endingDistance = "mi"
+    endingMeasurement = "in"
+    endingCeiling= "ft"
+    endingPressure = "hg"
+    endingSnow = "in"
+    endingRain = "in"
+} else if (units == "m") {
+    endingTemp = "°C"
+    endingWind = "km/h"
+    endingDistance = "km"
+    endingMeasurement = "mm"
+    endingCeiling = "m"
+    endingPressure = "mb"
+    endingSnow = "cm"
+    endingRain = "mm"
+}
 
-    try {
+function formatTime(timeString) {
+    const date = new Date(timeString)
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    const ampm = hours >= 12 ? "pm" : "am";
 
-          function processNextLocation() {
+    hours = hours % 12;
 
-            if (config.staticIcons === true) {
-                iconDir = "static"
+    hours = hours ? hours : 12
+
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+
+    const timeFmt = `${hours}:${minutes} ${ampm}`
+
+    return timeFmt;
+}
+
+export function appendTextContent(dataMap) {
+    requestAnimationFrame(() => {
+        const entries = Object.entries(dataMap);
+        const iconPrefix = `/graphics/${iconDir}/`;
+        for (let i = 0; i < entries.length; i++) {
+            const [id, value] = entries[i];
+            const el = getCachedElement(id);
+            if (!el) continue;
+            if (id.includes('icon')) {
+                el.src = iconPrefix + value;
             } else {
-                iconDir = "animated"
+                el.textContent = value;
+            }
+        }
+    });
+}
+
+export async function appendDatatoMain(locale, locType) {
+    let wxData = {};
+    wxData = await requestWxData(locale, locType)
+
+    let lat = wxData?.metadata?.localeData?.lat ?? null;
+    let lon = wxData?.metadata?.localeData?.lon ?? null;
+
+    let current;
+    let intraday;
+    let forecast;
+    let airQuality;
+    let pollen;
+
+    if (wxData.weather != null) {
+            current = wxData?.weather?.["v3-wx-observations-current"] ?? null;
+            intraday = wxData?.weather?.v2fcstintraday3?.forecasts ?? [];
+            forecast = wxData?.weather?.["v3-wx-forecast-daily-7day"] ?? wxData.weather?.["v3-wx-forecast-daily-3day"] ?? null;
+            airQuality = wxData?.weather?.["v3-wx-globalAirQuality"]?.globalairquality ?? null;
+            pollen = wxData?.weather?.pollenData?.pollenForecast12hour ?? null;
+
+            daypartNames = [
+                forecast.daypart[0].daypartName[0] ?? forecast.daypart[0].daypartName[1],
+                forecast.daypart[0].daypartName[2] ?? forecast.daypart[0].daypartName[3],
+            ]
+
+            if (serverHealth === 0) {
+
+            switch (locType) {
+
+                case "regional":
+                    buildCurrentConditions()
+                    break;
+                case "secondary":
+                    buildCurrentConditions()
+                    buildShortTermForecast()
+                    break;
+
+                case "primary":
+                default:
+                    buildCurrentConditions()
+                    buildIntraDayForecast()
+                    buildShortTermForecast()
+                    buildExtendedForecast()
+                    buildHighLowGraph()
+                    buildAirQuality()
+                    break;
             }
 
-            if (units == "e") {
-                endingTemp = "°F"
-                endingWind = "mph"
-                endingDistance = "mi"
-                endingMeasurement = "in"
-                endingCeiling= "ft"
-                endingPressure = "hg"
-                endingSnow = "in"
-                endingRain = "in"
-            } else if (units == "m") {
-                endingTemp = "°C"
-                endingWind = "km/h"
-                endingDistance = "km"
-                endingMeasurement = "mm"
-                endingCeiling = "m"
-                endingPressure = "mb"
-                endingSnow = "cm"
-                endingRain = "mm"
+            try {
+                if (wxData?.weather?.alertDetail && locationConfig.locations.some(loc => loc.name.includes(locale))) {
+                    let detailText = wxData.weather.alertDetail.texts[0].description
+                    let detailTextFmt = detailText.replace(/\n/g, '\u00A0')
+                    let alertCategory = wxData.weather.v3alertsHeadlines.alerts[0].significance
+                    let headlineText = wxData.weather.v3alertsHeadlines.alerts[0].headlineText
+                    let country = wxData.weather.v3alertsHeadlines.alerts[0].officeCountryCode
+                    let colorCode = wxData.weather.v3alertsHeadlines.alerts[0].sourceColorName || null
+                    requestBulletinCrawl(detailTextFmt, alertCategory, headlineText, country, colorCode)
+                }} catch (error) {}
+
+            } else {
+                console.warn(logTheFrickinTime, "Server is unreachable, cannot fetch weather data.")
+
             }
+    }
 
-            if (locationIndex < locationsList.locationIndex.locations.length) {
-              const locationName = locationsList.locationIndex.locations[locationIndex];
-              const locationData = data[locationName];
-              const mainLocName = locationsList.locationIndex.locations[0];
-              const nextLocationName = locationsList.locationIndex.locations[(locationIndex + 1) % locationsList.locationIndex.locations.length];
 
-              if (locationData) {
-                const latestKey = Object.keys(locationData)
-                  .map(Number)
-                  .sort((a, b) => b - a)[0];
-      
-                latestData = locationData[latestKey];
-                mainLocData = data[mainLocName][latestKey]
-      
-              if (latestData && latestData.current) {
-                const currentData = latestData.current;
-                const forecastData = latestData.weekly;
-                const specialData = latestData.special;
-                const lat = latestData.coordinates.lat;
-                const lon = latestData.coordinates.lon;
+    drawMap(lat, lon, "twcRadarHcMosaic", 8, 'radar-div-so-that-mapbox-will-be-happy')
 
-                currentLocationText.style.display = `none`
-                currentLocationText.style.animation = `switchModules 0.5s ease-in-out`
-                currentLocationText.innerHTML = locationName;
-                currentLocationText.style.display = `block`
+    function setDayIcon(day, product, daypartIndex) { // this sucks i hate myself
 
-                if (config.verboseLogging === true) {
-                    console.log(`Current main presentation location: ${locationName}`)
-                }
+        let dayOrNight;
+        let iconCode;
+        let iconPath;
+        let avifPath;
 
-                upNextLocationText.style.display = `none`
-                upNextLocationText.style.animation = `switchModules 0.5s ease-in-out`
-                upNextLocationText.innerHTML = `Next: ${nextLocationName}`;
-                upNextLocationText.style.display = `block`
-                
-                function istheweathergood() {
-                    if (!currentData || !currentData.iconCode) {
-                        console.error("no valid icon code in currentData")
-                        return;
+        switch (product) {
+
+            case "intraday":
+                    dayOrNight = 'D'
+
+                    if (intraday[daypartIndex].daypart_name === "Overnight") {
+                        dayOrNight = 'N'
                     }
 
-                    const iconCode = currentData.iconCode.toString();
+                    iconCode = intraday[daypartIndex].icon_code;
+                    iconPath = weatherIcons[iconCode] ? weatherIcons[iconCode][dayOrNight === "D" ? 0 : 1] : 'not-available.svg';
+                    day.src = `/graphics/${iconDir}/${iconPath}`;
+                    return iconCode;
+            case "forecast":
+                default:
+                    iconCode = forecast.daypart[0].iconCode[daypartIndex];
+                    dayOrNight = forecast.daypart[0].dayOrNight[daypartIndex];
+                    iconPath = weatherIcons[iconCode] ? weatherIcons[iconCode][dayOrNight === "D" ? 0 : 1] : 'not-available.svg';
+                    day.src = `/graphics/${iconDir}/${iconPath}`;
+                    return iconCode;
+            case "fcVideoBack":
+                    iconCode = forecast.daypart[0].iconCode[daypartIndex];
+                    avifPath = weatherIcons[iconCode] && weatherIcons[iconCode][2]? `/images/avif/${weatherIcons[iconCode][2]}`: null;
+                    day.style.backgroundImage = `url(${avifPath})`
+                    return iconCode;
+        }
+    }
 
-                    const shmtWeatherStuff = [
-                        "0",  // Tornado
-                        "1",  // Tropical Storm
-                        "2",  // Hurricane
-                        "3",  // Strong Storms
-                        "4",  // Thunderstorms
-                        "15", // Blowing Snow
-                        "17", // Hail
-                        "35", // Mixed Rain and Hail
-                        "36", // Extreme Heat
-                        "37", // Isolated Thunderstorms
-                        "38", // Scattered Thunderstorms
-                        "40", // Heavy Rain
-                        "42", // Heavy Snow
-                        "43", // Blizzard
-                        "47", // Scattered Thunderstorms (Night)
-                        "25"  // Frigid, Ice Crystals
-                    ];
+    function buildCurrentConditions() {
+        let uvIndexVar;
+        const windIcon = getCachedElement('main-current-windicon');
+        const vidBack = getCachedElement('current-background');
+        const feelsLikeIcon = getCachedElement('main-current-feelslikeicon');
+        const gustValue = getCachedElement('main-current-windvalue-gust');
+        const currentIcon = getCachedElement('main-current-icon');
+        let ceilingFormatted
 
-                    isWeatherGood = !shmtWeatherStuff.includes(iconCode)
+        const wxImgRoot = weatherIcons[current.iconCode] || null
+        const iconPath = wxImgRoot ? weatherIcons[current.iconCode][current.dayorNight === "D" ? 0 : 1] : 'not-available.svg'
+        const avifPath = wxImgRoot && wxImgRoot[2]? `/images/avif/${wxImgRoot[2]}`: null;
+        currentIcon.src = `/graphics/${iconDir}/${iconPath}`
 
-                }
+        console.log(avifPath)
 
-                istheweathergood();
+        if (config.videoBackgrounds === true) {
+            vidBack.style.backgroundImage = `url(${avifPath})`
+        }
 
-                function populateStationIDSlide() {
-                    const affiliateName = document.getElementById('station-id-affiliatename');
-                    const channelID = document.getElementById('station-id-channelid');
-                    const networkLogoStationID = document.getElementById('main-info-channelLogo')
+        if (current.windGust === null) {
+            gustValue.innerHTML = ``
+            windIcon.src = `/graphics/${iconDir}/windsock-weak.svg`
+        } else {
+            gustValue.innerHTML = `Gusting to ${current.windGust}${endingWind}`
+            windIcon.src = `/graphics/${iconDir}/windsock.svg`
+        }
 
-                    affiliateName.innerHTML = `${config.affiliateName}`
-                    channelID.innerHTML = `${config.channelNumber}`
-                }
+        if (current.uvIndex === 0) {
+            uvIndexVar = `N/A`
+        } else {
+            uvIndexVar = `${current.uvIndex} or ${current.uvDescription}`
+        }
 
-                populateStationIDSlide()
+        if (current.cloudCeiling === null) {
+            ceilingFormatted = 'Unlimited'
+        } else {
+            ceilingFormatted = current.cloudCeiling + endingCeiling
+        }
 
-                function populateCurrentSlide() {
-                    const currentText = document.getElementById('main-current-condition');
-                    const currentIcon = document.getElementById('main-current-icon');
-                    const currentTemp = document.getElementById('main-current-temp');
-                    const currentVideoBackground = document.getElementById('current-background');
-                    const ccBoxFilter = document.getElementById('main-current-box-filter')
+        const dataMapCurrent = {
+            "main-current-condition": current.wxPhraseLong,
+            "main-current-temp": `${current.temperature}${endingTemp}`,
+            "main-current-sunrise-value": formatTime(current.sunriseTimeLocal),
+            "main-current-sunset-value": formatTime(current.sunsetTimeLocal),
+            "main-current-humidityvalue": `${current.relativeHumidity}%`,
+            "main-current-pressurevalue": `${current.pressureAltimeter} ${endingPressure + '\u00A0and\u00A0' + current.pressureTendencyTrend}`,
+            "main-current-ceilingvalue": ceilingFormatted,
+            "main-current-visibvalue": `${current.visibility} ${endingDistance}`,
+            "main-current-dewpointvalue": `${current.temperatureDewPoint}${endingTemp}`,
+            "main-current-uvvalue": uvIndexVar,
+            "main-current-tempchangevalue": current.temperatureChange24Hour + endingTemp,
+            "main-current-feelslikevalue": current.temperatureFeelsLike + endingTemp
+        }
 
-                    currentText.innerHTML = `${currentData.wxPhraseLong}`
-                    currentTemp.innerHTML = `${currentData.temperature}${endingTemp}`
 
-                    const iconCode = currentData.iconCode;
-                    const dayOrNight = currentData.dayOrNight;
-                    const iconPath = weatherIcons[iconCode] ? weatherIcons[iconCode][dayOrNight === "D" ? 0 : 1] : 'not-available.svg'
-                    currentIcon.src = `/graphics/${iconDir}/${iconPath}`
 
-                    const date0 = new Date(latestData.weekly.sunriseTimeLocal[0])
-                    const date1 = new Date(latestData.weekly.sunsetTimeLocal[0])
-
-                    const dateDataIssued = new Date(currentData.validTimeLocal)
-
-                    let hourDataIssued = dateDataIssued.getHours();
-
-                    let hours0 = date0.getHours();
-                    const minutes0 = date0.getMinutes();
-                    let hours1 = date1.getHours();
-                    const minutes1 = date1.getMinutes();
-
-                    const period0 = hours0 >= 12 ? 'p' : 'a';
-                    hours0 = hours0 % 12 || 12;
-                    const period1 = hours1 >= 12 ? 'p' : 'a';
-                    hours1 = hours1 % 12 || 12;
-
-                    const fortmattedSunrise = `${hours0}:${minutes0.toString().padStart(2, '0')}${period0}`
-                    const fortmattedSunset = `${hours1}:${minutes1.toString().padStart(2, '0')}${period1}`
-
-                    const nightGradientStart = 'rgba(0,0,0,0.8)'
-                    const nightGradientEnd = 'rgba(14,36,50,0.8)'
-                    const earlyMorningGradientStart = 'rgba(28,32,75,0.8)'
-                    const earlyMorningGradientEnd = 'rgba(77,59,81,0.8)'
-                    const eveningGradientStart = 'rgba(28,9,53,0.8)'
-                    const eveningGradientEnd = 'rgba(226,193,151,0.8)'
-
-                    // CURRENT CONDITIONS VIDEO BACKGROUNDS
-                    if (config.videoBackgrounds === true) {
-                        let gifCurrent = `sun.avif`;
-
-                        for (let gif in weatherGifs) {
-                            if (weatherGifs[gif].includes(iconCode.toString())) {
-                                gifCurrent = `${gif}.${animationFormat}`;
-                                break
-                            }
+        if (units == "m") {
+            if (current.temperatureFeelsLike < 0) {
+                feelsLikeIcon.src = `/graphics/${iconDir}/thermometer-colder.svg`
+            } else {
+                feelsLikeIcon.src = `/graphics/${iconDir}/thermometer.svg`
+            }
+                    } else {
+                        if (current.temperatureFeelsLike < 0) {
+                            feelsLikeIcon.src = `/graphics/${iconDir}/thermometer-colder.svg`
+                        } else {
+                            feelsLikeIcon.src = `/graphics/${iconDir}/thermometer.svg`
                         }
-
-                        document.getElementById('current-background').style.backgroundImage = `url(/images/gif/${gifCurrent})`;
+                    }
+                    if (units == "e") {
+                        if (current.temperatureFeelsLike < 32) {
+                            feelsLikeIcon.src = `/graphics/${iconDir}/thermometer-colder.svg`
+                        } else {
+                            feelsLikeIcon.src = `/graphics/${iconDir}/thermometer.svg`
+                        }
                     }
 
-                    if (config.currentConditionsGradient === true) {
-                        if (currentData.dayOrNight === "N") {
-                            ccBoxFilter.style = `background: linear-gradient(180deg, ${nightGradientStart} 0%, ${nightGradientEnd} 100%);`
-                        }
-                        if (currentData.dayOrNight === "D") {
+        appendTextContent(dataMapCurrent)
+    }
 
-                            const sunrise12 = date0.getHours();
-                            const sunset12 = date1.getHours();
+    function buildIntraDayForecast() {
+        const dataMapIntraday = {
+            "main-intraday-title0": intraday[0].daypart_name,
+            "main-intraday-time0": formatTime(intraday[0].fcst_valid_local),
+            "main-intraday-title1": intraday[1].daypart_name,
+            "main-intraday-time1": formatTime(intraday[1].fcst_valid_local),
+            "main-intraday-title2": intraday[2].daypart_name,
+            "main-intraday-time2": formatTime(intraday[2].fcst_valid_local),
+            "main-intraday-title3": intraday[3].daypart_name,
+            "main-intraday-time3": formatTime(intraday[3].fcst_valid_local),
+            "main-intraday-condition0": intraday[0].phrase_22char,
+            "main-intraday-condition1": intraday[1].phrase_22char,
+            "main-intraday-condition2": intraday[2].phrase_22char,
+            "main-intraday-condition3": intraday[3].phrase_22char,
+            "main-intraday-temp0": intraday[0].temp + endingTemp,
+            "main-intraday-temp1": intraday[1].temp + endingTemp,
+            "main-intraday-temp2": intraday[2].temp + endingTemp,
+            "main-intraday-temp3": intraday[3].temp + endingTemp,
+            
+        };
 
-                            const lengthOfSun = sunset12 - sunrise12 + 12;
+        const daypartOneIcon = getCachedElement('main-intraday-icon0');
+        const daypartTwoIcon = getCachedElement('main-intraday-icon1');
+        const daypartThreeIcon = getCachedElement('main-intraday-icon2');
+        const daypartFourIcon = getCachedElement('main-intraday-icon3');
 
-                            const percentOfSunDec = hourDataIssued / lengthOfSun;
-                            const percentOfSun = Math.round(percentOfSunDec * 100) / 100
-                            const earlyMorningEnd = sunrise12 / lengthOfSun + 0.02
+        appendTextContent(dataMapIntraday)
 
-                            if (config.verboseLogging === true) {
-                                console.log('SUNRISE', sunrise12)
-                                console.log('SUNSET', sunset12)
-                                console.log('DATAISSUED', hourDataIssued)
-                                console.log('LENGTH OF SUN', lengthOfSun)
-                                console.log('PERCENT OF SUN', percentOfSun)
-                                console.log('EARLY MORNING END PERCENT', earlyMorningEnd)
-                            }
+        setDayIcon(daypartOneIcon, 'intraday', 0);
+        setDayIcon(daypartTwoIcon, 'intraday', 1);
+        setDayIcon(daypartThreeIcon, 'intraday', 2);
+        setDayIcon(daypartFourIcon, 'intraday', 3);
+    }
 
-                            if (percentOfSun < earlyMorningEnd) {
-                                ccBoxFilter.style = `background: linear-gradient(180deg, ${earlyMorningGradientStart} 0%, ${earlyMorningGradientEnd} 100%);`
-                            }
-                            if (percentOfSun > 0.85) {
-                                ccBoxFilter.style = `background: linear-gradient(180deg, ${eveningGradientStart} 0%, ${eveningGradientEnd} 100%);`
-                            }
+    function buildShortTermForecast() {
+        const dataMapShortTerm = {
+            "forecast-shorttermd1-title": forecast.daypart[0].daypartName[0] ?? forecast.daypart[0].daypartName[1],
+            "forecast-shorttermd1-condition": forecast.daypart[0].wxPhraseLong[0] ?? forecast.daypart[0].wxPhraseLong[1],
+            "forecast-shorttermd1-temp": `${forecast.daypart[0].temperature[0] ?? forecast.daypart[0].temperature[1]}${endingTemp}`,
+            "forecast-shorttermd1-text": forecast.daypart[0].narrative[0] ?? forecast.daypart[0].narrative[1],
+            "forecast-shorttermd2-title": forecast.daypart[0].daypartName[2] ?? forecast.daypart[0].daypartName[3],
+            "forecast-shorttermd2-condition": forecast.daypart[0].wxPhraseLong[2] ?? forecast.daypart[0].wxPhraseLong[3],
+            "forecast-shorttermd2-temp": `${forecast.daypart[0].temperature[2] ?? forecast.daypart[0].temperature[3]}${endingTemp}`,
+            "forecast-shorttermd2-text": forecast.daypart[0].narrative[2] ?? forecast.daypart[0].narrative[3],
+        };
+
+        appendTextContent(dataMapShortTerm)
+
+        console.log(daypartNames)
+
+        const vidBack = getCachedElement('forecast-shorttermd1-summary');
+        const vidBack2 = getCachedElement('forecast-shorttermd2-summary');
+
+        const dayOneIcon = getCachedElement('main-forecast-shorttermd1-icon');
+        const dayTwoIcon = getCachedElement('main-forecast-shorttermd2-icon');
+
+        if (forecast.daypart[0].daypartName[0] === null) {
+            setDayIcon(dayOneIcon, 'forecast', 1);
+            setDayIcon(dayTwoIcon, 'forecast', 2);
+            setDayIcon(vidBack, 'fcVideoBack', 1);
+            setDayIcon(vidBack2, 'fcVideoBack', 2);
+        } else {
+            setDayIcon(dayOneIcon, 'forecast', 0);
+            setDayIcon(dayTwoIcon, 'forecast', 1);
+            setDayIcon(vidBack, 'fcVideoBack', 0);
+            setDayIcon(vidBack2, 'fcVideoBack', 1);
+        }
+    }
+
+    function buildExtendedForecast() {
+
+        const dataMapExtended = {
+        "forecast-day3-title": forecast.daypart[0].daypartName[4],
+        "forecast-day3-condition": forecast.daypart[0].wxPhraseShort[4],
+        "forecast-day3-high": `${forecast.calendarDayTemperatureMax[3]}`,
+        "forecast-day3-low": `${forecast.calendarDayTemperatureMin[3]}`,
+        "forecast-day3-wind": `${forecast.daypart[0].windDirectionCardinal[4]} ${forecast.daypart[0].windSpeed[4]}${endingWind}`,
+        "forecast-day3-pop": `${forecast.daypart[0].precipChance[4]}%`,
+
+        "forecast-day4-title": forecast.daypart[0].daypartName[6],
+        "forecast-day4-condition": forecast.daypart[0].wxPhraseShort[6],
+        "forecast-day4-high": `${forecast.calendarDayTemperatureMax[4]}`,
+        "forecast-day4-low": `${forecast.calendarDayTemperatureMin[4]}`,
+        "forecast-day4-wind": `${forecast.daypart[0].windDirectionCardinal[6]} ${forecast.daypart[0].windSpeed[6]}${endingWind}`,
+        "forecast-day4-pop": `${forecast.daypart[0].precipChance[6]}%`,
+
+        "forecast-day5-title": forecast.daypart[0].daypartName[8],
+        "forecast-day5-condition": forecast.daypart[0].wxPhraseShort[8],
+        "forecast-day5-high": `${forecast.calendarDayTemperatureMax[5]}`,
+        "forecast-day5-low": `${forecast.calendarDayTemperatureMin[5]}`,
+        "forecast-day5-wind": `${forecast.daypart[0].windDirectionCardinal[8]} ${forecast.daypart[0].windSpeed[8]}${endingWind}`,
+        "forecast-day5-pop": `${forecast.daypart[0].precipChance[8]}%`,
+
+        "forecast-day6-title": forecast.daypart[0].daypartName[10],
+        "forecast-day6-condition": forecast.daypart[0].wxPhraseShort[10],
+        "forecast-day6-high": `${forecast.calendarDayTemperatureMax[6]}`,
+        "forecast-day6-low": `${forecast.calendarDayTemperatureMin[6]}`,
+        "forecast-day6-wind": `${forecast.daypart[0].windDirectionCardinal[10]} ${forecast.daypart[0].windSpeed[10]}${endingWind}`,
+        "forecast-day6-pop": `${forecast.daypart[0].precipChance[10]}%`,
+
+        "forecast-day7-title": forecast.daypart[0].daypartName[12],
+        "forecast-day7-condition": forecast.daypart[0].wxPhraseShort[12],
+        "forecast-day7-high": `${forecast.calendarDayTemperatureMax[7]}`,
+        "forecast-day7-low": `${forecast.calendarDayTemperatureMin[7]}`,
+        "forecast-day7-wind": `${forecast.daypart[0].windDirectionCardinal[12]} ${forecast.daypart[0].windSpeed[12]}${endingWind}`,
+        "forecast-day7-pop": `${forecast.daypart[0].precipChance[12]}%`
+        };
+
+        const dayThreeIcon = getCachedElement('forecast-day3-icon');
+        const dayFourIcon = getCachedElement('forecast-day4-icon');
+        const dayFiveIcon = getCachedElement('forecast-day5-icon');
+        const daySixIcon = getCachedElement('forecast-day6-icon');
+        const daySevenIcon = getCachedElement('forecast-day7-icon');
+
+
+        setDayIcon(dayThreeIcon, 'forecast', 4);
+        setDayIcon(dayFourIcon, 'forecast', 6);
+        setDayIcon(dayFiveIcon, 'forecast', 8);
+        setDayIcon(daySixIcon, 'forecast', 10);
+        setDayIcon(daySevenIcon, 'forecast', 12);
+
+        appendTextContent(dataMapExtended)
+    }
+
+    function buildHighLowGraph() {
+        const sevenDayHighAndLow = document.getElementById('sevenDayChart');
+        //we cannot reuse a canvas, once made, it needs to be destroyed. Easiest to do this reight before makinf the chart
+        if (chart) {
+            chart.destroy();
+        }
+
+        Chart.defaults.backgroundColor = '#FFF';
+        Chart.defaults.borderColor = '#FFF';
+        Chart.defaults.color = '#FFF';
+        Chart.defaults.font.size = 38;
+        Chart.defaults.font.family = "Poppins, Arial, sans-serif";
+        Chart.defaults.font.weight = 'bold';
+            chart = new Chart(sevenDayHighAndLow, {
+            type: 'line',
+            responsive: true,
+            maintainAspectRatio: false,
+            devicePixelRatio: window.devicePixelRatio || 1,
                             
-                        }
-                    }
-
-                    
-
-                    const ceilingFormatted = currentData.cloudCeiling === null ? "Unlimited" : `${currentData.cloudCeiling}${endingCeiling}`;
-
-                    const windValue = document.getElementById('main-current-windvalue')
-                    const gustValue = document.getElementById('main-current-windvalue-gust')
-                    const feelsLike = document.getElementById('main-current-feelslikevalue')
-                    const sunrise = document.getElementById('main-current-sunrise-value')
-                    const sunset = document.getElementById('main-current-sunset-value')
-                    const humidity = document.getElementById('main-current-humidityvalue')
-                    const pressure = document.getElementById('main-current-pressurevalue')
-                    const ceiling = document.getElementById('main-current-ceilingvalue')
-                    const visibility = document.getElementById('main-current-visibvalue')
-                    const dewpoint = document.getElementById('main-current-dewpointvalue')
-                    const uvIndex = document.getElementById('main-current-uvvalue')
-                    const tempChange = document.getElementById('main-current-tempchangevalue')
-                    const windIcon = document.getElementById('main-current-windicon')
-                    const feelsLikeIcon = document.getElementById('main-current-feelslikeicon')
-
-                    windValue.innerHTML = `${currentData.windDirectionCardinal}, @ ${currentData.windSpeed}${endingWind}`
-                    feelsLike.innerHTML = `${currentData.temperatureFeelsLike}${endingTemp}`
-                    sunrise.innerHTML = fortmattedSunrise
-                    sunset.innerHTML = fortmattedSunset
-                    humidity.innerHTML = `${currentData.relativeHumidity}%`
-                    pressure.innerHTML = `${currentData.pressureAltimeter}${endingPressure}, and ${currentData.pressureTendencyTrend}`
-                    ceiling.innerHTML = ceilingFormatted
-                    visibility.innerHTML = `${currentData.visibility}${endingDistance}`
-                    dewpoint.innerHTML = `${currentData.temperatureDewPoint}${endingTemp}`
-                    tempChange.innerHTML = `${currentData.temperatureChange24Hour}${endingTemp}`
-                    
-                    if (currentData.dayOrNight === "N") {
-                        uvIndex.innerHTML = `n/a`
-                    } else {
-                        uvIndex.innerHTML = `${currentData.uvIndex} or ${currentData.uvDescription}`
-                    }
-
-                    if (currentData.windGust === null) {
-                        gustValue.innerHTML = ``
-                        windIcon.src = `/graphics/${iconDir}/windsock-weak.svg`
-                    } else {
-                        gustValue.innerHTML = `Gusting to ${currentData.windGust}${endingWind}`
-                        windIcon.src = `/graphics/${iconDir}/windsock.svg`
-                    }
-
-                    if (config.units == "m") {
-                        if (currentData.temperatureFeelsLike < 0) {
-                            feelsLikeIcon.src = `/graphics/${iconDir}/thermometer-colder.svg`
-                        } else {
-                            feelsLikeIcon.src = `/graphics/${iconDir}/thermometer.svg`
-                        }
-                    } else {
-                        if (currentData.temperatureFeelsLike < 0) {
-                            feelsLikeIcon.src = `/graphics/${iconDir}/thermometer-colder.svg`
-                        } else {
-                            feelsLikeIcon.src = `/graphics/${iconDir}/thermometer.svg`
-                        }
-                    }
-                    if (config.units == "e") {
-                        if (currentData.temperatureFeelsLike < 32) {
-                            feelsLikeIcon.src = `/graphics/${iconDir}/thermometer-colder.svg`
-                        } else {
-                            feelsLikeIcon.src = `/graphics/${iconDir}/thermometer.svg`
-                        }
-                    }
-                    
-
+            data: {
+                labels: forecast.dayOfWeek,
+                datasets: [{
+                label: 'Daily Low',
+                data: forecast.calendarDayTemperatureMin,
+                borderWidth: 2,
+                borderColor: "#08F",
+                backgroundColor: "#08F"
+                },
+                {
+            label: 'Daily High',
+            data:  forecast.calendarDayTemperatureMax,
+            borderWidth: 2,
+            borderColor: "#F80",
+            backgroundColor: "#F80"
                 }
-
-                populateCurrentSlide()
-
-                function populateForecastSlides() {
-                    // Short-term forecast: DAY ONE
-                    const dayOneIcon = document.getElementById('main-forecast-shorttermd1-icon');
-                    const dayOneCondition = document.getElementById('forecast-shorttermd1-condition');
-                    const dayOneTemp = document.getElementById('forecast-shorttermd1-temp');
-                    const dayOneText = document.getElementById('forecast-shorttermd1-text');
-                    const dayOneTitle = document.getElementById('forecast-shorttermd1-title')
-                    const dayTwoIcon = document.getElementById('main-forecast-shorttermd2-icon');
-                    const dayTwoCondition = document.getElementById('forecast-shorttermd2-condition');
-                    const dayTwoTemp = document.getElementById('forecast-shorttermd2-temp');
-                    const dayTwoText = document.getElementById('forecast-shorttermd2-text');
-                    const dayTwoTitle = document.getElementById('forecast-shorttermd2-title')
-                    const dayThreeTitle = document.getElementById('forecast-day3-title')
-                    const dayThreeCondition = document.getElementById('forecast-day3-condition')
-                    const dayThreeIcon = document.getElementById('forecast-day3-icon')
-                    const dayThreeTempHi = document.getElementById('forecast-day3-high')
-                    const dayThreeTempLow = document.getElementById('forecast-day3-low')
-                    const dayThreeWind = document.getElementById('forecast-day3-wind')
-                    const dayThreePrecip = document.getElementById('forecast-day3-pop')
-                    const dayFourTitle = document.getElementById('forecast-day4-title')
-                    const dayFourCondition = document.getElementById('forecast-day4-condition')
-                    const dayFourIcon = document.getElementById('forecast-day4-icon')
-                    const dayFourTempHi = document.getElementById('forecast-day4-high')
-                    const dayFourTempLow = document.getElementById('forecast-day4-low')
-                    const dayFourWind = document.getElementById('forecast-day4-wind')
-                    const dayFourPrecip = document.getElementById('forecast-day4-pop')
-                    const dayFiveTitle = document.getElementById('forecast-day5-title')
-                    const dayFiveCondition = document.getElementById('forecast-day5-condition')
-                    const dayFiveIcon = document.getElementById('forecast-day5-icon')
-                    const dayFiveTempHi = document.getElementById('forecast-day5-high')
-                    const dayFiveTempLow = document.getElementById('forecast-day5-low')
-                    const dayFiveWind = document.getElementById('forecast-day5-wind')
-                    const dayFivePrecip = document.getElementById('forecast-day5-pop')
-                    const daySixTitle = document.getElementById('forecast-day6-title')
-                    const daySixCondition = document.getElementById('forecast-day6-condition')
-                    const daySixIcon = document.getElementById('forecast-day6-icon')
-                    const daySixTempHi = document.getElementById('forecast-day6-high')
-                    const daySixTempLow = document.getElementById('forecast-day6-low')
-                    const daySixWind = document.getElementById('forecast-day6-wind')
-                    const daySixPrecip = document.getElementById('forecast-day6-pop')
-                    const daySevenTitle = document.getElementById('forecast-day7-title')
-                    const daySevenCondition = document.getElementById('forecast-day7-condition')
-                    const daySevenIcon = document.getElementById('forecast-day7-icon')
-                    const daySevenTempHi = document.getElementById('forecast-day7-high')
-                    const daySevenTempLow = document.getElementById('forecast-day7-low')
-                    const daySevenWind = document.getElementById('forecast-day7-wind')
-                    const daySevenPrecip = document.getElementById('forecast-day7-pop')
-
-                    //cleasr
-                    dayOneText.innerHTML = ``;
-                    dayTwoText.innerHTML = ``;
-
-                    dayOneCondition.innerHTML = `${forecastData.daypart[0].wxPhraseLong[0] ?? forecastData.daypart[0]?.wxPhraseLong[1]}`
-                    dayOneTemp.innerHTML = `${forecastData.daypart[0].temperature[0] ?? forecastData.daypart[0]?.temperature[1]}${endingTemp}`
-                    dayOneTitle.innerHTML = `${forecastData.daypart[0].daypartName[0] ?? forecastData.daypart[0]?.daypartName[1]}`
-
-                    const dayOneIconCode = forecastData.daypart[0].iconCode[0] ?? forecastData.daypart[0].iconCode[1];
-                    const dayOrNight = forecastData.daypart[0].dayOrNight[0] ?? forecastData.daypart[0]?.dayOrNight[1];
-                    const iconPath = weatherIcons[dayOneIconCode] ? weatherIcons[dayOneIconCode][dayOrNight === "D" ? 0 : 1] : 'not-available.svg'
-                    dayOneIcon.src = `/graphics/${iconDir}/${iconPath}`
-
-                    const dayOneNarrative = document.createTextNode(`${forecastData.daypart[0].narrative[0] ?? forecastData.daypart[0]?.narrative[1]}`)
-                    dayOneText.appendChild(dayOneNarrative)
-
-                    // DAY TWO
-
-                    dayTwoCondition.innerHTML = `${forecastData.daypart[0].wxPhraseLong[2]}`
-                    dayTwoTemp.innerHTML = `${forecastData.daypart[0].temperature[2]}${endingTemp}`
-                    dayTwoTitle.innerHTML = `${forecastData.daypart[0].daypartName[2]}`
-
-                    const dayTwoIconCode = forecastData.daypart[0].iconCode[2];
-                    const dayOrNight2 = forecastData.daypart[0].dayOrNight[2];
-                    const dayTwoIconPath = weatherIcons[dayTwoIconCode] ? weatherIcons[dayTwoIconCode][dayOrNight2 === "D" ? 0 : 1] : 'not-available.svg'
-                    dayTwoIcon.src = `/graphics/${iconDir}/${dayTwoIconPath}`
-
-                    const dayTwoNarrative = document.createTextNode(`${forecastData.daypart[0].narrative[2]}`)
-                    dayTwoText.appendChild(dayTwoNarrative)
-
-                    // EXTENDED
-
-                    dayThreeTitle.innerHTML = `${forecastData.daypart[0].daypartName[4]}`
-                    dayFourTitle.innerHTML = `${forecastData.daypart[0].daypartName[6]}`
-                    dayFiveTitle.innerHTML = `${forecastData.daypart[0].daypartName[8]}`
-                    daySixTitle.innerHTML = `${forecastData.daypart[0].daypartName[10]}`
-                    daySevenTitle.innerHTML = `${forecastData.daypart[0].daypartName[12]}`
-
-                    dayThreeCondition.innerHTML = `${forecastData.daypart[0].wxPhraseShort[4]}`
-                    dayFourCondition.innerHTML = `${forecastData.daypart[0].wxPhraseShort[6]}`
-                    dayFiveCondition.innerHTML = `${forecastData.daypart[0].wxPhraseShort[8]}`
-                    daySixCondition.innerHTML = `${forecastData.daypart[0].wxPhraseShort[10]}`
-                    daySevenCondition.innerHTML = `${forecastData.daypart[0].wxPhraseShort[12]}`
-
-                    dayThreeTempHi.innerHTML = `${forecastData.calendarDayTemperatureMax[3]}`
-                    dayFourTempHi.innerHTML = `${forecastData.calendarDayTemperatureMax[4]}`
-                    dayFiveTempHi.innerHTML = `${forecastData.calendarDayTemperatureMax[5]}`
-                    daySixTempHi.innerHTML = `${forecastData.calendarDayTemperatureMax[6]}`
-                    daySevenTempHi.innerHTML = `${forecastData.calendarDayTemperatureMax[7]}`
-
-                    dayThreeTempLow.innerHTML = `${forecastData.calendarDayTemperatureMin[3]}`
-                    dayFourTempLow.innerHTML = `${forecastData.calendarDayTemperatureMin[4]}`
-                    dayFiveTempLow.innerHTML = `${forecastData.calendarDayTemperatureMin[5]}`
-                    daySixTempLow.innerHTML = `${forecastData.calendarDayTemperatureMin[6]}`
-                    daySevenTempLow.innerHTML = `${forecastData.calendarDayTemperatureMin[7]}`
-                    
-                    dayThreeWind.innerHTML = `${forecastData.daypart[0].windDirectionCardinal[4]} ${forecastData.daypart[0].windSpeed[4]}${endingWind}`
-                    dayFourWind.innerHTML = `${forecastData.daypart[0].windDirectionCardinal[6]} ${forecastData.daypart[0].windSpeed[6]}${endingWind}`
-                    dayFiveWind.innerHTML = `${forecastData.daypart[0].windDirectionCardinal[8]} ${forecastData.daypart[0].windSpeed[8]}${endingWind}`
-                    daySixWind.innerHTML = `${forecastData.daypart[0].windDirectionCardinal[10]} ${forecastData.daypart[0].windSpeed[10]}${endingWind}`
-                    daySevenWind.innerHTML = `${forecastData.daypart[0].windDirectionCardinal[12]} ${forecastData.daypart[0].windSpeed[12]}${endingWind}`
-
-                    dayThreePrecip.innerHTML = `${forecastData.daypart[0].precipChance[4]}%`
-                    dayFourPrecip.innerHTML = `${forecastData.daypart[0].precipChance[6]}%`
-                    dayFivePrecip.innerHTML = `${forecastData.daypart[0].precipChance[8]}%`
-                    daySixPrecip.innerHTML = `${forecastData.daypart[0].precipChance[10]}%`
-                    daySevenPrecip.innerHTML = `${forecastData.daypart[0].precipChance[12]}%`
-
-                    function setDayIcon(day, daypartIndex) {
-                        const iconCode = forecastData.daypart[0].iconCode[daypartIndex];
-                        const dayOrNight = forecastData.daypart[0].dayOrNight[daypartIndex];
-                        const iconPath = weatherIcons[iconCode] ? weatherIcons[iconCode][dayOrNight === "D" ? 0 : 1] : 'not-available.svg';
-                        day.src = `/graphics/${iconDir}/${iconPath}`;
-                    }
-                    
-                    // Set day icons
-                    setDayIcon(dayThreeIcon, 4);
-                    setDayIcon(dayFourIcon, 6);
-                    setDayIcon(dayFiveIcon, 8);
-                    setDayIcon(daySixIcon, 10);
-                    setDayIcon(daySevenIcon, 12);
-
-                    const airQualityIndex = document.getElementById('airqaulityindex')
-                    const airQualityCategory = document.getElementById('airqaulitycategory')
-                    const airQualityPrimaryPol =document.getElementById('airqaulityprimarypollutant')
-		            const airQualityGeneral = document.getElementById('airqaulitygeneralmessage')
-		            const airQualitySensitive = document.getElementById('airqaulitysensitivemessage')
-                    const airQualityStatusGradient = document.getElementById('main-aq-statusbox')
-
-                    airQualityIndex.innerHTML = `${specialData.aqi.globalairquality.airQualityIndex}`
-		            airQualityCategory.innerHTML = `${specialData.aqi.globalairquality.airQualityCategory}`
-		            airQualityPrimaryPol.innerHTML = `${specialData.aqi.globalairquality.primaryPollutant}`
-		            airQualityGeneral.innerHTML = `${specialData.aqi.globalairquality.messages.General.text}`
-		            airQualitySensitive.innerHTML = `${specialData.aqi.globalairquality.messages["Sensitive Group"].text}`
-                    airQualityStatusGradient.style.backgroundImage = `linear-gradient(#${specialData.aqi.globalairquality.airQualityCategoryIndexColor}, #00000073)`
+                        ]
+            },
+            options: {
+                scales: {
+                y: {
+                    beginAtZero: false
                 }
-
-                populateForecastSlides()
-
-                async function mainRadar() {
-                   
-                    drawMap(lat, lon);
-                    resizeThing()
-
                 }
-
-                mainRadar();
-
-
-                function alerts() {
-                    const alertsSlideContainer = document.getElementById('alerts')
-
-                    if (latestData.alerts && Array.isArray(latestData.alerts.alerts) && latestData.alerts.alerts.length > 0) {
-
-                        latestData.alerts.alerts.forEach(function(alert) {
-                            alertsSlideContainer.innerHTML = "";
-                            let alertElement = document.createElement('div')
-                            alertElement.className = 'alert-box';
-                            alertElement.innerHTML = `
-                                            <h3>${alert.officeName} --- ${alert.eventDescription}</h3>
-                                            <p>for the area of ${alert.areaName};</P
-                                            <p>${alert.headlineText}</p>
-                                            `;
-
-                            alertElement.style.lineHeight = `1`
-                            alertElement.style.fontSize = `9pt`
-
-                            alertsSlideContainer.appendChild(alertElement);
-                        })
-                        
-                    } else {
-                        async function alertSlideStandby() {
-                            alertsSlideContainer.innerHTML= `<h3 style="font-size: 16pt; text-shadow: 2pt 2pt 5pt #000000; font-weight: bold;" id="upnext-subtitle">Now... here is your weather,<h3>
-                            <h1 style="font-size: 36pt; text-shadow: 2pt 2pt 5pt #000000; font-weight: 400; text-align: right;" id="upnext-location-header">${locationName}</h1>`
-
-                            let decorativeContainer = document.createElement('div')
-                            let decorative = document.createElement('div')
-
-                            decorative.className = `main-alerts-standby-scrolltextdecorative`
-                            decorativeContainer.className = `main-alerts-standby-scrolltextcontainer`
-
-                            decorative.innerHTML = `${config.networkName}&nbsp;&nbsp;`.repeat(180);
-                            alertsSlideContainer.appendChild(decorativeContainer);
-                            decorativeContainer.appendChild(decorative);
-
-                            alertsSlideContainer.style.lineHeight = "0.1"
-                        }
-
-                        alertSlideStandby();
-                    }
-                }
-
-                alerts()
-
-                //define the canvas with 
-                const sevenDayHighAndLow = document.getElementById('sevenDayChart');
-                //we cannot reuse a canvas, once made, it needs to be destroyed. Easiest to do this reight before makinf the chart
-                if (chart) chart.destroy();
-                //These define the default option overides 
-                Chart.defaults.backgroundColor = '#FFF';
-                Chart.defaults.borderColor = '#FFF';
-                Chart.defaults.color = '#FFF';
-                Chart.defaults.font.weight = 'bold';
-                  chart = new Chart(sevenDayHighAndLow, {
-                    type: 'line',
-                
-                	responsive: true,
-                    maintainAspectRatio: false,
-                	devicePixelRatio: 8,
-                	
-                    data: {
-                      labels: forecastData.dayOfWeek,
-                      datasets: [{
-                        label: 'Daily Low',
-                        data: forecastData.calendarDayTemperatureMin,
-                        borderWidth: 2,
-                        borderColor: "#08F",
-                        backgroundColor: "#08F"
-                      },
-                      {
-                	label: 'Daily High',
-                	data:  forecastData.calendarDayTemperatureMax,
-                	borderWidth: 2,
-                    borderColor: "#F80",
-                    backgroundColor: "#F80"
-                      }
-                ]
-                    },
-                    options: {
-                      scales: {
-                        y: {
-                          beginAtZero: false
-                        }
-                      }
-                    }
-                  });
-                
-
-            } else {
-                console.warn(`No valid current data found for ${locationName}`)
-                locationIndex++;
-                setTimeout(processNextLocation, 1)
             }
-            } else {
-                console.warn(`No data found for ${locationName}`);
-                locationIndex++;
-                setTimeout(processNextLocation, 1)
-            }
-            } else {
-                locationIndex = 0;
-                setTimeout(processNextLocation, 1)
-            }
-        
-        }
-    processNextLocation();
+            });
 
-    } catch (error) {
-        console.error('erm what the', error);
-    }
-}
-
-export function getInitialData() {
-    mainData()
-}
-
-export function nextLocation() {
-    locationIndex++;
-    if (locationIndex >= locationsList.locationIndex.locations.length) {
-        locationIndex = 0;
     }
 
-    currentLocationText.style.display = `none`
-    upNextLocationText.style.display = `none`
+    function buildAirQuality() {
+        const icon = getCachedElement('main-aq-icon');
 
-    setTimeout(() => {
-        mainData();
-        showSlide(slideIndex);
-    }, 200);
+        const dataMapAirQuality = {
+            "main-aq-category": airQuality.airQualityCategory,
+            "main-aq-pp": airQuality.primaryPollutant,
+            "main-aq-narrative": airQuality.messages.General.text,
+            "main-aq-ppamount": `${airQuality.pollutants[airQuality.primaryPollutant].amount}${airQuality.pollutants[airQuality.primaryPollutant].unit}`
+        };
 
-}
+        appendTextContent(dataMapAirQuality)
 
-export async function backgroundCycle() {
-    
-let isSeason = '';
+        const aqCategoryEl = getCachedElement('main-aq-category');
+        aqCategoryEl.style.color = `#${airQuality.airQualityCategoryIndexColor}`;
 
-    const backgroundElement = document.querySelector('.wallpaper')
+        switch (airQuality.airQualityCategoryIndex) {
+            case 2:
+                icon.src=`/graphics/ux/leaf_moderate.svg`
+                break;
 
-    if (config.overrideBackgroundImage) {
-        backgroundElement.style.backgroundImage = `url("${config.overrideBackgroundImage}")`;
-    } else {
-
-        // calculate the day of the year as a number
-        var now = new Date();
-        var currentDate = new Date(now.toUTCString());
-        var start = new Date(currentDate.getFullYear(), 0, 0);
-        var diff = currentDate - start;
-        var oneDay = 1000 * 60 * 60 * 24;
-        var day = Math.floor(diff / oneDay);
-
-        // determin tge seasno
-        if (day <= 78) {
-            isSeason = "winter"; // winter
-        } else if (day >= 78 && day <= 171) {
-            isSeason = "spring"; // spring
-        } else if (day >= 171 && day <= 265) {
-            isSeason = "summer"; // summer
-        } else if (day >= 265 && day <= 355) {
-            isSeason = "autumn"; // autumn
-        } else if (day >= 355) {
-            isSeason = "winter"; // winter
+            case 3:
+                icon.src=`/graphics/ux/leaf_sensitive.svg`
+                break;
+            case 4:
+                icon.src=`/graphics/ux/leaf_unhealthy.svg`
+                break;
+            case 5:
+                icon.src=`/graphics/ux/leaf_veryunhealthy.svg`
+                break;
+            case 6:
+                icon.src=`/graphics/ux/leaf_hazardous.svg`
+                break;
+            default:
+                case 1:
+                icon.src=`/graphics/ux/leaf_good.svg`
+                break;
         }
 
-        let seasonBG = imageIndex[`bg_${isSeason}`]
-        let { wxbad, wxgood } = seasonBG;
+        aqCategoryEl.style.fontSize = aqCategoryEl.textContent.length < 12 ? '52pt' : '44pt';
+    }
+} 
 
-        const bgCategory = (isWeatherGood ?? true) ? 'wxgood' : 'wxbad';
-        const images = seasonBG[bgCategory];
-        const randomize = images[Math.floor(Math.random() * images.length)];
+const sliderScaleE = { min: -58, max: 122, range: 180 };
+const sliderScaleM = { min: -50, max: 50, range: 100 };
 
-        if (config.verboseLogging === true) {
-            console.log(`Day of the year:`, day)
-            console.log('Chosen image:', randomize)
-            console.log('Background image category: ', bgCategory)
-        }
+export function animateIntraday() {
+    for (const anim of intradayAnimations) {
+        if (anim && anim.cancel) anim.cancel();
+    }
+    intradayAnimations.length = 0;
 
+    const scale = serverConfig.units === 'm' ? sliderScaleM : sliderScaleE;
+    const sliderElements = new Array(4);
+    const sliderTemps = new Array(4).fill(null);
+    let minTemp = Infinity;
+    let maxTemp = -Infinity;
 
+    for (let i = 0; i < 4; i++) {
+        const htmlEl = getCachedElement(`main-intraday-temp-slider-day${i}`);
+        const tempEl = getCachedElement(`main-intraday-temp${i}`);
+        sliderElements[i] = htmlEl;
+        if (!htmlEl || !tempEl) continue;
+        const tempValue = parseInt(tempEl.textContent, 10);
+        if (Number.isNaN(tempValue)) continue;
+        sliderTemps[i] = tempValue;
+        minTemp = Math.min(minTemp, tempValue);
+        maxTemp = Math.max(maxTemp, tempValue);
+    }
 
-        backgroundElement.style.backgroundImage = `url('${randomize}')`;
+    const hasValidRange = minTemp !== Infinity && maxTemp !== -Infinity;
+    const effectiveMin = hasValidRange ? minTemp : scale.min;
+    const effectiveRange = hasValidRange ? Math.max(1, maxTemp - minTemp) : scale.range;
+
+    for (let i = 0; i < 4; i++) {
+        const htmlEl = sliderElements[i];
+        const tempValue = sliderTemps[i];
+        if (!htmlEl || typeof tempValue !== 'number') continue;
+
+        const percentage = ((tempValue - effectiveMin) / effectiveRange) * 85;
+        const clampedPercentage = Math.min(Math.max(percentage, 10), 95);
+
+        const anim = htmlEl.animate([
+            {height: '0%'},
+            {height: `${clampedPercentage}%`}
+        ], {
+            duration: 800,
+            fill: 'forwards',
+            easing: 'ease-out'
+        });
+        intradayAnimations.push(anim);
     }
 }
