@@ -358,54 +358,59 @@ async function runPlaylist(locale, call) {
 }
 
 function loopLocations() {
-  let localeIndex = 0;
+    if (config.presentationConfig.main !== true) {
+        console.log(logTheFrickinTime + "Main presentation mode is disabled. Exiting slideshow loop.");
+        return;
+    }
+    
+    let localeIndex = 0;
 
-  function runNextLocation() {
-    const localeList = locationConfig.locations
-    if (localeList.length === 0) return;
+    function runNextLocation() {
+        const localeList = locationConfig.locations
+        if (localeList.length === 0) return;
 
-    const location = localeList[localeIndex % localeList.length];
+        const location = localeList[localeIndex % localeList.length];
 
-    const currentLocation = location.displayName || "Please Standby...";
+        const currentLocation = location.displayName || "Please Standby...";
 
-    const [nextLocation, nextLocationOne, nextLocationTwo] =
-      [1, 2, 3].map(i => localeList[(localeIndex + i) % localeList.length]);
+        const [nextLocation, nextLocationOne, nextLocationTwo] =
+        [1, 2, 3].map(i => localeList[(localeIndex + i) % localeList.length]);
 
-    const textUpdates = [
-        { el: currentLocationText, text: currentLocation },
-        { el: upNextLocationText, text: nextLocation ? `> ${nextLocation.displayName}` : '' },
-        { el: upNextLocationText1, text: nextLocationOne ? `> ${nextLocationOne.displayName}` : '' },
-        { el: upNextLocationText2, text: nextLocationTwo ? `> ${nextLocationTwo.displayName}` : '' },
-    ];
+        const textUpdates = [
+            { el: currentLocationText, text: currentLocation },
+            { el: upNextLocationText, text: nextLocation ? `> ${nextLocation.displayName}` : '' },
+            { el: upNextLocationText1, text: nextLocationOne ? `> ${nextLocationOne.displayName}` : '' },
+            { el: upNextLocationText2, text: nextLocationTwo ? `> ${nextLocationTwo.displayName}` : '' },
+        ];
 
-    const topbarCurrent = document.querySelector('.topbar-current-location');
+        const topbarCurrent = document.querySelector('.topbar-current-location');
 
-    if (topbarCurrent) {
-        requestAnimationFrame(() => {
-            topbarCurrent.style.animation = 'none';
-            void topbarCurrent.offsetWidth;
-            topbarCurrent.style.animation = 'bonr 0.5s ease-in-out forwards';
+        if (topbarCurrent) {
+            requestAnimationFrame(() => {
+                topbarCurrent.style.animation = 'none';
+                void topbarCurrent.offsetWidth;
+                topbarCurrent.style.animation = 'bonr 0.5s ease-in-out forwards';
 
-            textUpdates.forEach(({ el, text }, index) => {
-                const delay = 0.1 * index;
-                el.textContent = text.length > 2 ? text : '';
-                el.style.display = text.length > 2 ? 'block' : 'none';
-                el.style.animation = `switchModules 0.2s ease-in-out ${delay}s forwards`;
+                textUpdates.forEach(({ el, text }, index) => {
+                    const delay = 0.1 * index;
+                    el.textContent = text.length > 2 ? text : '';
+                    el.style.display = text.length > 2 ? 'block' : 'none';
+                    el.style.animation = `switchModules 0.2s ease-in-out ${delay}s forwards`;
+                });
             });
+        }
+
+        if (config.videoType === "vga" || config.videoType === "ntsc" || config.videoType === "i2Sidebar") {
+            upNextLocationText2.style.display = 'none'
+        }
+
+        runPlaylist(location.name, () => {
+            localeIndex = (localeIndex + 1) % localeList.length;
+            runNextLocation();
         });
     }
 
-    if (config.videoType === "vga" || config.videoType === "ntsc" || config.videoType === "i2Sidebar") {
-        upNextLocationText2.style.display = 'none'
-    }
-
-    runPlaylist(location.name, () => {
-        localeIndex = (localeIndex + 1) % localeList.length;
-        runNextLocation();
-    });
-  }
-
-  runNextLocation();
+    runNextLocation();
 }
 
 
