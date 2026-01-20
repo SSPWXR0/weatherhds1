@@ -1,4 +1,4 @@
-import { config, locationConfig, versionID, serverConfig } from "../config.js";
+import { config, locationConfig, versionID, serverConfig, bumperBackgroundsRandom } from "../config.js";
 import { appendDatatoMain, animateIntraday, daypartNames } from "./weather.js";
 import { serverHealth, areWeDead } from "./data.js";
 
@@ -132,6 +132,17 @@ const preferredPlaylist = {
         }
     ],
 
+    regionalBumperPadding: [
+        {
+            htmlID: "regional",
+            title: "Our Regional Weather",
+            duration: 12000,
+            dynamicFunction: runRegionalBumper,
+            animationIn: playlistSettings.defaultAnimationIn,
+            animationOut: playlistSettings.defaultAnimationOut
+        },
+    ],
+
     regionalLocalePlaylist: [
         {
             htmlID: "current",
@@ -172,7 +183,6 @@ let totalSlideDurationSec
 
 const logTheFrickinTime = `[slides.js] | ${new Date().toLocaleString()} |`;
 
-// Cache all DOM elements once at module load
 const domCache = {
     radarDiv: document.getElementsByClassName('main-radar')[0],
     stationIdHdsver: document.getElementById('station-id-hdsver'),
@@ -193,7 +203,18 @@ const domCache = {
     currentModule2: document.getElementsByClassName('main-current-module2')[0],
     currentExtraProducts: Array.from(document.getElementsByClassName('main-current-extraproducts')),
     forecastDays: Array.from(document.getElementsByClassName('main-forecast-day')),
-    mainCurrentTemp: document.getElementById('main-current-temp')
+    mainCurrentTemp: document.getElementById('main-current-temp'),
+    regionalBumperHeader: document.getElementById('regional-bumper-text'),
+    regionalLocationHeader: document.getElementById('upnext-in-this-segment'),
+    regionalBumperSubtext: document.getElementById('regional-bumper-subtext'),
+    upNextRegionalText: document.getElementById('upnext-reg-loc1'),
+    upNextRegionalText1: document.getElementById('upnext-reg-loc2'),
+    upNextRegionalText2: document.getElementById('upnext-reg-loc3'),
+    upNextRegionalText3: document.getElementById('upnext-reg-loc4'),
+    upNextRegionalText4: document.getElementById('upnext-reg-loc5'),
+    bumperBgTitle: document.getElementById('bumper-bg-title'),
+    bumperBgSubtitle: document.getElementById('bumper-bg-subtitle'),
+    bumperBgAuthor: document.getElementById('bumper-bg-author'),
 };
 
 domCache.stationIdHdsver.innerText = versionID;
@@ -230,6 +251,9 @@ async function runPlaylist(locale, call) {
             case "standby":
                 selectedPlaylist = preferredPlaylist.standbyPlaylist;
                 break;
+            case "regionalBumperPadding":
+                selectedPlaylist = preferredPlaylist.regionalBumperPadding;
+                break;
             default:
                 selectedPlaylist = preferredPlaylist.mainPlaylist;
                 break;
@@ -250,8 +274,10 @@ async function runPlaylist(locale, call) {
     totalSlideDurationSec = totalSlideDurationMS / 1000;
 
     const slides = document.querySelectorAll('.main-slide');
+    const bumpers = document.querySelectorAll('.bumper-slide');
     const activeSlides = selectedPlaylist.filter(item =>
-        Array.from(slides).some(el => el.id === item.htmlID)
+        Array.from(slides).some(el => el.id === item.htmlID) ||
+        Array.from(bumpers).some(el => el.id === item.htmlID)
     );
 
     let slideIndex = 0;
@@ -319,6 +345,7 @@ async function runPlaylist(locale, call) {
         slideDurationMS = slide.duration;
 
         slides.forEach(s => s.style.display = "none");
+        bumpers.forEach(b => b.style.display = "none");
 
         if (el) {
             el.style.display = "block";
@@ -328,7 +355,11 @@ async function runPlaylist(locale, call) {
                 slide.dynamicFunction();
             }
         }
+if (slide.htmlID === "regional") {
+            slideIcon.src = "/graphics/ux/map.svg";
+        }
 
+        
         slideNearEnd = setTimeout(() => {
             if (el) el.style.animation = slide.animationOut;
             currentSlideText.style.animation = `fadeModule 0.5s ease-in-out forwards`;
@@ -392,16 +423,15 @@ function loopLocations() {
                 topbarCurrent.style.animation = 'bonr 0.5s ease-in-out forwards';
 
                 textUpdates.forEach(({ el, text }, index) => {
+                    if (config.videoType !== "hdtv" && config.videoType !== "i2buffer" && config.videoType !== "tablet") {
+                        if (el === upNextLocationText2) return;
+                    }
                     const delay = 0.1 * index;
                     el.textContent = text.length > 2 ? text : '';
                     el.style.display = text.length > 2 ? 'block' : 'none';
                     el.style.animation = `switchModules 0.2s ease-in-out ${delay}s forwards`;
                 });
             });
-        }
-
-        if (config.videoType === "vga" || config.videoType === "ntsc" || config.videoType === "i2Sidebar") {
-            upNextLocationText2.style.display = 'none'
         }
 
         runPlaylist(location.name, () => {
@@ -510,6 +540,16 @@ function loopLocations() {
 // copilot what should i name my cat
 // meowzart the sixth
 // copilot what should i name my cat
+// meowzart the seventh
+// copilot i named my cat Sunny.
+// what should i do
+// give sunny lots of pets and cuddles
+// copilot what should i name my cat
+// meowzart the eighth
+// noo we are done with this
+// actually sunny doesnt like cuddles
+// just pets
+// and chin scritches!!!
 
 
 
@@ -624,14 +664,18 @@ function loadingScreen() {
                 setTimeout(() => {
                     clearInterval(rotationInterval);
                     domCache.loadingScreen.remove();
-                    loopLocations();
+                    if (config.presentationConfig.autorunOnStartup === true) {
+                        loopLocations();
+                    }
                 }, 3000);
             
             break;
     
         default:
             domCache.loadingScreen.style.display = 'none'; // for when im debugging and i dont want the loading screen
-            loopLocations();
+            if (config.presentationConfig.autorunOnStartup === true) {
+                loopLocations();
+            }
             break;
     }
 }
@@ -694,6 +738,76 @@ function runExtendedSlide() {
             });
         });
     }, slideDurationMS);
+}
+
+function runRegionalBumper() {
+    const randomBackgrounds = bumperBackgroundsRandom.regional;
+    const regionalLocaleList = locationConfig.locations.filter(l => l.type === "regional");
+    domCache.upNextRegionalText.innerText = regionalLocaleList[0]?.displayName || '';
+    domCache.upNextRegionalText1.innerText = regionalLocaleList[1]?.displayName || '';
+    domCache.upNextRegionalText2.innerText = regionalLocaleList[2]?.displayName || '';
+    domCache.upNextRegionalText3.innerText = regionalLocaleList[3]?.displayName || '';
+    domCache.upNextRegionalText4.innerText = regionalLocaleList[4]?.displayName || '';
+
+    const marquee = domCache.regionalBumperSubtext;
+    marquee.innerText = ` ${config.networkName} `.repeat(50);
+
+    $(document).ready(function(){
+        $('#regional-bumper-subtext').marquee({
+                duration: 9000,
+                gap: 360,
+                delayBeforeStart: 0,
+                direction: 'left',
+                duplicated: true, 
+                pauseOnHover: true,
+        });
+    });
+
+
+    if (randomBackgrounds) {
+        Math.random();
+        let bgIndex = Math.floor(Math.random() * bumperBackgroundsRandom.regional.length);
+        let selectedBG = randomBackgrounds[bgIndex];
+        if (selectedBG.name.includes("Rai Praying")) {
+            bgIndex = Math.floor(Math.random() * bumperBackgroundsRandom.regional.length);
+            selectedBG = randomBackgrounds[bgIndex];
+        }
+
+        console.log(logTheFrickinTime + `Selected regional bumper background: ${selectedBG.url}`);
+        const regionalBumperCanvas = document.getElementById('bumper-background');
+        if (regionalBumperCanvas) {
+            regionalBumperCanvas.style.backgroundImage = `url('${selectedBG.url}')`;
+        }
+
+        if (domCache.bumperBgTitle) domCache.bumperBgTitle.innerText = selectedBG.name || '';
+        if (domCache.bumperBgSubtitle) domCache.bumperBgSubtitle.innerText = selectedBG.subtitle || '';
+        if (domCache.bumperBgAuthor) domCache.bumperBgAuthor.innerText = selectedBG.author || '';
+    }
+
+    requestAnimationFrame(() => {
+       domCache.regionalBumperHeader.style.animation = 'mainPresentationSlideIn 500ms ease-in-out forwards';
+       domCache.regionalLocationHeader.style.animation = 'switchModules 300ms ease-in-out forwards';
+       domCache.upNextRegionalText.style.animation = 'fadeInTypeBeat 1900ms ease-in-out forwards';
+       domCache.upNextRegionalText1.style.animation = 'fadeInTypeBeat 2200ms ease-in-out forwards';
+       domCache.upNextRegionalText2.style.animation = 'fadeInTypeBeat 2400ms ease-in-out forwards';
+       domCache.upNextRegionalText3.style.animation = 'fadeInTypeBeat 2800ms ease-in-out forwards';
+       domCache.upNextRegionalText4.style.animation = 'fadeInTypeBeat 3200ms ease-in-out forwards';
+    });
+    setTimeout(() => {
+        requestAnimationFrame(() => {
+            domCache.regionalBumperHeader.style.animation = 'fadeModule 300ms ease forwards';
+            domCache.regionalLocationHeader.style.animation = 'fadeModule 400ms ease forwards';
+            domCache.upNextRegionalText.style.animation = 'fadeModule 500ms ease forwards';
+            domCache.upNextRegionalText1.style.animation = 'fadeModule 600ms ease forwards';
+            domCache.upNextRegionalText2.style.animation = 'fadeModule 800ms ease forwards';
+            domCache.upNextRegionalText3.style.animation = 'fadeModule 1000ms ease forwards';
+            domCache.upNextRegionalText4.style.animation = 'fadeModule 1200ms ease forwards';
+        });
+
+        $(document).ready(function(){
+            $('#regional-bumper-subtext').marquee('destroy');
+        });
+    }, slideDurationMS - 1000);
 }
 
 function runRadarSlide() {

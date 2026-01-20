@@ -18,9 +18,10 @@ export let config = {
         "repeatMain": true,
         "squareLogo": true,
         "bannerLogo": true,
+        "autorunOnStartup": true // mainly for when i make new slides lol
     },
 
-    "loadingScreen": true,
+    "loadingScreen": false,
     "topbarStyle": "domestic", // domestic or weatherscan.
     "videoType": "hdtv", // sets the aspect ratio
     "systemTimeZone": "America/Regina", // tz_database. https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
@@ -45,7 +46,7 @@ export const locationConfig = {
     { name: "Rosthern, SK", type: "secondary", displayName: "Rosthern" },
     { name: "Waskesiu Lake, SK", type: "secondary", displayName: "Waskesiu" },
     { name: "Wakaw, SK", type: "secondary", displayName: "Wakaw" },
-
+    { name: "REGIONAL BUMPER" , type: "regionalBumperPadding", displayName: "Regional Weather" },
     { name: "Regina, SK", type: "regional", displayName: "Regina, SK" },
     { name: "Winnipeg, MB", type: "regional", displayName: "Winnipeg, MB" },
     { name: "Edmonton, AB", type: "regional", displayName: "Edmonton, AB" },
@@ -69,6 +70,75 @@ export const serverConfig = {
   "units": "m",
   "webPort": 3000,
   "cacheValidTime": 720, //in seconds
+}
+
+export const bumperBackgroundsRandom = {
+  "regional": [
+    {
+      name: "Del Rosa Intersection",
+      subtitle: "Manila, Philippines",
+      author: "raii/SSPWXR",
+      url: "/images/regional_bg_images/3.webp"
+    },
+    {
+      name: "SaskTel Corporate Office",
+      subtitle: "Saskatoon, SK",
+      author: "raii/SSPWXR",
+      url: "/images/regional_bg_images/4.webp"
+    },
+    {
+      name: "Old City Hall",
+      subtitle: "Toronto, ON",
+      author: "Ali Cuhadaroglu, Pexels",
+      url: "/images/regional_bg_images/probably_toronto.webp"
+    },
+    {
+      name: "Some Valley in Alberta",
+      subtitle: "Banff, AB",
+      author: "Ryutaro Tsukata, Pexels",
+      url: "/images/regional_bg_images/albernta.webp"
+    },
+    {
+      name: "Random grain elevator in Saskatchewan",
+      subtitle: "Saskatchewan, Canada",
+      author: "Bryan Smith, Pexels",
+      url: "/images/regional_bg_images/oldfarmerthingymajig.webp"
+    },
+    {
+      name: "Sunset over South Saskatchewan River",
+      subtitle: "Outlook, SK",
+      author: "raii/SSPWXR",
+      url: "/images/regional_bg_images/outlook_sunset_bridge.webp"
+    },
+    {
+      name: "Downtown Edmonton",
+      subtitle: "Edmonton, AB",
+      author: "raii/SSPWXR",
+      url: "/images/regional_bg_images/downtn_edmonton.webp"
+    },
+    {
+      name: "Fisherman's Wharf",
+      subtitle: "Victoria, BC",
+      author: "raii/SSPWXR",
+      url: "/images/regional_bg_images/vic_harbour1.webp"
+    },
+    {
+      name: "Victoria Harbour",
+      subtitle: "Victoria, BC",
+      author: "raii/SSPWXR",
+      url: "/images/regional_bg_images/vic_harbour2.webp"
+    },
+    {
+      name: "Rai Praying (Not sucking)",
+      subtitle: "Saskatoon, SK",
+      author: "Albert N.",
+      url: "/images/regional_bg_images/rai_praying.webp"
+    }
+  ],
+  "national": [],
+  "stationId": [],
+  "local": [],
+  "special": []
 }
 
 export const weatherIcons = {
@@ -158,4 +228,4 @@ export const holidayMapping = {
 
 
 
-export const versionID = '1-2025.12.31'
+export const versionID = '26.01.20'

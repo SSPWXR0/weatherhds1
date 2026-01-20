@@ -419,7 +419,9 @@ function showLDLSlide() {
     const slideElement = document.getElementById(slide.htmlID)
     if (!slideElement) {
         console.warn(`${logTheFrickinTime()} LDL slide element not found: ${slide.htmlID}`);
-        nextLDLSlide();
+        setTimeout(() => {
+            nextLDLSlide();
+        }, 2000);
         return;
     }
 
