@@ -145,7 +145,6 @@ function clock() {
     const dateStr = `${DAYS[now.getDay()]} ${MONTHS[now.getMonth()]} ${now.getDate()} ${now.getFullYear()}`;
     const timeStr = dateFormatter.format(now);
 
-    // Batch DOM updates
     if (date.textContent !== dateStr) {
         date.textContent = dateStr;
         dateLDL.textContent = dateStr;

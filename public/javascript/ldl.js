@@ -49,13 +49,9 @@ const bulletinCrawlContainer = document.getElementsByClassName('ldl-bulletin-cra
 
 bulletinCrawlContainer.style.display = `none`
 
-// Cache all LDL DOM elements once at module load
 const ldlDomCache = Object.freeze({
-    // Location
     locationLabel: document.getElementById('ldl-location-label'),
     progressBar: document.getElementById('ldl-location-progressbar'),
-    
-    // Current conditions
     currentTemp: document.getElementById('ldl-current-temp'),
     currentIcon: document.getElementById('ldl-current-icon'),
     currentCondition: document.getElementById('ldl-current-condition'),
@@ -68,8 +64,6 @@ const ldlDomCache = Object.freeze({
     currentFeelsLike: document.getElementById('ldl-current-feelslike-value'),
     currentModule1: document.getElementById('ldl-current-module1'),
     currentModule2: document.getElementById('ldl-current-module2'),
-    
-    // Forecast
     forecast0Name: document.getElementById('ldl-forecast-day0-name'),
     forecast0Cond: document.getElementById('ldl-forecast-day0-condition'),
     forecast0Icon: document.getElementById('ldl-day0-icon'),
@@ -82,13 +76,9 @@ const ldlDomCache = Object.freeze({
     forecast1Precip: document.getElementById('ldl-forecast-day1-pop-value'),
     forecast0Container: document.getElementById('ldl-forecast-day0-container'),
     forecast1Container: document.getElementById('ldl-forecast-day1-container'),
-    
-    // AQI
     aqiStatus: document.getElementById('ldl-aqi-status'),
     aqiIndex: document.getElementById('ldl-aqi-index'),
     aqiPrimaryPollutant: document.getElementById('ldl-aqi-primarypollutant'),
-    
-    // Slides
     ldlCurrent: document.getElementById('ldl-current'),
     ldlForecast: document.getElementById('ldl-forecast'),
     ldlAqi: document.getElementById('ldl-aqi'),
@@ -98,7 +88,7 @@ const ldlDomCache = Object.freeze({
 
 export function requestBulletinCrawl(text, alertCategory, headlineText, country, colorCode) {
   bulletinCrawlContainer.style.display = `block`
-  const beep = new Audio('../audio/beep.flac');
+  const beep = new Audio('../audio/beep.ogg');
   document.getElementById('ldl-bulletin-text').innerText = text
   document.getElementById('ldl-bulletin-metadata-text').innerText = headlineText
 
