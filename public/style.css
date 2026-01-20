@@ -71,11 +71,43 @@
   --mainSlideGradient: var(--secondGradient);
 }
 
+* {
+  box-sizing: border-box;
+}
+
+.main-slide,
+.bumper-slide,
+.ldl-presentation-slide,
+.wallpaper,
+.topbar,
+.ldl-weather,
+.main-radar,
+.topbar-current-location,
+.topbar-next-locations,
+#currentprogressbar,
+#ldl-location-progressbar {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.view {
+  contain: layout style paint;
+  isolation: isolate;
+}
+
+.main-slides,
+.bumper-slides {
+  contain: layout style;
+}
+
 body {
   margin: 0 0;
   background-color: #000000;
   font-size: var(--fontSizeThree);
   overflow: hidden;
+  text-rendering: optimizeSpeed;
+  -webkit-font-smoothing: antialiased;
 }
 
 .fade-out {
@@ -459,12 +491,14 @@ hr {
 	bottom: 9%;
 	width: 24%;
 	height: 16%;
+  text-align: right;
 }
 .hdsLogo {
   height: 50%;
 }
 .versionID {
-  top: -10%;
+  bottom: -55%;
+  right: -28%;
   position: absolute;
 }
 .main-info-netlogo-container {
@@ -644,7 +678,7 @@ hr {
   background-image: var(--mainSlideGradient);
   backdrop-filter: var(--mainSlideBlur);
   width: 64%;
-  height: 91.545%;
+  height: 100%;
   padding: 2%;
   line-height: 1.6;
   font-weight: 600;
@@ -871,8 +905,9 @@ hr {
   background-image: var(--mainSlideGradient);
   backdrop-filter: var(--mainSlideBlur);
   width: 64%;
-  height: 91.545%;
+  height: 100%;
   padding: 2%;
+  box-sizing: border-box;
   line-height: 1.6;
   font-size: var(--fontSizeFour);
   border-radius: var(--cornerRadius);
@@ -1473,11 +1508,13 @@ hr {
 @keyframes bonr {
   0% {
     opacity: 0;
-    width: 0%;
+    transform: scaleX(0);
+    transform-origin: left;
   }
   100% {
     opacity: 1;
-    width: 50%;
+    transform: scaleX(1);
+    transform-origin: left;
   }
 }
 

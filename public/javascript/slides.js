@@ -270,39 +270,33 @@ async function runPlaylist(locale, call) {
         await new Promise(r => setTimeout(r, 300));
     }
 
-    totalSlideDurationMS = selectedPlaylist.reduce((acc, slide) => acc + slideDurationMS, 0);
+    totalSlideDurationMS = selectedPlaylist.reduce((acc, slide) => acc + slide.duration, 0);
     totalSlideDurationSec = totalSlideDurationMS / 1000;
 
     const slides = document.querySelectorAll('.main-slide');
     const bumpers = document.querySelectorAll('.bumper-slide');
+    const slideIds = new Set(Array.from(slides).map(el => el.id));
+    const bumperIds = new Set(Array.from(bumpers).map(el => el.id));
     const activeSlides = selectedPlaylist.filter(item =>
-        Array.from(slides).some(el => el.id === item.htmlID) ||
-        Array.from(bumpers).some(el => el.id === item.htmlID)
+        slideIds.has(item.htmlID) || bumperIds.has(item.htmlID)
     );
 
     let slideIndex = 0;
 
+    let isFreezing = null;
+    function areWeFreezingToDeath() {
+        if (isFreezing !== null) return isFreezing;
+        const temp = parseFloat(domCache.mainCurrentTemp?.textContent || 0);
+        const unit = serverConfig.units;
+        isFreezing = (unit === "m" && temp < 1) || (unit === "e" && temp < 32);
+        return isFreezing;
+    }
+
     function showNextSlide() {
         if (slideIndex >= activeSlides.length) {
-            slides.forEach(s => s.style.display = "none");
+            slides.forEach(s => { s.style.display = "none"; });
             call?.();
             return;
-        }
-
-        function areWeFreezingToDeath() {
-            const temp = parseFloat(domCache.mainCurrentTemp?.textContent || 0);
-            const unit = serverConfig.units
-
-            if (unit === "m" && temp < 1) {
-                console.log(logTheFrickinTime + "YES, we are freezing to death lol")
-                return true;
-            } else if (unit === "e" && temp < 32) {
-                console.log(logTheFrickinTime + "YES, we are freezing to death lol. what the frickle is a kilometre?")
-                return true;
-            } else {
-                console.log(logTheFrickinTime + "No, it is quite nice outside. Unless it is actually scorching hot out.")
-                return false;
-            }
         }
 
         const slide = activeSlides[slideIndex];
@@ -311,7 +305,7 @@ async function runPlaylist(locale, call) {
         if (mappedIcon && mappedIcon.icon) {
             slideIcon.src = mappedIcon.icon;
         } else if (slide.htmlID === "current") {
-            const t = areWeFreezingToDeath();  // t is true/false
+            const t = areWeFreezingToDeath();
 
             slideIcon.src = t
                 ? '/graphics/ux/thermometer-snowflake.svg'
@@ -323,29 +317,26 @@ async function runPlaylist(locale, call) {
 
         switch (slide.htmlID) {
             case "forecast-shortterm-d1":
-                currentSlideText.innerHTML = daypartNames[0];
+                currentSlideText.textContent = daypartNames[0];
                 break;
                 
             case "forecast-shortterm-d2":
-                currentSlideText.innerHTML = daypartNames[1];
+                currentSlideText.textContent = daypartNames[1];
                 break;
         
             default:
-                currentSlideText.innerHTML = slide.title;
+                currentSlideText.textContent = slide.title;
                 break;
         }
-        
-        currentSlideText.style.animation = `switchModules 300ms ease-in-out forwards`;
-        currentSlideText.style.display = "block";
-        slideIcon.style.animation = `switchModules 160ms ease-in-out forwards`;
-        slideIcon.style.display = `block`;
-        currentprogressbar.style.display = `block`;
-        currentprogressbar.style.animation = `progressBar ${totalSlideDurationMS}ms linear forwards`;
+
+        currentSlideText.style.cssText = 'display:block;animation:switchModules 300ms ease-in-out forwards';
+        slideIcon.style.cssText = 'display:block;animation:switchModules 160ms ease-in-out forwards';
+        currentprogressbar.style.cssText = `display:block;animation:progressBar ${totalSlideDurationMS}ms linear forwards`;
 
         slideDurationMS = slide.duration;
 
-        slides.forEach(s => s.style.display = "none");
-        bumpers.forEach(b => b.style.display = "none");
+        for (const s of slides) s.style.display = "none";
+        for (const b of bumpers) b.style.display = "none";
 
         if (el) {
             el.style.display = "block";
@@ -359,7 +350,6 @@ if (slide.htmlID === "regional") {
             slideIcon.src = "/graphics/ux/map.svg";
         }
 
-        
         slideNearEnd = setTimeout(() => {
             if (el) el.style.animation = slide.animationOut;
             currentSlideText.style.animation = `fadeModule 0.5s ease-in-out forwards`;

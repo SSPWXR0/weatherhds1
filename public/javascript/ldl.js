@@ -15,8 +15,6 @@ for (let key in ldlPresentationSlides) {
     totalDurationSec += Number(ldlPresentationSlides[key].durationMS) / 1000;
 }
 
-const locationLabel = document.getElementById('ldl-location-label')
-
 const logTheFrickinTime = () => `[ldl.js] | ${new Date().toLocaleString()} |`;
 
 let ldlLocationIndex = 0;
@@ -50,6 +48,51 @@ if (units === "e") {
 const bulletinCrawlContainer = document.getElementsByClassName('ldl-bulletin-crawl')[0]
 
 bulletinCrawlContainer.style.display = `none`
+
+// Cache all LDL DOM elements once at module load
+const ldlDomCache = Object.freeze({
+    // Location
+    locationLabel: document.getElementById('ldl-location-label'),
+    progressBar: document.getElementById('ldl-location-progressbar'),
+    
+    // Current conditions
+    currentTemp: document.getElementById('ldl-current-temp'),
+    currentIcon: document.getElementById('ldl-current-icon'),
+    currentCondition: document.getElementById('ldl-current-condition'),
+    currentWind: document.getElementById('ldl-current-wind-value'),
+    currentHumidity: document.getElementById('ldl-current-humidity-value'),
+    currentDewpoint: document.getElementById('ldl-current-dewpoint-value'),
+    currentPressure: document.getElementById('ldl-current-pressure-value'),
+    currentVisib: document.getElementById('ldl-current-visibility-value'),
+    currentCeiling: document.getElementById('ldl-current-ceiling-value'),
+    currentFeelsLike: document.getElementById('ldl-current-feelslike-value'),
+    currentModule1: document.getElementById('ldl-current-module1'),
+    currentModule2: document.getElementById('ldl-current-module2'),
+    
+    // Forecast
+    forecast0Name: document.getElementById('ldl-forecast-day0-name'),
+    forecast0Cond: document.getElementById('ldl-forecast-day0-condition'),
+    forecast0Icon: document.getElementById('ldl-day0-icon'),
+    forecast0Temp: document.getElementById('ldl-forecast-day0-temp'),
+    forecast0Precip: document.getElementById('ldl-forecast-day0-pop-value'),
+    forecast1Name: document.getElementById('ldl-forecast-day1-name'),
+    forecast1Cond: document.getElementById('ldl-forecast-day1-condition'),
+    forecast1Icon: document.getElementById('ldl-day1-icon'),
+    forecast1Temp: document.getElementById('ldl-forecast-day1-temp'),
+    forecast1Precip: document.getElementById('ldl-forecast-day1-pop-value'),
+    forecast0Container: document.getElementById('ldl-forecast-day0-container'),
+    forecast1Container: document.getElementById('ldl-forecast-day1-container'),
+    
+    // AQI
+    aqiStatus: document.getElementById('ldl-aqi-status'),
+    aqiIndex: document.getElementById('ldl-aqi-index'),
+    aqiPrimaryPollutant: document.getElementById('ldl-aqi-primarypollutant'),
+    
+    // Slides
+    ldlCurrent: document.getElementById('ldl-current'),
+    ldlForecast: document.getElementById('ldl-forecast'),
+    ldlAqi: document.getElementById('ldl-aqi'),
+});
 
 
 
@@ -175,8 +218,8 @@ async function LDLData() {
 
         const locationName = ldlLocations[ldlLocationIndex];
         
-        if (locationLabel) {
-            locationLabel.innerHTML = `Weather for ${locationName}`
+        if (ldlDomCache.locationLabel) {
+            ldlDomCache.locationLabel.textContent = `Weather for ${locationName}`
         }
 
         const success = await fetchLDLData(locationName);
@@ -203,42 +246,29 @@ function appendLDLCurrent() {
     if (!currentLDLData || !currentLDLData.current) return;
     
     const current = currentLDLData.current;
-    
-    const currentTemp = document.getElementById('ldl-current-temp');
-    const currentIcon = document.getElementById('ldl-current-icon');
-    const currentCondition = document.getElementById('ldl-current-condition');
-    const currentWind = document.getElementById('ldl-current-wind-value');
-    const currentHumidity = document.getElementById('ldl-current-humidity-value');
-    const currentDewpoint = document.getElementById('ldl-current-dewpoint-value');
-    const currentPressure = document.getElementById('ldl-current-pressure-value');
-    const currentVisib = document.getElementById('ldl-current-visibility-value');
-    const currentCeiling = document.getElementById('ldl-current-ceiling-value');
-    const currentFeelsLike = document.getElementById('ldl-current-feelslike-value');
+    const c = ldlDomCache;
 
-    if (currentTemp) currentTemp.innerHTML = `${current.temperature}${endingTemp}`
-    if (currentCondition) currentCondition.innerHTML = current.wxPhraseMedium ?? current.wxPhraseLong ?? "N/A"
-    if (currentWind) currentWind.innerHTML = `${current.windDirectionCardinal ?? "N/A"}, ${current.windSpeed ?? 0}${endingWind}`
-    if (currentHumidity) currentHumidity.innerHTML = `${current.relativeHumidity ?? 0}%`
-    if (currentDewpoint) currentDewpoint.innerHTML = `${current.temperatureDewPoint ?? 0}${endingTemp}`
-    if (currentPressure) currentPressure.innerHTML = `${current.pressureAltimeter ?? 0}${endingPressure}`
-    if (currentVisib) currentVisib.innerHTML = `${Math.round(current.visibility ?? 0)}${endingDistance}`
-    if (currentFeelsLike) currentFeelsLike.innerHTML = `${current.temperatureFeelsLike ?? current.temperature}${endingTemp}`
+    if (c.currentTemp) c.currentTemp.textContent = `${current.temperature}${endingTemp}`
+    if (c.currentCondition) c.currentCondition.textContent = current.wxPhraseMedium ?? current.wxPhraseLong ?? "N/A"
+    if (c.currentWind) c.currentWind.textContent = `${current.windDirectionCardinal ?? "N/A"}, ${current.windSpeed ?? 0}${endingWind}`
+    if (c.currentHumidity) c.currentHumidity.textContent = `${current.relativeHumidity ?? 0}%`
+    if (c.currentDewpoint) c.currentDewpoint.textContent = `${current.temperatureDewPoint ?? 0}${endingTemp}`
+    if (c.currentPressure) c.currentPressure.textContent = `${current.pressureAltimeter ?? 0}${endingPressure}`
+    if (c.currentVisib) c.currentVisib.textContent = `${Math.round(current.visibility ?? 0)}${endingDistance}`
+    if (c.currentFeelsLike) c.currentFeelsLike.textContent = `${current.temperatureFeelsLike ?? current.temperature}${endingTemp}`
 
-    if (currentIcon) {
+    if (c.currentIcon) {
         const iconCode = current.iconCode;
         const dayOrNight = current.dayOrNight;
         const iconPath = weatherIcons[iconCode] ? weatherIcons[iconCode][dayOrNight === "D" ? 0 : 1] : 'not-available.svg'
-        currentIcon.src = `/graphics/${iconDir}/${iconPath}`
+        c.currentIcon.src = `/graphics/${iconDir}/${iconPath}`
     }
     
-    if (currentCeiling) {
-        let ceilingFormatted;
-        if (current.cloudCeiling === null || current.cloudCeiling === undefined) {
-            ceilingFormatted = "Unlimited"
-        } else {
-            ceilingFormatted = `${current.cloudCeiling}${endingCeiling}`
-        }
-        currentCeiling.innerHTML = ceilingFormatted
+    if (c.currentCeiling) {
+        const ceiling = current.cloudCeiling;
+        c.currentCeiling.textContent = (ceiling === null || ceiling === undefined) 
+            ? "Unlimited" 
+            : `${ceiling}${endingCeiling}`
     }
 }
 
@@ -246,105 +276,91 @@ function appendLDLForecast() {
     if (!currentLDLData || !currentLDLData.forecast) return;
     
     const forecast = currentLDLData.forecast;
-    
-    const forecast0Name = document.getElementById('ldl-forecast-day0-name');
-    const forecast0Cond = document.getElementById('ldl-forecast-day0-condition');
-    const forecast0Icon = document.getElementById('ldl-day0-icon');
-    const forecast0Temp = document.getElementById('ldl-forecast-day0-temp');
-    const forecast0Precip = document.getElementById('ldl-forecast-day0-pop-value');
-    const forecast1Name = document.getElementById('ldl-forecast-day1-name');
-    const forecast1Cond = document.getElementById('ldl-forecast-day1-condition');
-    const forecast1Icon = document.getElementById('ldl-day1-icon');
-    const forecast1Temp = document.getElementById('ldl-forecast-day1-temp');
-    const forecast1Precip = document.getElementById('ldl-forecast-day1-pop-value');
+    const c = ldlDomCache;
 
     if (!forecast.daypart || !forecast.daypart[0]) return;
     
     const daypart = forecast.daypart[0];
     
-    if (forecast0Name) forecast0Name.innerHTML = daypart.daypartName[0] ?? daypart.daypartName[1] ?? "Today"
-    if (forecast0Cond) forecast0Cond.innerHTML = daypart.wxPhraseShort[0] ?? daypart.wxPhraseShort[1] ?? "N/A"
-    if (forecast0Temp) forecast0Temp.innerHTML = `${daypart.temperature[0] ?? daypart.temperature[1] ?? "--"}°`
-    if (forecast0Precip) forecast0Precip.innerHTML = `${daypart.precipChance[0] ?? daypart.precipChance[1] ?? 0}%`
+    if (c.forecast0Name) c.forecast0Name.textContent = daypart.daypartName[0] ?? daypart.daypartName[1] ?? "Today"
+    if (c.forecast0Cond) c.forecast0Cond.textContent = daypart.wxPhraseShort[0] ?? daypart.wxPhraseShort[1] ?? "N/A"
+    if (c.forecast0Temp) c.forecast0Temp.textContent = `${daypart.temperature[0] ?? daypart.temperature[1] ?? "--"}°`
+    if (c.forecast0Precip) c.forecast0Precip.textContent = `${daypart.precipChance[0] ?? daypart.precipChance[1] ?? 0}%`
 
-    if (forecast0Icon) {
+    if (c.forecast0Icon) {
         const dayOneIconCode = daypart.iconCode[0] ?? daypart.iconCode[1];
         const dayOrNight = daypart.dayOrNight[0] ?? daypart.dayOrNight[1];
         const iconPath = weatherIcons[dayOneIconCode] ? weatherIcons[dayOneIconCode][dayOrNight === "D" ? 0 : 1] : 'not-available.svg'
-        forecast0Icon.src = `/graphics/${iconDir}/${iconPath}`
+        c.forecast0Icon.src = `/graphics/${iconDir}/${iconPath}`
     }
 
     if (daypart.daypartName[0] === null) {
-        if (forecast1Name) forecast1Name.innerHTML = daypart.daypartName[2] ?? "Tomorrow"
-        if (forecast1Cond) forecast1Cond.innerHTML = daypart.wxPhraseShort[2] ?? "N/A"
-        if (forecast1Temp) forecast1Temp.innerHTML = `${daypart.temperature[2] ?? "--"}°`
-        if (forecast1Precip) forecast1Precip.innerHTML = `${daypart.precipChance[2] ?? 0}%`
+        if (c.forecast1Name) c.forecast1Name.textContent = daypart.daypartName[2] ?? "Tomorrow"
+        if (c.forecast1Cond) c.forecast1Cond.textContent = daypart.wxPhraseShort[2] ?? "N/A"
+        if (c.forecast1Temp) c.forecast1Temp.textContent = `${daypart.temperature[2] ?? "--"}°`
+        if (c.forecast1Precip) c.forecast1Precip.textContent = `${daypart.precipChance[2] ?? 0}%`
 
-        if (forecast1Icon) {
+        if (c.forecast1Icon) {
             const dayTwoIconCode = daypart.iconCode[2]
             const dayOrNight = daypart.dayOrNight[2]
             const iconPath = weatherIcons[dayTwoIconCode] ? weatherIcons[dayTwoIconCode][dayOrNight === "D" ? 0 : 1] : 'not-available.svg'
-            forecast1Icon.src = `/graphics/${iconDir}/${iconPath}`
+            c.forecast1Icon.src = `/graphics/${iconDir}/${iconPath}`
         }
     } else {
-        if (forecast1Name) forecast1Name.innerHTML = daypart.daypartName[1] ?? "Tonight"
-        if (forecast1Cond) forecast1Cond.innerHTML = daypart.wxPhraseShort[1] ?? "N/A"
-        if (forecast1Temp) forecast1Temp.innerHTML = `${daypart.temperature[1] ?? "--"}°`
-        if (forecast1Precip) forecast1Precip.innerHTML = `${daypart.precipChance[1] ?? 0}%`
+        if (c.forecast1Name) c.forecast1Name.textContent = daypart.daypartName[1] ?? "Tonight"
+        if (c.forecast1Cond) c.forecast1Cond.textContent = daypart.wxPhraseShort[1] ?? "N/A"
+        if (c.forecast1Temp) c.forecast1Temp.textContent = `${daypart.temperature[1] ?? "--"}°`
+        if (c.forecast1Precip) c.forecast1Precip.textContent = `${daypart.precipChance[1] ?? 0}%`
 
-        if (forecast1Icon) {
+        if (c.forecast1Icon) {
             const dayTwoIconCode = daypart.iconCode[1]
             const dayOrNight = daypart.dayOrNight[1]
             const iconPath = weatherIcons[dayTwoIconCode] ? weatherIcons[dayTwoIconCode][dayOrNight === "D" ? 0 : 1] : 'not-available.svg'
-            forecast1Icon.src = `/graphics/${iconDir}/${iconPath}`
+            c.forecast1Icon.src = `/graphics/${iconDir}/${iconPath}`
         }
     }
 }
 
 function appendLDLAirQuality() {
+    const c = ldlDomCache;
+    
     if (!currentLDLData || !currentLDLData.aqi || !currentLDLData.aqi.globalairquality) {
-        const aqiStatus = document.getElementById('ldl-aqi-status');
-        const aqiIndex = document.getElementById('ldl-aqi-index');
-        const aqiPrimaryPollutant = document.getElementById('ldl-aqi-primarypollutant');
-        
-        if (aqiStatus) aqiStatus.innerHTML = "N/A"
-        if (aqiIndex) aqiIndex.innerHTML = "--"
-        if (aqiPrimaryPollutant) aqiPrimaryPollutant.innerHTML = "N/A"
+        if (c.aqiStatus) c.aqiStatus.textContent = "N/A"
+        if (c.aqiIndex) c.aqiIndex.textContent = "--"
+        if (c.aqiPrimaryPollutant) c.aqiPrimaryPollutant.textContent = "N/A"
         return;
     }
     
     const aqi = currentLDLData.aqi.globalairquality;
-    
-    const aqiStatus = document.getElementById('ldl-aqi-status');
-    const aqiIndex = document.getElementById('ldl-aqi-index');
-    const aqiPrimaryPollutant = document.getElementById('ldl-aqi-primarypollutant');
 
-    if (aqiStatus) {
-        aqiStatus.style.color = `#${aqi.airQualityCategoryIndexColor ?? 'FFFFFF'}`
-        aqiStatus.innerHTML = aqi.airQualityCategory ?? "N/A"
+    if (c.aqiStatus) {
+        c.aqiStatus.style.color = `#${aqi.airQualityCategoryIndexColor ?? 'FFFFFF'}`
+        c.aqiStatus.textContent = aqi.airQualityCategory ?? "N/A"
     }
-    if (aqiIndex) aqiIndex.innerHTML = aqi.airQualityCategoryIndex ?? "--"
-    if (aqiPrimaryPollutant) aqiPrimaryPollutant.innerHTML = aqi.primaryPollutant ?? "N/A"
+    if (c.aqiIndex) c.aqiIndex.textContent = aqi.airQualityCategoryIndex ?? "--"
+    if (c.aqiPrimaryPollutant) c.aqiPrimaryPollutant.textContent = aqi.primaryPollutant ?? "N/A"
 }
   
 function showLocationLabel() {
-    if (!locationLabel) return;
-    locationLabel.style.display = 'block';
-    locationLabel.style.animation = 'slideIn 1s ease-out';
+    const label = ldlDomCache.locationLabel;
+    if (!label) return;
+    label.style.display = 'block';
+    label.style.animation = 'slideIn 1s ease-out';
 }
 
 function hideLocationLabel() {
-    if (!locationLabel) return;
-    locationLabel.style.animation = 'slideOut 1s ease-out';
+    const label = ldlDomCache.locationLabel;
+    if (!label) return;
+    label.style.animation = 'slideOut 1s ease-out';
 
     setTimeout(() => {
-        locationLabel.style.display = 'none';
+        label.style.display = 'none';
     }, 300);
 }
 
 function runCurrentSlide() {
-    const module1 = document.getElementById('ldl-current-module1');
-    const module2 = document.getElementById('ldl-current-module2');
+    const module1 = ldlDomCache.currentModule1;
+    const module2 = ldlDomCache.currentModule2;
 
     if (!module1 || !module2) return;
 
@@ -368,8 +384,8 @@ function runCurrentSlide() {
 }
 
 function runForecastSlide() {
-    const day0 = document.getElementById('ldl-forecast-day0-container');
-    const day1 = document.getElementById('ldl-forecast-day1-container');
+    const day0 = ldlDomCache.forecast0Container;
+    const day1 = ldlDomCache.forecast1Container;
 
     if (!day0 || !day1) return;
 
@@ -378,11 +394,6 @@ function runForecastSlide() {
 
     const forecastSlide = ldlPresentationSlides[1];
     const halfDuration = forecastSlide.durationMS / 2;
-
-    setTimeout(() => {
-        day0.style.display = 'none';
-        day1.style.display = 'flex';
-    }, halfDuration);
 
     setTimeout(() => {
         day0.style.animation = 'fadeModule 0.2s ease-out';
@@ -408,25 +419,29 @@ function triggerExitAnimation(slideID) {
     }, 200);
 }
 
+// Map slide IDs to cached elements for O(1) lookup
+const slideElementMap = {
+    'ldl-current': () => ldlDomCache.ldlCurrent,
+    'ldl-forecast': () => ldlDomCache.ldlForecast,
+    'ldl-aqi': () => ldlDomCache.ldlAqi,
+};
+
 function showLDLSlide() {
-    const slide = ldlPresentationSlides[ldlSlideIndex]
+    const slide = ldlPresentationSlides[ldlSlideIndex];
     const duration = slide.durationMS;
 
     if (config.verboseLogging === true) {
         console.log(`${logTheFrickinTime()} Showing LDL slide: ${slide.htmlID} for ${duration}ms`)             
     }
     
-    const slideElement = document.getElementById(slide.htmlID)
+    const slideElement = slideElementMap[slide.htmlID]?.() || document.getElementById(slide.htmlID);
     if (!slideElement) {
         console.warn(`${logTheFrickinTime()} LDL slide element not found: ${slide.htmlID}`);
-        setTimeout(() => {
-            nextLDLSlide();
-        }, 2000);
+        setTimeout(nextLDLSlide, 2000);
         return;
     }
 
-    slideElement.style.display = 'block';
-    slideElement.style.animation = 'slideIn 1s ease-out';
+    slideElement.style.cssText = 'display:block;animation:slideIn 1s ease-out';
 
     if (slide.htmlID === 'ldl-current') {
         runCurrentSlide();
@@ -479,7 +494,7 @@ async function nextLDLLocation() {
 let progressBarTimeout = null;
 
 function runProgressBar() {
-    const progressBar = document.getElementById('ldl-location-progressbar')
+    const progressBar = ldlDomCache.progressBar;
     if (!progressBar) return;
 
     if (progressBarTimeout) {

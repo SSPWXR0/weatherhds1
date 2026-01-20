@@ -1,23 +1,53 @@
 import { config } from "../config.js";
 import { fetchOnlineBackground } from "./data.js";
 
-const viewport = document.getElementsByClassName("view")[0];
-const mainSlides = document.getElementsByClassName("main-slides")[0];
-const wallpaper = document.getElementsByClassName("wallpaper")[0];
-const topBar = document.getElementsByClassName("topbar")[0];
-const ldl = document.getElementsByClassName("ldl-presentation")[0];
-const ldlContainer = document.getElementsByClassName("ldl-weather")[0];
-const ldlBranding = document.getElementsByClassName("ldl-netlogo")[0];
-const date = document.getElementById("date");
-const time = document.getElementById("time");
-const dateLDL = document.getElementById("dateLDL");
-const timeLDL = document.getElementById("timeLDL");
+const domElements = {
+    viewport: document.getElementsByClassName("view")[0],
+    mainSlides: document.getElementsByClassName("main-slides")[0],
+    wallpaper: document.getElementsByClassName("wallpaper")[0],
+    topBar: document.getElementsByClassName("topbar")[0],
+    ldl: document.getElementsByClassName("ldl-presentation")[0],
+    ldlContainer: document.getElementsByClassName("ldl-weather")[0],
+    ldlBranding: document.getElementsByClassName("ldl-netlogo")[0],
+    date: document.getElementById("date"),
+    time: document.getElementById("time"),
+    dateLDL: document.getElementById("dateLDL"),
+    timeLDL: document.getElementById("timeLDL"),
+    i2SidebarBuffer: document.getElementsByClassName("i2-sidebar-buffer")[0],
+    upnextLocation2: document.getElementById('upnext-location2'),
+    ldlMarquee: document.getElementsByClassName('ldl-marquee')[0],
+    marqueeTicker: document.getElementById('marquee-ticker')
+};
+
+const { viewport, mainSlides, wallpaper, topBar, ldl, ldlContainer, ldlBranding } = domElements;
+const date = domElements.date;
+const time = domElements.time;
+const dateLDL = domElements.dateLDL;
+const timeLDL = domElements.timeLDL;
 
 let broadcastState = 0; // zero is good weather, one is bad weather.
 
+const DAYS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+const MONTHS = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+
+const dateFormatter = new Intl.DateTimeFormat('en-US', {
+    timeZone: config.systemTimeZone,
+    hour12: true,
+    hour: 'numeric',
+    minute: '2-digit',
+    second: '2-digit',
+    timeZoneName: 'short'
+});
+
+function debounce(fn, delay) {
+    let timeout;
+    return (...args) => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => fn(...args), delay);
+    };
+}
+
 const logTheFrickinTime = `[main.js] | ${new Date().toLocaleString()} |`;
-
-
 
 function initBackgrounds() {
         if (config.backgroundSource === "online") {
@@ -69,108 +99,63 @@ function initBackgrounds() {
         }
 }
 
+const VIDEO_MODES = Object.freeze({
+    vga: { width: 1920, height: 1440, barWidth: "95%" },
+    hdtv: { width: 2560, height: 1440, barWidth: "95%" },
+    ntsc: { width: 2160, height: 1440, barWidth: "95%" },
+    tablet: { width: 2304, height: 1440, barWidth: "95%" },
+    i2sidebar: { width: 2048, height: 1440, barWidth: "95%" },
+    i2buffer: { width: 2560, height: 1440, barWidth: "100%" },
+});
 
-
+const videoTypeParam = new URLSearchParams(window.location.search).get('videoType');
+if (videoTypeParam !== null) {
+    config.videoType = String(videoTypeParam).toLowerCase();
+}
 
 function ScaleViewportToTheWindowIGuessLmao() {
-
-    const videoTypeParam = new URLSearchParams(window.location.search).get('videoType');
-
-    if (videoTypeParam !== null) {
-        const parsed = String(videoTypeParam).toLowerCase();
-        config.videoType = parsed;
-}
-
     const containerWidth = window.innerWidth;
     const containerHeight = window.innerHeight;
+    const mode = VIDEO_MODES[config.videoType] || VIDEO_MODES.vga;
+    const { width, barWidth } = mode;
 
-    let width
-    let height
+    const scaleRatio = Math.min(containerWidth / width, containerHeight / mode.height);
+    const centeredLeft = (containerWidth - width * scaleRatio) / 2;
+    const centeredTop = (containerHeight - mode.height * scaleRatio) / 2;
 
-    const videoModes = {
-        vga: { width: 1920, height: 1440, barWidth: "95%"},
-        hdtv: { width: 2560, height: 1440, barWidth: "95%"},
-        ntsc: { width: 2160, height: 1440, barWidth: "95%"},
-        tablet: { width: 2304, height: 1440, barWidth: "95%"},
-        i2sidebar: { width: 2048, height: 1440, barWidth: "95%"}, // specialized video mode for IntelliStar 2 xD systems with TWC Enhanced sidebar
-        i2buffer: { width: 2560, height: 1440, barWidth: "100%"}, // specialized video mode with buffered sidebar area for IntelliStar 2 xD systems with TWC Enhanced sidebar
-    };
+    viewport.style.cssText = `width:${width}px;transform-origin:top left;left:${centeredLeft}px;top:${centeredTop}px;transform:scale(${scaleRatio})`;
+    
+    ldlContainer.style.width = barWidth;
+    topBar.style.width = barWidth;
 
-    const mode = videoModes[config.videoType] || videoModes.vga;
-
-    width = mode.width;
-    height = mode.height;
-    viewport.style.width = `${mode.width}px`;
-
-    const scaleRatioWidth = containerWidth / width;
-    const scaleRatioHeight = containerHeight / height;
-
-    const scaleRatio = Math.min(scaleRatioWidth, scaleRatioHeight);
-
-    viewport.style.transformOrigin = `top left`;
-
-    const centeredLeft = (containerWidth - viewport.offsetWidth * scaleRatio) / 2;
-    const centeredTop = (containerHeight - viewport.offsetHeight * scaleRatio) / 2;
-
-    viewport.style.left = `${centeredLeft}px`;
-    viewport.style.top = `${centeredTop}px`;
-
-    ldlContainer.style.width = `${mode.barWidth}`;
-    topBar.style.width = `${mode.barWidth}`;
-
-    if (config.videoType === "i2buffer") {
-        document.getElementsByClassName("i2-sidebar-buffer")[0].style.display = `block`;
-        mainSlides.style.width = `80%`;
-
+    if (config.videoType === "i2buffer" && domElements.i2SidebarBuffer) {
+        domElements.i2SidebarBuffer.style.display = 'block';
+        mainSlides.style.width = '80%';
     }
 
-    if (
-        config.videoType !== "hdtv" &&
-        config.videoType !== "tablet" &&
-        config.videoType !== "i2Sidebar"
-    ) {
-        document.getElementById('upnext-location2').style.display = 'none' // we only have two up next locations displayed so that it wont be squeezed in SDTV modes.
+    if (config.videoType !== "hdtv" && config.videoType !== "tablet" && config.videoType !== "i2Sidebar" && domElements.upnextLocation2) {
+        domElements.upnextLocation2.style.display = 'none';
     }
-
-    viewport.style.transform = `scale(${scaleRatio})`;
 }
 
-window.addEventListener('resize', ScaleViewportToTheWindowIGuessLmao);
+window.addEventListener('resize', debounce(ScaleViewportToTheWindowIGuessLmao, 100));
 
-function clock() { // partially copied from weatherHDS 2
+function clock() {
     const now = new Date();
-    const utcDate = new Date(now.toUTCString());
-    const timezone = config.systemTimeZone
+    const dateStr = `${DAYS[now.getDay()]} ${MONTHS[now.getMonth()]} ${now.getDate()} ${now.getFullYear()}`;
+    const timeStr = dateFormatter.format(now);
 
-    const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
-    const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
-
-    const dayOfWeek = days[now.getDay()];
-    const month = months[now.getMonth()];
-    const dayOfMonth = now.getDate();
-    const year = now.getFullYear();
-
-    const options = {
-        timeZone: timezone,
-        hour12: true,
-        hour: 'numeric',
-        minute: '2-digit',
-        second: '2-digit',
-        timeZoneName: 'short'
-    };
-
-    const dateFormatter = new Intl.DateTimeFormat('en-US', options);
-    const formattedDate = dateFormatter.format(utcDate);
-
-    date.innerText = `${dayOfWeek} ${month} ${dayOfMonth} ${year}`;
-    time.innerText = formattedDate;
-
-    dateLDL.innerText = `${dayOfWeek} ${month} ${dayOfMonth} ${year}`;
-    timeLDL.innerText = formattedDate;
+    // Batch DOM updates
+    if (date.textContent !== dateStr) {
+        date.textContent = dateStr;
+        dateLDL.textContent = dateStr;
+    }
+    time.textContent = timeStr;
+    timeLDL.textContent = timeStr;
 }
 
 clock();
-setInterval(clock, 1000)
+setInterval(clock, 1000);
 
 function presentationType() {
 
@@ -242,38 +227,34 @@ function presentationType() {
 }
 
 function scrollTicker() {
-    if (config.tickerContent === "") {
-        document.getElementsByClassName('ldl-marquee')[0].style.display = `none`
-    } else {
-        
-        document.getElementById('marquee-ticker').innerHTML = config.tickerContent
-
-        $(document).ready(function(){
-            $('#marquee-ticker').marquee({
-                duration: 9000,
-                gap: 360,
-                delayBeforeStart: 0,
-                direction: 'left',
-                duplicated: true, 
-                pauseOnHover: true,
-            })
-        })
-
+    if (!config.tickerContent) {
+        if (domElements.ldlMarquee) domElements.ldlMarquee.style.display = 'none';
+        return;
     }
-
+    
+    if (domElements.marqueeTicker) {
+        domElements.marqueeTicker.textContent = config.tickerContent;
+        $(domElements.marqueeTicker).marquee({
+            duration: 9000,
+            gap: 360,
+            delayBeforeStart: 0,
+            direction: 'left',
+            duplicated: true,
+            pauseOnHover: true,
+        });
+    }
 }
-
-
 
 window.onload = () => {
-    ScaleViewportToTheWindowIGuessLmao()
-    presentationType()
-    scrollTicker()
-    initBackgrounds()
+    ScaleViewportToTheWindowIGuessLmao();
+    presentationType();
+    scrollTicker();
+    initBackgrounds();
+};
+
+const refreshInterval = config.refreshInterval * 60000;
+if (refreshInterval > 0) {
+    setTimeout(() => {
+        window.location.reload(true);
+    }, refreshInterval);
 }
-
-const refreshInterval = config.refreshInterval * 60000
-
-setTimeout(() => {
-    window.reload(true)
-}, refreshInterval);
