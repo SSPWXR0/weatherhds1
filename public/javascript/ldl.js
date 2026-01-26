@@ -1,10 +1,12 @@
 import { requestWxData } from './data.js'
 import { config, locationConfig, serverConfig, weatherIcons } from "../config.js";
+import { formatTime } from './weather.js';
 
 const ldlPresentationSlides = {
     "0": { htmlID: "ldl-current", durationMS: 20000 },
     "1": { htmlID: "ldl-forecast", durationMS: 20000 },
-    "2": { htmlID: "ldl-aqi", durationMS: 5000 },
+    "2": { htmlID: "ldl-aqi", durationMS: 8000 },
+    "3": { htmlID: "ldl-riseset", durationMS: 12000 },
 }
 
 let totalDuration = 0;
@@ -82,6 +84,28 @@ const ldlDomCache = Object.freeze({
     ldlCurrent: document.getElementById('ldl-current'),
     ldlForecast: document.getElementById('ldl-forecast'),
     ldlAqi: document.getElementById('ldl-aqi'),
+    ldlAlmanac: document.getElementById('ldl-riseset'),
+    riseTimeLabel: document.getElementById('ldl-rise-time-label'),
+    setTimeLabel: document.getElementById('ldl-set-time-label'),
+    sunProgressArch: document.getElementById('ldl-sun-progressarch'),
+    sunArchProgress: document.getElementById('ldl-sun-arch-progress'),
+    sunIndicator: document.getElementById('ldl-sun-indicator'),
+    almanacSunrise: document.getElementById('ldl-riseset-sunrise'),
+    almanacSunset: document.getElementById('ldl-riseset-sunset'),
+    ldlMoonPhaseIcon1: document.getElementById('ldl-moon-phase-icon1'),
+    ldlMoonPhaseIcon2: document.getElementById('ldl-moon-phase-icon2'),
+    ldlMoonPhaseIcon3: document.getElementById('ldl-moon-phase-icon3'),
+    ldlMoonPhaseIcon4: document.getElementById('ldl-moon-phase-icon4'),
+    ldlMoonPhaseName1: document.getElementById('ldl-moon-phase-name1'),
+    ldlMoonPhaseName2: document.getElementById('ldl-moon-phase-name2'),
+    ldlMoonPhaseName3: document.getElementById('ldl-moon-phase-name3'),
+    ldlMoonPhaseName4: document.getElementById('ldl-moon-phase-name4'),
+    ldlMoonPhaseIllumination1: document.getElementById('ldl-moon-phase-illumination1'),
+    ldlMoonPhaseIllumination2: document.getElementById('ldl-moon-phase-illumination2'),
+    ldlMoonPhaseIllumination3: document.getElementById('ldl-moon-phase-illumination3'),
+    ldlMoonPhaseIllumination4: document.getElementById('ldl-moon-phase-illumination4'),
+    ldlMoonPhaseIllumination3: document.getElementById('ldl-moon-phase-illumination3'),
+    ldlMoonPhaseIllumination4: document.getElementById('ldl-moon-phase-illumination4'),
 });
 
 
@@ -226,6 +250,7 @@ async function LDLData() {
         appendLDLCurrent();
         appendLDLForecast();
         appendLDLAirQuality();
+        appendLDLAlmanac();
 
     } catch (error) {
         console.error(`${logTheFrickinTime()} Error in LDLData:`, error);
@@ -330,7 +355,226 @@ function appendLDLAirQuality() {
     if (c.aqiIndex) c.aqiIndex.textContent = aqi.airQualityCategoryIndex ?? "--"
     if (c.aqiPrimaryPollutant) c.aqiPrimaryPollutant.textContent = aqi.primaryPollutant ?? "N/A"
 }
-  
+
+function appendLDLAlmanac() {
+    const c = ldlDomCache;
+
+    const now = new Date();
+    const rise = new Date(currentLDLData.current.sunriseTimeLocal);
+    const set = new Date(currentLDLData.current.sunsetTimeLocal);
+
+    let riseTimeLocal;
+    let setTimeLocal;
+        
+    const totalDaylight = set.getTime() - rise.getTime();
+    const elapsed = now.getTime() - rise.getTime();
+        
+    let progress = elapsed / totalDaylight;
+    let isNight = (now < rise || now > set);
+
+    if (isNight) {
+        if (c.riseTimeLabel) c.riseTimeLabel.textContent = "Moonrise";
+        if (c.setTimeLabel) c.setTimeLabel.textContent = "Moonset";
+
+        const moonRises = (currentLDLData.forecast.moonriseTimeLocal || []).map(t => new Date(t));
+        const moonSets = (currentLDLData.forecast.moonsetTimeLocal || []).map(t => new Date(t));
+        
+        const events = [];
+        moonRises.forEach(t => events.push({type: 'rise', time: t}));
+        moonSets.forEach(t => events.push({type: 'set', time: t}));
+        
+        events.sort((a, b) => a.time - b.time);
+        
+        const lastEvent = events.filter(e => e.time <= now).pop();
+        
+        if (lastEvent && lastEvent.type === 'rise') {
+            const currentMoonRise = lastEvent.time;
+            const currentMoonSet = events.find(e => e.time > now && e.type === 'set');
+            
+            if (currentMoonSet) {
+                const totalMoonTime = currentMoonSet.time.getTime() - currentMoonRise.getTime();
+                const moonElapsed = now.getTime() - currentMoonRise.getTime();
+                progress = moonElapsed / totalMoonTime;
+                
+                riseTimeLocal = formatTime(currentMoonRise.toISOString());
+                setTimeLocal = formatTime(currentMoonSet.time.toISOString());
+            } else {
+                riseTimeLocal = formatTime(currentLDLData.forecast.moonriseTimeLocal[0]);
+                setTimeLocal = formatTime(currentLDLData.forecast.moonsetTimeLocal[0]);
+                progress = 0;
+            }
+        } else {
+            riseTimeLocal = formatTime(currentLDLData.forecast.moonriseTimeLocal[0]);
+            setTimeLocal = formatTime(currentLDLData.forecast.moonsetTimeLocal[0]);
+            progress = 0;
+        }
+    } else {
+        if (c.riseTimeLabel) c.riseTimeLabel.textContent = "Sunrise";
+        if (c.setTimeLabel) c.setTimeLabel.textContent = "Sunset";
+        
+        riseTimeLocal = formatTime(currentLDLData.current.sunriseTimeLocal);
+        setTimeLocal = formatTime(currentLDLData.current.sunsetTimeLocal);
+    }
+        
+    if (progress < 0) progress = 0;
+    if (progress > 1) progress = 1;
+
+    if (currentLDLData && currentLDLData.current) {
+        c.almanacSunrise.textContent = riseTimeLocal || "N/A";
+        c.almanacSunset.textContent = setTimeLocal || "N/A";
+    }
+
+    const radiusX = 56;
+    const radiusY = 46;
+    const centerX = 60;
+    const centerY = 50;
+    
+    const angleRad = Math.PI * (1 - progress);
+    const sunX = centerX + radiusX * Math.cos(angleRad);
+    const sunY = centerY - radiusY * Math.sin(angleRad);
+    if (c.sunIndicator) {
+        c.sunIndicator.style.left = `${sunX}px`;
+        c.sunIndicator.style.top = `${sunY}px`;
+    }
+
+    const phaseDays = {
+        "N": 0, "WXC": 3.7, "FQ": 7.4, "WXG": 11.1,
+        "F": 14.8, "WNG": 18.5, "LQ": 22.1, "WNC": 25.8
+    };
+
+    const phaseDataCode = currentLDLData.forecast.moonPhaseCode
+    const currentCode = phaseDataCode[0];
+
+    const phaseToSVG = {
+        "WNG": "moon-waning-gibbous.svg",
+        "WXC": "moon-waxing-crescent.svg",
+        "FQ": "moon-first-quarter.svg",
+        "WNC": "moon-waning-crescent.svg",
+        "LQ": "moon-last-quarter.svg",
+        "F": "moon-full.svg",
+        "WXG": "moon-waxing-gibbous.svg",
+        "N": "moon-new.svg"
+    }
+
+    const majorPhases = [
+        { code: "FQ", day: 7.4, name: "First Quarter", icon: "moon-first-quarter" },
+        { code: "F", day: 14.8, name: "Full Moon", icon: "moon-full" },
+        { code: "LQ", day: 22.1, name: "Last Quarter", icon: "moon-last-quarter" },
+        { code: "N", day: 0, name: "New Moon", icon: "moon-new" }
+    ];
+
+    if (c.sunArchProgress) {
+        const progressPercent = progress * 100;
+        c.sunArchProgress.style.setProperty('--sun-progress', `${progressPercent}%`);
+    }
+    if (c.sunProgressArch) {
+        if (isNight) {
+            c.sunProgressArch.classList.add('night-mode');
+            c.sunIndicator.style.background = `url('/graphics/${iconDir}/${phaseToSVG[currentCode]}')`;
+            c.riseTimeLabel.textContent = "moonrise";
+            c.setTimeLabel.textContent = "moonset";
+        } else {
+            c.sunProgressArch.classList.remove('night-mode');
+            c.sunIndicator.style.background = `url('/graphics/${iconDir}/clear-day.svg')`;
+            c.riseTimeLabel.textContent = "sunrise";
+            c.setTimeLabel.textContent = "sunset";
+        }
+    }
+
+    const moonPhaseNames = currentLDLData.forecast.moonPhase;
+    const moonPhaseCodes = currentLDLData.forecast.moonPhaseCode;
+    
+    function getPhaseInfo(index, labelOverride) {
+        if (!moonPhaseNames || !moonPhaseNames[index]) return null;
+
+        const date = new Date();
+        date.setDate(date.getDate() + index);
+        const month = date.toLocaleString('default', { month: 'short' });
+        const day = date.getDate();
+        const label = labelOverride || `${month} ${day}`;
+        
+        const code = moonPhaseCodes[index];
+        const iconName = phaseToSVG[code] || "moon-full.svg";
+
+        return {
+            name: moonPhaseNames[index],
+            date: label,
+            icon: `/graphics/animated/${iconName}`,
+            code: code,
+            dayIndex: index
+        };
+    }
+
+    const apiPhases = [];
+
+    const slot1 = getPhaseInfo(0, "Tonight");
+    if (slot1) apiPhases.push(slot1);
+
+    let slot2 = null;
+    if (slot1) {
+        for (let i = 1; i < moonPhaseCodes.length; i++) {
+            if (moonPhaseCodes[i] !== slot1.code) {
+                slot2 = getPhaseInfo(i);
+                break;
+            }
+        }
+        if (!slot2 && moonPhaseNames[1]) {
+             slot2 = getPhaseInfo(1);
+        }
+    }
+    
+    if (slot2) apiPhases.push(slot2);
+
+    const lastApiPhase = slot2 || slot1;
+    let baseAge = 0;
+    let baseDateOffset = 0;
+
+    if (lastApiPhase) {
+        baseAge = phaseDays[lastApiPhase.code] !== undefined ? phaseDays[lastApiPhase.code] : 0;
+        baseDateOffset = lastApiPhase.dayIndex;
+    }
+
+    const nextPhases = [...majorPhases].map(p => {
+        let diff = p.day - baseAge;
+        if (diff <= 1.5) diff += 29.53;
+        return { ...p, diff };
+    }).sort((a, b) => a.diff - b.diff);
+
+    const predictedPhases = [];
+    for (let i = 0; i < 2; i++) {
+        const p = nextPhases[i];
+        const daysToAdd = baseDateOffset + p.diff;
+        const date = new Date();
+        date.setDate(date.getDate() + Math.round(daysToAdd));
+        const month = date.toLocaleString('default', { month: 'short' });
+        const day = date.getDate();
+        
+        predictedPhases.push({
+            name: p.name,
+            date: `${month} ${day}`,
+            icon: `/graphics/animated/${p.icon}.svg`
+        });
+    }
+
+    const finalPhases = [...apiPhases, ...predictedPhases];
+
+    if (c.ldlMoonPhaseName1 && finalPhases[0]) c.ldlMoonPhaseName1.textContent = finalPhases[0].name;
+    if (c.ldlMoonPhaseIllumination1 && finalPhases[0]) c.ldlMoonPhaseIllumination1.textContent = finalPhases[0].date;
+    if (c.ldlMoonPhaseIcon1 && finalPhases[0]) c.ldlMoonPhaseIcon1.src = finalPhases[0].icon;
+
+    if (c.ldlMoonPhaseName2 && finalPhases[1]) c.ldlMoonPhaseName2.textContent = finalPhases[1].name;
+    if (c.ldlMoonPhaseIllumination2 && finalPhases[1]) c.ldlMoonPhaseIllumination2.textContent = finalPhases[1].date;
+    if (c.ldlMoonPhaseIcon2 && finalPhases[1]) c.ldlMoonPhaseIcon2.src = finalPhases[1].icon;
+
+    if (c.ldlMoonPhaseName3 && finalPhases[2]) c.ldlMoonPhaseName3.textContent = finalPhases[2].name;
+    if (c.ldlMoonPhaseIllumination3 && finalPhases[2]) c.ldlMoonPhaseIllumination3.textContent = finalPhases[2].date;
+    if (c.ldlMoonPhaseIcon3 && finalPhases[2]) c.ldlMoonPhaseIcon3.src = finalPhases[2].icon;
+
+    if (c.ldlMoonPhaseName4 && finalPhases[3]) c.ldlMoonPhaseName4.textContent = finalPhases[3].name;
+    if (c.ldlMoonPhaseIllumination4 && finalPhases[3]) c.ldlMoonPhaseIllumination4.textContent = finalPhases[3].date;
+    if (c.ldlMoonPhaseIcon4 && finalPhases[3]) c.ldlMoonPhaseIcon4.src = finalPhases[3].icon;
+}
+
 function showLocationLabel() {
     const label = ldlDomCache.locationLabel;
     if (!label) return;
@@ -409,11 +653,11 @@ function triggerExitAnimation(slideID) {
     }, 200);
 }
 
-// Map slide IDs to cached elements for O(1) lookup
 const slideElementMap = {
     'ldl-current': () => ldlDomCache.ldlCurrent,
     'ldl-forecast': () => ldlDomCache.ldlForecast,
     'ldl-aqi': () => ldlDomCache.ldlAqi,
+    'ldl-riseset': () => ldlDomCache.ldlAlmanac,
 };
 
 function showLDLSlide() {

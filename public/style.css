@@ -19,10 +19,10 @@
   --defaultOutline: 4.8px solid #ffffff00;
   --mainSlideBlur: blur(40px);
 
-  --fontSizeOne: 22pt;
-  --fontSizeTwo: 28pt;
-  --fontSizeThree: 34pt;
-  --fontSizeFour: 39pt;
+  --fontSizeOne: 20pt;
+  --fontSizeTwo: 26pt;
+  --fontSizeThree: 30pt;
+  --fontSizeFour: 36pt;
   --fontSizeFive: 49pt;
   --fontSizeSix: 50pt;
   --fontSizeSeven: 90pt;
@@ -150,7 +150,31 @@ body {
 #airquality {
   display: none;
 }
-
+/* BUMPER SLIDES */
+#regional {
+  display: none;
+}
+/* LDL */
+#ldl-current {
+  position: relative;
+  width: 90%;
+  display: none;
+}
+#ldl-forecast {
+  position: relative;
+  display: none;
+  width: 70%;
+}
+#ldl-aqi {
+  position: relative;
+  width: 65%;
+  display: none;
+}
+#ldl-riseset {
+  position: relative;
+  display: none;
+  width: 100%;
+}
 .view {
   height: 1440px;
   overflow: hidden;
@@ -437,7 +461,7 @@ hr {
   overflow: hidden;
 }
 .bumper-slides {
-	position: absolute;
+	position: relative;
   display: flex;
   justify-content: center;
 	height: 61%;
@@ -1237,6 +1261,7 @@ hr {
   margin: 0 auto;
   left: 50%;
   transform: translateX(-50%);
+  text-shadow: 2pt 2pt 6px #080F1B;
 	
 	border-top-left-radius: var(--cornerRadius);
   border-top-right-radius: var(--cornerRadius);
@@ -1278,13 +1303,17 @@ hr {
 }
 
 .ldl-icon {
-  height: 100%;
+  max-width: 96px;
+  max-height: 96px;
+  width: auto;
+  height: auto;
 }
 
 .ldl-slide-container {
   display: flex;
   justify-content: space-between;
   flex-direction: row;
+  align-items: center;
   line-height: 1;
   width: 100%;
   height: 100%;
@@ -1360,25 +1389,12 @@ hr {
   align-self: center;
   margin-right: 5px;
 }
-
-#ldl-current {
-  position: relative;
-  width: 90%;
+.ldltext-tertiary {
+  font-size: var(--fontSizeOne);
+  font-weight: 300;
+  align-self: center;
+  margin-right: 5px;
 }
-
-#ldl-forecast {
-  position: relative;
-  display: none;
-  width: 70%;
-}
-
-#ldl-aqi {
-  position: relative;
-  display: block;
-  width: 65%;
-  display: none;
-}
-
 .ldl-netlogo {
 	width: 20%;
 	height: 60%;
@@ -1447,6 +1463,148 @@ hr {
   display: flex;
   flex-grow: 4;
   font-size: var(--fontSizeOne);
+}
+/* LDL SUNRISE/SUNSET */
+.ldl-sun-progressarch {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: auto;
+  height: auto;
+  margin-top: 12px;
+  gap: 20px;
+}
+
+.ldl-sun-arch-container {
+  position: relative;
+  width: 120px;
+  height: 50px;
+  overflow: visible;
+  margin-top: 10px;
+}
+
+.ldl-sun-arch-track {
+  position: absolute;
+  width: 120px;
+  height: 50px;
+  border: 4px solid rgba(255, 255, 255, 0.2);
+  border-bottom: none;
+  border-radius: 60px 60px 0 0;
+  box-sizing: border-box;
+}
+
+.ldl-sun-arch-progress {
+  position: absolute;
+  width: 120px;
+  height: 50px;
+  border: 4px solid transparent;
+  border-bottom: none;
+  border-radius: 60px 60px 0 0;
+  box-sizing: border-box;
+  background: 
+    linear-gradient(to right, #ffd700, #ff8c00) border-box;
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) padding-box, 
+    linear-gradient(#fff 0 0);
+  mask: 
+    linear-gradient(#fff 0 0) padding-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  clip-path: polygon(0% 100%, 0% 0%, var(--sun-progress, 50%) 0%, var(--sun-progress, 50%) 100%);
+  transform-origin: center bottom;
+}
+
+.ldl-sun-indicator {
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  background: url(/graphics/animated/clear-day.svg);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  left: 60px;
+  top: 4px;
+  z-index: 2;
+  transition: left 0.5s ease, top 0.5s ease;
+}
+.ldl-moon-phase-container {
+  display: flex;
+  align-items: center;
+}
+.ldl-moon-phase-icon {
+  width: 96px;
+  height: 96px;
+  margin-right: 6px;
+}
+.ldl-moon-phase-text-container {
+  width: 3%;
+  white-space: nowrap;
+}
+
+.ldl-sun-horizon-line {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(to right, 
+    transparent 0%, 
+    rgba(255, 255, 255, 0.4) 15%, 
+    rgba(255, 255, 255, 0.6) 50%, 
+    rgba(255, 255, 255, 0.4) 85%, 
+    transparent 100%
+  );
+  border-radius: 2px;
+}
+
+.ldl-sun-times-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  white-space: nowrap;
+  gap: 8px;
+  width: auto;
+  margin-top: 0;
+  text-align: right;
+  border-right: 2px solid rgba(255,255,255,0.2);
+  padding-right: 15px;
+}
+
+.ldl-sun-time {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  font-size: var(--fontSizeOne);
+  line-height: 1;
+}
+
+.ldl-sun-time-label {
+  font-size: var(--fontSizeOne);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.6;
+}
+
+.ldl-sun-time-value {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  font-size: var(--fontSizeTwo);
+}
+
+.ldl-sun-progressarch.night-mode .ldl-sun-indicator {
+  box-shadow: 
+    0 0 8px 2px rgba(200, 200, 200, 0.4),
+    0 0 16px 4px rgba(150, 150, 150, 0.2);
+  opacity: 0.6;
+}
+
+.ldl-sun-progressarch.night-mode .ldl-sun-arch-progress {
+  background: 
+    linear-gradient(to right, #6b7280, #4b5563) border-box;
 }
 
 .module-value {

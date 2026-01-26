@@ -1,6 +1,6 @@
 import { config, locationConfig, versionID, serverConfig, bumperBackgroundsRandom } from "../config.js";
 import { appendDatatoMain, animateIntraday, daypartNames } from "./weather.js";
-import { serverHealth, areWeDead } from "./data.js";
+import { serverHealth } from "./data.js";
 
 const playlistSettings = {
     defaultAnimationIn: `mainPresentationSlideIn 500ms ease-in-out`,
@@ -146,7 +146,7 @@ const preferredPlaylist = {
     regionalLocalePlaylist: [
         {
             htmlID: "current",
-            title: "Current Conditions",
+            title: "Regional Conditions",
             duration: 15000,
             dynamicFunction: runMainCurrentSlide,
             animationIn: playlistSettings.defaultAnimationIn,
@@ -184,6 +184,8 @@ let totalSlideDurationSec
 const logTheFrickinTime = `[slides.js] | ${new Date().toLocaleString()} |`;
 
 const domCache = {
+    mainSlides: document.getElementsByClassName('main-slides')[0],
+    bumperSlides: document.getElementsByClassName('bumper-slides')[0],
     radarDiv: document.getElementsByClassName('main-radar')[0],
     stationIdHdsver: document.getElementById('station-id-hdsver'),
     loadingscreenVersionID: document.getElementById('loadingscreen-versionID'),
@@ -263,7 +265,14 @@ async function runPlaylist(locale, call) {
         selectedPlaylist = preferredPlaylist.standbyPlaylist;
     }
 
-
+    if (selectedPlaylist === preferredPlaylist.regionalBumperPadding) {
+        domCache.bumperSlides.style.display = "flex";
+        domCache.mainSlides.style.display = "none";
+    }
+    if (selectedPlaylist !== preferredPlaylist.regionalBumperPadding) {
+        domCache.bumperSlides.style.display = "none";
+        domCache.mainSlides.style.display = "flex";
+    }
 
     if (locale !== "DUMMY LOCATION" && selectedPlaylist !== preferredPlaylist.startPadding) {
         await appendDatatoMain(locale, loc?.type);
@@ -782,6 +791,7 @@ function runRegionalBumper() {
        domCache.upNextRegionalText2.style.animation = 'fadeInTypeBeat 2400ms ease-in-out forwards';
        domCache.upNextRegionalText3.style.animation = 'fadeInTypeBeat 2800ms ease-in-out forwards';
        domCache.upNextRegionalText4.style.animation = 'fadeInTypeBeat 3200ms ease-in-out forwards';
+       domCache.regionalBumperSubtext.style.animation = 'fadeInTypeBeat 1500ms linear forwards';
     });
     setTimeout(() => {
         requestAnimationFrame(() => {
@@ -792,12 +802,15 @@ function runRegionalBumper() {
             domCache.upNextRegionalText2.style.animation = 'fadeModule 800ms ease forwards';
             domCache.upNextRegionalText3.style.animation = 'fadeModule 1000ms ease forwards';
             domCache.upNextRegionalText4.style.animation = 'fadeModule 1200ms ease forwards';
+            domCache.regionalBumperSubtext.style.animation = 'fadeModule 1500ms linear forwards';
         });
+    }, slideDurationMS - 1000);
 
+    setTimeout(() => {
         $(document).ready(function(){
             $('#regional-bumper-subtext').marquee('destroy');
         });
-    }, slideDurationMS - 1000);
+    }, slideDurationMS);
 }
 
 function runRadarSlide() {

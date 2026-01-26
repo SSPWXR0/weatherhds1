@@ -3,7 +3,7 @@ const path = require('path');
 const app = express();
 const { serverConfig, versionID } = require("./public/config.js");
 const nodecache = require('node-cache');
-const e = require('express');
+const dotenv = require('dotenv');
 
 const cache = new nodecache({stdTTL: serverConfig.cacheValidTime})
 
@@ -14,6 +14,8 @@ const logTheFrickinTime = `[server.js] | ${new Date().toLocaleString()} |`;
 const mainAggCommon = "v3-wx-observations-current;v3-wx-forecast-daily-7day;v3-wx-globalAirQuality";
 const mainv1AggCommon = "v3alertsHeadlines;v2fcstintraday3;v2fcstwwir"
 const minorAggCommon = "v3-wx-observations-current;v3-wx-forecast-daily-3day";
+
+twcApiKey = dotenv.config().parsed.TWC_API_KEY;
 
 const headers = {
       'Accept': 'application/json',
@@ -33,7 +35,7 @@ async function loadLocaleData(location) {
 
   try {
 
-    const response = await fetch(`https://api.weather.com/v3/location/search?query=${location}&language=en-US&format=json&apiKey=${serverConfig.twcApiKey}`, {
+    const response = await fetch(`https://api.weather.com/v3/location/search?query=${location}&language=en-US&format=json&apiKey=${twcApiKey}`, {
       method: 'GET',
       headers: headers
     });
@@ -93,21 +95,21 @@ async function loadWxData(postalKey, geocode, locType) {
     if (locType === "primary" || locType === "ldl") {
       const [aggRes, aggResTwo, pollenRes] = await Promise.all([
         fetch(
-          `https://api.weather.com/v3/aggcommon/${mainAggCommon}?postalKey=${postalKey}&language=en-US&scale=EPA&units=${serverConfig.units}&format=json&apiKey=${serverConfig.twcApiKey}`,
+          `https://api.weather.com/v3/aggcommon/${mainAggCommon}?postalKey=${postalKey}&language=en-US&scale=EPA&units=${serverConfig.units}&format=json&apiKey=${twcApiKey}`,
           {
             method: 'GET',
             headers: headers
           }
         ),
         fetch(
-          `https://api.weather.com/v2/aggcommon/${mainv1AggCommon}?geocode=${geocode}&language=en-US&units=${serverConfig.units}&format=json&apiKey=${serverConfig.twcApiKey}`,
+          `https://api.weather.com/v2/aggcommon/${mainv1AggCommon}?geocode=${geocode}&language=en-US&units=${serverConfig.units}&format=json&apiKey=${twcApiKey}`,
           {
             method: 'GET',
             headers: headers
           }
         ),
         fetch(
-          `https://api.weather.com/v2/indices/pollen/daypart/15day?geocode=${geocode}&language=en-US&format=json&apiKey=${serverConfig.twcApiKey}`,
+          `https://api.weather.com/v2/indices/pollen/daypart/15day?geocode=${geocode}&language=en-US&format=json&apiKey=${twcApiKey}`,
           {
             method: 'GET',
             headers: headers
@@ -129,7 +131,7 @@ async function loadWxData(postalKey, geocode, locType) {
       console.log(logTheFrickinTime, 'Alert detected! Fetching detail key', detailKey)
 
 
-      const detailFetch = await fetch(`https://api.weather.com/v3/alerts/detail?alertId=${detailKey}&format=json&language=en-US&apiKey=${serverConfig.twcApiKey}`)
+      const detailFetch = await fetch(`https://api.weather.com/v3/alerts/detail?alertId=${detailKey}&format=json&language=en-US&apiKey=${twcApiKey}`)
       const detailResponse = await detailFetch.json()
 
       data = await { ...aggData, ...aggDataTwo, pollenData, ...detailResponse };
@@ -145,7 +147,7 @@ async function loadWxData(postalKey, geocode, locType) {
       let secondaryLocationFetch = null;
 
       secondaryLocationFetch = await fetch([
-        `https://api.weather.com/v3/aggcommon/${minorAggCommon}?postalKey=${postalKey}&language=en-US&units=${serverConfig.units}&format=json&apiKey=${serverConfig.twcApiKey}`,
+        `https://api.weather.com/v3/aggcommon/${minorAggCommon}?postalKey=${postalKey}&language=en-US&units=${serverConfig.units}&format=json&apiKey=${twcApiKey}`,
       ]);
 
       data = secondaryLocationFetch.json()
@@ -175,7 +177,7 @@ async function runDataInterval() {
   console.log(`Created by raiii. (c) SSPWXR/raii 2025`);
   console.log(`User contributors: ScentedOrangeDev, LeWolfYt,`);
 
-  if (serverConfig.twcApiKey.length === 0) {
+  if (twcApiKey.length === 0) {
     console.error('\x1b[31m' + 'NO API KEY PRESENT! PLEASE ENTER A WEATHER.COM API KEY...' + '\x1b[0m');
     process.exit(1);
   }

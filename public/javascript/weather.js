@@ -44,7 +44,7 @@ if (units == "e") {
     endingRain = "mm"
 }
 
-function formatTime(timeString) {
+export function formatTime(timeString) {
     const date = new Date(timeString)
     let hours = date.getHours();
     let minutes = date.getMinutes();

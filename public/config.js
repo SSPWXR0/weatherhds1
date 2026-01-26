@@ -21,7 +21,7 @@ export let config = {
         "autorunOnStartup": true // mainly for when i make new slides lol
     },
 
-    "loadingScreen": false,
+    "loadingScreen": true,
     "topbarStyle": "domestic", // domestic or weatherscan.
     "videoType": "hdtv", // sets the aspect ratio
     "systemTimeZone": "America/Regina", // tz_database. https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
@@ -34,6 +34,12 @@ export let config = {
 
 export const locationConfig = {
   locations: [
+    { name: "REGIONAL BUMPER" , type: "regionalBumperPadding", displayName: "Regional Weather" },
+    { name: "Regina, SK", type: "regional", displayName: "Regina, SK" },
+    { name: "Winnipeg, MB", type: "regional", displayName: "Winnipeg, MB" },
+    { name: "Edmonton, AB", type: "regional", displayName: "Edmonton, AB" },
+    { name: "Calgary, AB", type: "regional", displayName: "Calgary, AB" },
+    { name: "Vancouver, BC", type: "regional", displayName: "Vancouver, BC" },
     { name: "DUMMY LOCATION", type: "startPadding", displayName: "" },
     { name: "Saskatoon, SK", type: "primary", displayName: "Saskatoon" },
     { name: "Warman, SK", type: "secondary", displayName: "Warman" },
@@ -46,12 +52,6 @@ export const locationConfig = {
     { name: "Rosthern, SK", type: "secondary", displayName: "Rosthern" },
     { name: "Waskesiu Lake, SK", type: "secondary", displayName: "Waskesiu" },
     { name: "Wakaw, SK", type: "secondary", displayName: "Wakaw" },
-    { name: "REGIONAL BUMPER" , type: "regionalBumperPadding", displayName: "Regional Weather" },
-    { name: "Regina, SK", type: "regional", displayName: "Regina, SK" },
-    { name: "Winnipeg, MB", type: "regional", displayName: "Winnipeg, MB" },
-    { name: "Edmonton, AB", type: "regional", displayName: "Edmonton, AB" },
-    { name: "Calgary, AB", type: "regional", displayName: "Calgary, AB" },
-    { name: "Vancouver, BC", type: "regional", displayName: "Vancouver, BC" },
   ],
 
   ldlLocations: [
@@ -66,7 +66,6 @@ export const locationConfig = {
 };
 
 export const serverConfig = {
-  "twcApiKey": "e1f10a1e78da46f5b10a1e78da96f525",
   "units": "m",
   "webPort": 3000,
   "cacheValidTime": 720, //in seconds
@@ -228,4 +227,4 @@ export const holidayMapping = {
 
 
 
-export const versionID = '26.01.20'
+export const versionID = '26.01.25'

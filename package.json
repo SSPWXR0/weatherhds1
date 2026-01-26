@@ -12,6 +12,7 @@
   "author": "SSPWXR",
   "license": "GPL-3.0",
   "dependencies": {
+    "dotenv": "^17.2.3",
     "express": "^4.21.1",
     "node-cache": "^5.1.2"
   }
