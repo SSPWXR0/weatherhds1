@@ -3,19 +3,32 @@ const path = require('path');
 const app = express();
 const { serverConfig, versionID } = require("./public/config.js");
 const nodecache = require('node-cache');
+const fs = require('fs');
 const dotenv = require('dotenv');
 
 const cache = new nodecache({stdTTL: serverConfig.cacheValidTime})
 
 process.stdout.write('\x1Bc');
 console.log(Buffer.from("ICAgICAgICAgICAgICAgICAgICDilojilogKICAgICAgICAgICDilojiloggICAgICAg4paI4paIICAgICDilojilogKICAgICAgICAgICAg4paI4paI4paIICAgICAgICAgIOKWiOKWiOKWiCAgICAgICAgICAgICAgICAgIOKWiOKWiOKWiOKWiCAgICAgICAg4paI4paI4paIICDilojilojilojilojilojilojilojilojilojiloggICAgICAgICDilojilojilojilojilojilojilojilogKICAgICAgICAgIOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiCAgICAgICAgICAgICAgIOKWiOKWiCAgICDilojilojilojiloggICAgICAgIOKWiOKWiOKWiCAg4paI4paI4paI4paI4paI4paI4paI4paI4paI4paI4paI4paI4paIICAgIOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiCAgICDilojilojilogKICAgICAgICDilojilojilojilojilogg4paI4paI4paI4paI4paIICAgIOKWiOKWiCAgICAgICAgICAgIOKWiOKWiOKWiOKWiOKWiOKWiCAgIOKWiOKWiOKWiOKWiCAgICAgICAg4paI4paI4paIICDilojilojilojiloggICAgIOKWiOKWiOKWiOKWiOKWiOKWiCDilojilojilojilojilojiloggICAg4paI4paI4paI4paIICAg4paI4paI4paI4paI4paI4paICiAgICAg4paI4paI4paI4paI4paIICAgICAg4paI4paI4paI4paI4paI4paI4paI4paI4paIICAg4paI4paI4paIICAg4paI4paI4paI4paI4paI4paI4paIICAgICDilojilojilojilojilojilojilojilojilojilojilojilojilojilojiloggIOKWiOKWiOKWiOKWiCAgICAgIOKWiOKWiOKWiOKWiOKWiOKWiCDilojilojilojilojilojilojilojilojiloggICAgICAgICDilojilojilojilojilojilojilogKICAg4paI4paI4paI4paI4paI4paI4paIICAgICAgICDilojilojilojilojilojilojiloggICAgICAgIOKWiOKWiOKWiOKWiOKWiCAgICAgICAg4paI4paI4paI4paI4paI4paI4paI4paI4paI4paI4paI4paI4paI4paI4paIICDilojilojilojiloggICAgICAg4paI4paI4paI4paI4paIICDilojilojilojilojilojilojilojilojilojilojilojiloggICAgICAg4paI4paI4paI4paI4paI4paICiAgIOKWiOKWiCAg4paIICAgICAgICAgICAgICAg4paI4paIICAgICAgICAg4paI4paI4paI4paI4paI4paIICAgICAg4paI4paI4paI4paIICAgICAgICDilojilojiloggIOKWiOKWiOKWiOKWiCAgICAgIOKWiOKWiOKWiOKWiOKWiCAgICAgICAgIOKWiOKWiOKWiOKWiOKWiOKWiOKWiCAgICDilojilojilojilojilojilojilogKICDilojiloggICAg4paI4paIICAgICAgICAgICAgIOKWiOKWiCAgICAgICAgICAg4paI4paI4paI4paI4paI4paIICAgIOKWiOKWiOKWiOKWiCAgICAgICAg4paI4paI4paIICDilojilojilojiloggICAgICDilojilojilojilojilogg4paI4paI4paI4paI4paIICAgICAg4paI4paI4paI4paIICAg4paI4paI4paI4paI4paI4paICiDilojilojiloggICAg4paI4paI4paIIOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiCAgICAgICAgICAgICAg4paI4paI4paI4paIICAg4paI4paI4paI4paIICAgICAgICDilojilojiloggIOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiCAgIOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiCAg4paI4paI4paI4paI4paICiAgIOKWiOKWiCAg4paI4paIICAg4paI4paI4paI4paI4paI4paI4paI4paI4paI4paI4paIICAgICAgICAgICAgICAgICAgICAgICDilojilojilojiloggICAgICAgIOKWiOKWiOKWiCAgIOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiCAgICAgICDilojilojilojilojilojilojilojilojilojilojilog=", "base64").toString());
-
+let twcApiKey
 const logTheFrickinTime = `[server.js] | ${new Date().toLocaleString()} |`;
 const mainAggCommon = "v3-wx-observations-current;v3-wx-forecast-daily-7day;v3-wx-globalAirQuality";
 const mainv1AggCommon = "v3alertsHeadlines;v2fcstintraday3;v2fcstwwir"
 const minorAggCommon = "v3-wx-observations-current;v3-wx-forecast-daily-3day";
 
-twcApiKey = dotenv.config().parsed.TWC_API_KEY;
+const dotenvResult = dotenv.config({quiet: true});
+
+if (dotenvResult.error) {
+  console.error('\x1b[31m' + '.env is NOT found. Please make the file in project root and add your TWC API key under TWC_API_KEY=.' + '\x1b[0m');
+  process.exit(1);
+}
+
+if (!process.env.TWC_API_KEY) {
+  console.error('\x1b[31m' + 'No TWC API key present in .env. Please add your TWC API key under TWC_API_KEY=.' + '\x1b[0m');
+  process.exit(1);
+}
+
+twcApiKey = process.env.TWC_API_KEY;
 
 const headers = {
       'Accept': 'application/json',
@@ -176,11 +189,6 @@ async function runDataInterval() {
   console.log(`WeatherHDS daemon v${versionID}`);
   console.log(`Created by raiii. (c) SSPWXR/raii 2025`);
   console.log(`User contributors: ScentedOrangeDev, LeWolfYt,`);
-
-  if (twcApiKey.length === 0) {
-    console.error('\x1b[31m' + 'NO API KEY PRESENT! PLEASE ENTER A WEATHER.COM API KEY...' + '\x1b[0m');
-    process.exit(1);
-  }
 }
 
 runDataInterval()
