@@ -1173,15 +1173,20 @@ hr {
   flex: 1;
   height: 100%;
   display: flex;
-  position: sticky;
-  width: 100%;
   align-items: center;
   overflow: hidden;
+  position: relative;
   font-size: var(--fontSizeTwo);
   font-weight: 500;
   color: #f2f2f2;
-  padding-left: 16px;
   text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+  white-space: nowrap;
+}
+
+#ldl-bulletin-text {
+  display: inline-block;
+  padding-left: 0;
+  margin: 0;
   white-space: nowrap;
 }
 .alert-box {

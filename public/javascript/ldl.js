@@ -101,17 +101,21 @@ function initializeMarquee(retries = 3) {
   }
 
   try {
-    $('#ldl-bulletin-text').marquee('destroy');
+    const $element = $('#ldl-bulletin-text');
+    $element.marquee('destroy');
+    $element.css('transform', 'none');
     
     setTimeout(() => {
-      $('#ldl-bulletin-text').marquee({
+      $element.marquee({
         speed: 180,
-        gap: 50,
+        gap: 100,
         direction: 'left',
-        duplicated: false, 
+        duplicated: false,
         pauseOnHover: false,
+        startVisible: true,
+        delayBeforeStart: 0
       });
-    }, 50);
+    }, 100);
   } catch (error) {
     console.error('[initializeMarquee] Error:', error);
     if (retries > 0) {
