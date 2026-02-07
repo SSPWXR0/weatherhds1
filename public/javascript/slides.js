@@ -274,7 +274,7 @@ async function runPlaylist(locale, call) {
         domCache.mainSlides.style.display = "flex";
     }
 
-    if (locale !== "DUMMY LOCATION" && selectedPlaylist !== preferredPlaylist.startPadding) {
+    if (loc.type === "primary" || loc.type === "secondary") {
         await appendDatatoMain(locale, loc?.type);
         await new Promise(r => setTimeout(r, 300));
     }
@@ -319,8 +319,7 @@ async function runPlaylist(locale, call) {
             slideIcon.src = t
                 ? '/graphics/ux/thermometer-snowflake.svg'
                 : '/graphics/ux/thermometer-sun.svg';
-        }
-        else {
+        } else {
             slideIcon.src = '/graphics/ux/gallery-vertical.svg';
         }
 
@@ -656,9 +655,9 @@ function loadingScreen() {
                 };
 
                 const rotationInterval = setInterval(() => {
-                    time += 0.005;
+                    time += 0.003;
                     rotateAnimation();
-                }, 100);
+                }, 30);
                     
                 setTimeout(() => {
                     clearInterval(rotationInterval);

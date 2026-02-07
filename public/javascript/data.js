@@ -7,8 +7,8 @@ let onlineBg;
 let bgUrl;
 const logTheFrickinTime = `[data.js] | ${new Date().toLocaleString()} |`;
 
-import { runInitialLDL } from "./ldl.js";
-import { config, serverConfig } from "../config.js";
+import { runInitialLDL, requestBulletinCrawl, cancelBulletinCrawl } from "./ldl.js";
+import { config, serverConfig, locationConfig } from "../config.js";
 
 export async function requestWxData(location, locType) {
   let wxData = {
@@ -19,7 +19,6 @@ export async function requestWxData(location, locType) {
   try {
     const wxResponse = await fetch(`/data/${encodeURIComponent(location)}?locType=${locType}`);
     wxData = await wxResponse.json();
-    console.log(logTheFrickinTime, "Fetched wxData from backend:", wxData);
   } catch (error) {
     console.error(logTheFrickinTime, "Error fetching weather data from backend:", error);
 
@@ -46,7 +45,6 @@ export async function requestWxData(location, locType) {
         },
         weather: null,
       };
-      console.warn(logTheFrickinTime, "Using fallback wxData:", wxData);
     } catch (fallbackError) {
       console.error(logTheFrickinTime, "Fallback weather fetch also failed:", fallbackError);
     }
@@ -55,7 +53,31 @@ export async function requestWxData(location, locType) {
   return wxData;
 }
 
+async function requestAlertData(location) {
+  try {
+    const alertResponse = await fetch(`/data/alerts/${encodeURIComponent(location)}`);
+    
+    if (alertResponse.status === 204) {
+      return null;
+    }
+    
+    const rawAlertData = await alertResponse.json();
 
+    if (typeof rawAlertData === 'string') {
+      return null;
+    }
+
+    if (!rawAlertData.headline?.alerts || rawAlertData.headline.alerts.length === 0) {
+      return null;
+    }
+    
+    return rawAlertData;
+    
+  } catch (error) {
+    console.error(logTheFrickinTime, "Error fetching alert data:", error);
+    return null;
+  }
+}
 
 export async function fetchOnlineBackground() {
   try {
@@ -76,16 +98,11 @@ export async function areWeDead() {
     const response = await fetch('/heartbeat');
     const data = await response.json();
 
-    if (config.verboseLogging === true) {
-      console.log(logTheFrickinTime, 'Server heartbeat response:', data);
-    }
-
-    serverHealth = 0; // server is healthy
+    serverHealth = 0;
     return serverHealth;
   } catch (error) {
     console.error(logTheFrickinTime, 'Error fetching heartbeat:', error);
-    serverHealth = 1; // server is unresponsive
-    console.warn(logTheFrickinTime, "Server is unresponsive. Client-side slides will be used where applicable.");
+    serverHealth = 1;
     return serverHealth;
   }
 }
@@ -93,6 +110,67 @@ export async function areWeDead() {
 
 areWeDead()
 setInterval(areWeDead, 30000);
+
+let alertRegistry = {};
+let alertPollTimer = null;
+
+function setupAlertPolling(hasAlert) {
+  if (alertPollTimer) {
+    clearInterval(alertPollTimer);
+  }
+  
+  const interval = hasAlert 
+    ? serverConfig.alertPollIntervalSevere * 60000
+    : serverConfig.alertPollIntervalNormal * 60000;
+  
+  alertPollTimer = setInterval(checkAlerts, interval);
+}
+
+async function checkAlerts() {
+  const primaryLocation = locationConfig.locations.find(loc => loc.type === "primary")?.name;
+  
+  const alertData = await requestAlertData(primaryLocation);
+  
+  if (alertData !== null) {
+    const alert = alertData.headline.alerts[0];
+    const alertText = alertData.detail?.alertDetail?.texts?.[0];
+    
+    const existingAlert = alertRegistry[primaryLocation];
+    
+    if (existingAlert && existingAlert.identifier === alert.identifier) {
+      return;
+    }
+    
+    if (existingAlert && alert.identifier !== existingAlert.identifier) {
+      cancelBulletinCrawl();
+    }
+    
+    alertRegistry[primaryLocation] = alert;
+    
+    const bulletinText = alertText ? 
+      (alertText.description + " " + (alertText.instruction || "")).trim() : 
+      alert.headlineText;
+    
+    requestBulletinCrawl(
+      bulletinText,
+      alert.severityCode,
+      alert.eventDescription,
+      alert.countryCode,
+      alert.sourceColorName
+    );
+    
+    setupAlertPolling(true);
+  } else {
+    if (alertRegistry[primaryLocation]) {
+      cancelBulletinCrawl();
+      delete alertRegistry[primaryLocation];
+    }
+    
+    setupAlertPolling(false);
+  }
+}
+
+checkAlerts();
 
 if (config.presentationConfig.ldl) {
   runInitialLDL();

@@ -1,7 +1,6 @@
 import { requestWxData, serverHealth } from './data.js'
-import { weatherIcons, locationConfig, serverConfig, config } from "../config.js";
+import { weatherIcons, locationConfig, serverConfig, config, displayUnits } from "../config.js";
 import { drawMap } from './radar.js';
-import { requestBulletinCrawl } from './ldl.js';
 
 export const upNextLocationText = document.getElementById('upnext-location');
 export const currentLocationText = document.getElementById('current-location');
@@ -21,28 +20,11 @@ function getCachedElement(id) {
 }
 const logTheFrickinTime = `[weather.js] | ${new Date().toLocaleString()} |`;
 let iconDir = "animated"
-let endingTemp, endingWind, endingDistance, endingMeasurement, endingCeiling, endingPressure, endingSnow, endingRain;
-export let daypartNames = []
 
-if (units == "e") {
-    endingTemp = "°F"
-    endingWind = "mph"
-    endingDistance = "mi"
-    endingMeasurement = "in"
-    endingCeiling= "ft"
-    endingPressure = "hg"
-    endingSnow = "in"
-    endingRain = "in"
-} else if (units == "m") {
-    endingTemp = "°C"
-    endingWind = "km/h"
-    endingDistance = "km"
-    endingMeasurement = "mm"
-    endingCeiling = "m"
-    endingPressure = "mb"
-    endingSnow = "cm"
-    endingRain = "mm"
-}
+const selectedDisplayUnits = displayUnits[serverConfig.units] || displayUnits['m'];
+let endingTemp = selectedDisplayUnits.endingTemp, endingWind = selectedDisplayUnits.endingWind, endingDistance = selectedDisplayUnits.endingDistance, endingPressure = selectedDisplayUnits.endingPressure, endingCeiling = selectedDisplayUnits.endingCeiling;
+
+export let daypartNames = []
 
 export function formatTime(timeString) {
     const date = new Date(timeString)
@@ -125,18 +107,6 @@ export async function appendDatatoMain(locale, locType) {
                     buildAirQuality()
                     break;
             }
-
-            try {
-                if (wxData?.weather?.alertDetail && locationConfig.locations.some(loc => loc.name.includes(locale))) {
-                    let detailText = wxData.weather.alertDetail.texts[0].description
-                    let detailTextFmt = detailText.replace(/\n/g, '\u00A0')
-                    let alertCategory = wxData.weather.v3alertsHeadlines.alerts[0].significance
-                    let headlineText = wxData.weather.v3alertsHeadlines.alerts[0].headlineText
-                    let country = wxData.weather.v3alertsHeadlines.alerts[0].officeCountryCode
-                    let colorCode = wxData.weather.v3alertsHeadlines.alerts[0].sourceColorName || null
-                    requestBulletinCrawl(detailTextFmt, alertCategory, headlineText, country, colorCode)
-                }} catch (error) {}
-
             } else {
                 console.warn(logTheFrickinTime, "Server is unreachable, cannot fetch weather data.")
 

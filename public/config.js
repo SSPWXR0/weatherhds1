@@ -23,7 +23,7 @@ export let config = {
 
     "loadingScreen": true,
     "topbarStyle": "domestic", // domestic or weatherscan.
-    "videoType": "hdtv", // sets the aspect ratio
+    "videoType": "i2buffer", // sets the aspect ratio
     "systemTimeZone": "America/Regina", // tz_database. https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
     "tickerContent": "", // empty = hides scroll. add any text to it to show a crawl on the LDL.
     "overrideBackgroundImage": "", // skips the background rotation and uses the URL provided.
@@ -34,12 +34,7 @@ export let config = {
 
 export const locationConfig = {
   locations: [
-    { name: "REGIONAL BUMPER" , type: "regionalBumperPadding", displayName: "Regional Weather" },
-    { name: "Regina, SK", type: "regional", displayName: "Regina, SK" },
-    { name: "Winnipeg, MB", type: "regional", displayName: "Winnipeg, MB" },
-    { name: "Edmonton, AB", type: "regional", displayName: "Edmonton, AB" },
-    { name: "Calgary, AB", type: "regional", displayName: "Calgary, AB" },
-    { name: "Vancouver, BC", type: "regional", displayName: "Vancouver, BC" },
+
     { name: "DUMMY LOCATION", type: "startPadding", displayName: "" },
     { name: "Saskatoon, SK", type: "primary", displayName: "Saskatoon" },
     { name: "Warman, SK", type: "secondary", displayName: "Warman" },
@@ -52,6 +47,13 @@ export const locationConfig = {
     { name: "Rosthern, SK", type: "secondary", displayName: "Rosthern" },
     { name: "Waskesiu Lake, SK", type: "secondary", displayName: "Waskesiu" },
     { name: "Wakaw, SK", type: "secondary", displayName: "Wakaw" },
+
+    { name: "REGIONAL BUMPER" , type: "regionalBumperPadding", displayName: "Regional Weather" },
+    { name: "Regina, SK", type: "regional", displayName: "Regina, SK" },
+    { name: "Winnipeg, MB", type: "regional", displayName: "Winnipeg, MB" },
+    { name: "Edmonton, AB", type: "regional", displayName: "Edmonton, AB" },
+    { name: "Calgary, AB", type: "regional", displayName: "Calgary, AB" },
+    { name: "Vancouver, BC", type: "regional", displayName: "Vancouver, BC" },
   ],
 
   ldlLocations: [
@@ -66,9 +68,54 @@ export const locationConfig = {
 };
 
 export const serverConfig = {
-  "units": "m",
+  "units": "m", // m for metric, e for imperial, h for hybrid, and s for metric SI
   "webPort": 3000,
   "cacheValidTime": 720, //in seconds
+  "alertPollIntervalNormal": 30, // in minutes
+  "alertPollIntervalSevere": 12, // in minutes, how often to poll for severe weather alerts when there is an active severe alert in the area.
+}
+
+export const displayUnits = {
+  "e": {
+    endingTemp: "°F",
+    endingWind: "mph",
+    endingDistance: "mi",
+    endingMeasurement: "in",
+    endingCeiling: "ft",
+    endingPressure: "hg",
+    endingSnow: "in",
+    endingRain: "in"
+  },
+  "m": {
+    endingTemp: "°C",
+    endingWind: "km/h",
+    endingDistance: "km",
+    endingMeasurement: "mm",
+    endingCeiling: "m",
+    endingPressure: "mb",
+    endingSnow: "cm",
+    endingRain: "mm"
+  },
+  "s": {
+    endingTemp: "°C",
+    endingWind: "m/s",
+    endingDistance: "m",
+    endingMeasurement: "mm",
+    endingCeiling: "ft",
+    endingPressure: "mb",
+    endingSnow: "cm",
+    endingRain: "mm"
+  },
+  "h": {
+    endingTemp: "°C",
+    endingWind: "mph",
+    endingDistance: "mi",
+    endingMeasurement: "mm",
+    endingCeiling: "ft",
+    endingPressure: "mb",
+    endingSnow: "cm",
+    endingRain: "mm"
+  }
 }
 
 export const bumperBackgroundsRandom = {
@@ -126,12 +173,6 @@ export const bumperBackgroundsRandom = {
       subtitle: "Victoria, BC",
       author: "raii/SSPWXR",
       url: "/images/regional_bg_images/vic_harbour2.webp"
-    },
-    {
-      name: "Rai Praying (Not sucking)",
-      subtitle: "Saskatoon, SK",
-      author: "Albert N.",
-      url: "/images/regional_bg_images/rai_praying.webp"
     }
   ],
   "national": [],
@@ -212,12 +253,11 @@ export const holidayMapping = {
     "07-04": { name: "Independence Day (US)", color0: "#de2a16", color1: "#de2a16", icon: "", banner: "" },
     "09-05": { name: "Labor Day", color0: "#1c3258", color1: "#a52d30", icon: "", banner: "" },
     "09-22": { name: "First Day of Fall", color0: "#a74101", color1: "#a74101", icon: "", banner: "" },
-    "10-09": { name: "Thanksgiving (Canada, 2023 example)", color0: "#cc6600", color1: "#ffcc66", icon: "", banner: "" },
-    "10-13": { name: "Thanksgiving (Canada, 2025 example)", color0: "#b85423", color1: "#b85423", icon: "", banner: "" },
+    "10-13": { name: "Thanksgiving (Canada)", color0: "#b85423", color1: "#b85423", icon: "", banner: "" },
     "10-31": { name: "Halloween", color0: "#d79f00", color1: "#d79f00", icon: "", banner: "" },
     "11-06": { name: "Fall Clock Change", color0: "#b3ad00", color1: "#b3ad00", icon: "", banner: "" },
     "11-11": { name: "Remembrance Day (CA) / Veterans Day (US)", color0: "#8a3030", color1: "#8a3032", icon: "", banner: "" },
-    "11-23": { name: "Thanksgiving (US, 2023 example)", color0: "#ff9933", color1: "#663300", icon: "", banner: "" },
+    "11-23": { name: "Thanksgiving (US)", color0: "#ff9933", color1: "#663300", icon: "", banner: "" },
     "12-06": { name: "First Day of Hanukkah", color0: "#dead39", color1: "#dead39", icon: "", banner: "" },
     "12-21": { name: "First Day of Winter", color0: "#0e105d", color1: "#0e105d", icon: "", banner: "" },
     "12-24": { name: "Christmas Eve", color0: "#be312a", color1: "#be312a", icon: "", banner: "" },
@@ -227,4 +267,4 @@ export const holidayMapping = {
 
 
 
-export const versionID = '26.01.25'
+export const versionID = '26.02.07';

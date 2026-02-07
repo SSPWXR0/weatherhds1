@@ -1,5 +1,5 @@
 import { requestWxData } from './data.js'
-import { config, locationConfig, serverConfig, weatherIcons } from "../config.js";
+import { config, locationConfig, serverConfig, weatherIcons, displayUnits } from "../config.js";
 import { formatTime } from './weather.js';
 
 const ldlPresentationSlides = {
@@ -23,35 +23,17 @@ let ldlLocationIndex = 0;
 let ldlSlideIndex = 0;
 let iconDir = "animated"
 
-const units = serverConfig.units;
-
-let endingTemp, endingWind, endingDistance, endingMeasurement, endingCeiling, endingPressure, endingSnow, endingRain;
-
-if (units === "e") {
-    endingTemp = "°F"
-    endingWind = "mph"
-    endingDistance = "mi"
-    endingMeasurement = "in"
-    endingCeiling = "ft"
-    endingPressure = "hg"
-    endingSnow = "in"
-    endingRain = "in"
-} else if (units === "m") {
-    endingTemp = "°C"
-    endingWind = "km/h"
-    endingDistance = "km"
-    endingMeasurement = "mm"
-    endingCeiling = "m"
-    endingPressure = "mb"
-    endingSnow = "cm"
-    endingRain = "mm"
-}
+const selectedDisplayUnits = displayUnits[serverConfig.units] || displayUnits['m'];
+let endingTemp = selectedDisplayUnits.endingTemp, endingWind = selectedDisplayUnits.endingWind, endingDistance = selectedDisplayUnits.endingDistance, endingPressure = selectedDisplayUnits.endingPressure, endingCeiling = selectedDisplayUnits.endingCeiling;
 
 const bulletinCrawlContainer = document.getElementsByClassName('ldl-bulletin-crawl')[0]
 
 bulletinCrawlContainer.style.display = `none`
 
 const ldlDomCache = Object.freeze({
+    headlineBack: document.getElementById('ldl-bulletin-metadata-text'),
+    bulletinText: document.getElementById('ldl-bulletin-text'),
+    bulletinMetadataText: document.getElementById('ldl-bulletin-metadata-text'),
     locationLabel: document.getElementById('ldl-location-label'),
     progressBar: document.getElementById('ldl-location-progressbar'),
     currentTemp: document.getElementById('ldl-current-temp'),
@@ -111,73 +93,78 @@ const ldlDomCache = Object.freeze({
 
 
 export function requestBulletinCrawl(text, alertCategory, headlineText, country, colorCode) {
-  bulletinCrawlContainer.style.display = `block`
+  console.log('[requestBulletinCrawl] Called with:', { text, alertCategory, headlineText, country, colorCode });
+  bulletinCrawlContainer.style.display = `flex`
   const beep = new Audio('../audio/beep.ogg');
-  document.getElementById('ldl-bulletin-text').innerText = text
-  document.getElementById('ldl-bulletin-metadata-text').innerText = headlineText
+  ldlDomCache.bulletinText.innerHTML = text;
+  ldlDomCache.bulletinMetadataText.innerHTML = `
+    <span class="bulletin-icon">⚠</span>
+    <span class="bulletin-metadata-label">${headlineText || 'ACTIVE ALERT'}</span>
+  `;
+
+    $('#ldl-bulletin-text').marquee('destroy');
+
+    $('#ldl-bulletin-text').marquee({
+        duration: 16000,
+        gap: 50,
+        direction: 'left',
+        duplicated: false, 
+        pauseOnHover: false,
+    });
+
+  try {
+    beep.play();
+    console.log('[requestBulletinCrawl] Beep played');
+  } catch (error) {
+    console.error('[requestBulletinCrawl] Error playing beep:', error);
+  }
 
   if (country === "US") {
     switch (alertCategory) {
       case "W":
-        bulletinCrawlContainer.style.background = `radial-gradient(circle,rgba(188, 57, 33, 1) 4%, rgba(56, 8, 0, 1) 100%)`
+        ldlDomCache.headlineBack.style.background = "rgba(188, 56, 33, 0.51)"
         break;
       case "A":
-        bulletinCrawlContainer.style.background = `radial-gradient(circle,rgba(247, 231, 136, 1) 4%, rgba(56, 35, 0, 1) 100%)`
+        ldlDomCache.headlineBack.style.background = "rgba(247, 231, 136, 0.51)"
         break;
       case "S":
-        bulletinCrawlContainer.style.background = `radial-gradient(circle,rgba(87, 170, 87, 1) 4%, rgba(0, 56, 53, 1) 100%)`
+        ldlDomCache.headlineBack.style.background = "rgba(87, 170, 87, 0.51)"
         break;
       case "Y":
-        bulletinCrawlContainer.style.background = `radial-gradient(circle,rgba(87, 170, 87, 1) 4%, rgba(0, 56, 53, 1) 100%)`
+        ldlDomCache.headlineBack.style.background = "rgba(221, 115, 34, 0.51)"
         break;
     }
   } else if (country === "CA") {
     switch (colorCode) {
       case "Orange":
-        bulletinCrawlContainer.style.background = `radial-gradient(circle,rgba(221, 115, 34, 1) 4%, rgba(56, 8, 0, 1) 100%)`
+        ldlDomCache.headlineBack.style.background = "rgba(221, 115, 34, 0.51)"
         break;
       case "Yellow":
-        bulletinCrawlContainer.style.background = `radial-gradient(circle,rgba(247, 231, 136, 1) 4%, rgba(56, 35, 0, 1) 100%)`
+        ldlDomCache.headlineBack.style.background = "rgba(247, 231, 136, 0.51)"
         break;
       case "Red":
-        bulletinCrawlContainer.style.background = `radial-gradient(circle,rgba(189, 59, 29, 1) 4%, rgba(0, 56, 53, 1) 100%)`
+        ldlDomCache.headlineBack.style.background = "rgba(189, 59, 29, 0.51)"
         break;
       default:
-        bulletinCrawlContainer.style.background = `radial-gradient(circle,rgba(87, 170, 87, 1) 4%, rgba(0, 56, 53, 1) 100%)`
+        ldlDomCache.headlineBack.style.background = "rgba(87, 170, 87, 0.51)"
         break;
     }
-  } else {
-    bulletinCrawlContainer.style.background = `radial-gradient(circle,rgba(189, 59, 29, 1) 4%, rgba(0, 56, 53, 1) 100%)`
   }
-
-
-
-  bulletinCrawlContainer.animate(
-    [
-      { backgroundPosition: '10% 60%' },
-      { backgroundPosition: '10% 500%' },
-      { backgroundPosition: '10% 60%' },
-    ],
-    {
-      duration: 3000,
-      iterations: Infinity,
-      direction: 'alternate',
-      easing: 'ease-in-out'
-    }
-  )
-
-
-  $(document).ready(function(){
-            $('#ldl-bulletin-text').marquee({
-                duration: 20000,
-                gap: 1024,
-                direction: 'left',
-                duplicated: true, 
-                pauseOnHover: true,
-            })
-        })
-  beep.play();
 }
+
+export function cancelBulletinCrawl() {
+    bulletinCrawlContainer.style.display = `none`
+
+    $('#ldl-bulletin-text').marquee('destroy');
+   
+    ldlDomCache.headlineBack.style.background = ""
+    ldlDomCache.bulletinMetadataText.innerHTML = `
+      <span class="bulletin-icon">⚠</span>
+      <span class="bulletin-metadata-label"></span>
+    `;
+    ldlDomCache.bulletinText.innerHTML = ""
+}
+
 
 let currentLDLData = null;
 

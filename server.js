@@ -8,12 +8,15 @@ const dotenv = require('dotenv');
 
 const cache = new nodecache({stdTTL: serverConfig.cacheValidTime})
 
+let systemLocale = 'en-US';
+const units = serverConfig.units
+
 process.stdout.write('\x1Bc');
 console.log(Buffer.from("ICAgICAgICAgICAgICAgICAgICDilojilogKICAgICAgICAgICDilojiloggICAgICAg4paI4paIICAgICDilojilogKICAgICAgICAgICAg4paI4paI4paIICAgICAgICAgIOKWiOKWiOKWiCAgICAgICAgICAgICAgICAgIOKWiOKWiOKWiOKWiCAgICAgICAg4paI4paI4paIICDilojilojilojilojilojilojilojilojilojiloggICAgICAgICDilojilojilojilojilojilojilojilogKICAgICAgICAgIOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiCAgICAgICAgICAgICAgIOKWiOKWiCAgICDilojilojilojiloggICAgICAgIOKWiOKWiOKWiCAg4paI4paI4paI4paI4paI4paI4paI4paI4paI4paI4paI4paI4paIICAgIOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiCAgICDilojilojilogKICAgICAgICDilojilojilojilojilogg4paI4paI4paI4paI4paIICAgIOKWiOKWiCAgICAgICAgICAgIOKWiOKWiOKWiOKWiOKWiOKWiCAgIOKWiOKWiOKWiOKWiCAgICAgICAg4paI4paI4paIICDilojilojilojiloggICAgIOKWiOKWiOKWiOKWiOKWiOKWiCDilojilojilojilojilojiloggICAg4paI4paI4paI4paIICAg4paI4paI4paI4paI4paI4paICiAgICAg4paI4paI4paI4paI4paIICAgICAg4paI4paI4paI4paI4paI4paI4paI4paI4paIICAg4paI4paI4paIICAg4paI4paI4paI4paI4paI4paI4paIICAgICDilojilojilojilojilojilojilojilojilojilojilojilojilojilojiloggIOKWiOKWiOKWiOKWiCAgICAgIOKWiOKWiOKWiOKWiOKWiOKWiCDilojilojilojilojilojilojilojilojiloggICAgICAgICDilojilojilojilojilojilojilogKICAg4paI4paI4paI4paI4paI4paI4paIICAgICAgICDilojilojilojilojilojilojiloggICAgICAgIOKWiOKWiOKWiOKWiOKWiCAgICAgICAg4paI4paI4paI4paI4paI4paI4paI4paI4paI4paI4paI4paI4paI4paI4paIICDilojilojilojiloggICAgICAg4paI4paI4paI4paI4paIICDilojilojilojilojilojilojilojilojilojilojilojiloggICAgICAg4paI4paI4paI4paI4paI4paICiAgIOKWiOKWiCAg4paIICAgICAgICAgICAgICAg4paI4paIICAgICAgICAg4paI4paI4paI4paI4paI4paIICAgICAg4paI4paI4paI4paIICAgICAgICDilojilojiloggIOKWiOKWiOKWiOKWiCAgICAgIOKWiOKWiOKWiOKWiOKWiCAgICAgICAgIOKWiOKWiOKWiOKWiOKWiOKWiOKWiCAgICDilojilojilojilojilojilojilogKICDilojiloggICAg4paI4paIICAgICAgICAgICAgIOKWiOKWiCAgICAgICAgICAg4paI4paI4paI4paI4paI4paIICAgIOKWiOKWiOKWiOKWiCAgICAgICAg4paI4paI4paIICDilojilojilojiloggICAgICDilojilojilojilojilogg4paI4paI4paI4paI4paIICAgICAg4paI4paI4paI4paIICAg4paI4paI4paI4paI4paI4paICiDilojilojiloggICAg4paI4paI4paIIOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiCAgICAgICAgICAgICAg4paI4paI4paI4paIICAg4paI4paI4paI4paIICAgICAgICDilojilojiloggIOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiCAgIOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiCAg4paI4paI4paI4paI4paICiAgIOKWiOKWiCAg4paI4paIICAg4paI4paI4paI4paI4paI4paI4paI4paI4paI4paI4paIICAgICAgICAgICAgICAgICAgICAgICDilojilojilojiloggICAgICAgIOKWiOKWiOKWiCAgIOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiCAgICAgICDilojilojilojilojilojilojilojilojilojilojilog=", "base64").toString());
 let twcApiKey
 const logTheFrickinTime = `[server.js] | ${new Date().toLocaleString()} |`;
 const mainAggCommon = "v3-wx-observations-current;v3-wx-forecast-daily-7day;v3-wx-globalAirQuality";
-const mainv1AggCommon = "v3alertsHeadlines;v2fcstintraday3;v2fcstwwir"
+const mainv1AggCommon = "v2fcstintraday3;v2fcstwwir"
 const minorAggCommon = "v3-wx-observations-current;v3-wx-forecast-daily-3day";
 
 const dotenvResult = dotenv.config({quiet: true});
@@ -27,7 +30,7 @@ if (!process.env.TWC_API_KEY) {
   console.error('\x1b[31m' + 'No TWC API key present in .env. Please add your TWC API key under TWC_API_KEY=.' + '\x1b[0m');
   process.exit(1);
 }
-
+  
 twcApiKey = process.env.TWC_API_KEY;
 
 const headers = {
@@ -48,7 +51,7 @@ async function loadLocaleData(location) {
 
   try {
 
-    const response = await fetch(`https://api.weather.com/v3/location/search?query=${location}&language=en-US&format=json&apiKey=${twcApiKey}`, {
+    const response = await fetch(`https://api.weather.com/v3/location/search?query=${location}&language=${systemLocale}&format=json&apiKey=${twcApiKey}`, {
       method: 'GET',
       headers: headers
     });
@@ -94,6 +97,48 @@ function getCurrentSeason() {
     }
 }
 
+async function fetchAlertSingleLocation(geocode, next) {
+  const cacheKey = `alert-${geocode}-${next || 'none'}`;
+
+  if (cache.get(cacheKey)) {
+    console.log(logTheFrickinTime, `Cache hit for alert data with geocode "${geocode}" and next "${next || 'current'}"`);
+    return cache.get(cacheKey);
+  }
+
+  try {
+    let url = `https://api.weather.com/v3/alerts/headlines?geocode=${geocode}&language=${systemLocale}&format=json&apiKey=${twcApiKey}`;
+    if (next) {
+      url += `&next=${next}`;
+    }
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: headers
+    });
+    if (response.status === 204) {
+      console.log(logTheFrickinTime, "No active alerts for geocode:", geocode);
+      return null;
+    } else {
+      const data = await response.json();
+      let detail;
+      if (data.alerts[0].detailKey) {
+        const detailResponse = await fetch(`https://api.weather.com/v3/alerts/detail?alertId=${data.alerts[0].detailKey}&language=${systemLocale}&format=json&apiKey=${twcApiKey}`, {
+          method: 'GET',
+          headers: headers
+        });
+        detail = await detailResponse.json();
+      }
+      cache.set(cacheKey, { headline: data, detail: detail || null });
+      return {
+        headline: data,
+        detail: detail || null
+      };
+    }
+  } catch (error) {
+    console.error(logTheFrickinTime, "Error fetching alert data:", error);
+    return null;
+  }
+}
+
 async function loadWxData(postalKey, geocode, locType) {
   let data = null;
 
@@ -108,21 +153,21 @@ async function loadWxData(postalKey, geocode, locType) {
     if (locType === "primary" || locType === "ldl") {
       const [aggRes, aggResTwo, pollenRes] = await Promise.all([
         fetch(
-          `https://api.weather.com/v3/aggcommon/${mainAggCommon}?postalKey=${postalKey}&language=en-US&scale=EPA&units=${serverConfig.units}&format=json&apiKey=${twcApiKey}`,
+          `https://api.weather.com/v3/aggcommon/${mainAggCommon}?postalKey=${postalKey}&language=${systemLocale}&scale=EPA&units=${units}&format=json&apiKey=${twcApiKey}`,
           {
             method: 'GET',
             headers: headers
           }
         ),
         fetch(
-          `https://api.weather.com/v2/aggcommon/${mainv1AggCommon}?geocode=${geocode}&language=en-US&units=${serverConfig.units}&format=json&apiKey=${twcApiKey}`,
+          `https://api.weather.com/v2/aggcommon/${mainv1AggCommon}?geocode=${geocode}&language=${systemLocale}&units=${units}&format=json&apiKey=${twcApiKey}`,
           {
             method: 'GET',
             headers: headers
           }
         ),
         fetch(
-          `https://api.weather.com/v2/indices/pollen/daypart/15day?geocode=${geocode}&language=en-US&format=json&apiKey=${twcApiKey}`,
+          `https://api.weather.com/v2/indices/pollen/daypart/15day?geocode=${geocode}&language=${systemLocale}&format=json&apiKey=${twcApiKey}`,
           {
             method: 'GET',
             headers: headers
@@ -132,27 +177,15 @@ async function loadWxData(postalKey, geocode, locType) {
 
       console.log(logTheFrickinTime, 'FETCHED AND CACHED -', cacheKey)
 
-      
+      cache.set(cacheKey, data);
       const [aggData, aggDataTwo, pollenData] = await Promise.all([
         aggRes.json(),
         aggResTwo.json(),
         pollenRes.json(),
       ]);
 
-     if (aggDataTwo.v3alertsHeadlines) {
-      const detailKey = aggDataTwo.v3alertsHeadlines.alerts[0].detailKey
-      console.log(logTheFrickinTime, 'Alert detected! Fetching detail key', detailKey)
 
-
-      const detailFetch = await fetch(`https://api.weather.com/v3/alerts/detail?alertId=${detailKey}&format=json&language=en-US&apiKey=${twcApiKey}`)
-      const detailResponse = await detailFetch.json()
-
-      data = await { ...aggData, ...aggDataTwo, pollenData, ...detailResponse };
-     } else {
       data = { ...aggData, ...aggDataTwo, pollenData };
-     }
-
-      
     }
 
     if (locType === "secondary" || locType === "regional") {
@@ -160,7 +193,7 @@ async function loadWxData(postalKey, geocode, locType) {
       let secondaryLocationFetch = null;
 
       secondaryLocationFetch = await fetch([
-        `https://api.weather.com/v3/aggcommon/${minorAggCommon}?postalKey=${postalKey}&language=en-US&units=${serverConfig.units}&format=json&apiKey=${twcApiKey}`,
+        `https://api.weather.com/v3/aggcommon/${minorAggCommon}?postalKey=${postalKey}&language=${systemLocale}&units=${units}&format=json&apiKey=${twcApiKey}`,
       ]);
 
       data = secondaryLocationFetch.json()
@@ -172,23 +205,27 @@ async function loadWxData(postalKey, geocode, locType) {
   } catch (error) {
     console.error("Error fetching weather data:", error);
     if (cache.get(cacheKey)) {
-      return cache.get(cacheKey);
       console.log(logTheFrickinTime, 'Returned cachekey after error:', cacheKey)
+      return cache.get(cacheKey);
     }
   }
     
   }
 }
 
-
-
-
-
 async function runDataInterval() {
   console.log(`==========================================================================================================`);
   console.log(`WeatherHDS daemon v${versionID}`);
-  console.log(`Created by raiii. (c) SSPWXR/raii 2025`);
+  console.log(`Created by raiii. (c) SSPWXR/raii 2025. Licensed under GPL-3.0.`);
   console.log(`User contributors: ScentedOrangeDev, LeWolfYt,`);
+
+  try {
+    const osLocale = await import('os-locale');
+    systemLocale = await osLocale.default();
+    console.log(`[server.js] | ${new Date().toLocaleString()} | Detected system locale: ${systemLocale}`);
+  } catch (error) {
+    console.warn(`[server.js] | ${new Date().toLocaleString()} | Could not detect locale, using default: ${systemLocale}`);
+  }
 }
 
 runDataInterval()
@@ -200,6 +237,7 @@ let preferredPort = process.env.PORT || serverConfig.webPort;
 function startServer(port) {
     const server = app.listen(port, () => {
         console.log(`HTTP server listening on http://localhost:${port}`);
+        console.log(`To access standard aspect ratios, append ?videoType=hdtv, ?videoType=vga or ?videoType=ntsc to the end of the above URL.`)
     });
 
     server.on('error', (error) => {
@@ -285,6 +323,25 @@ app.get('/backgrounds/image', (req, res) => {
         res.status(204).send("Background image not initialized.");
         console.warn(logTheFrickinTime, "Background image requested before initialization.");
     }
+});
+
+app.get('/data/alerts/:location', async (req, res) => {
+  try {
+    const location = req.params.location;
+    const localeData = await loadLocaleData(location);
+    const geocode = `${localeData.lat},${localeData.lon}`;
+    const alertData = await fetchAlertSingleLocation(geocode);
+    if (alertData === null) {
+      res.status(204).send("No active alerts for the requested location.");
+      console.log(logTheFrickinTime, `No active alerts for location: ${location}`);
+      return;
+    }
+    res.json(alertData);
+    console.log(logTheFrickinTime, `Served alert data for location: ${location}`);
+  } catch (error) {
+    res.status(500).json({ error: "Error fetching alert data" });
+    console.error(logTheFrickinTime, "Error in /data/alerts/:location route:", error);
+  }
 });
 
 
