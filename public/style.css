@@ -1132,7 +1132,7 @@ hr {
 .ldl-bulletin-crawl {
 	width: 95%;
 	height: 50px;
-  margin-top: 4px;
+  top: 8px;
 	display: flex;
 	align-items: center;
 	position: relative;
@@ -1173,7 +1173,7 @@ hr {
   flex: 1;
   height: 100%;
   display: flex;
-  position: absolute;
+  position: sticky;
   width: 100%;
   align-items: center;
   overflow: hidden;

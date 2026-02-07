@@ -92,6 +92,34 @@ const ldlDomCache = Object.freeze({
 
 
 
+function initializeMarquee(retries = 3) {
+  if (typeof $ === 'undefined' || typeof $.fn.marquee === 'undefined') {
+    if (retries > 0) {
+      setTimeout(() => initializeMarquee(retries - 1), 100);
+    }
+    return;
+  }
+
+  try {
+    $('#ldl-bulletin-text').marquee('destroy');
+    
+    setTimeout(() => {
+      $('#ldl-bulletin-text').marquee({
+        speed: 180,
+        gap: 50,
+        direction: 'left',
+        duplicated: false, 
+        pauseOnHover: false,
+      });
+    }, 50);
+  } catch (error) {
+    console.error('[initializeMarquee] Error:', error);
+    if (retries > 0) {
+      setTimeout(() => initializeMarquee(retries - 1), 200);
+    }
+  }
+}
+
 export function requestBulletinCrawl(text, alertCategory, headlineText, country, colorCode) {
   console.log('[requestBulletinCrawl] Called with:', { text, alertCategory, headlineText, country, colorCode });
   bulletinCrawlContainer.style.display = `flex`
@@ -102,16 +130,7 @@ export function requestBulletinCrawl(text, alertCategory, headlineText, country,
     <span class="bulletin-metadata-label">${headlineText || 'ACTIVE ALERT'}</span>
   `;
 
-    $('#ldl-bulletin-text').marquee('destroy');
-
-    $('#ldl-bulletin-text').marquee({
-        speed: 180,
-        gap: 50,
-        direction: 'left',
-        duplicated: false, 
-        pauseOnHover: false,
-    });
-
+  initializeMarquee();
 
   beep.play();
 
@@ -151,7 +170,13 @@ export function requestBulletinCrawl(text, alertCategory, headlineText, country,
 export function cancelBulletinCrawl() {
     bulletinCrawlContainer.style.display = `none`
 
-    $('#ldl-bulletin-text').marquee('destroy');
+    try {
+      if (typeof $ !== 'undefined' && typeof $.fn.marquee !== 'undefined') {
+        $('#ldl-bulletin-text').marquee('destroy');
+      }
+    } catch (error) {
+      console.error('[cancelBulletinCrawl] Error destroying marquee:', error);
+    }
    
     ldlDomCache.headlineBack.style.background = ""
     ldlDomCache.bulletinMetadataText.innerHTML = `
