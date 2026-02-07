@@ -1173,6 +1173,8 @@ hr {
   flex: 1;
   height: 100%;
   display: flex;
+  position: absolute;
+  width: 100%;
   align-items: center;
   overflow: hidden;
   font-size: var(--fontSizeTwo);

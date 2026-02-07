@@ -105,19 +105,15 @@ export function requestBulletinCrawl(text, alertCategory, headlineText, country,
     $('#ldl-bulletin-text').marquee('destroy');
 
     $('#ldl-bulletin-text').marquee({
-        duration: 16000,
+        speed: 180,
         gap: 50,
         direction: 'left',
         duplicated: false, 
         pauseOnHover: false,
     });
 
-  try {
-    beep.play();
-    console.log('[requestBulletinCrawl] Beep played');
-  } catch (error) {
-    console.error('[requestBulletinCrawl] Error playing beep:', error);
-  }
+
+  beep.play();
 
   if (country === "US") {
     switch (alertCategory) {
