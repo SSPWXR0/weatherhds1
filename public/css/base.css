@@ -1,0 +1,93 @@
+* {
+  box-sizing: border-box;
+}
+
+.main-slide,
+.bumper-slide,
+.ldl-presentation-slide,
+.wallpaper,
+.topbar,
+.ldl-weather,
+.main-radar,
+.topbar-current-location,
+.topbar-next-locations,
+#currentprogressbar,
+#ldl-location-progressbar {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.view {
+  contain: layout style paint;
+  isolation: isolate;
+}
+
+.main-slides,
+.bumper-slides {
+  contain: layout style;
+}
+
+body {
+  margin: 0 0;
+  background-color: #000000;
+  font-size: var(--fontSizeThree);
+  overflow: hidden;
+  text-rendering: optimizeSpeed;
+  -webkit-font-smoothing: antialiased;
+}
+
+.fade-out {
+  animation: fadeModule 0.15s ease-out forwards;
+}
+
+.fade-in {
+  animation: fadeInTypeBeat 0.15s ease-out forwards;
+}
+
+.view {
+  height: 1440px;
+  overflow: hidden;
+  position: relative;
+}
+
+.wallpaper {
+  position: absolute;
+  z-index: -487845784;
+  width: 100%;
+  height: 100%;
+  right: 0;
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.8);
+}
+
+hr {
+  margin-bottom: -20px;
+  margin-top: 0%;
+  border-top: 2px solid var(--textColour2);
+}
+
+#loading-screen {
+  position: relative;
+  width: 100%;
+  display: none;
+  height: 100%;
+  background: linear-gradient(180deg, rgb(0,0,0) 0%, rgb(27, 27, 27) 100%);
+  text-align: center;
+  z-index: 1000;
+}
+
+#loadingscreen-spinny {
+  position: absolute;
+  top: 30%;
+  left: 25%;
+  width: 50%;
+  height: 20%;
+  background-image: url(/images/hdslogo_2024.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  transform-style: preserve-3d;
+  z-index: 99999;
+}

@@ -18,7 +18,7 @@ export let config = {
         "repeatMain": true,
         "squareLogo": true,
         "bannerLogo": true,
-        "autorunOnStartup": true // mainly for when i make new slides lol
+        "autorunOnStartup": false // mainly for when i make new slides lol
     },
 
     "loadingScreen": true,
@@ -45,15 +45,10 @@ export const locationConfig = {
     { name: "Prince Albert, SK", type: "primary", displayName: "Prince Albert" },
     { name: "Melfort, SK", type: "secondary", displayName: "Melfort" },
     { name: "Rosthern, SK", type: "secondary", displayName: "Rosthern" },
-    { name: "Waskesiu Lake, SK", type: "secondary", displayName: "Waskesiu" },
     { name: "Wakaw, SK", type: "secondary", displayName: "Wakaw" },
 
     { name: "REGIONAL BUMPER" , type: "regionalBumperPadding", displayName: "Regional Weather" },
-    { name: "Regina, SK", type: "regional", displayName: "Regina, SK" },
-    { name: "Winnipeg, MB", type: "regional", displayName: "Winnipeg, MB" },
-    { name: "Edmonton, AB", type: "regional", displayName: "Edmonton, AB" },
-    { name: "Calgary, AB", type: "regional", displayName: "Calgary, AB" },
-    { name: "Vancouver, BC", type: "regional", displayName: "Vancouver, BC" },
+    { name: "DUMMY LOCATION", type: "placeholderNationalPlayback", displayName: "" },
   ],
 
   ldlLocations: [
@@ -64,7 +59,169 @@ export const locationConfig = {
     "North Battleford, SK",
     "Lloydminster, AB",
     "Regina, SK"
-  ]
+  ],
+
+  regionalLocations: { // 12 cities each. sort by province, then by population. these are used for the regional weather slides.
+    "regions": {
+      "Pacific": {
+        "mapCenter": [53.7267, -127.6476],
+        "zoomLevel": 4,
+        "timezone": "America/Vancouver",
+        "locations": [
+          "Vancouver, BC",
+          "Victoria, BC",
+          "Kelowna, BC",
+          "Prince George, BC",
+          "Nanaimo, BC",
+          "Abbotsford, BC",
+          "Kamloops, BC",
+          "Surrey, BC",
+          "Burnaby, BC",
+          "Richmond, BC",
+          "Langley, BC",
+          "Delta, BC"
+        ]
+      },
+      "Prairies": {
+        "mapCenter": [52.9399, -106.4509],
+        "zoomLevel": 5,
+        "timezone": "America/Regina",
+        "locations": [
+          "Calgary, AB",
+          "Edmonton, AB",
+          "Red Deer, AB",
+          "Lethbridge, AB",
+          "Medicine Hat, AB",
+          "Saskatoon, SK",
+          "Regina, SK",
+          "Moose Jaw, SK",
+          "Swift Current, SK",
+          "Winnipeg, MB",
+          "Brandon, MB",
+          "Thompson, MB"
+        ]
+      },
+      "Central": {
+        "mapCenter": [45.4215, -75.6999],
+        "zoomLevel": 5,
+        "timezone": "America/Toronto",
+        "locations": [
+          "Toronto, ON",
+          "Ottawa, ON",
+          "Mississauga, ON",
+          "Brampton, ON",
+          "Thunder Bay, ON",
+          "Timmins, ON",
+          "Sudbury, ON",
+          "Montreal, QC",
+          "Quebec City, QC",
+          "Laval, QC",
+          "Gatineau, QC",
+          "Longueuil, QC"
+        ]
+      },
+      "Atlantic": {
+        "mapCenter": [45.4215, -75.6999],
+        "zoomLevel": 5,
+        "timezone": "America/Halifax",
+        "locations": [
+          "Halifax, NS",
+          "St. John's, NL",
+          "Moncton, NB",
+          "Fredericton, NB",
+          "Saint John, NB",
+          "Charlottetown, PE",
+          "Sydney, NS",
+          "Corner Brook, NL",
+          "Bridgetown, NS",
+          "Mount Pearl, NL",
+          "Dartmouth, NS",
+          "Truro, NS"
+        ]
+      }
+    }
+  },
+
+  "usaLocations": { // same thing but for the US. 12 cities per region, sorted by population. also sorted by census bureau regions (northeast, midwest, south, and west).
+    "regions": {
+      "Northeast": {
+        "mapCenter": [41.2033, -77.1945],
+        "zoomLevel": 5,
+        "timezone": "America/New_York",
+        "locations": [
+          "New York, NY",
+          "Boston, MA",
+          "Philadelphia, PA",
+          "Pittsburgh, PA",
+          "Buffalo, NY",
+          "Rochester, NY",
+          "Albany, NY",
+          "Providence, RI",
+          "Hartford, CT",
+          "Worcester, MA",
+          "Springfield, MA",
+          "Bridgeport, CT"
+        ]
+      },
+      "Midwest": {
+        "mapCenter": [41.8781, -87.6298],
+        "zoomLevel": 5,
+        "timezone": "America/Chicago",
+        "locations": [
+          "Chicago, IL",
+          "Indianapolis, IN",
+          "Columbus, OH",
+          "Detroit, MI",
+          "Milwaukee, WI",
+          "Kansas City, MO",
+          "Omaha, NE",
+          "Minneapolis, MN",
+          "Cleveland, OH",
+          "St. Louis, MO",
+          "Cincinnati, OH",
+          "Madison, WI"
+        ]
+      },
+      "South": {
+        "mapCenter": [32.7767, -96.7970],
+        "zoomLevel": 5,
+        "timezone": "America/Chicago",
+        "locations": [
+          "Houston, TX",
+          "San Antonio, TX",
+          "Dallas, TX",
+          "Austin, TX",
+          "Jacksonville, FL",
+          "Fort Worth, TX",
+          "Charlotte, NC",
+          "El Paso, TX",
+          "Nashville, TN",
+          "Memphis, TN",
+          "Oklahoma City, OK",
+          "Louisville, KY"
+        ]
+      },
+      "West": {
+        "mapCenter": [37.7749, -122.4194],
+        "zoomLevel": 5,
+        "timezone": "America/Los_Angeles",
+        "locations": [
+          "Los Angeles, CA",
+          "San Diego, CA",
+          "San Jose, CA",
+          "San Francisco, CA",
+          "Phoenix, AZ",
+          "Seattle, WA",
+          "Denver, CO",
+          "Portland, OR",
+          "Las Vegas, NV",
+          "Tucson, AZ",
+          "Albuquerque, NM",
+          "Fresno, CA"
+        ]
+      }
+    }
+  }
 };
 
 export const serverConfig = {
@@ -267,4 +424,4 @@ export const holidayMapping = {
 
 
 
-export const versionID = '26.02.07';
+export const versionID = '26.02.08';
