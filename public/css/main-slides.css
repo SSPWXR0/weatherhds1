@@ -16,11 +16,13 @@
   display: flex;
   justify-content: center;
   top: 20%;
+  height: 60%;
   overflow: hidden;
 }
 
 .main-slide {
   margin: auto auto;
+  width: 100%;
   max-width: 1716px;
   height: 95%;
   overflow: hidden;

@@ -4,6 +4,7 @@ import { fetchOnlineBackground } from "./data.js";
 const domElements = {
     viewport: document.getElementsByClassName("view")[0],
     mainSlides: document.getElementsByClassName("main-slides")[0],
+    regionalSlides: document.getElementsByClassName("regional-slides")[0],
     bumperSlides: document.getElementsByClassName("bumper-slides")[0],
     wallpaper: document.getElementsByClassName("wallpaper")[0],
     topBar: document.getElementsByClassName("topbar")[0],
@@ -20,7 +21,7 @@ const domElements = {
     marqueeTicker: document.getElementById('marquee-ticker')
 };
 
-const { viewport, mainSlides, bumperSlides, wallpaper, topBar, ldl, ldlContainer, ldlBranding } = domElements;
+const { viewport, mainSlides, regionalSlides, bumperSlides, wallpaper, topBar, ldl, ldlContainer, ldlBranding } = domElements;
 const date = domElements.date;
 const time = domElements.time;
 const dateLDL = domElements.dateLDL;
@@ -129,10 +130,18 @@ function ScaleViewportToTheWindowIGuessLmao() {
     ldlContainer.style.width = barWidth;
     topBar.style.width = barWidth;
 
+    const mainVideoBlock = [
+        mainSlides,
+        regionalSlides,
+        bumperSlides
+    ]
+
     if (config.videoType === "i2buffer" && domElements.i2SidebarBuffer) {
         domElements.i2SidebarBuffer.style.display = 'block';
-        mainSlides.style.width = '80%';
-        bumperSlides.style.width = '80%';
+
+        mainVideoBlock.forEach((el) => {
+            el.style.width = '80%';
+        });
     }
 
     if (config.videoType !== "hdtv" && config.videoType !== "tablet" && config.videoType !== "i2Sidebar" && domElements.upnextLocation2) {

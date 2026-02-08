@@ -4,9 +4,67 @@ const app = express();
 const { serverConfig, versionID } = require("./public/config.js");
 const nodecache = require('node-cache');
 const fs = require('fs');
+const zlib = require('zlib');
 const dotenv = require('dotenv');
 
-const cache = new nodecache({stdTTL: serverConfig.cacheValidTime})
+async function runDataInterval() {
+  console.log(`==========================================================================================================`);
+  console.log(`WeatherHDS daemon v${versionID}`);
+  console.log(`Created by raiii. (c) SSPWXR/raii 2025. Licensed under GPL-3.0.`);
+  console.log(`User contributors: ScentedOrangeDev, LeWolfYt,`);
+
+  try {
+    const osLocale = await import('os-locale');
+    systemLocale = await osLocale.default();
+    console.log(`[server.js] | ${new Date().toLocaleString()} | Detected system locale: ${systemLocale}`);
+  } catch (error) {
+    console.warn(`[server.js] | ${new Date().toLocaleString()} | Could not detect locale, using default: ${systemLocale}`);
+  }
+}
+
+runDataInterval()
+
+const cache = new nodecache({stdTTL: serverConfig.cacheValidTime});
+
+if (!fs.existsSync('./persistentCache')) {
+    console.log(`[server.js] | ${new Date().toLocaleString()} | Creating persistent cache directory...`);
+    fs.mkdirSync('./persistentCache');
+}
+if (!fs.existsSync('./persistentCache/localeCache.json.gz')) {
+    console.log(`[server.js] | ${new Date().toLocaleString()} | Creating locale persistent cache file...`);
+    console.log("we cache locale data forever because cities dont move lol");
+    const compressed = zlib.gzipSync(JSON.stringify({}));
+    fs.writeFileSync('./persistentCache/localeCache.json.gz', compressed);
+}
+
+const persistentCache = {
+    get: (key) => {
+        try {
+            const compressed = fs.readFileSync('./persistentCache/localeCache.json.gz');
+            const decompressed = zlib.gunzipSync(compressed).toString('utf-8');
+            const jsonData = JSON.parse(decompressed);
+            return jsonData[key];
+        } catch (error) {
+            console.error(`[server.js] | ${new Date().toLocaleString()} | Error reading from persistent cache:`, error);
+            return null;
+        }
+    },
+    set: (key, value) => {
+        try {
+            const compressed = fs.readFileSync('./persistentCache/localeCache.json.gz');
+            const decompressed = zlib.gunzipSync(compressed).toString('utf-8');
+            const jsonData = JSON.parse(decompressed);
+            jsonData[key] = value;
+            const newCompressed = zlib.gzipSync(JSON.stringify(jsonData, null, 2));
+            fs.writeFileSync('./persistentCache/localeCache.json.gz', newCompressed);
+            console.log(`[server.js] | ${new Date().toLocaleString()} | Data cached persistently with key: "${key}"`);
+            return true;
+        } catch (error) {
+            console.error(`[server.js] | ${new Date().toLocaleString()} | Error writing to persistent cache:`, error);
+            return false;
+        }
+    }
+};
 
 let systemLocale = 'en-US';
 const units = serverConfig.units
@@ -44,43 +102,44 @@ async function loadLocaleData(location) {
 
   const cacheKey = `locale-${location}`
 
-  if (cache.get(cacheKey)) {
-    console.log(logTheFrickinTime, `Cache hit for client query "${location}"`)
-    return cache.get(cacheKey)
+  // persistent cache for locale data because cities dont move lol
+  if (persistentCache.get(cacheKey)) {
+    console.log(logTheFrickinTime, `Persistent cache retrieved for client query "${location}"`)
+    return persistentCache.get(cacheKey)
   } else {
+    try {
 
-  try {
+      const response = await fetch(`https://api.weather.com/v3/location/search?query=${location}&language=${systemLocale}&format=json&apiKey=${twcApiKey}`, {
+        method: 'GET',
+        headers: headers
+      });
+      console.log(logTheFrickinTime, `Searching up client query "${location}"`)
+      const data = await response.json();
 
-    const response = await fetch(`https://api.weather.com/v3/location/search?query=${location}&language=${systemLocale}&format=json&apiKey=${twcApiKey}`, {
-      method: 'GET',
-      headers: headers
-    });
-    console.log(logTheFrickinTime, `Searching up client query "${location}"`)
-    const data = await response.json();
+      console.log(logTheFrickinTime, `Fetched locale ${data.location.city[0]}, ${data.location.adminDistrict[0]}, ${data.location.countryCode[0]}`)
 
-    console.log(logTheFrickinTime, `Fetched locale ${data.location.city[0]}, ${data.location.adminDistrict[0]}, ${data.location.countryCode[0]}`)
+      const result = {
+        localeName: data.location.city[0],
+        adminDistrict: data.location.adminDistrict[0],
+        country: data.location.country[0],
+        countryCode: data.location.countryCode[0],
+        lat: data.location.latitude[0],
+        lon: data.location.longitude[0],
+        postalKey: data.location.postalKey[0],
+      };
 
-    const result = {
-      localeName: data.location.city[0],
-      adminDistrict: data.location.adminDistrict[0],
-      country: data.location.country[0],
-      countryCode: data.location.countryCode[0],
-      lat: data.location.latitude[0],
-      lon: data.location.longitude[0],
-      postalKey: data.location.postalKey[0],
-    };
+      persistentCache.set(cacheKey, result);
+      console.log(logTheFrickinTime, `Locale data cached for client query "${location}" with cache key "${cacheKey}"`)
+      return result;
 
-    cache.set(cacheKey, result);
-    return result;
-
-  } catch (error) {
-    console.error(logTheFrickinTime, error)
-    if (cache.get(cacheKey)) {
-      return cache.get(cacheKey);
+    } catch (error) {
+      console.error(logTheFrickinTime, error)
+      if (persistentCache.get(cacheKey)) {
+        return persistentCache.get(cacheKey);
+      }
     }
-  }
 
-  }
+    }
 }
 
 function getCurrentSeason() {
@@ -141,13 +200,21 @@ async function fetchAlertSingleLocation(geocode, next) {
 
 async function loadWxData(postalKey, geocode, locType) {
   let data = null;
-
-  const cacheKey = `wxData-${postalKey}:${geocode}`
+  const baseKey = `wxData-${postalKey}:${geocode}`;
+  const cacheKey = `${baseKey}:${locType}`;
 
   if (cache.get(cacheKey)) {
     console.log(logTheFrickinTime, 'Returned cachekey:', cacheKey)
     return cache.get(cacheKey)
-  } else {
+  }
+
+  if (locType === "secondary" || locType === "regional") {
+    const primaryHit = cache.get(`${baseKey}:primary`) || cache.get(`${baseKey}:ldl`);
+    if (primaryHit) {
+      console.log(logTheFrickinTime, `Serving ${locType} from primary superset cache for ${postalKey}`)
+      return primaryHit;
+    }
+  }
 
   try {
     if (locType === "primary" || locType === "ldl") {
@@ -177,26 +244,22 @@ async function loadWxData(postalKey, geocode, locType) {
 
       console.log(logTheFrickinTime, 'FETCHED AND CACHED -', cacheKey)
 
-      cache.set(cacheKey, data);
       const [aggData, aggDataTwo, pollenData] = await Promise.all([
         aggRes.json(),
         aggResTwo.json(),
         pollenRes.json(),
       ]);
 
-
       data = { ...aggData, ...aggDataTwo, pollenData };
     }
 
     if (locType === "secondary" || locType === "regional") {
-
-      let secondaryLocationFetch = null;
-
-      secondaryLocationFetch = await fetch([
+      const secondaryLocationFetch = await fetch(
         `https://api.weather.com/v3/aggcommon/${minorAggCommon}?postalKey=${postalKey}&language=${systemLocale}&units=${units}&format=json&apiKey=${twcApiKey}`,
-      ]);
+        { method: 'GET', headers: headers }
+      );
 
-      data = secondaryLocationFetch.json()
+      data = await secondaryLocationFetch.json();
     }
 
     cache.set(cacheKey, data);
@@ -209,26 +272,7 @@ async function loadWxData(postalKey, geocode, locType) {
       return cache.get(cacheKey);
     }
   }
-    
-  }
 }
-
-async function runDataInterval() {
-  console.log(`==========================================================================================================`);
-  console.log(`WeatherHDS daemon v${versionID}`);
-  console.log(`Created by raiii. (c) SSPWXR/raii 2025. Licensed under GPL-3.0.`);
-  console.log(`User contributors: ScentedOrangeDev, LeWolfYt,`);
-
-  try {
-    const osLocale = await import('os-locale');
-    systemLocale = await osLocale.default();
-    console.log(`[server.js] | ${new Date().toLocaleString()} | Detected system locale: ${systemLocale}`);
-  } catch (error) {
-    console.warn(`[server.js] | ${new Date().toLocaleString()} | Could not detect locale, using default: ${systemLocale}`);
-  }
-}
-
-runDataInterval()
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -352,33 +396,51 @@ app.get('/data', (req, res) => {
 
 app.get('/data/:location', async (req, res) => {
   try {
+    let geocode;
     const location = req.params.location;
-          let geocode;
-          const locType = req.query.locType;
-          console.log(logTheFrickinTime, `GET request from the client:`, req.path, `and fetching for location type as ${locType}`)
+    //multiple locations can be specified in the same query using either a semicolon or this fricking thing: |
+    if (location.includes("|") || location.includes(";")) {
+      const delimiter = location.includes("|") ? "|" : ";";
+      const locations = location.split(delimiter).map(loc => loc.trim());
+      const locType = req.query.locType;
+      console.log(logTheFrickinTime, `GET request from the client:`, req.path, `and fetching for location types as ${locType} for multiple locations:`, locations)
+      const localeDataArray = await Promise.all(locations.map(loc => loadLocaleData(loc)));
+      for (let i = 0; i < localeDataArray.length; i++) {
+        const localeData = localeDataArray[i];
+        geocode = `${localeData.lat},${localeData.lon}`;
+        const wxData = await loadWxData(localeData.postalKey, geocode, locType);
+        localeDataArray[i] = { localeData, wxData };
+      }
+      res.json(localeDataArray);
 
-          const localeData = await loadLocaleData(location)
+    } else {
+      
+      const locType = req.query.locType;
+      console.log(logTheFrickinTime, `GET request from the client:`, req.path, `and fetching for location type as ${locType}`)
 
-          geocode = `${localeData.lat},${localeData.lon}`
+      const localeData = await loadLocaleData(location)
 
-          if (locType === null) {
-            res.status(400).json({
-              error: true,
-              comment: "Please add a locType query",
-            })
-          } else {
-            const wxData = await loadWxData(localeData.postalKey, geocode, locType)
-          
-            res.json({
-              metadata: {
-                localeData,
-                units: serverConfig.units,
-                hdsLocType: locType,
-              },
-              weather: wxData,
-            })
+      geocode = `${localeData.lat},${localeData.lon}`
 
+      if (locType === null) {
+        res.status(400).json({
+          error: true,
+          comment: "Please add a locType query",
+        })
+      } else {
+        const wxData = await loadWxData(localeData.postalKey, geocode, locType)  
+        res.json({
+          metadata: {
+            localeData,
+            units: serverConfig.units,
+            hdsLocType: locType,
+          },
+            weather: wxData,
+          })
           }
+    }
+
+
   } catch (error) {
     res.send(error)
     console.error(logTheFrickinTime, error)

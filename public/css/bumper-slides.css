@@ -7,6 +7,7 @@
   display: flex;
   justify-content: center;
   top: 20%;
+  height: 60%;
   overflow: hidden;
 }
 

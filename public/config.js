@@ -18,7 +18,7 @@ export let config = {
         "repeatMain": true,
         "squareLogo": true,
         "bannerLogo": true,
-        "autorunOnStartup": false // mainly for when i make new slides lol
+        "autorunOnStartup": true // mainly for when i make new slides lol
     },
 
     "loadingScreen": true,
@@ -33,25 +33,50 @@ export let config = {
 }
 
 export const locationConfig = {
-  locations: [
-
-    { name: "DUMMY LOCATION", type: "startPadding", displayName: "" },
-    { name: "Saskatoon, SK", type: "primary", displayName: "Saskatoon" },
-    { name: "Warman, SK", type: "secondary", displayName: "Warman" },
-    { name: "Outlook, SK", type: "secondary", displayName: "Outlook"},
-    { name: "North Battleford, SK", type: "secondary", displayName: "North Battleford" },
-    { name: "Humboldt, SK", type: "secondary", displayName: "Humboldt" },
-
-    { name: "Prince Albert, SK", type: "primary", displayName: "Prince Albert" },
-    { name: "Melfort, SK", type: "secondary", displayName: "Melfort" },
-    { name: "Rosthern, SK", type: "secondary", displayName: "Rosthern" },
-    { name: "Wakaw, SK", type: "secondary", displayName: "Wakaw" },
-
-    { name: "REGIONAL BUMPER" , type: "regionalBumperPadding", displayName: "Regional Weather" },
-    { name: "DUMMY LOCATION", type: "placeholderNationalPlayback", displayName: "" },
+  mainBlockPlaylist: [ // this determines the order of playlists to show on the main block (large block covering most of the screen). it will cycle through each playlist in order, showing the location(s) specified by the index for 12 seconds before moving on to the next one. if a playlist has fewer locations than the specified index, it will loop back to the beginning of that playlist.
+    
+    { playlist: "primary", index: 0 }, // plays the first primary location found in localLocations
+    { playlist: "secondary", index: 0 }, // plays the first set of secondary locations
+  //  { playlist: "primary", index: 1 }, // plays the second primary location found in localLocations, if it exists. if not, ignores and moves on to the next item in the playlist.
+  //  { playlist: "secondary", index: 1 }, // plays the second set of secondary locations, if it exists. if not, ignores and moves on to the next item in the playlist.
+    { playlist: "bumper", bumperId: "regionalBumper", index: 0 }, // put our bumper graphic to open our regional segment.
+    { playlist: "regional", regionId: "Pacific", index: 0 }, // plays the regional playlist for the pacific location set as defined in regionalLocations.
+    { playlist: "regional", regionId: "Prairies", index: 0 },
+    { playlist: "regional", regionId: "Central", index: 0 },
+    { playlist: "regional", regionId: "Atlantic", index: 0 },
+    { playlist: "bumper", bumperId: "USARegionalBumper", index: 0 }, // put our bumper graphic to open our US regional segment.
+    { playlist: "regional", regionId: "Northeast", index: 0 }, // plays the regional playlist for the northeast location set as defined in usaLocations.
+    { playlist: "regional", regionId: "Midwest", index: 0 },
+    { playlist: "regional", regionId: "South", index: 0 },
+    { playlist: "regional", regionId: "West", index: 0 },
+    { playlist: "bumper", bumperId: "stationID", index: 0 }, // station ID graphic indicates a new cycle of the program.
   ],
 
-  ldlLocations: [
+  localLocations: [
+    { 
+      playlist: "primary", // a primary location of index 0 would be our main service location.
+      index: 0,
+      locations: [
+        { name: "Saskatoon, SK, Canada", displayName: "Saskatoon, SK" }
+      ]
+    },
+    {
+      playlist: "secondary", // a secondary location of index 0 would be the first set of secondary locations. these are meant to be used for other important locations in your area, such as nearby cities, or cities where you have clients.
+      index: 0,
+      locations: [ // saskatoon area
+        { name: "Prince Albert, SK, Canada", displayName: "Prince Albert" },
+        { name: "North Battleford, SK, Canada", displayName: "North Battleford" },
+        { name: "Outlook, SK, Canada", displayName: "Outlook" },
+        { name: "Rosetown, SK, Canada", displayName: "Rosetown" },
+        { name: "Melfort, SK, Canada", displayName: "Melfort" },
+        { name: "Lloydminster, AB, Canada", displayName: "Lloydminster" },
+      ]
+    }
+
+
+  ],
+
+  ldlLocations: [ // unlike main, the LDL is a very simple endeavor.
     "Saskatoon, SK",
     "Outlook, SK",
     "Rosetown, SK",
@@ -61,11 +86,11 @@ export const locationConfig = {
     "Regina, SK"
   ],
 
-  regionalLocations: { // 12 cities each. sort by province, then by population. these are used for the regional weather slides.
+  regionalLocations: { // 12 cities each. sort by province, then by population. these are used for the regional weather slides showed on main.
     "regions": {
       "Pacific": {
-        "mapCenter": [53.7267, -127.6476],
-        "zoomLevel": 4,
+      "mapCenter": [50.5000, -124.0000], 
+      "zoomLevel": 5,
         "timezone": "America/Vancouver",
         "locations": [
           "Vancouver, BC",
@@ -83,8 +108,8 @@ export const locationConfig = {
         ]
       },
       "Prairies": {
-        "mapCenter": [52.9399, -106.4509],
-        "zoomLevel": 5,
+        "mapCenter": [55.0000, -106.0000],
+        "zoomLevel": 4,
         "timezone": "America/Regina",
         "locations": [
           "Calgary, AB",
@@ -102,8 +127,8 @@ export const locationConfig = {
         ]
       },
       "Central": {
-        "mapCenter": [45.4215, -75.6999],
-        "zoomLevel": 5,
+        "mapCenter": [46.5000, -78.5000],
+        "zoomLevel": 4,
         "timezone": "America/Toronto",
         "locations": [
           "Toronto, ON",
@@ -121,7 +146,7 @@ export const locationConfig = {
         ]
       },
       "Atlantic": {
-        "mapCenter": [45.4215, -75.6999],
+        "mapCenter": [46.8000, -60.5000],
         "zoomLevel": 5,
         "timezone": "America/Halifax",
         "locations": [
@@ -145,8 +170,8 @@ export const locationConfig = {
   "usaLocations": { // same thing but for the US. 12 cities per region, sorted by population. also sorted by census bureau regions (northeast, midwest, south, and west).
     "regions": {
       "Northeast": {
-        "mapCenter": [41.2033, -77.1945],
-        "zoomLevel": 5,
+        "mapCenter": [41.8000, -74.5000],
+        "zoomLevel": 6,
         "timezone": "America/New_York",
         "locations": [
           "New York, NY",
@@ -164,7 +189,7 @@ export const locationConfig = {
         ]
       },
       "Midwest": {
-        "mapCenter": [41.8781, -87.6298],
+        "mapCenter": [41.5000, -90.5000],
         "zoomLevel": 5,
         "timezone": "America/Chicago",
         "locations": [
@@ -183,8 +208,8 @@ export const locationConfig = {
         ]
       },
       "South": {
-        "mapCenter": [32.7767, -96.7970],
-        "zoomLevel": 5,
+        "mapCenter": [33.5000, -89.0000],
+        "zoomLevel": 4,
         "timezone": "America/Chicago",
         "locations": [
           "Houston, TX",
@@ -202,8 +227,8 @@ export const locationConfig = {
         ]
       },
       "West": {
-        "mapCenter": [37.7749, -122.4194],
-        "zoomLevel": 5,
+        "mapCenter": [39.5000, -114.0000],
+        "zoomLevel": 4,
         "timezone": "America/Los_Angeles",
         "locations": [
           "Los Angeles, CA",

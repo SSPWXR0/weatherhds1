@@ -23,6 +23,28 @@
   width: 100%;
 }
 
+/* LDL MAIN CONTAINER */
+.ldl-weather {
+  position: absolute;
+  z-index: 487845785;
+  bottom: 0%;
+  height: 20%;
+  margin: 0 auto;
+  left: 50%;
+  transform: translateX(-50%);
+  text-shadow: 2pt 2pt 6px #080F1B;
+  border-top-left-radius: var(--cornerRadius);
+  border-top-right-radius: var(--cornerRadius);
+  backdrop-filter: blur(70px);
+  background-image: var(--mainGradient);
+  border-top: 4px solid var(--thirdColourTransparent);
+  border-left: 4px solid var(--thirdColourTransparent);
+  border-right: 4px solid var(--thirdColourTransparent);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
 /* BULLETIN/ALERTS */
 .ldl-bulletin-crawl {
   width: 95%;
@@ -79,27 +101,6 @@
   padding-left: 0;
   margin: 0;
   white-space: nowrap;
-}
-
-/* LDL MAIN CONTAINER */
-.ldl-weather {
-  position: absolute;
-  bottom: 0%;
-  height: 20%;
-  margin: 0 auto;
-  left: 50%;
-  transform: translateX(-50%);
-  text-shadow: 2pt 2pt 6px #080F1B;
-  border-top-left-radius: var(--cornerRadius);
-  border-top-right-radius: var(--cornerRadius);
-  backdrop-filter: blur(70px);
-  background-image: var(--mainGradient);
-  border-top: 4px solid var(--thirdColourTransparent);
-  border-left: 4px solid var(--thirdColourTransparent);
-  border-right: 4px solid var(--thirdColourTransparent);
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
 }
 
 .ldl-container {

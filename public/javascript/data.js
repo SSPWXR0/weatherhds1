@@ -127,7 +127,7 @@ function setupAlertPolling(hasAlert) {
 }
 
 async function checkAlerts() {
-  const primaryLocation = locationConfig.locations.find(loc => loc.type === "primary")?.name;
+  const primaryLocation = locationConfig.localLocations.find(g => g.playlist === "primary")?.locations?.[0]?.name;
   
   const alertData = await requestAlertData(primaryLocation);
   

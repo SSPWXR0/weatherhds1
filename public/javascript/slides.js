@@ -1,6 +1,7 @@
 import { config, locationConfig, versionID, serverConfig, bumperBackgroundsRandom } from "../config.js";
 import { appendDatatoMain, animateIntraday, daypartNames } from "./weather.js";
 import { serverHealth } from "./data.js";
+import { runRegionalPlayback } from "./regional.js";
 
 const playlistSettings = {
     defaultAnimationIn: `mainPresentationSlideIn 500ms ease-in-out`,
@@ -20,16 +21,6 @@ const iconMappings = [
 
 
 const preferredPlaylist = {
-    startPadding: [
-        {
-            htmlID: "stationid",
-            title: "Welcome!",
-            duration: 10000,
-            animationIn: playlistSettings.defaultAnimationIn,
-            animationOut: playlistSettings.defaultAnimationOut
-        }
-    ],
-
     mainPlaylist: [
         {
             htmlID: "current",
@@ -132,36 +123,6 @@ const preferredPlaylist = {
         }
     ],
 
-    regionalBumperPadding: [
-        {
-            htmlID: "regional",
-            title: "Our Regional Weather",
-            duration: 12000,
-            dynamicFunction: runRegionalBumper,
-            animationIn: playlistSettings.defaultAnimationIn,
-            animationOut: playlistSettings.defaultAnimationOut
-        },
-    ],
-
-    regionalLocalePlaylist: [
-        {
-            htmlID: "current",
-            title: "Regional Conditions",
-            duration: 15000,
-            dynamicFunction: runMainCurrentSlide,
-            animationIn: playlistSettings.defaultAnimationIn,
-            animationOut: playlistSettings.defaultAnimationOut
-        },
-        {
-            htmlID: "radar",
-            title: "",
-            duration: 15000,
-            dynamicFunction: runRadarSlide,
-            animationIn: null,
-            animationOut: null
-        },
-    ],
-
     standbyPlaylist: [
         {
             htmlID: "radar",
@@ -185,6 +146,7 @@ const logTheFrickinTime = `[slides.js] | ${new Date().toLocaleString()} |`;
 
 const domCache = {
     mainSlides: document.getElementsByClassName('main-slides')[0],
+    regionalSlides: document.getElementsByClassName('regional-slides')[0],
     bumperSlides: document.getElementsByClassName('bumper-slides')[0],
     radarDiv: document.getElementsByClassName('main-radar')[0],
     stationIdHdsver: document.getElementById('station-id-hdsver'),
@@ -222,62 +184,167 @@ const domCache = {
 domCache.stationIdHdsver.innerText = versionID;
 domCache.loadingscreenVersionID.innerHTML = `WeatherHDS ${versionID}`;
 
-const { slideIcon, currentSlideText, currentLocationText, currentprogressbar, upNextLocationText, upNextLocationText1, upNextLocationText2, upNextLocationText3, radarDiv } = domCache;
+const { slideIcon, currentSlideText, currentLocationText, currentprogressbar, upNextLocationText, upNextLocationText1, upNextLocationText2, upNextLocationText3, radarDiv, regionalSlides } = domCache;
 
 let slideNearEnd, slideEnd;
 
-async function runPlaylist(locale, call) {
-    const loc = locationConfig.locations.find(l => l.name === locale);
-    let selectedPlaylist = preferredPlaylist.mainPlaylist;
+const bumperDefs = {
+    stationID:         { htmlID: "stationid", title: "Welcome!",            duration: 10000, isRegional: false },
+    regionalBumper:    { htmlID: "regional",  title: "Regional Weather",    duration: 12000, isRegional: true  },
+    USARegionalBumper: { htmlID: "regional",  title: "US Regional Weather", duration: 12000, isRegional: true  },
+};
 
-    clearTimeout(slideNearEnd);
-    clearTimeout(slideEnd);
+function resolveRegion(regionId) {
+    const ca = locationConfig.regionalLocations?.regions?.[regionId];
+    if (ca) return { name: regionId, ...ca, country: "Canada" };
+    const us = locationConfig.usaLocations?.regions?.[regionId];
+    if (us) return { name: regionId, ...us, country: "USA" };
+    return null;
+}
 
-    if (serverHealth === 0) {
-        switch (loc.type) {
-            case "startPadding":
-                selectedPlaylist = preferredPlaylist.startPadding;
-                break;
+function buildQueue() {
+    const queue = [];
+    const steps = locationConfig.mainBlockPlaylist;
 
-            case "secondary":
-                selectedPlaylist = preferredPlaylist.secondaryLocalePlaylist;
-                break;
+    for (let i = 0; i < steps.length; i++) {
+        const step = steps[i];
 
-            case "regional":
-                selectedPlaylist = preferredPlaylist.regionalLocalePlaylist;
-                    break;
+        if (step.playlist === "primary" || step.playlist === "secondary") {
+            const group = locationConfig.localLocations.find(
+                g => g.playlist === step.playlist && g.index === step.index
+            );
+            if (!group?.locations?.length) continue;
 
+            const slides = step.playlist === "primary"
+                ? preferredPlaylist.mainPlaylist
+                : preferredPlaylist.secondaryLocalePlaylist;
+
+            for (const loc of group.locations) {
+                queue.push({
+                    type: step.playlist,
+                    displayName: loc.displayName || loc.name,
+                    locationName: loc.name,
+                    slides,
+                });
+            }
+        }
+        else if (step.playlist === "bumper") {
+            const upcomingRegions = [];
+            for (let j = i + 1; j < steps.length && steps[j].playlist === "regional"; j++) {
+                upcomingRegions.push(steps[j].regionId);
+            }
+            queue.push({
+                type: "bumper",
+                bumperId: step.bumperId,
+                displayName: bumperDefs[step.bumperId]?.title || "Welcome!",
+                upcomingRegions,
+            });
+        }
+        else if (step.playlist === "regional") {
+            const regionIds = [step.regionId];
+            while (i + 1 < steps.length && steps[i + 1].playlist === "regional") {
+                i++;
+                regionIds.push(steps[i].regionId);
+            }
+            const regions = regionIds.map(id => resolveRegion(id)).filter(Boolean);
+            if (regions.length === 0) continue;
+
+            queue.push({
+                type: "regional",
+                displayName: "Regional Conditions",
+                regions,
+            });
+        }
+    }
+    return queue;
+}
+
+function updateUpNext(queue, currentIdx) {
+    const current = queue[currentIdx];
+    const upcoming = [1, 2, 3].map(i => queue[(currentIdx + i) % queue.length]);
+
+    const textUpdates = [
+        { el: currentLocationText, text: current?.displayName || "Please Standby..." },
+        { el: upNextLocationText, text: upcoming[0] ? `> ${upcoming[0].displayName}` : "" },
+        { el: upNextLocationText1, text: upcoming[1] ? `> ${upcoming[1].displayName}` : "" },
+        { el: upNextLocationText2, text: upcoming[2] ? `> ${upcoming[2].displayName}` : "" },
+    ];
+
+    const topbarCurrent = document.querySelector('.topbar-current-location');
+    if (topbarCurrent) {
+        requestAnimationFrame(() => {
+            topbarCurrent.style.animation = 'none';
+            void topbarCurrent.offsetWidth;
+            topbarCurrent.style.animation = 'bonr 0.5s ease-in-out forwards';
+
+            textUpdates.forEach(({ el, text }, index) => {
+                if (config.videoType !== "hdtv" && config.videoType !== "i2buffer" && config.videoType !== "tablet") {
+                    if (el === upNextLocationText2) return;
+                }
+                const delay = 0.1 * index;
+                el.textContent = text.length > 2 ? text : '';
+                el.style.display = text.length > 2 ? 'block' : 'none';
+                el.style.animation = `switchModules 0.2s ease-in-out ${delay}s forwards`;
+            });
+        });
+    }
+}
+
+function runPresentation() {
+    if (config.presentationConfig.main !== true) {
+        console.log(logTheFrickinTime + "Main presentation mode is disabled.");
+        return;
+    }
+
+    const queue = buildQueue();
+    if (queue.length === 0) return;
+
+    let idx = 0;
+
+    function next() {
+        if (idx >= queue.length) {
+            if (config.presentationConfig.repeatMain) {
+                idx = 0;
+            } else {
+                return;
+            }
+        }
+
+        const item = queue[idx];
+        updateUpNext(queue, idx);
+        idx++;
+
+        switch (item.type) {
             case "primary":
-                selectedPlaylist = preferredPlaylist.mainPlaylist;
+            case "secondary":
+                runSlideSet(item.locationName, item.slides, item.type, next);
                 break;
-            case "standby":
-                selectedPlaylist = preferredPlaylist.standbyPlaylist;
+            case "bumper":
+                runBumperSlide(item.bumperId, item.upcomingRegions, next);
                 break;
-            case "regionalBumperPadding":
-                selectedPlaylist = preferredPlaylist.regionalBumperPadding;
-                break;
-            default:
-                selectedPlaylist = preferredPlaylist.mainPlaylist;
+            case "regional":
+                runRegionalPlayback(item.regions, next);
                 break;
         }
     }
+
+    next();
+}
+
+async function runSlideSet(locationName, selectedPlaylist, locType, call) {
+    clearTimeout(slideNearEnd);
+    clearTimeout(slideEnd);
+
     if (serverHealth === 1) {
         selectedPlaylist = preferredPlaylist.standbyPlaylist;
     }
 
-    if (selectedPlaylist === preferredPlaylist.regionalBumperPadding) {
-        domCache.bumperSlides.style.display = "flex";
-        domCache.mainSlides.style.display = "none";
-    }
-    if (selectedPlaylist !== preferredPlaylist.regionalBumperPadding) {
-        domCache.bumperSlides.style.display = "none";
-        domCache.mainSlides.style.display = "flex";
-    }
+    domCache.bumperSlides.style.display = "none";
+    domCache.mainSlides.style.display = "flex";
+    domCache.regionalSlides.style.display = "none";
 
-    if (loc.type === "primary" || loc.type === "secondary") {
-        await appendDatatoMain(locale, loc?.type);
-        await new Promise(r => setTimeout(r, 300));
-    }
+    await appendDatatoMain(locationName, locType);
+    await new Promise(r => setTimeout(r, 300));
 
     totalSlideDurationMS = selectedPlaylist.reduce((acc, slide) => acc + slide.duration, 0);
     totalSlideDurationSec = totalSlideDurationMS / 1000;
@@ -314,9 +381,7 @@ async function runPlaylist(locale, call) {
         if (mappedIcon && mappedIcon.icon) {
             slideIcon.src = mappedIcon.icon;
         } else if (slide.htmlID === "current") {
-            const t = areWeFreezingToDeath();
-
-            slideIcon.src = t
+            slideIcon.src = areWeFreezingToDeath()
                 ? '/graphics/ux/thermometer-snowflake.svg'
                 : '/graphics/ux/thermometer-sun.svg';
         } else {
@@ -327,11 +392,9 @@ async function runPlaylist(locale, call) {
             case "forecast-shortterm-d1":
                 currentSlideText.textContent = daypartNames[0];
                 break;
-                
             case "forecast-shortterm-d2":
                 currentSlideText.textContent = daypartNames[1];
                 break;
-        
             default:
                 currentSlideText.textContent = slide.title;
                 break;
@@ -349,13 +412,9 @@ async function runPlaylist(locale, call) {
         if (el) {
             el.style.display = "block";
             el.style.animation = slide.animationIn;
-
             if (typeof slide.dynamicFunction === "function") {
                 slide.dynamicFunction();
             }
-        }
-if (slide.htmlID === "regional") {
-            slideIcon.src = "/graphics/ux/map.svg";
         }
 
         slideNearEnd = setTimeout(() => {
@@ -384,61 +443,6 @@ if (slide.htmlID === "regional") {
     }
 
     showNextSlide();
-}
-
-function loopLocations() {
-    if (config.presentationConfig.main !== true) {
-        console.log(logTheFrickinTime + "Main presentation mode is disabled. Exiting slideshow loop.");
-        return;
-    }
-    
-    let localeIndex = 0;
-
-    function runNextLocation() {
-        const localeList = locationConfig.locations
-        if (localeList.length === 0) return;
-
-        const location = localeList[localeIndex % localeList.length];
-
-        const currentLocation = location.displayName || "Please Standby...";
-
-        const [nextLocation, nextLocationOne, nextLocationTwo] =
-        [1, 2, 3].map(i => localeList[(localeIndex + i) % localeList.length]);
-
-        const textUpdates = [
-            { el: currentLocationText, text: currentLocation },
-            { el: upNextLocationText, text: nextLocation ? `> ${nextLocation.displayName}` : '' },
-            { el: upNextLocationText1, text: nextLocationOne ? `> ${nextLocationOne.displayName}` : '' },
-            { el: upNextLocationText2, text: nextLocationTwo ? `> ${nextLocationTwo.displayName}` : '' },
-        ];
-
-        const topbarCurrent = document.querySelector('.topbar-current-location');
-
-        if (topbarCurrent) {
-            requestAnimationFrame(() => {
-                topbarCurrent.style.animation = 'none';
-                void topbarCurrent.offsetWidth;
-                topbarCurrent.style.animation = 'bonr 0.5s ease-in-out forwards';
-
-                textUpdates.forEach(({ el, text }, index) => {
-                    if (config.videoType !== "hdtv" && config.videoType !== "i2buffer" && config.videoType !== "tablet") {
-                        if (el === upNextLocationText2) return;
-                    }
-                    const delay = 0.1 * index;
-                    el.textContent = text.length > 2 ? text : '';
-                    el.style.display = text.length > 2 ? 'block' : 'none';
-                    el.style.animation = `switchModules 0.2s ease-in-out ${delay}s forwards`;
-                });
-            });
-        }
-
-        runPlaylist(location.name, () => {
-            localeIndex = (localeIndex + 1) % localeList.length;
-            runNextLocation();
-        });
-    }
-
-    runNextLocation();
 }
 
 
@@ -644,7 +648,7 @@ function loadingScreen() {
             
                 requestAnimationFrame(() => {
                     document.getElementById('loadingscreen-affiliatename').innerHTML = `Affiliate Name: ${config.affiliateName}`;
-                    document.getElementById('loadingscreen-locationname').innerHTML = `System Location: ${locationConfig.locations.find(l => l.type === "primary")?.displayName || "Not Set"}`;
+                    document.getElementById('loadingscreen-locationname').innerHTML = `System Location: ${locationConfig.localLocations.find(g => g.playlist === "primary")?.locations?.[0]?.displayName || "Not Set"}`;
                 });
                     
                 const rotateAnimation = () => {
@@ -663,7 +667,7 @@ function loadingScreen() {
                     clearInterval(rotationInterval);
                     domCache.loadingScreen.remove();
                     if (config.presentationConfig.autorunOnStartup === true) {
-                        loopLocations();
+                        runPresentation();
                     }
                 }, 3000);
             
@@ -672,7 +676,7 @@ function loadingScreen() {
         default:
             domCache.loadingScreen.style.display = 'none'; // for when im debugging and i dont want the loading screen
             if (config.presentationConfig.autorunOnStartup === true) {
-                loopLocations();
+                runPresentation();
             }
             break;
     }
@@ -738,78 +742,111 @@ function runExtendedSlide() {
     }, slideDurationMS);
 }
 
-function runRegionalBumper() {
-    const randomBackgrounds = bumperBackgroundsRandom.regional;
-    const regionalLocaleList = locationConfig.locations.filter(l => l.type === "regional");
-    domCache.upNextRegionalText.innerText = regionalLocaleList[0]?.displayName || '';
-    domCache.upNextRegionalText1.innerText = regionalLocaleList[1]?.displayName || '';
-    domCache.upNextRegionalText2.innerText = regionalLocaleList[2]?.displayName || '';
-    domCache.upNextRegionalText3.innerText = regionalLocaleList[3]?.displayName || '';
-    domCache.upNextRegionalText4.innerText = regionalLocaleList[4]?.displayName || '';
+function runBumperSlide(bumperId, upcomingRegions, callback) {
+    clearTimeout(slideNearEnd);
+    clearTimeout(slideEnd);
 
-    const marquee = domCache.regionalBumperSubtext;
-    marquee.innerText = ` ${config.networkName} `.repeat(50);
+    const def = bumperDefs[bumperId];
+    if (!def) { callback?.(); return; }
 
-    $(document).ready(function(){
-        $('#regional-bumper-subtext').marquee({
-                duration: 9000,
-                gap: 360,
-                delayBeforeStart: 0,
-                direction: 'left',
-                duplicated: true, 
-                pauseOnHover: true,
-        });
-    });
+    domCache.bumperSlides.style.display = "flex";
+    domCache.mainSlides.style.display = "none";
+    domCache.regionalSlides.style.display = "none";
 
+    slideDurationMS = def.duration;
 
-    if (randomBackgrounds) {
-        Math.random();
-        let bgIndex = Math.floor(Math.random() * bumperBackgroundsRandom.regional.length);
-        let selectedBG = randomBackgrounds[bgIndex];
-        if (selectedBG.name.includes("Rai Praying")) {
-            bgIndex = Math.floor(Math.random() * bumperBackgroundsRandom.regional.length);
-            selectedBG = randomBackgrounds[bgIndex];
-        }
+    const bumpers = document.querySelectorAll('.bumper-slide');
+    for (const b of bumpers) b.style.display = "none";
 
-        console.log(logTheFrickinTime + `Selected regional bumper background: ${selectedBG.url}`);
-        const regionalBumperCanvas = document.getElementById('bumper-background');
-        if (regionalBumperCanvas) {
-            regionalBumperCanvas.style.backgroundImage = `url('${selectedBG.url}')`;
-        }
-
-        if (domCache.bumperBgTitle) domCache.bumperBgTitle.innerText = selectedBG.name || '';
-        if (domCache.bumperBgSubtitle) domCache.bumperBgSubtitle.innerText = selectedBG.subtitle || '';
-        if (domCache.bumperBgAuthor) domCache.bumperBgAuthor.innerText = selectedBG.author || '';
+    const el = document.getElementById(def.htmlID);
+    if (el) {
+        el.style.display = "block";
+        el.style.animation = playlistSettings.defaultAnimationIn;
     }
 
-    requestAnimationFrame(() => {
-       domCache.regionalBumperHeader.style.animation = 'mainPresentationSlideIn 500ms ease-in-out forwards';
-       domCache.regionalLocationHeader.style.animation = 'switchModules 300ms ease-in-out forwards';
-       domCache.upNextRegionalText.style.animation = 'fadeInTypeBeat 1900ms ease-in-out forwards';
-       domCache.upNextRegionalText1.style.animation = 'fadeInTypeBeat 2200ms ease-in-out forwards';
-       domCache.upNextRegionalText2.style.animation = 'fadeInTypeBeat 2400ms ease-in-out forwards';
-       domCache.upNextRegionalText3.style.animation = 'fadeInTypeBeat 2800ms ease-in-out forwards';
-       domCache.upNextRegionalText4.style.animation = 'fadeInTypeBeat 3200ms ease-in-out forwards';
-       domCache.regionalBumperSubtext.style.animation = 'fadeInTypeBeat 1500ms linear forwards';
-    });
-    setTimeout(() => {
-        requestAnimationFrame(() => {
-            domCache.regionalBumperHeader.style.animation = 'fadeModule 300ms ease forwards';
-            domCache.regionalLocationHeader.style.animation = 'fadeModule 400ms ease forwards';
-            domCache.upNextRegionalText.style.animation = 'fadeModule 500ms ease forwards';
-            domCache.upNextRegionalText1.style.animation = 'fadeModule 600ms ease forwards';
-            domCache.upNextRegionalText2.style.animation = 'fadeModule 800ms ease forwards';
-            domCache.upNextRegionalText3.style.animation = 'fadeModule 1000ms ease forwards';
-            domCache.upNextRegionalText4.style.animation = 'fadeModule 1200ms ease forwards';
-            domCache.regionalBumperSubtext.style.animation = 'fadeModule 1500ms linear forwards';
-        });
-    }, slideDurationMS - 1000);
+    currentSlideText.textContent = def.title;
+    currentSlideText.style.cssText = 'display:block;animation:switchModules 300ms ease-in-out forwards';
+    slideIcon.src = def.isRegional ? "/graphics/ux/map.svg" : "/graphics/ux/gallery-vertical.svg";
+    slideIcon.style.cssText = 'display:block;animation:switchModules 160ms ease-in-out forwards';
+    currentprogressbar.style.cssText = `display:block;animation:progressBar ${def.duration}ms linear forwards`;
 
-    setTimeout(() => {
+    if (def.isRegional) {
+        if (domCache.regionalBumperHeader) domCache.regionalBumperHeader.textContent = def.title;
+
+        const regionEls = [
+            domCache.upNextRegionalText, domCache.upNextRegionalText1,
+            domCache.upNextRegionalText2, domCache.upNextRegionalText3, domCache.upNextRegionalText4,
+        ];
+        upcomingRegions.forEach((name, i) => { if (regionEls[i]) regionEls[i].innerText = name; });
+        for (let i = upcomingRegions.length; i < regionEls.length; i++) { if (regionEls[i]) regionEls[i].innerText = ''; }
+
+        const marquee = domCache.regionalBumperSubtext;
+        marquee.innerText = ` ${config.networkName} `.repeat(50);
         $(document).ready(function(){
-            $('#regional-bumper-subtext').marquee('destroy');
+            $('#regional-bumper-subtext').marquee({
+                duration: 9000, gap: 360, delayBeforeStart: 0,
+                direction: 'left', duplicated: true, pauseOnHover: true,
+            });
         });
-    }, slideDurationMS);
+
+        const randomBackgrounds = bumperBackgroundsRandom.regional;
+        if (randomBackgrounds?.length) {
+            let bgIndex = Math.floor(Math.random() * randomBackgrounds.length);
+            let selectedBG = randomBackgrounds[bgIndex];
+            if (selectedBG.name.includes("Rai Praying")) {
+                bgIndex = Math.floor(Math.random() * randomBackgrounds.length);
+                selectedBG = randomBackgrounds[bgIndex];
+            }
+            console.log(logTheFrickinTime + `Selected bumper background: ${selectedBG.url}`);
+            const canvas = document.getElementById('bumper-background');
+            if (canvas) canvas.style.backgroundImage = `url('${selectedBG.url}')`;
+            if (domCache.bumperBgTitle) domCache.bumperBgTitle.innerText = selectedBG.name || '';
+            if (domCache.bumperBgSubtitle) domCache.bumperBgSubtitle.innerText = selectedBG.subtitle || '';
+            if (domCache.bumperBgAuthor) domCache.bumperBgAuthor.innerText = selectedBG.author || '';
+        }
+
+        requestAnimationFrame(() => {
+            domCache.regionalBumperHeader.style.animation = 'mainPresentationSlideIn 500ms ease-in-out forwards';
+            domCache.regionalLocationHeader.style.animation = 'switchModules 300ms ease-in-out forwards';
+            domCache.upNextRegionalText.style.animation = 'fadeInTypeBeat 1900ms ease-in-out forwards';
+            domCache.upNextRegionalText1.style.animation = 'fadeInTypeBeat 2200ms ease-in-out forwards';
+            domCache.upNextRegionalText2.style.animation = 'fadeInTypeBeat 2400ms ease-in-out forwards';
+            domCache.upNextRegionalText3.style.animation = 'fadeInTypeBeat 2800ms ease-in-out forwards';
+            domCache.upNextRegionalText4.style.animation = 'fadeInTypeBeat 3200ms ease-in-out forwards';
+            domCache.regionalBumperSubtext.style.animation = 'fadeInTypeBeat 1500ms linear forwards';
+        });
+        setTimeout(() => {
+            requestAnimationFrame(() => {
+                domCache.regionalBumperHeader.style.animation = 'fadeModule 300ms ease forwards';
+                domCache.regionalLocationHeader.style.animation = 'fadeModule 400ms ease forwards';
+                domCache.upNextRegionalText.style.animation = 'fadeModule 500ms ease forwards';
+                domCache.upNextRegionalText1.style.animation = 'fadeModule 600ms ease forwards';
+                domCache.upNextRegionalText2.style.animation = 'fadeModule 800ms ease forwards';
+                domCache.upNextRegionalText3.style.animation = 'fadeModule 1000ms ease forwards';
+                domCache.upNextRegionalText4.style.animation = 'fadeModule 1200ms ease forwards';
+                domCache.regionalBumperSubtext.style.animation = 'fadeModule 1500ms linear forwards';
+            });
+        }, def.duration - 1000);
+        setTimeout(() => {
+            $(document).ready(function(){ $('#regional-bumper-subtext').marquee('destroy'); });
+        }, def.duration);
+    }
+
+    slideNearEnd = setTimeout(() => {
+        if (el) el.style.animation = playlistSettings.defaultAnimationOut;
+        currentSlideText.style.animation = `fadeModule 0.5s ease-in-out forwards`;
+        slideIcon.style.animation = `slideDown 160ms ease-in-out forwards`;
+    }, def.duration - 500);
+
+    slideEnd = setTimeout(() => {
+        currentSlideText.style.display = "none";
+        currentSlideText.style.animation = "";
+        currentprogressbar.style.display = "none";
+        currentprogressbar.style.animation = "";
+        slideIcon.style.animation = "";
+        slideIcon.style.display = "none";
+        callback?.();
+    }, def.duration);
 }
 
 function runRadarSlide() {
