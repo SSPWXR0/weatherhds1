@@ -5,6 +5,12 @@
   display: none;
 }
 
+#ldl-hourly {
+  position: relative;
+  display: none;
+  width: 100%;
+}
+
 #ldl-forecast {
   position: relative;
   display: none;
@@ -13,7 +19,8 @@
 
 #ldl-aqi {
   position: relative;
-  width: 768px;
+  max-width: 768px;
+  width: 100%;
   display: none;
 }
 
@@ -113,8 +120,9 @@
 
 .ldl-presentation {
   display: flex;
+  margin-top: 8px;
   flex-direction: column;
-  width: 85%;
+  width: 90%;
   overflow: hidden;
 }
 
@@ -220,6 +228,13 @@
   margin-right: 5px;
 }
 
+.ldltext-secondarybutsmaller {
+  font-size: 22pt;
+  font-weight: 400;
+  align-self: center;
+  margin-right: 5px;
+}
+
 .ldltext-tertiary {
   font-size: var(--fontSizeOne);
 }
@@ -271,6 +286,53 @@
   display: flex;
   flex-grow: 4;
   font-size: var(--fontSizeOne);
+}
+
+/* LDL HOURLY */
+
+.ldl-hourly-period {
+  width: 12%;
+  height: 100%;
+  white-space: nowrap;
+}
+
+.ldl-hourly-period-text-group {
+	position: relative;
+	bottom: -17%;
+	align-self: center;
+}
+
+.ldl-hourly-flex-items-container {
+  margin-top: 12px;
+	display: flex;
+	flex-direction: row;
+	gap: 8px;
+}
+
+.ldl-hourly-flex-items-container .ldl-icon {
+  background-image: var(--thirdGradient);
+  backdrop-filter: saturate(150%) blur(20px) brightness(105%);
+  border-radius: 24px;
+  max-width: 80px;
+  max-height: 80px;
+  width: auto;
+  height: auto;
+}
+
+.ldl-hourly-precip-text-icon-group {
+  height: 100%;
+}
+.ldl-precip-icon {
+  width: 48px;
+  height: 48px;
+  background-image: url(/graphics/animated/rain.svg);
+  background-position: center;
+  background-size: 130%;
+  background-repeat: no-repeat;
+}
+
+.ldl-hourly-precip-text-icon-group {
+  display: none;
 }
 
 /* LDL SUNRISE/SUNSET */

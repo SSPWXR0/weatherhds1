@@ -2,7 +2,7 @@
 
 export let config = {
     "networkName": "METEOChannel", // sets the network name.
-    "affiliateName": "", // your affiliate.
+    "affiliateName": "Mist Streaming", // your affiliate.
     "channelNumber": "/sspwxr", // channel id.
     "videoBackgrounds": true, // enables or disables the video backgrounds on the current conditions slide.
     "currentConditionsGradient": true, // current conditions gradient based on current time relative to sunrise or sunset.
@@ -449,4 +449,4 @@ export const holidayMapping = {
 
 
 
-export const versionID = '26.02.08';
+export const versionID = '26.02.10';

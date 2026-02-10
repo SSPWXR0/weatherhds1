@@ -4,9 +4,10 @@ import { formatTime } from './weather.js';
 
 const ldlPresentationSlides = {
     "0": { htmlID: "ldl-current", durationMS: 20000 },
-    "1": { htmlID: "ldl-forecast", durationMS: 20000 },
-    "2": { htmlID: "ldl-aqi", durationMS: 8000 },
-    "3": { htmlID: "ldl-riseset", durationMS: 12000 },
+    "1": { htmlID: "ldl-hourly", durationMS: 15000 },
+    "2": { htmlID: "ldl-forecast", durationMS: 20000 },
+    "3": { htmlID: "ldl-aqi", durationMS: 8000 },
+    "4": { htmlID: "ldl-riseset", durationMS: 12000 },
 }
 
 let totalDuration = 0;
@@ -60,10 +61,55 @@ const ldlDomCache = Object.freeze({
     forecast1Precip: document.getElementById('ldl-forecast-day1-pop-value'),
     forecast0Container: document.getElementById('ldl-forecast-day0-container'),
     forecast1Container: document.getElementById('ldl-forecast-day1-container'),
+    hourlyGroup: {
+        ldlHourlyTime0: document.getElementById('ldl-hourly-time0'),
+        ldlHourlyIcon0: document.getElementById('ldl-hourly-icon0'),
+        ldlHourlyTemp0: document.getElementById('ldl-hourly-temp0'),
+        ldlHourlyCondition0: document.getElementById('ldl-hourly-condition0'),
+        ldlHourlyPrecip0Group: document.getElementById('ldl-hourly-period0-precip-group'),
+        ldlHourlyPrecipIcon0: document.getElementById('ldl-hourly-precip-icon0'),
+        ldlHourlyPrecip0: document.getElementById('ldl-hourly-precip0'),
+        ldlHourlyTime1: document.getElementById('ldl-hourly-time1'),
+        ldlHourlyIcon1: document.getElementById('ldl-hourly-icon1'),
+        ldlHourlyTemp1: document.getElementById('ldl-hourly-temp1'),
+        ldlHourlyCondition1: document.getElementById('ldl-hourly-condition1'),
+        ldlHourlyPrecip1Group: document.getElementById('ldl-hourly-period1-precip-group'),
+        ldlHourlyPrecipIcon1: document.getElementById('ldl-hourly-precip-icon1'),
+        ldlHourlyPrecip1: document.getElementById('ldl-hourly-precip1'),
+        ldlHourlyTime2: document.getElementById('ldl-hourly-time2'),
+        ldlHourlyIcon2: document.getElementById('ldl-hourly-icon2'),
+        ldlHourlyTemp2: document.getElementById('ldl-hourly-temp2'),
+        ldlHourlyCondition2: document.getElementById('ldl-hourly-condition2'),
+        ldlHourlyPrecip2Group: document.getElementById('ldl-hourly-period2-precip-group'),
+        ldlHourlyPrecipIcon2: document.getElementById('ldl-hourly-precip-icon2'),
+        ldlHourlyPrecip2: document.getElementById('ldl-hourly-precip2'),
+        ldlHourlyTime3: document.getElementById('ldl-hourly-time3'),
+        ldlHourlyIcon3: document.getElementById('ldl-hourly-icon3'),
+        ldlHourlyTemp3: document.getElementById('ldl-hourly-temp3'),
+        ldlHourlyCondition3: document.getElementById('ldl-hourly-condition3'),
+        ldlHourlyPrecip3Group: document.getElementById('ldl-hourly-period3-precip-group'),
+        ldlHourlyPrecipIcon3: document.getElementById('ldl-hourly-precip-icon3'),
+        ldlHourlyPrecip3: document.getElementById('ldl-hourly-precip3'),
+        ldlHourlyTime4: document.getElementById('ldl-hourly-time4'),
+        ldlHourlyIcon4: document.getElementById('ldl-hourly-icon4'),
+        ldlHourlyTemp4: document.getElementById('ldl-hourly-temp4'),
+        ldlHourlyCondition4: document.getElementById('ldl-hourly-condition4'),
+        ldlHourlyPrecip4Group: document.getElementById('ldl-hourly-period4-precip-group'),
+        ldlHourlyPrecipIcon4: document.getElementById('ldl-hourly-precip-icon4'),
+        ldlHourlyPrecip4: document.getElementById('ldl-hourly-precip4'),
+        ldlHourlyTime5: document.getElementById('ldl-hourly-time5'),
+        ldlHourlyIcon5: document.getElementById('ldl-hourly-icon5'),
+        ldlHourlyTemp5: document.getElementById('ldl-hourly-temp5'),
+        ldlHourlyCondition5: document.getElementById('ldl-hourly-condition5'),
+        ldlHourlyPrecip5Group: document.getElementById('ldl-hourly-period5-precip-group'),
+        ldlHourlyPrecipIcon5: document.getElementById('ldl-hourly-precip-icon5'),
+        ldlHourlyPrecip5: document.getElementById('ldl-hourly-precip5'),
+    },
     aqiStatus: document.getElementById('ldl-aqi-status'),
     aqiIndex: document.getElementById('ldl-aqi-index'),
     aqiPrimaryPollutant: document.getElementById('ldl-aqi-primarypollutant'),
     ldlCurrent: document.getElementById('ldl-current'),
+    ldlHourly: document.getElementById('ldl-hourly'),
     ldlForecast: document.getElementById('ldl-forecast'),
     ldlAqi: document.getElementById('ldl-aqi'),
     ldlAlmanac: document.getElementById('ldl-riseset'),
@@ -84,8 +130,6 @@ const ldlDomCache = Object.freeze({
     ldlMoonPhaseName4: document.getElementById('ldl-moon-phase-name4'),
     ldlMoonPhaseIllumination1: document.getElementById('ldl-moon-phase-illumination1'),
     ldlMoonPhaseIllumination2: document.getElementById('ldl-moon-phase-illumination2'),
-    ldlMoonPhaseIllumination3: document.getElementById('ldl-moon-phase-illumination3'),
-    ldlMoonPhaseIllumination4: document.getElementById('ldl-moon-phase-illumination4'),
     ldlMoonPhaseIllumination3: document.getElementById('ldl-moon-phase-illumination3'),
     ldlMoonPhaseIllumination4: document.getElementById('ldl-moon-phase-illumination4'),
 });
@@ -204,6 +248,7 @@ async function fetchLDLData(locationName) {
         if (wxData && wxData.weather) {
             currentLDLData = {
                 current: wxData.weather["v3-wx-observations-current"] ?? null,
+                hourly: wxData.weather["v3-wx-forecast-hourly-2day"] ?? null,
                 forecast: wxData.weather["v3-wx-forecast-daily-7day"] ?? wxData.weather["v3-wx-forecast-daily-3day"] ?? null,
                 aqi: wxData.weather["v3-wx-globalAirQuality"] ?? null,
             };
@@ -261,6 +306,7 @@ async function LDLData() {
 
         appendLDLCurrent();
         appendLDLForecast();
+        appendLDLHourly();
         appendLDLAirQuality();
         appendLDLAlmanac();
 
@@ -296,6 +342,45 @@ function appendLDLCurrent() {
         c.currentCeiling.textContent = (ceiling === null || ceiling === undefined) 
             ? "Unlimited" 
             : `${ceiling}${endingCeiling}`
+    }
+}
+
+function appendLDLHourly() {
+    if (!currentLDLData || !currentLDLData.hourly) return;
+
+    const hourly = currentLDLData.hourly;
+    const c = ldlDomCache.hourlyGroup;
+
+    for (let i = 0; i < 6; i++) {
+        if (c[`ldlHourlyTime${i}`]) c[`ldlHourlyTime${i}`].textContent = formatTime(hourly.validTimeLocal[i]);
+        if (c[`ldlHourlyTemp${i}`]) c[`ldlHourlyTemp${i}`].textContent = `${hourly.temperature[i]}°`;
+        if (c[`ldlHourlyCondition${i}`]) c[`ldlHourlyCondition${i}`].textContent = hourly.wxPhraseShort[i] ?? "N/A";
+        
+        if (c[`ldlHourlyIcon${i}`]) {
+            const iconCode = hourly.iconCode[i];
+            const dayOrNight = hourly.dayOrNight[i];
+            const iconPath = weatherIcons[iconCode] ? weatherIcons[iconCode][dayOrNight === "D" ? 0 : 1] : 'not-available.svg';
+            c[`ldlHourlyIcon${i}`].src = `/graphics/${iconDir}/${iconPath}`;
+        }
+        /*
+        const precip = hourly.precipChance[i] ?? 0;
+        const precipType = hourly.precipType[i] ?? "precip";
+        if (c[`ldlHourlyPrecip${i}`]) c[`ldlHourlyPrecip${i}`].textContent = `${precip}%`;
+        if (c[`ldlHourlyPrecip${i}Group`]) {
+            c[`ldlHourlyPrecip${i}Group`].style.visibility = precip > 0 ? 'visible' : 'hidden';
+        }
+        if (c[`ldlHourlyPrecipIcon${i}`]) {
+            const rainIconPath = `/graphics/${iconDir}/rain.svg`;
+            const snowIconPath = `/graphics/${iconDir}/snow.svg`;
+
+            if (precipType === "precip" || precipType === "rain") {
+                c[`ldlHourlyPrecipIcon${i}`].style.backgroundImage = rainIconPath;
+            }
+            if (precipType === "snow") {
+                c[`ldlHourlyPrecipIcon${i}`].style.backgroundImage = snowIconPath;
+            }
+        }
+        */
     }
 }
 
@@ -638,7 +723,7 @@ function runForecastSlide() {
     day0.style.display = 'flex';
     day1.style.display = 'none';
 
-    const forecastSlide = ldlPresentationSlides[1];
+    const forecastSlide = ldlPresentationSlides[2];
     const halfDuration = forecastSlide.durationMS / 2;
 
     setTimeout(() => {

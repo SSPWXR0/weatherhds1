@@ -84,7 +84,7 @@ function buildForecastCard(locationName, wxData, dayIndex) {
     const card = document.createElement("div");
     card.className = "class-regional-location-slimcard";
 
-    const forecast = wxData?.weather?.["v3-wx-forecast-daily-3day"];
+    const forecast = wxData?.weather?.["v3-wx-forecast-daily-3day"] ?? wxData?.weather?.["v3-wx-forecast-daily-7day"] ?? null;
     const dp = forecast?.daypart?.[0];
 
     const name = document.createElement("div");
