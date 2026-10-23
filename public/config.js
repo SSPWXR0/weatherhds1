@@ -78,13 +78,13 @@ export let config = {
       "enabled": true, // whether or not to use vocallocal to narrate conditions and forecasts.
       "voice": {
         "engine": "auto", // auto tries native ONNX/sherpa first when the server is built with native_tts, then falls back to Piper.
-        "name": "en_us-lessac-medium",
-        "rate": -1,
-        "pitch": 2,
-        "volume": 100
+        "name": "en_us-hfc_male-medium",
+        "rate": -2,
+        "pitch": 3,
+        "volume": 80
       },
       "blackout": { // disable vocallocals during this timerange. useful for when you have an IntelliStar 2 and you dont want the AI to disrupt Jim Cantore's beautiful voiceovers.
-        "enabled": true,
+        "enabled": false,
         "timing": [
           {
             "minuteInterval": null, // start the blackout every x minutes. so if this is set to 8, it will start a blackout at 12:08, 12:16, 12:24, and so on.
@@ -129,14 +129,12 @@ export let config = {
             "displayInterval": 2 // show this message every x cycles of the city ticker. so if you have 3 products in the ticker and this message is set to show before dayOne, and the displayInterval is set to 2, then it will show this message before dayOne every 2 cycles of the ticker. so it would show before dayOne on the first cycle, then not show on the second cycle, then show again on the third cycle, and so on.
           },
           {
-            "messageHeader": "",
-            "headerIcon": null, // you can also have messages with icons next to either or both the header and the body. just add the filename of the icon in the appropriate field, and make sure the icon is in the public folder.
-            "messageBody": "",
-            "bodyIcon": "/images/giphy.gif",
-            "showBeforeProduct": "",
-            "showAfterProduct": "",
-            "scroll": true,
-            "displayInterval": 30
+            "messageHeader": "CABLE CONTRIBUTES TO LIFE...",
+            "messageBody": "By paying your cable bill each month, you support our programming. Thank you!",
+            "showBeforeProduct": "currentConditions", // which product to show the message before. options are the same as the products array above.
+            "showAfterProduct": null, // which product to show the message after. options are the same as the products array above. if null, it will just show the message before the specified product and then continue with the normal ticker content.
+            "scroll": true, // whether or not to scroll the message across the ticker. if false, it will just show the message in place of the normal ticker content for 15 seconds.
+            "displayInterval": 3 // show this message every x cycles of the city ticker. so if you have 3 products in the ticker and this message is set to show before dayOne, and the displayInterval is set to 2, then it will show this message before dayOne every 2 cycles of the ticker. so it would show before dayOne on the first cycle, then not show on the second cycle, then show again on the third cycle, and so on.
           }
         ]
       },
