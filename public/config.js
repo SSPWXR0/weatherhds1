@@ -134,7 +134,7 @@ export let config = {
             "showBeforeProduct": "currentConditions", // which product to show the message before. options are the same as the products array above.
             "showAfterProduct": null, // which product to show the message after. options are the same as the products array above. if null, it will just show the message before the specified product and then continue with the normal ticker content.
             "scroll": true, // whether or not to scroll the message across the ticker. if false, it will just show the message in place of the normal ticker content for 15 seconds.
-            "displayInterval": 3 // show this message every x cycles of the city ticker. so if you have 3 products in the ticker and this message is set to show before dayOne, and the displayInterval is set to 2, then it will show this message before dayOne every 2 cycles of the ticker. so it would show before dayOne on the first cycle, then not show on the second cycle, then show again on the third cycle, and so on.
+            "displayInterval": 2 // show this message every x cycles of the city ticker. so if you have 3 products in the ticker and this message is set to show before dayOne, and the displayInterval is set to 2, then it will show this message before dayOne every 2 cycles of the ticker. so it would show before dayOne on the first cycle, then not show on the second cycle, then show again on the third cycle, and so on.
           }
         ]
       },
